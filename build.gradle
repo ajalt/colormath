@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.31'
+    ext.kotlin_version = '1.2.51'
 
     repositories {
         mavenCentral()
@@ -8,34 +8,30 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.9.16'
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
     }
 }
 
-apply plugin: 'idea'
+apply plugin: 'kotlin'
 
-subprojects {
-    apply plugin: 'kotlin'
+group = GROUP
+version = VERSION_NAME
 
-    group = GROUP
-    version = VERSION_NAME
+repositories {
+    mavenCentral()
+    jcenter()
+}
 
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'io.kotlintest:kotlintest-assertions:3.1.8'
+}
 
-        testCompile 'junit:junit:4.12'
-        testCompile 'org.assertj:assertj-core:3.8.0'
-    }
-
-    compileKotlin {
-        kotlinOptions.jvmTarget = "1.6"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.6"
-    }
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.6"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.6"
 }
