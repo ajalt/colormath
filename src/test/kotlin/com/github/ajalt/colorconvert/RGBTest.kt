@@ -1,6 +1,7 @@
 package com.github.ajalt.colorconvert
 
 import io.kotlintest.data.forall
+import io.kotlintest.matchers.plusOrMinus
 import io.kotlintest.shouldBe
 import io.kotlintest.tables.row
 import org.junit.Test
@@ -49,6 +50,26 @@ class RGBTest {
                 row("ffffff", RGB(255, 255, 255))
         ) { hex, rgb ->
             RGB(hex) shouldBe rgb
+        }
+    }
+
+    @Test
+    fun `RGB to XYZ`() {
+        forall(
+                row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
+                row(RGB(255, 255, 255), 0.950, 1.00, 1.088),
+                row(RGB(255, 0, 0), 0.412, 0.213, 0.019),
+                row(RGB(0, 255, 0), 0.357, 0.715, 0.119),
+                row(RGB(0, 0, 255), 0.180, 0.072, 0.950),
+                row(RGB(255, 255, 0), 0.770, 0.927, 0.138),
+                row(RGB(0, 255, 255), 0.538, 0.787, 1.069),
+                row(RGB(255, 0, 255), 0.592, 0.284, 0.969),
+                row(RGB(92, 191, 84), 0.250, 0.400, 0.150)
+        ) { rgb, x, y, z ->
+            val xyz = rgb.toXYZ()
+            xyz.x shouldBe (x plusOrMinus 0.005)
+            xyz.y shouldBe (y plusOrMinus 0.005)
+            xyz.z shouldBe (z plusOrMinus 0.005)
         }
     }
 

@@ -9,6 +9,7 @@ can convert from any supported color space to any other space.
 * CMYK
 * HSL
 * HSV
+* XYZ
 * ANSI-16 color codes
 * ANSI-256 color codes
 
@@ -35,23 +36,9 @@ CMYK(c=95, m=50, y=0, k=0)
 
 ## Installation
 
-If you just want to use Mordant, this dependency is added transitively,
-there no need to declare it explicitly. However, if you want to use it
-by itself, it is distributed with
-[jitpack](https://jitpack.io/#ajalt/mordant).
-
-First, add Jitpack to your gradle repositories.
-
-```groovy
-repositories {
-    maven { url "https://jitpack.io" }
-}
-```
-
-Then add the dependency on colorconvert.
 
 ```groovy
 dependencies {
-   compile 'com.github.ajalt.mordant:colorconvert:<latest version>'
+   compile 'com.github.ajalt:colorconvert:<latest version>'
 }
 ```

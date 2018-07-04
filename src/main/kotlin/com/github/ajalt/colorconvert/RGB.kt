@@ -96,6 +96,27 @@ data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
         return HSV(h.roundToInt(), s.roundToInt(), v.roundToInt())
     }
 
+    override fun toXYZ(): XYZ {
+        // linearize sRGB
+        fun adj(num: Int): Double {
+            val c = num.toDouble() / 255.0
+            return when {
+                c > 0.04045 -> Math.pow((c + 0.055) / 1.055, 2.4)
+                else -> c / 12.92
+            }
+        }
+
+        val rL = adj(r)
+        val gL = adj(g)
+        val bL = adj(b)
+
+        // matrix based on D65 reference white sRGB
+        val x = 0.4124564 * rL + 0.3575761 * gL + 0.1804375 * bL
+        val y = 0.2126729 * rL + 0.7151522 * gL + 0.0721750 * bL
+        val z = 0.0193339 * rL + 0.1191920 * gL + 0.9503041 * bL
+        return XYZ(x, y, z)
+    }
+
     override fun toCMYK(): CMYK {
         val r = this.r / 255.0
         val b = this.b / 255.0

@@ -11,7 +11,7 @@ package com.github.ajalt.colorconvert
  * loss of precision.
  */
 interface ConvertibleColor {
-    /** Convert this color to Red-Green-Blue */
+    /** Convert this color to Red-Green-Blue (using sRGB color space) */
     fun toRGB(): RGB
 
     /**
@@ -36,4 +36,7 @@ interface ConvertibleColor {
 
     /** Convert this color to Cyan-Magenta-Yellow-Key */
     fun toCMYK(): CMYK = toRGB().toCMYK()
+
+    /** Convert this color to CIE XYZ */
+    fun toXYZ(): XYZ = toRGB().toXYZ()
 }
