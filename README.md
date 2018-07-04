@@ -10,6 +10,7 @@ can convert from any supported color space to any other space.
 * HSL
 * HSV
 * XYZ
+* LAB
 * ANSI-16 color codes
 * ANSI-256 color codes
 

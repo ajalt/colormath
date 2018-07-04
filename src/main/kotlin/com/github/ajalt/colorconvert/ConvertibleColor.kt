@@ -39,4 +39,7 @@ interface ConvertibleColor {
 
     /** Convert this color to CIE XYZ */
     fun toXYZ(): XYZ = toRGB().toXYZ()
+
+    /** Convert this color to CIE LAB */
+    fun toLAB(): LAB = toRGB().toLAB()
 }
