@@ -57,19 +57,19 @@ class RGBTest {
     fun `RGB to XYZ`() {
         forall(
                 row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
-                row(RGB(255, 255, 255), 0.950, 1.00, 1.088),
-                row(RGB(255, 0, 0), 0.412, 0.213, 0.019),
-                row(RGB(0, 255, 0), 0.357, 0.715, 0.119),
-                row(RGB(0, 0, 255), 0.180, 0.072, 0.950),
-                row(RGB(255, 255, 0), 0.770, 0.927, 0.138),
-                row(RGB(0, 255, 255), 0.538, 0.787, 1.069),
-                row(RGB(255, 0, 255), 0.592, 0.284, 0.969),
-                row(RGB(92, 191, 84), 0.250, 0.400, 0.150)
+                row(RGB(255, 255, 255), 95.0, 100.0, 108.8),
+                row(RGB(255, 0, 0), 41.2, 21.3, 01.9),
+                row(RGB(0, 255, 0), 35.7, 71.5, 11.9),
+                row(RGB(0, 0, 255), 18.0, 07.2, 95.0),
+                row(RGB(255, 255, 0), 77.0, 92.7, 13.8),
+                row(RGB(0, 255, 255), 53.8, 78.7, 106.9),
+                row(RGB(255, 0, 255), 59.2, 28.4, 96.9),
+                row(RGB(92, 191, 84), 25.0, 40.0, 15.0)
         ) { rgb, x, y, z ->
             val xyz = rgb.toXYZ()
-            xyz.x shouldBe (x plusOrMinus 0.005)
-            xyz.y shouldBe (y plusOrMinus 0.005)
-            xyz.z shouldBe (z plusOrMinus 0.005)
+            xyz.x shouldBe (x plusOrMinus 0.5)
+            xyz.y shouldBe (y plusOrMinus 0.5)
+            xyz.z shouldBe (z plusOrMinus 0.5)
         }
     }
 

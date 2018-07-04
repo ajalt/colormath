@@ -34,7 +34,7 @@ data class LAB(val l: Double, val a: Double, val b: Double) : ConvertibleColor {
         val y = f(lp)
         val z = 1.08883 * f(lp - (b / 200))
 
-        return XYZ(x, y, z)
+        return XYZ(x * 100, y * 100, z * 100)
     }
 
     override fun toLAB(): LAB = this

@@ -7,7 +7,7 @@ import kotlin.math.pow
  *
  * Conversions use D65 reference white, and sRGB profile.
  *
- * [x], [y], and [z] are generally in the interval [0, 1], but may be larger
+ * [x], [y], and [z] are generally in the interval [0, 100], but may be larger
  */
 data class XYZ(val x: Double, val y: Double, val z: Double) : ConvertibleColor {
     init {
@@ -17,11 +17,15 @@ data class XYZ(val x: Double, val y: Double, val z: Double) : ConvertibleColor {
     }
 
     override fun toRGB(): RGB {
+        val x = this.x / 100
+        val y = this.y / 100
+        val z = this.z / 100
+
         // linearize sRGB values
         fun adj(c: Double): Int {
             val adj = when {
                 c < 0.0031308 -> 12.92 * c
-                else -> 1.055 * x.pow(0.41666) - 0.055
+                else -> 1.055 * c.pow(1.0 / 2.4) - 0.055
             }
             return (255 * adj.coerceIn(0.0, 1.0)).roundToInt()
         }
@@ -39,9 +43,9 @@ data class XYZ(val x: Double, val y: Double, val z: Double) : ConvertibleColor {
         }
 
 
-        val fx = f(x / 0.95047)
-        val fy = f(y)
-        val fz = f(z / 1.08883)
+        val fx = f(x / 95.047)
+        val fy = f(y / 100.0)
+        val fz = f(z / 108.883)
 
         val l = (116 * fy) - 16
         val a = 500 * (fx - fy)
