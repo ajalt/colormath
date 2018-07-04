@@ -109,7 +109,7 @@ data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
 
     override fun toAnsi16(): Ansi16 = toAnsi16(toHSV().v)
 
-    internal fun toAnsi16(value: Int): Ansi16 {
+    private fun toAnsi16(value: Int): Ansi16 {
         if (value == 30) return Ansi16(30)
         val v = Math.round(value / 50.0).toInt()
 

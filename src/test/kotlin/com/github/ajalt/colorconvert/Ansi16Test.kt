@@ -1,50 +1,56 @@
 package com.github.ajalt.colorconvert
 
-import com.github.ajalt.testing.softly
+import io.kotlintest.data.forall
+import io.kotlintest.shouldBe
+import io.kotlintest.tables.row
 import org.junit.Test
 
 class Ansi16Test {
     @Test
     fun `Ansi16 to RGB`() {
-        softly {
-            assertThat(Ansi16(30).toRGB()).isEqualTo(RGB(0, 0, 0))
-            assertThat(Ansi16(31).toRGB()).isEqualTo(RGB(128, 0, 0))
-            assertThat(Ansi16(32).toRGB()).isEqualTo(RGB(0, 128, 0))
-            assertThat(Ansi16(33).toRGB()).isEqualTo(RGB(128, 128, 0))
-            assertThat(Ansi16(34).toRGB()).isEqualTo(RGB(0, 0, 128))
-            assertThat(Ansi16(35).toRGB()).isEqualTo(RGB(128, 0, 128))
-            assertThat(Ansi16(36).toRGB()).isEqualTo(RGB(0, 128, 128))
-            assertThat(Ansi16(37).toRGB()).isEqualTo(RGB(170, 170, 170))
-            assertThat(Ansi16(90).toRGB()).isEqualTo(RGB(85, 85, 85))
-            assertThat(Ansi16(91).toRGB()).isEqualTo(RGB(255, 0, 0))
-            assertThat(Ansi16(92).toRGB()).isEqualTo(RGB(0, 255, 0))
-            assertThat(Ansi16(93).toRGB()).isEqualTo(RGB(255, 255, 0))
-            assertThat(Ansi16(94).toRGB()).isEqualTo(RGB(0, 0, 255))
-            assertThat(Ansi16(95).toRGB()).isEqualTo(RGB(255, 0, 255))
-            assertThat(Ansi16(96).toRGB()).isEqualTo(RGB(0, 255, 255))
-            assertThat(Ansi16(97).toRGB()).isEqualTo(RGB(255, 255, 255))
+        forall(
+                row(30, RGB(0, 0, 0)),
+                row(31, RGB(128, 0, 0)),
+                row(32, RGB(0, 128, 0)),
+                row(33, RGB(128, 128, 0)),
+                row(34, RGB(0, 0, 128)),
+                row(35, RGB(128, 0, 128)),
+                row(36, RGB(0, 128, 128)),
+                row(37, RGB(170, 170, 170)),
+                row(90, RGB(85, 85, 85)),
+                row(91, RGB(255, 0, 0)),
+                row(92, RGB(0, 255, 0)),
+                row(93, RGB(255, 255, 0)),
+                row(94, RGB(0, 0, 255)),
+                row(95, RGB(255, 0, 255)),
+                row(96, RGB(0, 255, 255)),
+                row(97, RGB(255, 255, 255))
+        ) { ansi, rgb ->
+            Ansi16(ansi).toRGB() shouldBe rgb
         }
     }
 
     @Test
     fun `Ansi16 to Ansi256`() {
-        softly {
-            assertThat(Ansi16(30).toAnsi256()).isEqualTo(Ansi256(0))
-            assertThat(Ansi16(31).toAnsi256()).isEqualTo(Ansi256(1))
-            assertThat(Ansi16(32).toAnsi256()).isEqualTo(Ansi256(2))
-            assertThat(Ansi16(33).toAnsi256()).isEqualTo(Ansi256(3))
-            assertThat(Ansi16(34).toAnsi256()).isEqualTo(Ansi256(4))
-            assertThat(Ansi16(35).toAnsi256()).isEqualTo(Ansi256(5))
-            assertThat(Ansi16(36).toAnsi256()).isEqualTo(Ansi256(6))
-            assertThat(Ansi16(37).toAnsi256()).isEqualTo(Ansi256(7))
-            assertThat(Ansi16(90).toAnsi256()).isEqualTo(Ansi256(8))
-            assertThat(Ansi16(91).toAnsi256()).isEqualTo(Ansi256(9))
-            assertThat(Ansi16(92).toAnsi256()).isEqualTo(Ansi256(10))
-            assertThat(Ansi16(93).toAnsi256()).isEqualTo(Ansi256(11))
-            assertThat(Ansi16(94).toAnsi256()).isEqualTo(Ansi256(12))
-            assertThat(Ansi16(95).toAnsi256()).isEqualTo(Ansi256(13))
-            assertThat(Ansi16(96).toAnsi256()).isEqualTo(Ansi256(14))
-            assertThat(Ansi16(97).toAnsi256()).isEqualTo(Ansi256(15))
+        forall(
+                row(30, 0),
+                row(31, 1),
+                row(32, 2),
+                row(33, 3),
+                row(34, 4),
+                row(35, 5),
+                row(36, 6),
+                row(37, 7),
+                row(90, 8),
+                row(91, 9),
+                row(92, 10),
+                row(93, 11),
+                row(94, 12),
+                row(95, 13),
+                row(96, 14),
+                row(97, 15)
+        ) { ansi16, ansi256 ->
+            Ansi16(ansi16).toAnsi256() shouldBe Ansi256(ansi256)
         }
     }
 }

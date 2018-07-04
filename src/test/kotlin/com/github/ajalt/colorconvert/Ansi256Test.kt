@@ -1,274 +1,280 @@
 package com.github.ajalt.colorconvert
 
-import com.github.ajalt.testing.softly
+import io.kotlintest.data.forall
+import io.kotlintest.shouldBe
+import io.kotlintest.tables.row
 import org.junit.Test
 
 class Ansi256Test {
     @Test
     fun `Ansi256 to RGB`() {
-        softly {
-            assertThat(Ansi256(16).toRGB()).isEqualTo(RGB(0, 0, 0))
-            assertThat(Ansi256(17).toRGB()).isEqualTo(RGB(0, 0, 51))
-            assertThat(Ansi256(18).toRGB()).isEqualTo(RGB(0, 0, 102))
-            assertThat(Ansi256(19).toRGB()).isEqualTo(RGB(0, 0, 153))
-            assertThat(Ansi256(20).toRGB()).isEqualTo(RGB(0, 0, 204))
-            assertThat(Ansi256(21).toRGB()).isEqualTo(RGB(0, 0, 255))
-            assertThat(Ansi256(22).toRGB()).isEqualTo(RGB(0, 51, 0))
-            assertThat(Ansi256(23).toRGB()).isEqualTo(RGB(0, 51, 51))
-            assertThat(Ansi256(24).toRGB()).isEqualTo(RGB(0, 51, 102))
-            assertThat(Ansi256(25).toRGB()).isEqualTo(RGB(0, 51, 153))
-            assertThat(Ansi256(26).toRGB()).isEqualTo(RGB(0, 51, 204))
-            assertThat(Ansi256(27).toRGB()).isEqualTo(RGB(0, 51, 255))
-            assertThat(Ansi256(28).toRGB()).isEqualTo(RGB(0, 102, 0))
-            assertThat(Ansi256(29).toRGB()).isEqualTo(RGB(0, 102, 51))
-            assertThat(Ansi256(30).toRGB()).isEqualTo(RGB(0, 102, 102))
-            assertThat(Ansi256(31).toRGB()).isEqualTo(RGB(0, 102, 153))
-            assertThat(Ansi256(32).toRGB()).isEqualTo(RGB(0, 102, 204))
-            assertThat(Ansi256(33).toRGB()).isEqualTo(RGB(0, 102, 255))
-            assertThat(Ansi256(34).toRGB()).isEqualTo(RGB(0, 153, 0))
-            assertThat(Ansi256(35).toRGB()).isEqualTo(RGB(0, 153, 51))
-            assertThat(Ansi256(36).toRGB()).isEqualTo(RGB(0, 153, 102))
-            assertThat(Ansi256(37).toRGB()).isEqualTo(RGB(0, 153, 153))
-            assertThat(Ansi256(38).toRGB()).isEqualTo(RGB(0, 153, 204))
-            assertThat(Ansi256(39).toRGB()).isEqualTo(RGB(0, 153, 255))
-            assertThat(Ansi256(40).toRGB()).isEqualTo(RGB(0, 204, 0))
-            assertThat(Ansi256(41).toRGB()).isEqualTo(RGB(0, 204, 51))
-            assertThat(Ansi256(42).toRGB()).isEqualTo(RGB(0, 204, 102))
-            assertThat(Ansi256(43).toRGB()).isEqualTo(RGB(0, 204, 153))
-            assertThat(Ansi256(44).toRGB()).isEqualTo(RGB(0, 204, 204))
-            assertThat(Ansi256(45).toRGB()).isEqualTo(RGB(0, 204, 255))
-            assertThat(Ansi256(46).toRGB()).isEqualTo(RGB(0, 255, 0))
-            assertThat(Ansi256(47).toRGB()).isEqualTo(RGB(0, 255, 51))
-            assertThat(Ansi256(48).toRGB()).isEqualTo(RGB(0, 255, 102))
-            assertThat(Ansi256(49).toRGB()).isEqualTo(RGB(0, 255, 153))
-            assertThat(Ansi256(50).toRGB()).isEqualTo(RGB(0, 255, 204))
-            assertThat(Ansi256(51).toRGB()).isEqualTo(RGB(0, 255, 255))
-            assertThat(Ansi256(52).toRGB()).isEqualTo(RGB(51, 0, 0))
-            assertThat(Ansi256(53).toRGB()).isEqualTo(RGB(51, 0, 51))
-            assertThat(Ansi256(54).toRGB()).isEqualTo(RGB(51, 0, 102))
-            assertThat(Ansi256(55).toRGB()).isEqualTo(RGB(51, 0, 153))
-            assertThat(Ansi256(56).toRGB()).isEqualTo(RGB(51, 0, 204))
-            assertThat(Ansi256(57).toRGB()).isEqualTo(RGB(51, 0, 255))
-            assertThat(Ansi256(58).toRGB()).isEqualTo(RGB(51, 51, 0))
-            assertThat(Ansi256(59).toRGB()).isEqualTo(RGB(51, 51, 51))
-            assertThat(Ansi256(60).toRGB()).isEqualTo(RGB(51, 51, 102))
-            assertThat(Ansi256(61).toRGB()).isEqualTo(RGB(51, 51, 153))
-            assertThat(Ansi256(62).toRGB()).isEqualTo(RGB(51, 51, 204))
-            assertThat(Ansi256(63).toRGB()).isEqualTo(RGB(51, 51, 255))
-            assertThat(Ansi256(64).toRGB()).isEqualTo(RGB(51, 102, 0))
-            assertThat(Ansi256(65).toRGB()).isEqualTo(RGB(51, 102, 51))
-            assertThat(Ansi256(66).toRGB()).isEqualTo(RGB(51, 102, 102))
-            assertThat(Ansi256(67).toRGB()).isEqualTo(RGB(51, 102, 153))
-            assertThat(Ansi256(68).toRGB()).isEqualTo(RGB(51, 102, 204))
-            assertThat(Ansi256(69).toRGB()).isEqualTo(RGB(51, 102, 255))
-            assertThat(Ansi256(70).toRGB()).isEqualTo(RGB(51, 153, 0))
-            assertThat(Ansi256(71).toRGB()).isEqualTo(RGB(51, 153, 51))
-            assertThat(Ansi256(72).toRGB()).isEqualTo(RGB(51, 153, 102))
-            assertThat(Ansi256(73).toRGB()).isEqualTo(RGB(51, 153, 153))
-            assertThat(Ansi256(74).toRGB()).isEqualTo(RGB(51, 153, 204))
-            assertThat(Ansi256(75).toRGB()).isEqualTo(RGB(51, 153, 255))
-            assertThat(Ansi256(76).toRGB()).isEqualTo(RGB(51, 204, 0))
-            assertThat(Ansi256(77).toRGB()).isEqualTo(RGB(51, 204, 51))
-            assertThat(Ansi256(78).toRGB()).isEqualTo(RGB(51, 204, 102))
-            assertThat(Ansi256(79).toRGB()).isEqualTo(RGB(51, 204, 153))
-            assertThat(Ansi256(80).toRGB()).isEqualTo(RGB(51, 204, 204))
-            assertThat(Ansi256(81).toRGB()).isEqualTo(RGB(51, 204, 255))
-            assertThat(Ansi256(82).toRGB()).isEqualTo(RGB(51, 255, 0))
-            assertThat(Ansi256(83).toRGB()).isEqualTo(RGB(51, 255, 51))
-            assertThat(Ansi256(84).toRGB()).isEqualTo(RGB(51, 255, 102))
-            assertThat(Ansi256(85).toRGB()).isEqualTo(RGB(51, 255, 153))
-            assertThat(Ansi256(86).toRGB()).isEqualTo(RGB(51, 255, 204))
-            assertThat(Ansi256(87).toRGB()).isEqualTo(RGB(51, 255, 255))
-            assertThat(Ansi256(88).toRGB()).isEqualTo(RGB(102, 0, 0))
-            assertThat(Ansi256(89).toRGB()).isEqualTo(RGB(102, 0, 51))
-            assertThat(Ansi256(90).toRGB()).isEqualTo(RGB(102, 0, 102))
-            assertThat(Ansi256(91).toRGB()).isEqualTo(RGB(102, 0, 153))
-            assertThat(Ansi256(92).toRGB()).isEqualTo(RGB(102, 0, 204))
-            assertThat(Ansi256(93).toRGB()).isEqualTo(RGB(102, 0, 255))
-            assertThat(Ansi256(94).toRGB()).isEqualTo(RGB(102, 51, 0))
-            assertThat(Ansi256(95).toRGB()).isEqualTo(RGB(102, 51, 51))
-            assertThat(Ansi256(96).toRGB()).isEqualTo(RGB(102, 51, 102))
-            assertThat(Ansi256(97).toRGB()).isEqualTo(RGB(102, 51, 153))
-            assertThat(Ansi256(98).toRGB()).isEqualTo(RGB(102, 51, 204))
-            assertThat(Ansi256(99).toRGB()).isEqualTo(RGB(102, 51, 255))
-            assertThat(Ansi256(100).toRGB()).isEqualTo(RGB(102, 102, 0))
-            assertThat(Ansi256(101).toRGB()).isEqualTo(RGB(102, 102, 51))
-            assertThat(Ansi256(102).toRGB()).isEqualTo(RGB(102, 102, 102))
-            assertThat(Ansi256(103).toRGB()).isEqualTo(RGB(102, 102, 153))
-            assertThat(Ansi256(104).toRGB()).isEqualTo(RGB(102, 102, 204))
-            assertThat(Ansi256(105).toRGB()).isEqualTo(RGB(102, 102, 255))
-            assertThat(Ansi256(106).toRGB()).isEqualTo(RGB(102, 153, 0))
-            assertThat(Ansi256(107).toRGB()).isEqualTo(RGB(102, 153, 51))
-            assertThat(Ansi256(108).toRGB()).isEqualTo(RGB(102, 153, 102))
-            assertThat(Ansi256(109).toRGB()).isEqualTo(RGB(102, 153, 153))
-            assertThat(Ansi256(110).toRGB()).isEqualTo(RGB(102, 153, 204))
-            assertThat(Ansi256(111).toRGB()).isEqualTo(RGB(102, 153, 255))
-            assertThat(Ansi256(112).toRGB()).isEqualTo(RGB(102, 204, 0))
-            assertThat(Ansi256(113).toRGB()).isEqualTo(RGB(102, 204, 51))
-            assertThat(Ansi256(114).toRGB()).isEqualTo(RGB(102, 204, 102))
-            assertThat(Ansi256(115).toRGB()).isEqualTo(RGB(102, 204, 153))
-            assertThat(Ansi256(116).toRGB()).isEqualTo(RGB(102, 204, 204))
-            assertThat(Ansi256(117).toRGB()).isEqualTo(RGB(102, 204, 255))
-            assertThat(Ansi256(118).toRGB()).isEqualTo(RGB(102, 255, 0))
-            assertThat(Ansi256(119).toRGB()).isEqualTo(RGB(102, 255, 51))
-            assertThat(Ansi256(120).toRGB()).isEqualTo(RGB(102, 255, 102))
-            assertThat(Ansi256(121).toRGB()).isEqualTo(RGB(102, 255, 153))
-            assertThat(Ansi256(122).toRGB()).isEqualTo(RGB(102, 255, 204))
-            assertThat(Ansi256(123).toRGB()).isEqualTo(RGB(102, 255, 255))
-            assertThat(Ansi256(124).toRGB()).isEqualTo(RGB(153, 0, 0))
-            assertThat(Ansi256(125).toRGB()).isEqualTo(RGB(153, 0, 51))
-            assertThat(Ansi256(126).toRGB()).isEqualTo(RGB(153, 0, 102))
-            assertThat(Ansi256(127).toRGB()).isEqualTo(RGB(153, 0, 153))
-            assertThat(Ansi256(128).toRGB()).isEqualTo(RGB(153, 0, 204))
-            assertThat(Ansi256(129).toRGB()).isEqualTo(RGB(153, 0, 255))
-            assertThat(Ansi256(130).toRGB()).isEqualTo(RGB(153, 51, 0))
-            assertThat(Ansi256(131).toRGB()).isEqualTo(RGB(153, 51, 51))
-            assertThat(Ansi256(132).toRGB()).isEqualTo(RGB(153, 51, 102))
-            assertThat(Ansi256(133).toRGB()).isEqualTo(RGB(153, 51, 153))
-            assertThat(Ansi256(134).toRGB()).isEqualTo(RGB(153, 51, 204))
-            assertThat(Ansi256(135).toRGB()).isEqualTo(RGB(153, 51, 255))
-            assertThat(Ansi256(136).toRGB()).isEqualTo(RGB(153, 102, 0))
-            assertThat(Ansi256(137).toRGB()).isEqualTo(RGB(153, 102, 51))
-            assertThat(Ansi256(138).toRGB()).isEqualTo(RGB(153, 102, 102))
-            assertThat(Ansi256(139).toRGB()).isEqualTo(RGB(153, 102, 153))
-            assertThat(Ansi256(140).toRGB()).isEqualTo(RGB(153, 102, 204))
-            assertThat(Ansi256(141).toRGB()).isEqualTo(RGB(153, 102, 255))
-            assertThat(Ansi256(142).toRGB()).isEqualTo(RGB(153, 153, 0))
-            assertThat(Ansi256(143).toRGB()).isEqualTo(RGB(153, 153, 51))
-            assertThat(Ansi256(144).toRGB()).isEqualTo(RGB(153, 153, 102))
-            assertThat(Ansi256(145).toRGB()).isEqualTo(RGB(153, 153, 153))
-            assertThat(Ansi256(146).toRGB()).isEqualTo(RGB(153, 153, 204))
-            assertThat(Ansi256(147).toRGB()).isEqualTo(RGB(153, 153, 255))
-            assertThat(Ansi256(148).toRGB()).isEqualTo(RGB(153, 204, 0))
-            assertThat(Ansi256(149).toRGB()).isEqualTo(RGB(153, 204, 51))
-            assertThat(Ansi256(150).toRGB()).isEqualTo(RGB(153, 204, 102))
-            assertThat(Ansi256(151).toRGB()).isEqualTo(RGB(153, 204, 153))
-            assertThat(Ansi256(152).toRGB()).isEqualTo(RGB(153, 204, 204))
-            assertThat(Ansi256(153).toRGB()).isEqualTo(RGB(153, 204, 255))
-            assertThat(Ansi256(154).toRGB()).isEqualTo(RGB(153, 255, 0))
-            assertThat(Ansi256(155).toRGB()).isEqualTo(RGB(153, 255, 51))
-            assertThat(Ansi256(156).toRGB()).isEqualTo(RGB(153, 255, 102))
-            assertThat(Ansi256(157).toRGB()).isEqualTo(RGB(153, 255, 153))
-            assertThat(Ansi256(158).toRGB()).isEqualTo(RGB(153, 255, 204))
-            assertThat(Ansi256(159).toRGB()).isEqualTo(RGB(153, 255, 255))
-            assertThat(Ansi256(160).toRGB()).isEqualTo(RGB(204, 0, 0))
-            assertThat(Ansi256(161).toRGB()).isEqualTo(RGB(204, 0, 51))
-            assertThat(Ansi256(162).toRGB()).isEqualTo(RGB(204, 0, 102))
-            assertThat(Ansi256(163).toRGB()).isEqualTo(RGB(204, 0, 153))
-            assertThat(Ansi256(164).toRGB()).isEqualTo(RGB(204, 0, 204))
-            assertThat(Ansi256(165).toRGB()).isEqualTo(RGB(204, 0, 255))
-            assertThat(Ansi256(166).toRGB()).isEqualTo(RGB(204, 51, 0))
-            assertThat(Ansi256(167).toRGB()).isEqualTo(RGB(204, 51, 51))
-            assertThat(Ansi256(168).toRGB()).isEqualTo(RGB(204, 51, 102))
-            assertThat(Ansi256(169).toRGB()).isEqualTo(RGB(204, 51, 153))
-            assertThat(Ansi256(170).toRGB()).isEqualTo(RGB(204, 51, 204))
-            assertThat(Ansi256(171).toRGB()).isEqualTo(RGB(204, 51, 255))
-            assertThat(Ansi256(172).toRGB()).isEqualTo(RGB(204, 102, 0))
-            assertThat(Ansi256(173).toRGB()).isEqualTo(RGB(204, 102, 51))
-            assertThat(Ansi256(174).toRGB()).isEqualTo(RGB(204, 102, 102))
-            assertThat(Ansi256(175).toRGB()).isEqualTo(RGB(204, 102, 153))
-            assertThat(Ansi256(176).toRGB()).isEqualTo(RGB(204, 102, 204))
-            assertThat(Ansi256(177).toRGB()).isEqualTo(RGB(204, 102, 255))
-            assertThat(Ansi256(178).toRGB()).isEqualTo(RGB(204, 153, 0))
-            assertThat(Ansi256(179).toRGB()).isEqualTo(RGB(204, 153, 51))
-            assertThat(Ansi256(180).toRGB()).isEqualTo(RGB(204, 153, 102))
-            assertThat(Ansi256(181).toRGB()).isEqualTo(RGB(204, 153, 153))
-            assertThat(Ansi256(182).toRGB()).isEqualTo(RGB(204, 153, 204))
-            assertThat(Ansi256(183).toRGB()).isEqualTo(RGB(204, 153, 255))
-            assertThat(Ansi256(184).toRGB()).isEqualTo(RGB(204, 204, 0))
-            assertThat(Ansi256(185).toRGB()).isEqualTo(RGB(204, 204, 51))
-            assertThat(Ansi256(186).toRGB()).isEqualTo(RGB(204, 204, 102))
-            assertThat(Ansi256(187).toRGB()).isEqualTo(RGB(204, 204, 153))
-            assertThat(Ansi256(188).toRGB()).isEqualTo(RGB(204, 204, 204))
-            assertThat(Ansi256(189).toRGB()).isEqualTo(RGB(204, 204, 255))
-            assertThat(Ansi256(190).toRGB()).isEqualTo(RGB(204, 255, 0))
-            assertThat(Ansi256(191).toRGB()).isEqualTo(RGB(204, 255, 51))
-            assertThat(Ansi256(192).toRGB()).isEqualTo(RGB(204, 255, 102))
-            assertThat(Ansi256(193).toRGB()).isEqualTo(RGB(204, 255, 153))
-            assertThat(Ansi256(194).toRGB()).isEqualTo(RGB(204, 255, 204))
-            assertThat(Ansi256(195).toRGB()).isEqualTo(RGB(204, 255, 255))
-            assertThat(Ansi256(196).toRGB()).isEqualTo(RGB(255, 0, 0))
-            assertThat(Ansi256(197).toRGB()).isEqualTo(RGB(255, 0, 51))
-            assertThat(Ansi256(198).toRGB()).isEqualTo(RGB(255, 0, 102))
-            assertThat(Ansi256(199).toRGB()).isEqualTo(RGB(255, 0, 153))
-            assertThat(Ansi256(200).toRGB()).isEqualTo(RGB(255, 0, 204))
-            assertThat(Ansi256(201).toRGB()).isEqualTo(RGB(255, 0, 255))
-            assertThat(Ansi256(202).toRGB()).isEqualTo(RGB(255, 51, 0))
-            assertThat(Ansi256(203).toRGB()).isEqualTo(RGB(255, 51, 51))
-            assertThat(Ansi256(204).toRGB()).isEqualTo(RGB(255, 51, 102))
-            assertThat(Ansi256(205).toRGB()).isEqualTo(RGB(255, 51, 153))
-            assertThat(Ansi256(206).toRGB()).isEqualTo(RGB(255, 51, 204))
-            assertThat(Ansi256(207).toRGB()).isEqualTo(RGB(255, 51, 255))
-            assertThat(Ansi256(208).toRGB()).isEqualTo(RGB(255, 102, 0))
-            assertThat(Ansi256(209).toRGB()).isEqualTo(RGB(255, 102, 51))
-            assertThat(Ansi256(210).toRGB()).isEqualTo(RGB(255, 102, 102))
-            assertThat(Ansi256(211).toRGB()).isEqualTo(RGB(255, 102, 153))
-            assertThat(Ansi256(212).toRGB()).isEqualTo(RGB(255, 102, 204))
-            assertThat(Ansi256(213).toRGB()).isEqualTo(RGB(255, 102, 255))
-            assertThat(Ansi256(214).toRGB()).isEqualTo(RGB(255, 153, 0))
-            assertThat(Ansi256(215).toRGB()).isEqualTo(RGB(255, 153, 51))
-            assertThat(Ansi256(216).toRGB()).isEqualTo(RGB(255, 153, 102))
-            assertThat(Ansi256(217).toRGB()).isEqualTo(RGB(255, 153, 153))
-            assertThat(Ansi256(218).toRGB()).isEqualTo(RGB(255, 153, 204))
-            assertThat(Ansi256(219).toRGB()).isEqualTo(RGB(255, 153, 255))
-            assertThat(Ansi256(220).toRGB()).isEqualTo(RGB(255, 204, 0))
-            assertThat(Ansi256(221).toRGB()).isEqualTo(RGB(255, 204, 51))
-            assertThat(Ansi256(222).toRGB()).isEqualTo(RGB(255, 204, 102))
-            assertThat(Ansi256(223).toRGB()).isEqualTo(RGB(255, 204, 153))
-            assertThat(Ansi256(224).toRGB()).isEqualTo(RGB(255, 204, 204))
-            assertThat(Ansi256(225).toRGB()).isEqualTo(RGB(255, 204, 255))
-            assertThat(Ansi256(226).toRGB()).isEqualTo(RGB(255, 255, 0))
-            assertThat(Ansi256(227).toRGB()).isEqualTo(RGB(255, 255, 51))
-            assertThat(Ansi256(228).toRGB()).isEqualTo(RGB(255, 255, 102))
-            assertThat(Ansi256(229).toRGB()).isEqualTo(RGB(255, 255, 153))
-            assertThat(Ansi256(230).toRGB()).isEqualTo(RGB(255, 255, 204))
-            assertThat(Ansi256(231).toRGB()).isEqualTo(RGB(255, 255, 255))
-            assertThat(Ansi256(232).toRGB()).isEqualTo(RGB(8, 8, 8))
-            assertThat(Ansi256(233).toRGB()).isEqualTo(RGB(18, 18, 18))
-            assertThat(Ansi256(234).toRGB()).isEqualTo(RGB(28, 28, 28))
-            assertThat(Ansi256(235).toRGB()).isEqualTo(RGB(38, 38, 38))
-            assertThat(Ansi256(236).toRGB()).isEqualTo(RGB(48, 48, 48))
-            assertThat(Ansi256(237).toRGB()).isEqualTo(RGB(58, 58, 58))
-            assertThat(Ansi256(238).toRGB()).isEqualTo(RGB(68, 68, 68))
-            assertThat(Ansi256(239).toRGB()).isEqualTo(RGB(78, 78, 78))
-            assertThat(Ansi256(240).toRGB()).isEqualTo(RGB(88, 88, 88))
-            assertThat(Ansi256(241).toRGB()).isEqualTo(RGB(98, 98, 98))
-            assertThat(Ansi256(242).toRGB()).isEqualTo(RGB(108, 108, 108))
-            assertThat(Ansi256(243).toRGB()).isEqualTo(RGB(118, 118, 118))
-            assertThat(Ansi256(244).toRGB()).isEqualTo(RGB(128, 128, 128))
-            assertThat(Ansi256(245).toRGB()).isEqualTo(RGB(138, 138, 138))
-            assertThat(Ansi256(246).toRGB()).isEqualTo(RGB(148, 148, 148))
-            assertThat(Ansi256(247).toRGB()).isEqualTo(RGB(158, 158, 158))
-            assertThat(Ansi256(248).toRGB()).isEqualTo(RGB(168, 168, 168))
-            assertThat(Ansi256(249).toRGB()).isEqualTo(RGB(178, 178, 178))
-            assertThat(Ansi256(250).toRGB()).isEqualTo(RGB(188, 188, 188))
-            assertThat(Ansi256(251).toRGB()).isEqualTo(RGB(198, 198, 198))
-            assertThat(Ansi256(252).toRGB()).isEqualTo(RGB(208, 208, 208))
-            assertThat(Ansi256(253).toRGB()).isEqualTo(RGB(218, 218, 218))
-            assertThat(Ansi256(254).toRGB()).isEqualTo(RGB(228, 228, 228))
-            assertThat(Ansi256(255).toRGB()).isEqualTo(RGB(238, 238, 238))
+        forall(
+                row(16, RGB(0, 0, 0)),
+                row(17, RGB(0, 0, 51)),
+                row(18, RGB(0, 0, 102)),
+                row(19, RGB(0, 0, 153)),
+                row(20, RGB(0, 0, 204)),
+                row(21, RGB(0, 0, 255)),
+                row(22, RGB(0, 51, 0)),
+                row(23, RGB(0, 51, 51)),
+                row(24, RGB(0, 51, 102)),
+                row(25, RGB(0, 51, 153)),
+                row(26, RGB(0, 51, 204)),
+                row(27, RGB(0, 51, 255)),
+                row(28, RGB(0, 102, 0)),
+                row(29, RGB(0, 102, 51)),
+                row(30, RGB(0, 102, 102)),
+                row(31, RGB(0, 102, 153)),
+                row(32, RGB(0, 102, 204)),
+                row(33, RGB(0, 102, 255)),
+                row(34, RGB(0, 153, 0)),
+                row(35, RGB(0, 153, 51)),
+                row(36, RGB(0, 153, 102)),
+                row(37, RGB(0, 153, 153)),
+                row(38, RGB(0, 153, 204)),
+                row(39, RGB(0, 153, 255)),
+                row(40, RGB(0, 204, 0)),
+                row(41, RGB(0, 204, 51)),
+                row(42, RGB(0, 204, 102)),
+                row(43, RGB(0, 204, 153)),
+                row(44, RGB(0, 204, 204)),
+                row(45, RGB(0, 204, 255)),
+                row(46, RGB(0, 255, 0)),
+                row(47, RGB(0, 255, 51)),
+                row(48, RGB(0, 255, 102)),
+                row(49, RGB(0, 255, 153)),
+                row(50, RGB(0, 255, 204)),
+                row(51, RGB(0, 255, 255)),
+                row(52, RGB(51, 0, 0)),
+                row(53, RGB(51, 0, 51)),
+                row(54, RGB(51, 0, 102)),
+                row(55, RGB(51, 0, 153)),
+                row(56, RGB(51, 0, 204)),
+                row(57, RGB(51, 0, 255)),
+                row(58, RGB(51, 51, 0)),
+                row(59, RGB(51, 51, 51)),
+                row(60, RGB(51, 51, 102)),
+                row(61, RGB(51, 51, 153)),
+                row(62, RGB(51, 51, 204)),
+                row(63, RGB(51, 51, 255)),
+                row(64, RGB(51, 102, 0)),
+                row(65, RGB(51, 102, 51)),
+                row(66, RGB(51, 102, 102)),
+                row(67, RGB(51, 102, 153)),
+                row(68, RGB(51, 102, 204)),
+                row(69, RGB(51, 102, 255)),
+                row(70, RGB(51, 153, 0)),
+                row(71, RGB(51, 153, 51)),
+                row(72, RGB(51, 153, 102)),
+                row(73, RGB(51, 153, 153)),
+                row(74, RGB(51, 153, 204)),
+                row(75, RGB(51, 153, 255)),
+                row(76, RGB(51, 204, 0)),
+                row(77, RGB(51, 204, 51)),
+                row(78, RGB(51, 204, 102)),
+                row(79, RGB(51, 204, 153)),
+                row(80, RGB(51, 204, 204)),
+                row(81, RGB(51, 204, 255)),
+                row(82, RGB(51, 255, 0)),
+                row(83, RGB(51, 255, 51)),
+                row(84, RGB(51, 255, 102)),
+                row(85, RGB(51, 255, 153)),
+                row(86, RGB(51, 255, 204)),
+                row(87, RGB(51, 255, 255)),
+                row(88, RGB(102, 0, 0)),
+                row(89, RGB(102, 0, 51)),
+                row(90, RGB(102, 0, 102)),
+                row(91, RGB(102, 0, 153)),
+                row(92, RGB(102, 0, 204)),
+                row(93, RGB(102, 0, 255)),
+                row(94, RGB(102, 51, 0)),
+                row(95, RGB(102, 51, 51)),
+                row(96, RGB(102, 51, 102)),
+                row(97, RGB(102, 51, 153)),
+                row(98, RGB(102, 51, 204)),
+                row(99, RGB(102, 51, 255)),
+                row(100, RGB(102, 102, 0)),
+                row(101, RGB(102, 102, 51)),
+                row(102, RGB(102, 102, 102)),
+                row(103, RGB(102, 102, 153)),
+                row(104, RGB(102, 102, 204)),
+                row(105, RGB(102, 102, 255)),
+                row(106, RGB(102, 153, 0)),
+                row(107, RGB(102, 153, 51)),
+                row(108, RGB(102, 153, 102)),
+                row(109, RGB(102, 153, 153)),
+                row(110, RGB(102, 153, 204)),
+                row(111, RGB(102, 153, 255)),
+                row(112, RGB(102, 204, 0)),
+                row(113, RGB(102, 204, 51)),
+                row(114, RGB(102, 204, 102)),
+                row(115, RGB(102, 204, 153)),
+                row(116, RGB(102, 204, 204)),
+                row(117, RGB(102, 204, 255)),
+                row(118, RGB(102, 255, 0)),
+                row(119, RGB(102, 255, 51)),
+                row(120, RGB(102, 255, 102)),
+                row(121, RGB(102, 255, 153)),
+                row(122, RGB(102, 255, 204)),
+                row(123, RGB(102, 255, 255)),
+                row(124, RGB(153, 0, 0)),
+                row(125, RGB(153, 0, 51)),
+                row(126, RGB(153, 0, 102)),
+                row(127, RGB(153, 0, 153)),
+                row(128, RGB(153, 0, 204)),
+                row(129, RGB(153, 0, 255)),
+                row(130, RGB(153, 51, 0)),
+                row(131, RGB(153, 51, 51)),
+                row(132, RGB(153, 51, 102)),
+                row(133, RGB(153, 51, 153)),
+                row(134, RGB(153, 51, 204)),
+                row(135, RGB(153, 51, 255)),
+                row(136, RGB(153, 102, 0)),
+                row(137, RGB(153, 102, 51)),
+                row(138, RGB(153, 102, 102)),
+                row(139, RGB(153, 102, 153)),
+                row(140, RGB(153, 102, 204)),
+                row(141, RGB(153, 102, 255)),
+                row(142, RGB(153, 153, 0)),
+                row(143, RGB(153, 153, 51)),
+                row(144, RGB(153, 153, 102)),
+                row(145, RGB(153, 153, 153)),
+                row(146, RGB(153, 153, 204)),
+                row(147, RGB(153, 153, 255)),
+                row(148, RGB(153, 204, 0)),
+                row(149, RGB(153, 204, 51)),
+                row(150, RGB(153, 204, 102)),
+                row(151, RGB(153, 204, 153)),
+                row(152, RGB(153, 204, 204)),
+                row(153, RGB(153, 204, 255)),
+                row(154, RGB(153, 255, 0)),
+                row(155, RGB(153, 255, 51)),
+                row(156, RGB(153, 255, 102)),
+                row(157, RGB(153, 255, 153)),
+                row(158, RGB(153, 255, 204)),
+                row(159, RGB(153, 255, 255)),
+                row(160, RGB(204, 0, 0)),
+                row(161, RGB(204, 0, 51)),
+                row(162, RGB(204, 0, 102)),
+                row(163, RGB(204, 0, 153)),
+                row(164, RGB(204, 0, 204)),
+                row(165, RGB(204, 0, 255)),
+                row(166, RGB(204, 51, 0)),
+                row(167, RGB(204, 51, 51)),
+                row(168, RGB(204, 51, 102)),
+                row(169, RGB(204, 51, 153)),
+                row(170, RGB(204, 51, 204)),
+                row(171, RGB(204, 51, 255)),
+                row(172, RGB(204, 102, 0)),
+                row(173, RGB(204, 102, 51)),
+                row(174, RGB(204, 102, 102)),
+                row(175, RGB(204, 102, 153)),
+                row(176, RGB(204, 102, 204)),
+                row(177, RGB(204, 102, 255)),
+                row(178, RGB(204, 153, 0)),
+                row(179, RGB(204, 153, 51)),
+                row(180, RGB(204, 153, 102)),
+                row(181, RGB(204, 153, 153)),
+                row(182, RGB(204, 153, 204)),
+                row(183, RGB(204, 153, 255)),
+                row(184, RGB(204, 204, 0)),
+                row(185, RGB(204, 204, 51)),
+                row(186, RGB(204, 204, 102)),
+                row(187, RGB(204, 204, 153)),
+                row(188, RGB(204, 204, 204)),
+                row(189, RGB(204, 204, 255)),
+                row(190, RGB(204, 255, 0)),
+                row(191, RGB(204, 255, 51)),
+                row(192, RGB(204, 255, 102)),
+                row(193, RGB(204, 255, 153)),
+                row(194, RGB(204, 255, 204)),
+                row(195, RGB(204, 255, 255)),
+                row(196, RGB(255, 0, 0)),
+                row(197, RGB(255, 0, 51)),
+                row(198, RGB(255, 0, 102)),
+                row(199, RGB(255, 0, 153)),
+                row(200, RGB(255, 0, 204)),
+                row(201, RGB(255, 0, 255)),
+                row(202, RGB(255, 51, 0)),
+                row(203, RGB(255, 51, 51)),
+                row(204, RGB(255, 51, 102)),
+                row(205, RGB(255, 51, 153)),
+                row(206, RGB(255, 51, 204)),
+                row(207, RGB(255, 51, 255)),
+                row(208, RGB(255, 102, 0)),
+                row(209, RGB(255, 102, 51)),
+                row(210, RGB(255, 102, 102)),
+                row(211, RGB(255, 102, 153)),
+                row(212, RGB(255, 102, 204)),
+                row(213, RGB(255, 102, 255)),
+                row(214, RGB(255, 153, 0)),
+                row(215, RGB(255, 153, 51)),
+                row(216, RGB(255, 153, 102)),
+                row(217, RGB(255, 153, 153)),
+                row(218, RGB(255, 153, 204)),
+                row(219, RGB(255, 153, 255)),
+                row(220, RGB(255, 204, 0)),
+                row(221, RGB(255, 204, 51)),
+                row(222, RGB(255, 204, 102)),
+                row(223, RGB(255, 204, 153)),
+                row(224, RGB(255, 204, 204)),
+                row(225, RGB(255, 204, 255)),
+                row(226, RGB(255, 255, 0)),
+                row(227, RGB(255, 255, 51)),
+                row(228, RGB(255, 255, 102)),
+                row(229, RGB(255, 255, 153)),
+                row(230, RGB(255, 255, 204)),
+                row(231, RGB(255, 255, 255)),
+                row(232, RGB(8, 8, 8)),
+                row(233, RGB(18, 18, 18)),
+                row(234, RGB(28, 28, 28)),
+                row(235, RGB(38, 38, 38)),
+                row(236, RGB(48, 48, 48)),
+                row(237, RGB(58, 58, 58)),
+                row(238, RGB(68, 68, 68)),
+                row(239, RGB(78, 78, 78)),
+                row(240, RGB(88, 88, 88)),
+                row(241, RGB(98, 98, 98)),
+                row(242, RGB(108, 108, 108)),
+                row(243, RGB(118, 118, 118)),
+                row(244, RGB(128, 128, 128)),
+                row(245, RGB(138, 138, 138)),
+                row(246, RGB(148, 148, 148)),
+                row(247, RGB(158, 158, 158)),
+                row(248, RGB(168, 168, 168)),
+                row(249, RGB(178, 178, 178)),
+                row(250, RGB(188, 188, 188)),
+                row(251, RGB(198, 198, 198)),
+                row(252, RGB(208, 208, 208)),
+                row(253, RGB(218, 218, 218)),
+                row(254, RGB(228, 228, 228)),
+                row(255, RGB(238, 238, 238))
+        ) { ansi, rgb ->
+            Ansi256(ansi).toRGB() shouldBe rgb
         }
     }
 
     @Test
     fun `Ansi256 to Ansi16 standard colors`() {
-        softly {
-            assertThat(Ansi256(0).toAnsi16()).isEqualTo(Ansi16(30))
-            assertThat(Ansi256(1).toAnsi16()).isEqualTo(Ansi16(31))
-            assertThat(Ansi256(2).toAnsi16()).isEqualTo(Ansi16(32))
-            assertThat(Ansi256(3).toAnsi16()).isEqualTo(Ansi16(33))
-            assertThat(Ansi256(4).toAnsi16()).isEqualTo(Ansi16(34))
-            assertThat(Ansi256(5).toAnsi16()).isEqualTo(Ansi16(35))
-            assertThat(Ansi256(6).toAnsi16()).isEqualTo(Ansi16(36))
-            assertThat(Ansi256(7).toAnsi16()).isEqualTo(Ansi16(37))
-            assertThat(Ansi256(8).toAnsi16()).isEqualTo(Ansi16(90))
-            assertThat(Ansi256(9).toAnsi16()).isEqualTo(Ansi16(91))
-            assertThat(Ansi256(10).toAnsi16()).isEqualTo(Ansi16(92))
-            assertThat(Ansi256(11).toAnsi16()).isEqualTo(Ansi16(93))
-            assertThat(Ansi256(12).toAnsi16()).isEqualTo(Ansi16(94))
-            assertThat(Ansi256(13).toAnsi16()).isEqualTo(Ansi16(95))
-            assertThat(Ansi256(14).toAnsi16()).isEqualTo(Ansi16(96))
-            assertThat(Ansi256(15).toAnsi16()).isEqualTo(Ansi16(97))
+        forall(
+                row(0, 30),
+                row(1, 31),
+                row(2, 32),
+                row(3, 33),
+                row(4, 34),
+                row(5, 35),
+                row(6, 36),
+                row(7, 37),
+                row(8, 90),
+                row(9, 91),
+                row(10, 92),
+                row(11, 93),
+                row(12, 94),
+                row(13, 95),
+                row(14, 96),
+                row(15, 97)
+        ) { ansi256, ansi16 ->
+            Ansi256(ansi256).toAnsi16() shouldBe Ansi16(ansi16)
         }
     }
 }
