@@ -1,4 +1,4 @@
-package com.github.ajalt.colorconvert
+package com.github.ajalt.colormath
 
 /**
  * A color that can be converted to other representations.

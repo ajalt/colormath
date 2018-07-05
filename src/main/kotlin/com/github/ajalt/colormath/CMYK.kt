@@ -1,4 +1,4 @@
-package com.github.ajalt.colorconvert
+package com.github.ajalt.colormath
 
 data class CMYK(val c: Int, val m: Int, val y: Int, val k: Int) : ConvertibleColor {
     init {

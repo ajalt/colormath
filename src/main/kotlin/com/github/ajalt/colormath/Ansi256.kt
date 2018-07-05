@@ -1,4 +1,4 @@
-package com.github.ajalt.colorconvert
+package com.github.ajalt.colormath
 
 data class Ansi256(val code: Int) : ConvertibleColor {
     init {

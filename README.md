@@ -1,7 +1,6 @@
-# Color conversions
+# Colormath
 
-This package allows you to convert between a number of color spaces. You
-can convert from any supported color space to any other space.
+Colormath is a library that allows you to convert between a number of color spaces.
 
 ## Supported color spaces
 
@@ -14,10 +13,9 @@ can convert from any supported color space to any other space.
 * ANSI-16 color codes
 * ANSI-256 color codes
 
-Most conversions, including all conversions to and from RGB, run in a
-single step. If there isn't a formula for a direct conversion between
-two color spaces, the color will first be converted to RGB and then to
-final color space.
+Most conversions run in a single step. If there isn't a formula for a
+direct conversion between two color spaces, the color will first be
+converted to another form such as RGB and then to final color space.
 
 ## Usage
 
@@ -37,9 +35,28 @@ CMYK(c=95, m=50, y=0, k=0)
 
 ## Installation
 
+Colormath is distributed through Maven Central,
+[Jcenter](https://bintray.com/ajalt/maven/colormath) and
+[Jitpack](https://jitpack.io/#ajalt/colormath).
 
 ```groovy
 dependencies {
-   compile 'com.github.ajalt:colorconvert:<latest version>'
+   compile 'com.github.ajalt:colormath:1.1.0'
 }
 ```
+
+## License
+
+    Copyright 2018 AJ Alt
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.

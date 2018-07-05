@@ -1,4 +1,4 @@
-package com.github.ajalt.colorconvert
+package com.github.ajalt.colormath
 
 data class HSL(val h: Int, val s: Int, val l: Int) : ConvertibleColor {
     init {
