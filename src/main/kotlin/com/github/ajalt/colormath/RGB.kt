@@ -15,6 +15,17 @@ private fun String.parseHex(startIndex: Int): Int {
 }
 
 data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
+    companion object {
+        /**
+         * Create an [RGB] instance from a packed (a)rgb integer, such as Android color ints or
+         * those returned from AWT's `BufferedImage.getRGB`.
+         */
+        fun fromInt(argb: Int): RGB = RGB(
+                (argb ushr 16) and 0xff,
+                (argb ushr 8) and 0xff,
+                (argb) and 0xff)
+    }
+
     init {
         require(r in 0..255) { "r must be in range [0, 255] in $this" }
         require(g in 0..255) { "g must be in range [0, 255] in $this" }

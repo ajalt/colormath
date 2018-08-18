@@ -6,6 +6,12 @@ import io.kotlintest.shouldBe
 import io.kotlintest.tables.row
 import org.junit.Test
 
+
+private fun packRgb(red: Int, green: Int, blue: Int): Int {
+    // Formula matches Android's Color.java
+    return -0x1000000 or (red shl 16) or (green shl 8) or blue
+}
+
 class RGBTest {
     @Test
     fun `RGB from bytes`() {
@@ -15,6 +21,17 @@ class RGBTest {
                 row(RGB(0.toByte(), 0.toByte(), 0.toByte()), RGB(128, 128, 128))
         ) { actual: RGB, expected: RGB ->
             actual shouldBe expected
+        }
+    }
+
+    @Test
+    fun `RGB from packed`() {
+        forall(
+                row(0, 0, 0),
+                row(76, 127, 201),
+                row(255, 255, 255)
+        ) { r, g, b ->
+            RGB.fromInt(packRgb(r, g, b)) shouldBe RGB(r, g, b)
         }
     }
 
