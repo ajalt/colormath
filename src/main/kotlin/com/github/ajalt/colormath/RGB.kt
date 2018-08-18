@@ -30,6 +30,14 @@ data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
             this(hex.validateHex().parseHex(0), hex.parseHex(2), hex.parseHex(4))
 
     /**
+     * Construct an RGB instance from [Byte] values.
+     *
+     * The signed byte values will be translated into the range [0, 255]
+     */
+    constructor(r: Byte, g: Byte, b: Byte) : this(r + 128, g + 128, b + 128)
+
+
+    /**
      * Return this value as a hex string
      * @return A string in the form `"#ffffff"` if [withNumberSign] is true,
      *     or in the form `"ffffff"` otherwise.

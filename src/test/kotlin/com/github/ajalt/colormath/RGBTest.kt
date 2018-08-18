@@ -8,6 +8,17 @@ import org.junit.Test
 
 class RGBTest {
     @Test
+    fun `RGB from bytes`() {
+        forall(
+                row(RGB(Byte.MIN_VALUE, Byte.MIN_VALUE, Byte.MIN_VALUE), RGB(0, 0, 0)),
+                row(RGB(Byte.MAX_VALUE, Byte.MAX_VALUE, Byte.MAX_VALUE), RGB(255, 255, 255)),
+                row(RGB(0.toByte(), 0.toByte(), 0.toByte()), RGB(128, 128, 128))
+        ) { actual: RGB, expected: RGB ->
+            actual shouldBe expected
+        }
+    }
+
+    @Test
     fun `RGB to HSV`() {
         forall(
                 row(RGB(0, 0, 0), HSV(0, 0, 0)),
