@@ -33,6 +33,10 @@ CMYK(c=95, m=50, y=0, k=0)
 "#40bfbf"
 ```
 
+## API Documentation
+
+API docs are [hosted on JitPack](https://jitpack.io/com/github/ajalt/colormath/1.2.0/javadoc/).
+
 ## Installation
 
 Colormath is distributed through Maven Central,
@@ -41,7 +45,7 @@ Colormath is distributed through Maven Central,
 
 ```groovy
 dependencies {
-   compile 'com.github.ajalt:colormath:1.1.0'
+   compile 'com.github.ajalt:colormath:1.2.0'
 }
 ```
 
