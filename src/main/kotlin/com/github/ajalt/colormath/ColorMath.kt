@@ -64,31 +64,9 @@ object ColorMath {
     }
 
     private fun parseHex(hex: String): ConvertibleColor {
-        fun fromCh(c: Char) = "$c$c".toInt(16)
-        fun from2Ch(s: String, i: Int) = s.slice(i..i + 1).toInt(16)
-
         return when (hex.length) {
-            4, 5 -> {
-                val r = fromCh(hex[1])
-                val g = fromCh(hex[2])
-                val b = fromCh(hex[3])
-                val a = when (hex.length) {
-                    5 -> fromCh(hex[4])
-                    else -> 255
-                } / 255f
-                RGB(r, g, b, a)
-            }
-            7, 9 -> {
-                val r = from2Ch(hex, 1)
-                val g = from2Ch(hex, 3)
-                val b = from2Ch(hex, 5)
-                val a = when (hex.length) {
-                    9 -> from2Ch(hex, 7)
-                    else -> 255
-                } / 255f
-                RGB(r, g, b, a)
-            }
-            else -> throw IllegalArgumentException("Invalid hex value: $hex")
+            4, 5 -> RGB(hex.map { "$it$it" }.joinToString("").drop(1))
+            else -> RGB(hex)
         }
     }
 

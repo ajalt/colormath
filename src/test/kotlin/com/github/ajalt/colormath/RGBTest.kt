@@ -75,7 +75,9 @@ class RGBTest {
         forall(
                 row("000000", RGB(0, 0, 0)),
                 row("#8CC864", RGB(140, 200, 100)),
-                row("ffffff", RGB(255, 255, 255))
+                row("ffffff", RGB(255, 255, 255)),
+                row("ffffff00", RGB(255, 255, 255, 0f)),
+                row("#ffffff00", RGB(255, 255, 255, 0f))
         ) { hex, rgb ->
             RGB(hex) shouldBe rgb
         }

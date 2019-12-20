@@ -32,11 +32,17 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Converti
     }
 
     /**
-     * Construct an RGB instance from a hex string.
+     * Construct an RGB instance from a hex string with optional alpha channel.
      *
-     * @param hex An rgb hex string in the form "#ffffff" or "ffffff"
+     * @param hex An rgb hex string in the form "#ffffff" or "ffffff", or an rgba hex string in the
+     *   form "#ffffffaa", or "ffffaa"
      */
-    constructor(hex: String) : this(hex.validateHex().parseHex(0), hex.parseHex(2), hex.parseHex(4))
+    constructor(hex: String) : this(
+            r = hex.validateHex().parseHex(0),
+            g = hex.parseHex(2),
+            b = hex.parseHex(4),
+            a = if (hex.length < 8) 1f else hex.parseHex(6) / 255f
+    )
 
     /**
      * Construct an RGB instance from [Byte] values.
@@ -195,7 +201,7 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Converti
 
 private fun Int.renderHex() = toString(16).padStart(2, '0')
 private fun String.validateHex() = apply {
-    require(length == 6 || length == 7 && get(0) == '#') {
+    require(if (startsWith('#')) length == 7 || length == 9 else length == 6 || length == 8) {
         "Hex string must be in the format \"#ffffff\" or \"ffffff\""
     }
 }
