@@ -61,7 +61,7 @@ HSL(270, 60, 70)
 
 ## API Documentation
 
-API docs are [hosted on JitPack](https://jitpack.io/com/github/ajalt/colormath/1.2.0/javadoc/).
+API docs are [hosted on JitPack](https://jitpack.io/com/github/ajalt/colormath/1.3.0/javadoc/).
 
 ## Installation
 
@@ -71,7 +71,7 @@ Colormath is distributed through Maven Central,
 
 ```groovy
 dependencies {
-   compile 'com.github.ajalt:colormath:1.2.0'
+   compile 'com.github.ajalt:colormath:1.3.0'
 }
 ```
 
