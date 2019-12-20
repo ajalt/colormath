@@ -1,6 +1,7 @@
 # Colormath
 
-Colormath is a library that allows you to convert between a number of color spaces.
+Colormath is a library that allows you to convert between a number of color spaces, and to parse CSS
+colors into any of the supported color spaces.
 
 ## Supported color spaces
 
@@ -19,19 +20,44 @@ converted to another form such as RGB and then to final color space.
 
 ## Usage
 
+### Conversion
+
 Each color space is represented with a data class, and contains
-`.toXXX()` methods to convert to other spaces.
+`.toXXX()` methods to convert to other spaces. All color classes contain an `alpha` channel, which
+defaults to `1` (fully opaque) for color spaces that don't support transparency (such as ANSI color
+codes).
 
 ```kotlin
 > RGB("#adcdef").toHSV()
 HSV(h=211, s=28, v=94)
 
-> RGB(12, 128, 255).toCMYK()
-CMYK(c=95, m=50, y=0, k=0)
+> RGB(r=12, g=128, b=255, a=.5f).toCMYK()
+CMYK(c=95, m=50, y=0, k=0, a=.5f)
 
 > HSL(180, 50, 50).toHex(withNumberSign = true)
 "#40bfbf"
 ```
+
+### Parsing
+
+You can parse any color allowed by the CSS Color Module Levels 1 through 4.
+
+```kotlin
+> ColorMath.parseCssColor("#ff0099ff")
+RGB(255, 0, 153)
+
+> ColorMath.parseCssColor("rgb(100%, 0%, 60%)")
+RGB(255, 0, 153)
+
+> ColorMath.parseCssColor("rgb(1e2, .5e1, .5e0, +.25e2%)")
+RGB(100, 5, 1, .25f)
+
+> ColorMath.parseCssColor("hsl(.75turn, 60%, 70%)")
+HSL(270, 60, 70)
+
+> ColorMath.parseCssColor("rebeccapurple").toHex(withNumberSign = true)
+"#663399"
+``` 
 
 ## API Documentation
 
