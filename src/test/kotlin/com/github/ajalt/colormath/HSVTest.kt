@@ -22,7 +22,7 @@ class HSVTest {
     fun `HSV to HSL`() {
         forall(
                 row(HSV(0, 0, 0), HSL(0, 0, 0)),
-                row(HSV(96, 50, 78), HSL(96, 47, 58)),
+                row(HSV(96, 50, 78), HSL(96, 47, 59)),
                 row(HSV(289, 85, 87), HSL(289, 74, 50)),
                 row(HSV(0, 0, 100), HSL(0, 0, 100))
         ) { hsv, hsl ->

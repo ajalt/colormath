@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
 import io.kotlintest.data.forall
-import io.kotlintest.matchers.plusOrMinus
+import io.kotlintest.matchers.doubles.plusOrMinus
 import io.kotlintest.shouldBe
 import io.kotlintest.tables.row
 import org.junit.Test
