@@ -1,20 +1,24 @@
 package com.github.ajalt.colormath
 
 import kotlin.math.pow
+import kotlin.math.roundToInt
 
 /**
  * CIE XYZ color space.
  *
  * Conversions use D65 reference white, and sRGB profile.
  *
- * [x], [y], and [z] are generally in the interval [0, 100], but may be larger
+ * [x], [y], and [z] are generally in the interval `[0, 100]`, but may be larger
  */
-data class XYZ(val x: Double, val y: Double, val z: Double) : ConvertibleColor {
+data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) : ConvertibleColor {
     init {
         require(x >= 0) { "x must be >= 0 in $this" }
         require(y >= 0) { "y must be >= 0 in $this" }
         require(z >= 0) { "z must be >= 0 in $this" }
+        require(a in 0f..1f) { "a must be in range [0, 1] in $this" }
     }
+
+    override val alpha: Float get() = a
 
     override fun toRGB(): RGB {
         val x = this.x / 100
@@ -33,7 +37,7 @@ data class XYZ(val x: Double, val y: Double, val z: Double) : ConvertibleColor {
         val r = 3.2404542 * x - 1.5371385 * y - 0.4985314 * z
         val g = -0.9692660 * x + 1.8760108 * y + 0.0415560 * z
         val b = 0.0556434 * x - 0.2040259 * y + 1.0572252 * z
-        return RGB(adj(r), adj(g), adj(b))
+        return RGB(adj(r), adj(g), adj(b), alpha)
     }
 
     override fun toLAB(): LAB {
@@ -51,6 +55,6 @@ data class XYZ(val x: Double, val y: Double, val z: Double) : ConvertibleColor {
         val a = 500 * (fx - fy)
         val b = 200 * (fy - fz)
 
-        return LAB(l, a, b)
+        return LAB(l, a, b, alpha)
     }
 }

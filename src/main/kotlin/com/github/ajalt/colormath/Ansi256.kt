@@ -1,5 +1,10 @@
 package com.github.ajalt.colormath
 
+import kotlin.math.floor
+
+/**
+ * An ANSI-256 color code
+ */
 data class Ansi256(val code: Int) : ConvertibleColor {
     init {
         check(code in 0..255) { "code must be in range [0,255]: $code" }
@@ -18,10 +23,10 @@ data class Ansi256(val code: Int) : ConvertibleColor {
         // color
         val c = code - 16
         val rem = c % 36
-        val r = Math.floor(c / 36.0) / 5.0 * 255
-        val g = Math.floor(rem / 6.0) / 5.0 * 255
-        val b = (rem % 6) / 5.0 * 255
-        return RGB(r.roundToInt(), g.roundToInt(), b.roundToInt())
+        val r = floor(c / 36.0) / 5.0
+        val g = floor(rem / 6.0) / 5.0
+        val b = (rem % 6) / 5.0
+        return RGB(r, g, b)
     }
 
     override fun toAnsi256() = this

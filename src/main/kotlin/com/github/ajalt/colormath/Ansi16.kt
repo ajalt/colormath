@@ -1,5 +1,10 @@
 package com.github.ajalt.colormath
 
+import kotlin.math.roundToInt
+
+/**
+ * An ANSI-16 color code
+ */
 data class Ansi16(val code: Int) : ConvertibleColor {
     init {
         require(code in 30..37 || code in 40..47 ||
@@ -44,11 +49,11 @@ data class Ansi16(val code: Int) : ConvertibleColor {
 
         // color
         val mul = if (code > 50) 1.0 else 0.5
-        val r = ((color % 2) * mul) * 255
-        val g = (((color / 2) % 2) * mul) * 255
-        val b = (((color / 4) % 2) * mul) * 255
+        val r = ((color % 2) * mul)
+        val g = (((color / 2) % 2) * mul)
+        val b = (((color / 4) % 2) * mul)
 
-        return RGB(r.roundToInt(), g.roundToInt(), b.roundToInt())
+        return RGB(r, g, b)
     }
 
     override fun toAnsi16() = this

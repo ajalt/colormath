@@ -1,18 +1,37 @@
 package com.github.ajalt.colormath
 
-data class HSL(val h: Int, val s: Int, val l: Int) : ConvertibleColor {
+import kotlin.math.roundToInt
+
+/**
+ * A color in the Hue-Saturation-Lightness color space.
+ *
+ * @property h The hue, as degrees in the range `[0, 360]`
+ * @property s The saturation, as a percent in the range `[0, 100]`
+ * @property l The lightness, as a percent in the range `[0, 100]`
+ * @property a The alpha, as a fraction in the range `[0, 1]`
+ */
+data class HSL(val h: Int, val s: Int, val l: Int, val a: Float = 1f) : ConvertibleColor {
     init {
         require(h in 0..360) { "h must be in range [0, 360]" }
         require(s in 0..100) { "s must be in range [0, 100]" }
         require(l in 0..100) { "l must be in range [0, 100]" }
+        require(a in 0f..1f) { "a must be in range [0, 1] in $this" }
     }
+
+    /**
+     * Construct an HSL instance from Float values, with h in `[0, 360]`, and s and l in the range `[0, 1]`.
+     */
+    constructor(h: Float, s: Float, l: Float, a: Float = 1f)
+            : this(h.roundToInt(), (s * 100).roundToInt(), (l * 100).roundToInt(), a)
+
+    override val alpha: Float get() = a
 
     override fun toRGB(): RGB {
         val h = this.h / 360.0
         val s = this.s / 100.0
         val l = this.l / 100.0
         if (s == 0.0) {
-            val v = (l * 255).toInt()
+            val v = (l * 255).roundToInt()
             return RGB(v, v, v)
         }
 
@@ -36,10 +55,10 @@ data class HSL(val h: Int, val s: Int, val l: Int) : ConvertibleColor {
                 else -> t1
             }
 
-            rgb[i] = v * 255.0
+            rgb[i] = v
         }
 
-        return RGB(rgb[0].roundToInt(), rgb[1].roundToInt(), rgb[2].roundToInt())
+        return RGB(rgb[0], rgb[1], rgb[2], alpha.toDouble())
     }
 
     override fun toHSV(): HSV {
@@ -55,7 +74,7 @@ data class HSL(val h: Int, val s: Int, val l: Int) : ConvertibleColor {
         val v = (l + s) / 2
         val sv = if (l == 0.0) (2 * smin) / (lmin + smin) else (2 * s) / (l + s)
 
-        return HSV(h.roundToInt(), (sv * 100).roundToInt(), (v * 100).roundToInt())
+        return HSV(h.roundToInt(), (sv * 100).roundToInt(), (v * 100).roundToInt(), alpha)
     }
 
     override fun toHSL() = this

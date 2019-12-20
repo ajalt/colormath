@@ -1,35 +1,34 @@
 package com.github.ajalt.colormath
 
 import kotlin.math.pow
+import kotlin.math.roundToInt
 
-private fun Int.renderHex() = toString(16).padStart(2, '0')
-private fun String.validateHex() = apply {
-    require(length == 6 || length == 7 && get(0) == '#') {
-        "Hex string must be in the format \"#ffffff\" or \"ffffff\""
-    }
-}
-
-private fun String.parseHex(startIndex: Int): Int {
-    val i = if (this[0] == '#') startIndex + 1 else startIndex
-    return slice(i..i + 1).toInt(16)
-}
-
-data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
+/**
+ * A color in the sRGB color space
+ *
+ * @property r The red channel, a value in the range `[0, 255]`
+ * @property g The green channel, a value in the range `[0, 255]`
+ * @property b The blue channel, a value in the range `[0, 255]`
+ * @property a The alpha channel, a value in the range `[0f, 1f]`
+ */
+data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : ConvertibleColor {
     companion object {
         /**
-         * Create an [RGB] instance from a packed (a)rgb integer, such as Android color ints or
-         * those returned from AWT's `BufferedImage.getRGB`.
+         * Create an [RGB] instance from a packed (a)rgb integer, such as those returned from
+         * `android.graphics.Color.argb` or `java.awt.image.BufferedImage.getRGB`.
          */
         fun fromInt(argb: Int): RGB = RGB(
-                (argb ushr 16) and 0xff,
-                (argb ushr 8) and 0xff,
-                (argb) and 0xff)
+                r = (argb ushr 16) and 0xff,
+                g = (argb ushr 8) and 0xff,
+                b = (argb) and 0xff,
+                a = ((argb ushr 24) and 0xff) / 255f)
     }
 
     init {
         require(r in 0..255) { "r must be in range [0, 255] in $this" }
         require(g in 0..255) { "g must be in range [0, 255] in $this" }
         require(b in 0..255) { "b must be in range [0, 255] in $this" }
+        require(a in 0f..1f) { "a must be in range [0, 1] in $this" }
     }
 
     /**
@@ -37,22 +36,34 @@ data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
      *
      * @param hex An rgb hex string in the form "#ffffff" or "ffffff"
      */
-    constructor(hex: String) :
-            this(hex.validateHex().parseHex(0), hex.parseHex(2), hex.parseHex(4))
+    constructor(hex: String) : this(hex.validateHex().parseHex(0), hex.parseHex(2), hex.parseHex(4))
 
     /**
      * Construct an RGB instance from [Byte] values.
      *
-     * The signed byte values will be translated into the range [0, 255]
+     * The signed byte values will be translated into the range `[0, 255]`
      */
     constructor(r: Byte, g: Byte, b: Byte) : this(r + 128, g + 128, b + 128)
 
+    /**
+     * Construct an RGB instance from Float values in the range `[0, 1]`.
+     */
+    constructor(r: Float, g: Float, b: Float, a: Float = 1f) : this(
+            r = (r * 255).roundToInt(),
+            g = (g * 255).roundToInt(),
+            b = (b * 255).roundToInt(),
+            a = a
+    )
 
     /**
-     * Return this value as a hex string
-     * @return A string in the form `"#ffffff"` if [withNumberSign] is true,
-     *     or in the form `"ffffff"` otherwise.
+     * Construct an RGB instance from Double values in the range `[0, 1]`.
      */
+    constructor(r: Double, g: Double, b: Double, a: Double = 1.0) : this(
+            r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat()
+    )
+
+    override val alpha: Float get() = a
+
     override fun toHex(withNumberSign: Boolean): String = buildString(7) {
         if (withNumberSign) append('#')
         append(r.renderHex()).append(g.renderHex()).append(b.renderHex())
@@ -82,7 +93,7 @@ data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
             else -> delta / (2 - max - min)
         }
 
-        return HSL(h.roundToInt(), (s * 100).roundToInt(), (l * 100).roundToInt())
+        return HSL(h.roundToInt(), (s * 100).roundToInt(), (l * 100).roundToInt(), alpha)
     }
 
     override fun toHSV(): HSV {
@@ -114,7 +125,7 @@ data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
 
         val v = ((max / 255) * 1000) / 10
 
-        return HSV(h.roundToInt(), s.roundToInt(), v.roundToInt())
+        return HSV(h.roundToInt(), s.roundToInt(), v.roundToInt(), alpha)
     }
 
     override fun toXYZ(): XYZ {
@@ -134,7 +145,7 @@ data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
         val x = 0.4124564 * rL + 0.3575761 * gL + 0.1804375 * bL
         val y = 0.2126729 * rL + 0.7151522 * gL + 0.0721750 * bL
         val z = 0.0193339 * rL + 0.1191920 * gL + 0.9503041 * bL
-        return XYZ(x * 100, y * 100, z * 100)
+        return XYZ(x * 100, y * 100, z * 100, alpha)
     }
 
     override fun toLAB(): LAB = toXYZ().toLAB()
@@ -144,17 +155,17 @@ data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
         val b = this.b / 255.0
         val g = this.g / 255.0
         val k = 1 - maxOf(r, b, g)
-        val c = (1 - r - k) / (1.0 - k)
-        val m = (1 - g - k) / (1 - k)
-        val y = (1 - b - k) / (1 - k)
-        return CMYK(c.percentToInt(), m.percentToInt(), y.percentToInt(), k.percentToInt())
+        val c = if (k == 1.0) 0.0 else (1 - r - k) / (1 - k)
+        val m = if (k == 1.0) 0.0 else (1 - g - k) / (1 - k)
+        val y = if (k == 1.0) 0.0 else (1 - b - k) / (1 - k)
+        return CMYK((c * 100).roundToInt(), (m * 100).roundToInt(), (y * 100).roundToInt(), (k * 100).roundToInt(), alpha)
     }
 
     override fun toAnsi16(): Ansi16 = toAnsi16(toHSV().v)
 
     private fun toAnsi16(value: Int): Ansi16 {
         if (value == 30) return Ansi16(30)
-        val v = Math.round(value / 50.0).toInt()
+        val v = (value / 50.0).roundToInt()
 
         val ansi = 30 +
                 ((b / 255.0).roundToInt() * 4
@@ -182,3 +193,14 @@ data class RGB(val r: Int, val g: Int, val b: Int) : ConvertibleColor {
     override fun toRGB() = this
 }
 
+private fun Int.renderHex() = toString(16).padStart(2, '0')
+private fun String.validateHex() = apply {
+    require(length == 6 || length == 7 && get(0) == '#') {
+        "Hex string must be in the format \"#ffffff\" or \"ffffff\""
+    }
+}
+
+private fun String.parseHex(startIndex: Int): Int {
+    val i = if (this[0] == '#') startIndex + 1 else startIndex
+    return slice(i..i + 1).toInt(16)
+}

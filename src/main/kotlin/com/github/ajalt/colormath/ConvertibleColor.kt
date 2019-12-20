@@ -9,8 +9,14 @@ package com.github.ajalt.colormath
  * Note that there is not a direct conversion between every pair of representations. In those cases,
  * the values may be converted through one or more intermediate representations. This may cause a
  * loss of precision.
+ *
+ * All colors have an [alpha] value, which is the opacity of the color. If a colorspace doesn't
+ * support an alpha channel, the value 1 (fully opaque) is used.
  */
 interface ConvertibleColor {
+    /** The opacity of this color, in the range \[0, 1]. */
+    val alpha: Float get() = 1f
+
     /** Convert this color to Red-Green-Blue (using sRGB color space) */
     fun toRGB(): RGB
 
