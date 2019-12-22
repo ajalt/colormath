@@ -8,7 +8,7 @@
 
 ### Changed
 - `withNumberSign` parameter of `toHex` now defaults to `true`
-- `ColorMath.parseCssColor()` renamed to `ConvertableColor.fromCss()` 
+- `ColorMath.parseCssColor()` renamed to `ConvertableColor.fromCss()` and `ColorMath.cssKeywordColors` to `CssColors.colorsByName`
 
  
 ## [1.3.0] - 2019-12-19
@@ -19,6 +19,7 @@
 
 ### Changed
 - Switch rounding methods to use `kotlin.math` rounding, which can slightly change conversion results in some cases.
+
 
 ## [1.2.0] - 2018-08-19
 ### Added

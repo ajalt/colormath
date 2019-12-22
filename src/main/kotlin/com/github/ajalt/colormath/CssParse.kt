@@ -10,7 +10,7 @@ import kotlin.math.PI
 fun ConvertibleColor.Companion.fromCss(color: String): ConvertibleColor {
     val trimmed = color.trim()
     try {
-        val keywordColor = ColorMath.cssKeywordColors[trimmed]
+        val keywordColor = CssColors.colorsByName[trimmed]
         return when {
             keywordColor != null -> keywordColor
             trimmed.startsWith("#") -> parseHex(trimmed)
