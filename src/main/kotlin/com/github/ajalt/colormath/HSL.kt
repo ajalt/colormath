@@ -10,7 +10,7 @@ import kotlin.math.roundToInt
  * @property l The lightness, as a percent in the range `[0, 100]`
  * @property a The alpha, as a fraction in the range `[0, 1]`
  */
-data class HSL(val h: Int, val s: Int, val l: Int, val a: Float = 1f) : ConvertibleColor {
+data class HSL(override val h: Int, val s: Int, val l: Int, val a: Float = 1f) : ConvertibleColor, HueColor {
     init {
         require(h in 0..360) { "h must be in range [0, 360]" }
         require(s in 0..100) { "s must be in range [0, 100]" }
