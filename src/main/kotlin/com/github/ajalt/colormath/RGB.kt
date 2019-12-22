@@ -1,6 +1,5 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.ConvertibleColor.RenderAlpha
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -71,10 +70,10 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Converti
 
     override val alpha: Float get() = a
 
-    override fun toHex(withNumberSign: Boolean, renderAlpha: RenderAlpha): String = buildString(9) {
+    override fun toHex(withNumberSign: Boolean, renderAlpha: RenderCondition): String = buildString(9) {
         if (withNumberSign) append('#')
         append(r.renderHex()).append(g.renderHex()).append(b.renderHex())
-        if (renderAlpha == RenderAlpha.ALWAYS || renderAlpha == RenderAlpha.AUTO && a < 1) {
+        if (renderAlpha == RenderCondition.ALWAYS || renderAlpha == RenderCondition.AUTO && a < 1) {
             append((a * 255).roundToInt().renderHex())
         }
     }
