@@ -113,7 +113,7 @@ fun ConvertibleColor.toCssHsl(
         AngleUnit.DEGREES -> "${h}deg"
         AngleUnit.RADIANS -> "${hsl.hueAsRad().render()}rad"
         AngleUnit.GRADIANS -> "${hsl.hueAsGrad().render()}grad"
-        AngleUnit.TURNS -> "${hsl.hueAsTurns().render()}grad"
+        AngleUnit.TURNS -> "${hsl.hueAsTurns().render()}turn"
     }
 
     val args = listOf(hue, (s / 100f).render(true), (l / 100f).render(true)).joinToString(sep)
@@ -134,7 +134,7 @@ private fun Float.render(percent: Boolean = false): String = when (percent) {
     false -> when (this) {
         0f -> "0"
         1f -> "1"
-        else -> String.format("%.4f", this).trim('0').trim('.')
+        else -> String.format("%.4f", this).trim('0').trimEnd('.')
     }
 }
 

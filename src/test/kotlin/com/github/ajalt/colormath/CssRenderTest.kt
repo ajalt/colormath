@@ -1,6 +1,8 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.AngleUnit.*
 import com.github.ajalt.colormath.RenderCondition.*
+import com.github.ajalt.colormath.RenderCondition.AUTO
 import io.kotlintest.data.forall
 import io.kotlintest.shouldBe
 import io.kotlintest.tables.row
@@ -53,7 +55,16 @@ class CssRenderTest {
     fun toCssHsl() = forall(
             row(H(0, 0, 0), "hsl(0, 0%, 0%)"),
             row(H(0, 0, 0, namedHsla = true), "hsla(0, 0%, 0%)"),
-            row(H(0, 0, 0, .5f), "hsl(0, 0%, 0%, .5)")
+            row(H(0, 0, 0, .5f), "hsl(0, 0%, 0%, .5)"),
+            row(H(0, 0, 0, .5f, commas = false), "hsl(0 0% 0% / .5)"),
+            row(H(0, 0, 0, commas = false), "hsl(0 0% 0%)"),
+            row(H(0, 0, 0, .5f, alphaPercent = true), "hsl(0, 0%, 0%, 50%)"),
+            row(H(0, 0, 0, renderAlpha = ALWAYS), "hsl(0, 0%, 0%, 1)"),
+            row(H(0, 0, 0, .5f, renderAlpha = NEVER), "hsl(0, 0%, 0%)"),
+            row(H(180, 50, 50, hueUnit = DEGREES), "hsl(180deg, 50%, 50%)"),
+            row(H(180, 50, 50, hueUnit = GRADIANS), "hsl(200grad, 50%, 50%)"),
+            row(H(180, 50, 50, hueUnit = RADIANS), "hsl(3.1416rad, 50%, 50%)"),
+            row(H(180, 50, 50, hueUnit = TURNS), "hsl(.5turn, 50%, 50%)")
     ) { (h, s, l, a, commas, namedHsla, hueUnit, alphaPercent, renderAlpha), expected ->
         HSL(h, s, l, a).toCssHsl(commas, namedHsla, hueUnit, alphaPercent, renderAlpha) shouldBe expected
     }

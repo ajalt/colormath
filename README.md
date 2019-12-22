@@ -34,7 +34,7 @@ HSV(h=211, s=28, v=94)
 > RGB(r=12, g=128, b=255, a=.5f).toCMYK()
 CMYK(c=95, m=50, y=0, k=0, a=.5f)
 
-> HSL(180, 50, 50).toHex(withNumberSign = true)
+> HSL(180, 50, 50).toHex()
 "#40bfbf"
 ```
 
@@ -43,19 +43,19 @@ CMYK(c=95, m=50, y=0, k=0, a=.5f)
 You can parse any color allowed by the CSS Color Module Levels 1 through 4.
 
 ```kotlin
-> ColorMath.parseCssColor("#ff0099ff")
-RGB(255, 0, 153)
+> ConvertableColor.fromCss("#ff009980")
+RGB(r=255, g=0, b=153, a=.5)
 
-> ColorMath.parseCssColor("rgb(100%, 0%, 60%)")
-RGB(255, 0, 153)
+> ConvertableColor.fromCss("rgb(100%, 0%, 60%)")
+RGB(r=255, g=0, b=153, a=1)
 
-> ColorMath.parseCssColor("rgb(1e2, .5e1, .5e0, +.25e2%)")
-RGB(100, 5, 1, .25f)
+> ConvertableColor.fromCss("rgb(1e2, .5e1, .5e0, +.25e2%)")
+RGB(r=100, g=5, b=1, a=.25)
 
-> ColorMath.parseCssColor("hsl(.75turn, 60%, 70%)")
-HSL(270, 60, 70)
+> ConvertableColor.fromCss("hsl(.75turn, 60%, 70%)")
+HSL(h=270, s=60, l=70, a=1)
 
-> ColorMath.parseCssColor("rebeccapurple").toHex(withNumberSign = true)
+> ConvertableColor.fromCss("rebeccapurple").toHex()
 "#663399"
 ``` 
 
