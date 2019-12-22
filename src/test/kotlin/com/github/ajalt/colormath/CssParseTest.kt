@@ -6,10 +6,10 @@ import io.kotlintest.shouldThrow
 import io.kotlintest.tables.row
 import org.junit.Test
 
-class ColorMathTest {
+class CssParseTest {
     @Test
     fun `parseCssColor named`() {
-        ColorMath.parseCssColor("rebeccapurple") shouldBe RGB("#663399")
+        ConvertibleColor.fromCss("rebeccapurple") shouldBe RGB("#663399")
     }
 
     @Test
@@ -54,7 +54,7 @@ class ColorMathTest {
             row("hsl(1Deg,2%,3%)")
     ) {
         shouldThrow<IllegalArgumentException> {
-            ColorMath.parseCssColor(it)
+            ConvertibleColor.fromCss(it)
         }
     }
 
@@ -81,12 +81,12 @@ class ColorMathTest {
             row("rgb(255 0 153 / 100%)"),
             row("rgb(255, 0, 153.4, 1)")
     ) {
-        ColorMath.parseCssColor(it) shouldBe RGB(255, 0, 153)
+        ConvertibleColor.fromCss(it) shouldBe RGB(255, 0, 153)
     }
 
     @Test
     fun `parseCssColor float exponents`() {
-        ColorMath.parseCssColor("rgb(1e2, .5e1, .5e0, +.25e2%)") shouldBe RGB(100, 5, 1, .25f)
+        ConvertibleColor.fromCss("rgb(1e2, .5e1, .5e0, +.25e2%)") shouldBe RGB(100, 5, 1, .25f)
     }
 
     @Test
@@ -103,7 +103,7 @@ class ColorMathTest {
             row("rgba(51 170 51 / 40%)", .4f),
             row("rgba(51, 170, 50.6, 1)", 1f)
     ) { color, alpha ->
-        ColorMath.parseCssColor(color) shouldBe RGB(51, 170, 51, alpha)
+        ConvertibleColor.fromCss(color) shouldBe RGB(51, 170, 51, alpha)
     }
 
     @Test
@@ -125,7 +125,7 @@ class ColorMathTest {
             row("hsla(240 100% 50% / .05)", 240, 100, 50, .05f),
             row("hsla(240 100% 50% / 5%)", 240, 100, 50, .05f)
     ) { color, h, s, l, alpha ->
-        ColorMath.parseCssColor(color) shouldBe HSL(h, s, l, alpha)
+        ConvertibleColor.fromCss(color) shouldBe HSL(h, s, l, alpha)
     }
 
     @Test
@@ -152,6 +152,6 @@ class ColorMathTest {
             row("0turn", 0),
             row("0rad", 0)
     ) { angle, degrees ->
-        ColorMath.parseCssColor("hsl($angle, 0%, 0%)") shouldBe HSL(degrees, 0, 0)
+        ConvertibleColor.fromCss("hsl($angle, 0%, 0%)") shouldBe HSL(degrees, 0, 0)
     }
 }

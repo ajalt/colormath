@@ -57,4 +57,6 @@ interface ConvertibleColor {
 
     /** Convert this color to CIE LAB */
     fun toLAB(): LAB = toRGB().toLAB()
+
+    companion object // enables extensions on the interface
 }

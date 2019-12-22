@@ -7,6 +7,8 @@
 
 ### Changed
 - `withNumberSign` parameter of `toHex` now defaults to `true`
+- `ColorMath.parseCssColor()` renamed to `ConvertableColor.fromCss()` 
+
  
 ## [1.3.0] - 2019-12-19
 ### Added
