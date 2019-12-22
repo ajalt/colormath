@@ -22,10 +22,11 @@ converted to another form such as RGB and then to final color space.
 
 ### Conversion
 
-Each color space is represented with a data class, and contains
-`.toXXX()` methods to convert to other spaces. All color classes contain an `alpha` channel, which
-defaults to `1` (fully opaque) for color spaces that don't support transparency (such as ANSI color
-codes).
+Each color space is represented with a data class, and contains `.toXXX()` methods to convert to
+other spaces.
+
+All color classes contain an `alpha` channel, which defaults to `1` (fully opaque) for color spaces
+that don't support transparency (such as ANSI color codes).
 
 ```kotlin
 > RGB("#adcdef").toHSV()
@@ -38,7 +39,7 @@ CMYK(c=95, m=50, y=0, k=0, a=.5f)
 "#40bfbf"
 ```
 
-### Parsing
+### CSS Parsing and rendering
 
 You can parse any color allowed by the CSS Color Module Levels 1 through 4.
 
@@ -57,11 +58,24 @@ HSL(h=270, s=60, l=70, a=1)
 
 > ConvertableColor.fromCss("rebeccapurple").toHex()
 "#663399"
+```
+
+You can also render any color in CSS `rgb` or `hsl` functional or whitespace notation
+
+```kotlin
+> RGB(255, 0, 128).toCssRgb()
+"rgb(255, 0, 128)"
+
+> RGB(255, 0, 128, .5f).toCssRgb(rgbStyle=PERCENT)
+"rgb(100%, 0%, 50%, .5)"
+
+> XYZ(25.0, 50.0, 75.0, .5f).toCssHsl(commas = false, hueUnit = RADIANS)
+"hsl(3.1241rad 100% 44% / .5)"
 ``` 
 
 ## API Documentation
 
-API docs are [hosted on JitPack](https://jitpack.io/com/github/ajalt/colormath/1.3.0/javadoc/).
+API docs are [hosted on JitPack](https://jitpack.io/com/github/ajalt/colormath/1.4.0/javadoc/).
 
 ## Installation
 
@@ -71,7 +85,7 @@ Colormath is distributed through Maven Central,
 
 ```groovy
 dependencies {
-   compile 'com.github.ajalt:colormath:1.3.0'
+   compile 'com.github.ajalt:colormath:1.4.0'
 }
 ```
 
