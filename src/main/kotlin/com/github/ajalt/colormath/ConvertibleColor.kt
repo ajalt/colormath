@@ -14,6 +14,8 @@ package com.github.ajalt.colormath
  * support an alpha channel, the value 1 (fully opaque) is used.
  */
 interface ConvertibleColor {
+    enum class RenderAlpha { ALWAYS, NEVER, AUTO }
+
     /** The opacity of this color, in the range \[0, 1]. */
     val alpha: Float get() = 1f
 
@@ -23,10 +25,17 @@ interface ConvertibleColor {
     /**
      * Convert this color to an RGB hex string.
      *
+     * If [renderAlpha] is `ALWAYS`, the [alpha] value will be added e.g. the `aa` in `#ffffffaa`.
+     * If it's `NEVER`, the [alpha] will be omitted. If it's `NEVER`, then the [alpha] will be added
+     * if it's less than 1.
+     *
      * @return A string in the form `"#ffffff"` if [withNumberSign] is true,
      *     or in the form `"ffffff"` otherwise.
      */
-    fun toHex(withNumberSign: Boolean = false): String = toRGB().toHex(withNumberSign)
+    fun toHex(
+            withNumberSign: Boolean = true,
+            renderAlpha: RenderAlpha = RenderAlpha.AUTO
+    ): String = toRGB().toHex(withNumberSign)
 
     /** Convert this color to Hue-Saturation-Luminosity */
     fun toHSL(): HSL = toRGB().toHSL()

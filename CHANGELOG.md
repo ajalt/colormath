@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Added 
+- `toHex()` now has a `renderAlpha` parameter that lets you render the color's alpha channel in the hex. By default the alpha will be added if it's < 1.  
 
 ## [1.3.0] - 2019-12-19
 ### Added
