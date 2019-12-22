@@ -2,9 +2,10 @@
 
 ## [Unreleased]
 ### Added 
-- `hueAsRad`, `hueAsGrad`, and `hueAsTurns` extensions for `HSL` and `HSV` classes.
+- `hueAsRad()`, `hueAsGrad()`, and `hueAsTurns()` extensions for `HSL` and `HSV` classes.
 - `toHex()` now has a `renderAlpha` parameter that lets you render the color's alpha channel in the hex. By default the alpha will be added if it's < 1.  
 - `toCssRgb()` and `toCssHsl()` extensions to render colors as CSS color functions
+- `RGB.toPackedInt()` to convert a color to a single integer.
 
 ### Changed
 - `withNumberSign` parameter of `toHex` now defaults to `true`

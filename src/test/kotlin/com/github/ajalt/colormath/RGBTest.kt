@@ -2,6 +2,8 @@ package com.github.ajalt.colormath
 
 import io.kotlintest.data.forall
 import io.kotlintest.matchers.doubles.plusOrMinus
+import io.kotlintest.properties.Gen
+import io.kotlintest.properties.assertAll
 import io.kotlintest.shouldBe
 import io.kotlintest.tables.row
 import org.junit.Test
@@ -62,9 +64,10 @@ class RGBTest {
     @Test
     fun `RGB to Hex`() {
         forall(
-                row(RGB(0, 0, 0).toHex(), "000000"),
+                row(RGB(0, 0, 0).toHex(false), "000000"),
+                row(RGB(140, 200, 100).toHex(), "#8cc864"),
                 row(RGB(140, 200, 100).toHex(true), "#8cc864"),
-                row(RGB(255, 255, 255).toHex(), "ffffff")
+                row(RGB(255, 255, 255).toHex(false), "ffffff")
         ) { actual, expected ->
             actual shouldBe expected
         }
@@ -154,6 +157,20 @@ class RGBTest {
                 row(RGB(238, 238, 238), 254)
         ) { rgb, ansi ->
             rgb.toAnsi256() shouldBe Ansi256(ansi)
+        }
+    }
+
+    @Test
+    fun toPackedInt() {
+        assertAll(
+                10000,
+                Gen.choose(0, 255),
+                Gen.choose(0, 255),
+                Gen.choose(0, 255),
+                Gen.choose(0, 255)
+        ) { r, g, b, a ->
+            val rgb = RGB(r, g, b, a / 255f)
+            RGB.fromInt(rgb.toPackedInt()) shouldBe rgb
         }
     }
 }

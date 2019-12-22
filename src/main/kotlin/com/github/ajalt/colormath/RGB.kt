@@ -70,6 +70,14 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Converti
 
     override val alpha: Float get() = a
 
+    /**
+     * Return this color as a packed ARGB integer, such as those returned from
+     * `android.graphics.Color.argb` or `java.awt.image.BufferedImage.getRGB`.
+     */
+    fun toPackedInt(): Int {
+        return (a * 0xff).roundToInt() shl 24 or (r shl 16) or (g shl 8) or b
+    }
+
     override fun toHex(withNumberSign: Boolean, renderAlpha: RenderCondition): String = buildString(9) {
         if (withNumberSign) append('#')
         append(r.renderHex()).append(g.renderHex()).append(b.renderHex())
