@@ -75,7 +75,7 @@ You can also render any color in CSS `rgb` or `hsl` functional or whitespace not
 
 ## API Documentation
 
-API docs are [hosted on JitPack](https://jitpack.io/com/github/ajalt/colormath/1.4.0/javadoc/).
+API docs are [hosted on JitPack](https://jitpack.io/com/github/ajalt/colormath/1.4.1/javadoc/).
 
 ## Installation
 
@@ -85,7 +85,7 @@ Colormath is distributed through Maven Central,
 
 ```groovy
 dependencies {
-   compile 'com.github.ajalt:colormath:1.4.0'
+   compile 'com.github.ajalt:colormath:1.4.1'
 }
 ```
 

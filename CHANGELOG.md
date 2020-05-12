@@ -1,8 +1,10 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.4.1] - 2020-05-12
 ### Fixed
-- `RGB(255,255, 255).toLAB()` would throw an exception.
+- Fix `RGB(255,255, 255).toLAB()` throwing an exception due to rounding precision.
 
 ## [1.4.0] - 2019-12-22
 ### Added 
