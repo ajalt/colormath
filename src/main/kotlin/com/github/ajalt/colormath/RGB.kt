@@ -159,6 +159,7 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Converti
         val gL = adj(g)
         val bL = adj(b)
 
+        // Matrix from http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
         val x = 0.4124564 * rL + 0.3575761 * gL + 0.1804375 * bL
         val y = 0.2126729 * rL + 0.7151522 * gL + 0.0721750 * bL
         val z = 0.0193339 * rL + 0.1191920 * gL + 0.9503041 * bL

@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- `RGB(255,255, 255).toLAB()` would throw an exception.
 
 ## [1.4.0] - 2019-12-22
 ### Added 

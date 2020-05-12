@@ -7,8 +7,7 @@ import kotlin.math.pow
  *
  * Conversions use D65 reference white, and sRGB profile.
  *
- * [l] is in the interval `[0, 100]`. [a] and [b] have unlimited range,
- * but are generally in `[-100, 100]`
+ * [l] is in the range `[0, 100]`. [a] and [b] are in the range [-128, 128]
  */
 data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: Float = 1f) : ConvertibleColor {
     init {

@@ -14,9 +14,9 @@ import kotlin.math.roundToInt
  */
 data class HSV(override val h: Int, val s: Int, val v: Int, val a: Float = 1f) : ConvertibleColor, HueColor {
     init {
-        require(h in 0..360) { "h must be in range [0, 360]" }
-        require(s in 0..100) { "s must be in range [0, 100]" }
-        require(v in 0..100) { "v must be in range [0, 100]" }
+        require(h in 0..360) { "h must be in range [0, 360] in $this" }
+        require(s in 0..100) { "s must be in range [0, 100] in $this" }
+        require(v in 0..100) { "v must be in range [0, 100] in $this" }
         require(a in 0f..1f) { "a must be in range [0, 1] in $this" }
     }
 
