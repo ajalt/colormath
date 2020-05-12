@@ -6,7 +6,7 @@ import kotlin.math.roundToInt
 /**
  * CIE XYZ color space.
  *
- * Conversions use D65 reference white, and sRGB profile.
+ * Conversions use D65/2° illuminant, and sRGB profile.
  *
  * [x], [y], and [z] are generally in the interval `[0, 100]`, but may be larger
  */
@@ -34,6 +34,7 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
             return (255 * adj.coerceIn(0.0, 1.0)).roundToInt()
         }
 
+        // Matrix from http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
         val r = 3.2404542 * x - 1.5371385 * y - 0.4985314 * z
         val g = -0.9692660 * x + 1.8760108 * y + 0.0415560 * z
         val b = 0.0556434 * x - 0.2040259 * y + 1.0572252 * z
@@ -42,7 +43,7 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
 
     override fun toLAB(): LAB {
         fun f(t: Double) = when {
-            t > 0.008856 -> t.pow(1 / 3.0)
+            t > 0.008856 -> Math.cbrt(t)
             else -> (t * 7.787037) + (4 / 29.0)
         }
 
@@ -55,6 +56,6 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
         val a = 500 * (fx - fy)
         val b = 200 * (fy - fz)
 
-        return LAB(l, a, b, alpha)
+        return LAB(l.coerceIn(0.0, 100.0), a, b, alpha)
     }
 }

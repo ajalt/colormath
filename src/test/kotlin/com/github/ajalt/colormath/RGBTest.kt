@@ -90,19 +90,39 @@ class RGBTest {
     fun `RGB to XYZ`() {
         forall(
                 row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
-                row(RGB(255, 255, 255), 95.0, 100.0, 108.8),
-                row(RGB(255, 0, 0), 41.2, 21.3, 01.9),
-                row(RGB(0, 255, 0), 35.7, 71.5, 11.9),
-                row(RGB(0, 0, 255), 18.0, 07.2, 95.0),
-                row(RGB(255, 255, 0), 77.0, 92.7, 13.8),
-                row(RGB(0, 255, 255), 53.8, 78.7, 106.9),
-                row(RGB(255, 0, 255), 59.2, 28.4, 96.9),
-                row(RGB(92, 191, 84), 25.0, 40.0, 15.0)
+                row(RGB(255, 255, 255), 95.04, 100.00, 108.88),
+                row(RGB(255, 0, 0), 41.24, 21.26, 1.93),
+                row(RGB(0, 255, 0), 35.75, 71.51, 11.91),
+                row(RGB(0, 0, 255), 18.04, 7.21, 95.03),
+                row(RGB(255, 255, 0), 77.00, 92.78, 13.85),
+                row(RGB(0, 255, 255), 53.80, 78.73, 106.95),
+                row(RGB(255, 0, 255), 59.28, 28.48, 96.964),
+                row(RGB(92, 191, 84), 24.64, 40.17, 14.84)
         ) { rgb, x, y, z ->
             val xyz = rgb.toXYZ()
-            xyz.x shouldBe (x plusOrMinus 0.5)
-            xyz.y shouldBe (y plusOrMinus 0.5)
-            xyz.z shouldBe (z plusOrMinus 0.5)
+            xyz.x shouldBe (x plusOrMinus 0.01)
+            xyz.y shouldBe (y plusOrMinus 0.01)
+            xyz.z shouldBe (z plusOrMinus 0.01)
+        }
+    }
+
+    @Test
+    fun `RGB to LAB`() {
+        forall(
+                row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
+                row(RGB(255, 255, 255), 100.0, 0.0, 0.0),
+                row(RGB(255, 0, 0), 53.24, 80.09, 67.20),
+                row(RGB(0, 255, 0), 87.73, -86.18, 83.17),
+                row(RGB(0, 0, 255), 32.29, 79.18, -107.86),
+                row(RGB(255, 255, 0), 97.13, -21.55, 94.47),
+                row(RGB(0, 255, 255), 91.11, -48.08, -14.13),
+                row(RGB(255, 0, 255), 60.32, 98.23, -60.82),
+                row(RGB(92, 191, 84), 69.59, -50.11, 44.64)
+        ) { rgb, l, a, b ->
+            val xyz = rgb.toLAB()
+            xyz.l shouldBe (l plusOrMinus 0.01)
+            xyz.a shouldBe (a plusOrMinus 0.01)
+            xyz.b shouldBe (b plusOrMinus 0.01)
         }
     }
 
