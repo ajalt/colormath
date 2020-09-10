@@ -10,7 +10,7 @@ import kotlin.math.roundToInt
  *
  * [x], [y], and [z] are generally in the interval `[0, 100]`, but may be larger
  */
-data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) : ConvertibleColor {
+data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) : Color {
     init {
         require(x >= 0) { "x must be >= 0 in $this" }
         require(y >= 0) { "y must be >= 0 in $this" }

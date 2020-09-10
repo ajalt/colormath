@@ -11,7 +11,7 @@ import kotlin.math.roundToInt
  * @property b The blue channel, a value in the range `[0, 255]`
  * @property a The alpha channel, a value in the range `[0f, 1f]`
  */
-data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : ConvertibleColor {
+data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     companion object {
         /**
          * Create an [RGB] instance from a packed (a)rgb integer, such as those returned from

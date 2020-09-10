@@ -5,7 +5,7 @@ import kotlin.math.floor
 /**
  * An ANSI-256 color code
  */
-data class Ansi256(val code: Int) : ConvertibleColor {
+data class Ansi256(val code: Int) : Color {
     init {
         check(code in 0..255) { "code must be in range [0,255]: $code" }
     }

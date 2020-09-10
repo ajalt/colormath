@@ -2,7 +2,7 @@ package com.github.ajalt.colormath
 
 import kotlin.math.roundToInt
 
-data class CMYK(val c: Int, val m: Int, val y: Int, val k: Int, val a: Float = 1f) : ConvertibleColor {
+data class CMYK(val c: Int, val m: Int, val y: Int, val k: Int, val a: Float = 1f) : Color {
     init {
         require(c in 0..100) { "c must be in range [0, 100] in $this" }
         require(m in 0..100) { "m must be in range [0, 100] in $this" }

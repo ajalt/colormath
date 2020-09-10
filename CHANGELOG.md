@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Deprecated
+- Renamed `ConvertibleColor` to `Color`. The old name is left as a deprecated type alias. 
+
 ## [1.4.1] - 2020-05-12
 ### Fixed
 - Fix `RGB(255,255, 255).toLAB()` throwing an exception due to rounding precision.

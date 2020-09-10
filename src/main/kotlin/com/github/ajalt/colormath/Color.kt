@@ -13,8 +13,8 @@ package com.github.ajalt.colormath
  * All colors have an [alpha] value, which is the opacity of the color. If a colorspace doesn't
  * support an alpha channel, the value 1 (fully opaque) is used.
  */
-interface ConvertibleColor {
-    /** The opacity of this color, in the range \[0, 1]. */
+interface Color {
+    /** The opacity of this color, in the range `[0, 1]`. */
     val alpha: Float get() = 1f
 
     /** Convert this color to Red-Green-Blue (using sRGB color space) */
@@ -58,3 +58,6 @@ interface ConvertibleColor {
 
     companion object // enables extensions on the interface
 }
+
+@Deprecated("This interface has been renamed Color", replaceWith = ReplaceWith("Color"))
+typealias ConvertibleColor = Color

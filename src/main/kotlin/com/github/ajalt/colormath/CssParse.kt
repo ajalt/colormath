@@ -7,7 +7,7 @@ import kotlin.math.PI
  *
  * @throws IllegalArgumentException if the value cannot be parsed
  */
-fun ConvertibleColor.Companion.fromCss(color: String): ConvertibleColor {
+fun Color.Companion.fromCss(color: String): Color {
     val trimmed = color.trim()
     try {
         val keywordColor = CssColors.colorsByName[trimmed]
@@ -57,7 +57,7 @@ private fun parseRgb(color: String): RGB {
     )
 }
 
-private fun parseHex(hex: String): ConvertibleColor {
+private fun parseHex(hex: String): Color {
     return when (hex.length) {
         4, 5 -> RGB(hex.map { "$it$it" }.joinToString("").drop(1))
         else -> RGB(hex)

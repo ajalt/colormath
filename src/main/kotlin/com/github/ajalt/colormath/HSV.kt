@@ -12,7 +12,7 @@ import kotlin.math.roundToInt
  * @property v The value, as a percent in the range `[0, 100]`
  * @property a The alpha, as a fraction in the range `[0, 1]`
  */
-data class HSV(override val h: Int, val s: Int, val v: Int, val a: Float = 1f) : ConvertibleColor, HueColor {
+data class HSV(override val h: Int, val s: Int, val v: Int, val a: Float = 1f) : Color, HueColor {
     init {
         require(h in 0..360) { "h must be in range [0, 360] in $this" }
         require(s in 0..100) { "s must be in range [0, 100] in $this" }

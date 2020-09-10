@@ -38,7 +38,7 @@ enum class AngleUnit {
  * "rgb(255 0 128 / .5)"
  * ```
  *
- *  * ```
+ * ```
  * > RGB(255, 0, 128, .5f).toCssRgb(rgbStyle=PERCENT)
  * "rgb(100%, 0%, 50%, .5)"
  * ```
@@ -49,7 +49,7 @@ enum class AngleUnit {
  * @param alphaPercent If true, render the alpha as a percentage. By default, its rendered as a float.
  * @param renderAlpha Whether or not to render the alpha value.
  */
-fun ConvertibleColor.toCssRgb(
+fun Color.toCssRgb(
         commas: Boolean = true,
         namedRgba: Boolean = false,
         rgbPercent: Boolean = false,
@@ -98,7 +98,7 @@ fun ConvertibleColor.toCssRgb(
  * @param alphaPercent If true, render the alpha as a percentage. By default, its rendered as a float.
  * @param renderAlpha Whether or not to render the alpha value.
  */
-fun ConvertibleColor.toCssHsl(
+fun Color.toCssHsl(
         commas: Boolean = true,
         namedHsla: Boolean = false,
         hueUnit: AngleUnit = AngleUnit.AUTO,

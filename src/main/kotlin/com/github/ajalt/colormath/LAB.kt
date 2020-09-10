@@ -9,7 +9,7 @@ import kotlin.math.pow
  *
  * [l] is in the range `[0, 100]`. [a] and [b] are in the range [-128, 128]
  */
-data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: Float = 1f) : ConvertibleColor {
+data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: Float = 1f) : Color {
     init {
         require(l in 0.0..100.0) { "l must be in interval [0, 100] in $this" }
         require(alpha in 0f..1f) { "a must be in range [0, 1] in $this" }
