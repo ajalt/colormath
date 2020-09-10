@@ -1,14 +1,16 @@
 package com.github.ajalt.colormath
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.tables.row
-import org.junit.Test
+import io.kotest.data.blocking.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import kotlin.js.JsName
+import kotlin.test.Test
 
 class HSLTest {
     @Test
+    @JsName("HSL_to_RGB")
     fun `HSL to RGB`() {
-        forall(
+        forAll(
                 row(HSL(0, 0, 0), RGB(0, 0, 0)),
                 row(HSL(96, 48, 59), RGB(140, 201, 100)),
                 row(HSL(279, 73, 13), RGB(40, 9, 57)),
@@ -19,8 +21,9 @@ class HSLTest {
     }
 
     @Test
+    @JsName("HSL_to_HSV")
     fun `HSL to HSV`() {
-        forall(
+        forAll(
                 row(HSL(0, 0, 0), HSV(0, 0, 0)),
                 row(HSL(96, 48, 59), HSV(96, 50, 79)),
                 row(HSL(279, 73, 13), HSV(279, 84, 22)),
@@ -31,8 +34,9 @@ class HSLTest {
     }
 
     @Test
+    @JsName("HSL_indirect_conversions")
     fun `HSL indirect conversions`() {
-        forall(
+        forAll(
                 row(HSL(240, 100, 50).toAnsi16(), Ansi16(94)),
                 row(HSL(240, 100, 50).toAnsi256(), Ansi256(21))
         ) { actual, expected ->

@@ -1,19 +1,23 @@
 package com.github.ajalt.colormath
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldThrow
-import io.kotlintest.tables.row
-import org.junit.Test
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.data.blocking.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import kotlin.js.JsName
+import kotlin.test.Test
+
 
 class CssParseTest {
     @Test
+    @JsName("parseCssColor_named")
     fun `parseCssColor named`() {
         Color.fromCss("rebeccapurple") shouldBe RGB("#663399")
     }
 
     @Test
-    fun `parseCssColor invalid`() = forall(
+    @JsName("parseCssColor_invalid")
+    fun `parseCssColor invalid`() = forAll(
             row(""),
             row("foo"),
             row("#ff"),
@@ -60,7 +64,8 @@ class CssParseTest {
 
     // Cases mostly from https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
     @Test
-    fun `parseCssColor valid`() = forall(
+    @JsName("parseCssColor_valid")
+    fun `parseCssColor valid`() = forAll(
             row("#f09"),
             row("#F09"),
             row("#ff0099"),
@@ -85,12 +90,14 @@ class CssParseTest {
     }
 
     @Test
+    @JsName("parseCssColor_float_exponents")
     fun `parseCssColor float exponents`() {
         Color.fromCss("rgb(1e2, .5e1, .5e0, +.25e2%)") shouldBe RGB(100, 5, 1, .25f)
     }
 
     @Test
-    fun `parseCssColor alpha`() = forall(
+    @JsName("parseCssColor_alpha")
+    fun `parseCssColor alpha`() = forAll(
             row("#3a30", 0f),
             row("#3A3F", 1f),
             row("#33aa3300", 0f),
@@ -107,7 +114,8 @@ class CssParseTest {
     }
 
     @Test
-    fun `parseCssColor hsl`() = forall(
+    @JsName("parseCssColor_hsl")
+    fun `parseCssColor hsl`() = forAll(
             row("hsl(270,60%,70%)", 270, 60, 70, 1f),
             row("hsl(270, 60%, 70%)", 270, 60, 70, 1f),
             row("hsl(270 60% 70%)", 270, 60, 70, 1f),
@@ -129,7 +137,8 @@ class CssParseTest {
     }
 
     @Test
-    fun `parseCssColor hsl angles`() = forall(
+    @JsName("parseCssColor_hsl_angles")
+    fun `parseCssColor hsl angles`() = forAll(
             row("90", 90),
             row("1170", 90),
             row("90deg", 90),

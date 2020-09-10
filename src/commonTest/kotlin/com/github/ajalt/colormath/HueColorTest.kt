@@ -1,11 +1,9 @@
 package com.github.ajalt.colormath
 
-import io.kotlintest.assertSoftly
-import io.kotlintest.shouldBe
-import org.junit.Test
-
-import org.junit.Assert.*
+import io.kotest.assertions.assertSoftly
+import io.kotest.matchers.shouldBe
 import kotlin.math.PI
+import kotlin.test.Test
 
 class HueColorTest {
     @Test

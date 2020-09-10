@@ -1,14 +1,16 @@
 package com.github.ajalt.colormath
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.tables.row
-import org.junit.Test
+import io.kotest.data.blocking.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import kotlin.js.JsName
+import kotlin.test.Test
 
 class Ansi16Test {
     @Test
+    @JsName("Ansi16_to_RGB")
     fun `Ansi16 to RGB`() {
-        forall(
+        forAll(
                 row(30, RGB(0, 0, 0)),
                 row(31, RGB(128, 0, 0)),
                 row(32, RGB(0, 128, 0)),
@@ -31,8 +33,9 @@ class Ansi16Test {
     }
 
     @Test
+    @JsName("Ansi16_to_Ansi256")
     fun `Ansi16 to Ansi256`() {
-        forall(
+        forAll(
                 row(30, 0),
                 row(31, 1),
                 row(32, 2),

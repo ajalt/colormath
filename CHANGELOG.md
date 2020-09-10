@@ -2,8 +2,14 @@
 
 ## [Unreleased]
 
+### Added 
+- Added multiplatform support.
+
+### Changed
+- Moved maven coordinates to `com.github.ajalt.clikt`.
+
 ### Deprecated
-- Renamed `ConvertibleColor` to `Color`. The old name is left as a deprecated type alias. 
+- Renamed `ConvertibleColor` to `Color`. The old name is left as a deprecated type alias.
 
 ## [1.4.1] - 2020-05-12
 ### Fixed

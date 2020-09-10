@@ -134,7 +134,12 @@ private fun Float.render(percent: Boolean = false): String = when (percent) {
     false -> when (this) {
         0f -> "0"
         1f -> "1"
-        else -> String.format("%.4f", this).trim('0').trimEnd('.')
+        else -> {
+            val str = toString()
+            val i = str.indexOf('.')
+            if (i < 0) str else str.take(i + 5).trim('0').trimEnd('.')
+        }
     }
 }
+
 

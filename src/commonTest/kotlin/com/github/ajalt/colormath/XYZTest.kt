@@ -1,15 +1,17 @@
 package com.github.ajalt.colormath
 
-import io.kotlintest.data.forall
-import io.kotlintest.matchers.doubles.plusOrMinus
-import io.kotlintest.shouldBe
-import io.kotlintest.tables.row
-import org.junit.Test
+import io.kotest.data.blocking.forAll
+import io.kotest.data.row
+import io.kotest.matchers.doubles.plusOrMinus
+import io.kotest.matchers.shouldBe
+import kotlin.js.JsName
+import kotlin.test.Test
 
 class XYZTest {
     @Test
+    @JsName("XYZ_to_RGB")
     fun `XYZ to RGB`() {
-        forall(
+        forAll(
                 row(XYZ(000.0, 000.0, 000.0), RGB(0, 0, 0)),
                 row(XYZ(025.0, 025.0, 025.0), RGB(149, 134, 131)),
                 row(XYZ(050.0, 050.0, 050.0), RGB(204, 183, 180)),
@@ -24,8 +26,9 @@ class XYZTest {
     }
 
     @Test
+    @JsName("XYZ_to_LAB")
     fun `XYZ to LAB`() {
-        forall(
+        forAll(
                 row(XYZ(000.0, 000.0, 000.0), 0.0, 0.0, 0.0),
                 row(XYZ(025.0, 025.0, 025.0), 57.075, 5.379, 3.524),
                 row(XYZ(050.0, 050.0, 050.0), 76.069, 6.777, 4.440),

@@ -1,14 +1,16 @@
 package com.github.ajalt.colormath
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.tables.row
-import org.junit.Test
+import io.kotest.data.blocking.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import kotlin.js.JsName
+import kotlin.test.Test
 
 class CMYKTest {
     @Test
+    @JsName("CMYK_to_RGB")
     fun `CMYK to RGB`() {
-        forall(
+        forAll(
                 row(CMYK(0, 0, 0, 0), RGB(255, 255, 255)),
                 row(CMYK(0, 0, 0, 100), RGB(0, 0, 0)),
                 row(CMYK(0, 100, 100, 0), RGB(255, 0, 0)),

@@ -1,23 +1,25 @@
 package com.github.ajalt.colormath
 
-import io.kotlintest.data.forall
-import io.kotlintest.matchers.doubles.plusOrMinus
-import io.kotlintest.properties.Gen
-import io.kotlintest.properties.assertAll
-import io.kotlintest.shouldBe
-import io.kotlintest.tables.row
-import org.junit.Test
-
-
-private fun packRgb(red: Int, green: Int, blue: Int): Int {
-    // Formula matches Android's Color.java
-    return -0x1000000 or (red shl 16) or (green shl 8) or blue
-}
+import io.kotest.assertions.withClue
+import io.kotest.data.blocking.forAll
+import io.kotest.data.row
+import io.kotest.matchers.doubles.plusOrMinus
+import io.kotest.matchers.shouldBe
+import kotlin.js.JsName
+import kotlin.random.Random
+import kotlin.random.nextInt
+import kotlin.test.Test
 
 class RGBTest {
+    private fun packRgb(red: Int, green: Int, blue: Int): Int {
+        // Formula matches Android's Color.java
+        return -0x1000000 or (red shl 16) or (green shl 8) or blue
+    }
+
     @Test
+    @JsName("RGB_from_bytes")
     fun `RGB from bytes`() {
-        forall(
+        forAll(
                 row(RGB(Byte.MIN_VALUE, Byte.MIN_VALUE, Byte.MIN_VALUE), RGB(0, 0, 0)),
                 row(RGB(Byte.MAX_VALUE, Byte.MAX_VALUE, Byte.MAX_VALUE), RGB(255, 255, 255)),
                 row(RGB(0.toByte(), 0.toByte(), 0.toByte()), RGB(128, 128, 128))
@@ -27,8 +29,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_from_packed")
     fun `RGB from packed`() {
-        forall(
+        forAll(
                 row(0, 0, 0),
                 row(76, 127, 201),
                 row(255, 255, 255)
@@ -38,8 +41,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_HSV")
     fun `RGB to HSV`() {
-        forall(
+        forAll(
                 row(RGB(0, 0, 0), HSV(0, 0, 0)),
                 row(RGB(140, 200, 100), HSV(96, 50, 78)),
                 row(RGB(96, 127, 83), HSV(102, 35, 50)),
@@ -50,8 +54,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_HSL")
     fun `RGB to HSL`() {
-        forall(
+        forAll(
                 row(RGB(0, 0, 0), HSL(0, 0, 0)),
                 row(RGB(140, 200, 100), HSL(96, 48, 59)),
                 row(RGB(96, 127, 83), HSL(102, 21, 41)),
@@ -62,8 +67,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_Hex")
     fun `RGB to Hex`() {
-        forall(
+        forAll(
                 row(RGB(0, 0, 0).toHex(false), "000000"),
                 row(RGB(140, 200, 100).toHex(), "#8cc864"),
                 row(RGB(140, 200, 100).toHex(true), "#8cc864"),
@@ -74,8 +80,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("Hex_to_RGB")
     fun `Hex to RGB`() {
-        forall(
+        forAll(
                 row("000000", RGB(0, 0, 0)),
                 row("#8CC864", RGB(140, 200, 100)),
                 row("ffffff", RGB(255, 255, 255)),
@@ -87,8 +94,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_XYZ")
     fun `RGB to XYZ`() {
-        forall(
+        forAll(
                 row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
                 row(RGB(255, 255, 255), 95.04, 100.00, 108.88),
                 row(RGB(255, 0, 0), 41.24, 21.26, 1.93),
@@ -107,8 +115,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_LAB")
     fun `RGB to LAB`() {
-        forall(
+        forAll(
                 row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
                 row(RGB(255, 255, 255), 100.0, 0.0, 0.0),
                 row(RGB(255, 0, 0), 53.24, 80.09, 67.20),
@@ -127,8 +136,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_CMYK")
     fun `RGB to CMYK`() {
-        forall(
+        forAll(
                 row(RGB(0, 0, 0), CMYK(0, 0, 0, 100)),
                 row(RGB(255, 255, 255), CMYK(0, 0, 0, 0)),
                 row(RGB(255, 0, 0), CMYK(0, 100, 100, 0)),
@@ -144,8 +154,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_Ansi16")
     fun `RGB to Ansi16`() {
-        forall(
+        forAll(
                 row(RGB(0, 0, 0), 30),
                 row(RGB(128, 0, 0), 31),
                 row(RGB(0, 128, 0), 32),
@@ -167,8 +178,9 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_Ansi256")
     fun `RGB to Ansi256`() {
-        forall(
+        forAll(
                 row(RGB(0, 0, 0), 16),
                 row(RGB(51, 102, 0), 64),
                 row(RGB(92, 191, 84), 114),
@@ -182,15 +194,17 @@ class RGBTest {
 
     @Test
     fun toPackedInt() {
-        assertAll(
-                10000,
-                Gen.choose(0, 255),
-                Gen.choose(0, 255),
-                Gen.choose(0, 255),
-                Gen.choose(0, 255)
-        ) { r, g, b, a ->
-            val rgb = RGB(r, g, b, a / 255f)
-            RGB.fromInt(rgb.toPackedInt()) shouldBe rgb
+        // kotest's property testing doesn't support K/N yet
+        repeat(10000) {
+            val rgb = RGB(
+                    r = Random.nextInt(0..255),
+                    g = Random.nextInt(0..255),
+                    b = Random.nextInt(0..255),
+                    a = Random.nextInt(0..255) / 255f
+            )
+            withClue("$rgb") {
+                RGB.fromInt(rgb.toPackedInt()) shouldBe rgb
+            }
         }
     }
 }

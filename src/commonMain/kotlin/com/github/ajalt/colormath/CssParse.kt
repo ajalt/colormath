@@ -114,6 +114,7 @@ private fun String.parse(
 
 private fun String.withoutUnit(count: Int): Float {
     val num = dropLast(count)
-    require(num.lastOrNull()?.isDigit() == true) { "Invalid number: $this" }
+
+    require(num.lastOrNull()?.let { it in '0'..'9' } == true) { "Invalid number: $this" }
     return num.toFloat()
 }

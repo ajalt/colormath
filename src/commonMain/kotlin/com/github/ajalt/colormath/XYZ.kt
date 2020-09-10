@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import kotlin.math.pow
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 /**
  * CIE XYZ color space.
@@ -43,7 +44,7 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
 
     override fun toLAB(): LAB {
         fun f(t: Double) = when {
-            t > 0.008856 -> Math.cbrt(t)
+            t > 0.008856 -> t.pow(1.0/3)
             else -> (t * 7.787037) + (4 / 29.0)
         }
 
