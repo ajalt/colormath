@@ -2,6 +2,11 @@ package com.github.ajalt.colormath
 
 import kotlin.math.roundToInt
 
+/**
+ * A color in the CMYK (cyan, magenta, yellow, and key) color space.
+ *
+ * All color channels are integers in the range `[0, 100]`.
+ */
 data class CMYK(val c: Int, val m: Int, val y: Int, val k: Int, val a: Float = 1f) : Color {
     init {
         require(c in 0..100) { "c must be in range [0, 100] in $this" }
