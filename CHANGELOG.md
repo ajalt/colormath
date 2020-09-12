@@ -6,7 +6,7 @@
 - Added multiplatform support.
 
 ### Changed
-- Moved maven coordinates to `com.github.ajalt.clikt`.
+- Moved maven coordinates to `com.github.ajalt.colormath`.
 
 ### Deprecated
 - Renamed `ConvertibleColor` to `Color`. The old name is left as a deprecated type alias.

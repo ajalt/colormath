@@ -29,6 +29,10 @@ kotlin {
     mingwX64()
     macosX64()
 
+    ios()
+    watchos()
+    tvos()
+
     sourceSets {
         val commonTest by getting {
             dependencies {
