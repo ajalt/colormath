@@ -2,11 +2,12 @@
 
 ## [Unreleased]
 
+## [2.0.0] - 2020-09-12
 ### Added 
 - Added multiplatform support.
 
 ### Changed
-- Moved maven coordinates to `com.github.ajalt.colormath`.
+- Moved maven coordinates to `com.github.ajalt.colormath:colormath:2.0.0`.
 
 ### Deprecated
 - Renamed `ConvertibleColor` to `Color`. The old name is left as a deprecated type alias.

@@ -1,7 +1,7 @@
 # Colormath
 
-Colormath is a library that allows you to convert between a number of color spaces, and to parse CSS
-colors into any of the supported color spaces.
+Colormath is a Kotlin Multiplatform library that allows you to convert between a number of color
+spaces, and to parse CSS colors into any of the supported color spaces.
 
 ## Supported color spaces
 
@@ -73,21 +73,43 @@ You can also render any color in CSS `rgb` or `hsl` functional or whitespace not
 "hsl(3.1241rad 100% 44% / .5)"
 ``` 
 
-## API Documentation
-
-API docs are [hosted on JitPack](https://jitpack.io/com/github/ajalt/colormath/1.4.1/javadoc/).
-
 ## Installation
 
-Colormath is distributed through Maven Central,
-[Jcenter](https://bintray.com/ajalt/maven/colormath) and
-[Jitpack](https://jitpack.io/#ajalt/colormath).
+Colormath is distributed through [Maven Central](https://search.maven.org/artifact/com.github.ajalt.colormath/colormath/).
 
 ```groovy
 dependencies {
-   compile 'com.github.ajalt:colormath:1.4.1'
+   implementation("com.github.ajalt.colormath:colormath:2.0.0")
 }
 ```
+
+###### In version 2.0, the maven coordinates changed. Make sure you're using the new coordinates if you're updating from an older version.
+
+#### Multiplatform
+
+Colormath supports the following targets: `jvm`, `mingwX64`, `linuxX64`, `macosX64`, `ios`,
+`watchos`, `tvos`, and `js` (for both NodeJS and Browsers). You'll need to use Gradle 6 or newer.
+
+#### Snapshots
+
+<details>
+<summary>Snapshot builds are also available</summary>
+
+<a href="https://oss.sonatype.org/content/repositories/snapshots/com/github/ajalt/colormath/colormath"><img src="https://img.shields.io/nexus/s/com.github.ajalt.colormath/colormath?color=blue&label=latest%20shapshot&server=https%3A%2F%2Foss.sonatype.org"/></a>
+
+<p>
+You'll need to add the Sonatype snapshots repository:
+
+```kotlin
+repositories {
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+}
+```
+</p>
+</details>
+
 
 ## License
 
