@@ -52,7 +52,7 @@ jobs:
               path: build-reports.zip
 
    deploy-mac-and-linux:
-      needs: build
+      needs: test
       runs-on: macOS-latest
       steps:
          - name: Checkout the repo
@@ -77,7 +77,7 @@ jobs:
               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_signingKey }}
 
    deploy-windows:
-      needs: build
+      needs: test
       runs-on: windows-latest
       steps:
          - name: Checkout the repo
