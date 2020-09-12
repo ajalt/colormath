@@ -38,7 +38,7 @@ jobs:
 
          - name: Run macOS tests
            if: matrix.os == 'macOS-latest'
-           run: ./gradlew macosX64Test
+           run: ./gradlew macosX64Test macosX64Test tvosX64Test watchosX86Test iosX64Test
 
          - name: Bundle the build report
            if: failure()
@@ -70,7 +70,7 @@ jobs:
                  ${{ runner.os }}-gradle-
 
          - name: Deploy to sonatype snapshots
-           run: ./gradlew :clikt:publish -PinferVersion=true
+           run: ./gradlew publish -PinferVersion=true
            env:
               ORG_GRADLE_PROJECT_SONATYPE_USERNAME: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_USERNAME }}
               ORG_GRADLE_PROJECT_SONATYPE_PASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_PASSWORD }}
@@ -95,7 +95,7 @@ jobs:
                ${{ runner.os }}-gradle-
 
          - name: Deploy to sonatype snapshots
-           run: ./gradlew :clikt:publishMingwX64PublicationToMavenRepository -PinferVersion=true
+           run: ./gradlew publishMingwX64PublicationToMavenRepository -PinferVersion=true
            env:
               ORG_GRADLE_PROJECT_SONATYPE_USERNAME: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_USERNAME }}
               ORG_GRADLE_PROJECT_SONATYPE_PASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_PASSWORD }}
