@@ -6,8 +6,13 @@ on:
       - '*.md'
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
+  test:
+    strategy:
+      matrix:
+        os: [macOS-latest, windows-latest, ubuntu-latest]
+
+    runs-on: ${{matrix.os}}
+
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -20,8 +25,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Run tests
+      - name: Run ubuntu tests
+        if: matrix.os == 'ubuntu-latest'
         run: ./gradlew check
+
+      - name: Run windows tests
+        if: matrix.os == 'windows-latest'
+        run: ./gradlew mingwX64Test
+
+      - name: Run macOS tests
+        if: matrix.os == 'macOS-latest'
+        run: ./gradlew macosX64Test
 
       - name: Bundle the build report
         if: failure()
