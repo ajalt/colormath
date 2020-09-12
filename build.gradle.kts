@@ -1,12 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.ByteArrayOutputStream
 
 plugins {
-    kotlin("multiplatform").version("1.4.10")
-    id("org.jetbrains.dokka").version("0.10.1")
+    kotlin("multiplatform") version "1.4.10"
+    id("org.jetbrains.dokka") version "0.10.1"
+    id("maven-publish")
+    id("signing")
 }
 
-group = "com.github.ajalt.clikt"
-version = "2.0.0"
+val VERSION_NAME: String by project
+
+group = "com.github.ajalt.colormath"
+version = getPublishVersion()
 
 repositories {
     mavenCentral()
@@ -49,4 +54,85 @@ kotlin {
 
 tasks.withType<KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+
+fun getPublishVersion(): String {
+    // Call gradle with -PinferVersion to set the dynamic version name. Otherwise we skip it to save time.
+    if (!project.hasProperty("inferVersion")) return VERSION_NAME
+
+    val stdout = ByteArrayOutputStream()
+    project.exec {
+        commandLine = listOf("git", "tag", "--points-at", "master")
+        standardOutput = stdout
+    }
+    val tag = String(stdout.toByteArray()).trim()
+    if (tag.isNotEmpty()) return tag
+
+    val buildNumber = System.getenv("GITHUB_RUN_NUMBER") ?: "0"
+    return "$VERSION_NAME.$buildNumber-SNAPSHOT"
+}
+
+
+val emptyJavadocJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
+}
+
+val isSnapshot = version.toString().endsWith("SNAPSHOT")
+val signingKey: String? by project
+val SONATYPE_USERNAME: String? by project
+val SONATYPE_PASSWORD: String? by project
+
+publishing {
+    publications.withType<MavenPublication>().all {
+        pom {
+            description.set("Multiplatform color space conversions for Kotlin")
+            name.set("Mordant")
+            url.set("https://github.com/ajalt/mordant")
+            scm {
+                url.set("https://github.com/ajalt/mordant")
+                connection.set("scm:git:git://github.com/ajalt/mordant.git")
+                developerConnection.set("scm:git:ssh://git@github.com/ajalt/mordant.git")
+            }
+            licenses {
+                license {
+                    name.set("The Apache Software License, Version 2.0")
+                    url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    distribution.set("repo")
+                }
+            }
+            developers {
+                developer {
+                    id.set("ajalt")
+                    name.set("AJ Alt")
+                    url.set("https://github.com/ajalt")
+                }
+            }
+        }
+    }
+
+    repositories {
+        val releaseUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+        val snapshotUrl = uri("https://oss.sonatype.org/content/repositories/snapshots")
+        maven {
+            url = if (isSnapshot) snapshotUrl else releaseUrl
+            credentials {
+                username = SONATYPE_USERNAME ?: ""
+                password = SONATYPE_PASSWORD ?: ""
+            }
+        }
+    }
+
+    publications.withType<MavenPublication>().all {
+        artifact(emptyJavadocJar.get())
+    }
+}
+
+signing {
+    isRequired = !isSnapshot
+
+    if (signingKey != null && !isSnapshot) {
+        useInMemoryPgpKeys(signingKey, "")
+        sign(publishing.publications)
+    }
 }
