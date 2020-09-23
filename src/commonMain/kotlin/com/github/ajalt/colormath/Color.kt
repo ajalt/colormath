@@ -56,6 +56,9 @@ interface Color {
     /** Convert this color to CIE LAB */
     fun toLAB(): LAB = toRGB().toLAB()
 
+    /** Convert this color to CIE LUV */
+    fun toLUV(): LUV = toRGB().toLUV()
+
     companion object // enables extensions on the interface
 }
 

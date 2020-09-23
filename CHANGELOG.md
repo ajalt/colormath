@@ -1,9 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Added CIE LUV colorspace support.
 
 ## [2.0.0] - 2020-09-12
-### Added 
+### Added
 - Added multiplatform support.
 
 ### Changed
@@ -17,9 +19,9 @@
 - Fix `RGB(255,255, 255).toLAB()` throwing an exception due to rounding precision.
 
 ## [1.4.0] - 2019-12-22
-### Added 
+### Added
 - `hueAsRad()`, `hueAsGrad()`, and `hueAsTurns()` extensions for `HSL` and `HSV` classes.
-- `toHex()` now has a `renderAlpha` parameter that lets you render the color's alpha channel in the hex. By default the alpha will be added if it's < 1.  
+- `toHex()` now has a `renderAlpha` parameter that lets you render the color's alpha channel in the hex. By default the alpha will be added if it's < 1.
 - `toCssRgb()` and `toCssHsl()` extensions to render colors as CSS color functions
 - `RGB.toPackedInt()` to convert a color to a single integer.
 
@@ -27,11 +29,11 @@
 - `withNumberSign` parameter of `toHex` now defaults to `true`
 - `ColorMath.parseCssColor()` renamed to `ConvertableColor.fromCss()` and `ColorMath.cssKeywordColors` to `CssColors.colorsByName`
 
- 
+
 ## [1.3.0] - 2019-12-19
 ### Added
 - All colors now have an `alpha` channel, defaulting to 1 (fully opaque). For colorspaces that support transparency, you can pass an alpha value into their constructors.
-- `ColorMath.parseCssColor()` can parse all valid HTML/CSS colors, including rgb, hsl, and named colors. 
+- `ColorMath.parseCssColor()` can parse all valid HTML/CSS colors, including rgb, hsl, and named colors.
 - `ColorMath.cssKeywordColors` is a map of HTML/CSS color names to RGB the colors they represent.
 
 ### Changed

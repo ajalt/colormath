@@ -59,4 +59,24 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
 
         return LAB(l.coerceIn(0.0, 100.0), a, b, alpha)
     }
+
+    override fun toLUV(): LUV {
+        // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html
+        fun fuv(x: Double, y: Double, z: Double) = (x + 15 * y + 3 * z).let {
+            Pair((4 * x) / it, (9 * y) / it)
+        }
+
+        val yr = y / D65.y
+        val (`u'`, `v'`) = fuv(x, y, z)
+        val (`ur'`, `vr'`) = fuv(x / D65.x, yr, z / D65.z)
+
+        val l = (CIE_K * yr).let {
+            if (it > `CIE_E * CIE_K`) 116 * yr.pow(1.0 / 3) - 16
+            else it
+        }
+        val u = 13 * l * (`u'` - `ur'`)
+        val v = 13 * l * (`v'` - `vr'`)
+
+        return LUV(l.coerceIn(0.0, 100.0), u, v, alpha)
+    }
 }
