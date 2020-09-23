@@ -25,11 +25,9 @@ data class LUV(val l: Double, val u: Double, val v: Double, override val alpha: 
         if (l == 0.0) return XYZ(0.0, 0.0, 0.0)
 
         // Equations from http://www.brucelindbloom.com/index.html?Eqn_Luv_to_XYZ.html
-        fun fuv(x: Double, y: Double, z: Double) = (x + 15 * y + 3 * z).let {
-            Pair((4 * x) / it, (9 * y) / it)
-        }
-
-        val (u0, v0) = fuv(D65.x, D65.y, D65.z)
+        val denominator0 = D65.x + 15 * D65.y + 3 * D65.z
+        val u0 = 4 * D65.x / denominator0
+        val v0 = 9 * D65.y / denominator0
 
         val y = if (l > CIE_E_times_K) ((l + 16) / 116).pow(3) else l / CIE_K
 

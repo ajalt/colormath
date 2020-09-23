@@ -24,7 +24,7 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
     override fun toXYZ(): XYZ {
         if (l == 0.0) return XYZ(0.0, 0.0, 0.0)
 
-        // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html
+        // Equations from http://www.brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
         val fy = (l + 16) / 116
         val fz = fy - b / 200
         val fx = a / 500 + fy

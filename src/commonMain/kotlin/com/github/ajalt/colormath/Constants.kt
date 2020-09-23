@@ -5,7 +5,7 @@ package com.github.ajalt.colormath
  *
  * See http://www.brucelindbloom.com/index.html?Eqn_ChromAdapt.html
  */
-object Illuminant {
+internal object Illuminant {
     data class WhitePoint(val x: Double, val y: Double, val z: Double)
 
     /**
@@ -16,11 +16,14 @@ object Illuminant {
     val D65 = WhitePoint(95.047, 100.0, 108.883)
 }
 
-/**
- * Constants defined in the CIE standard.
- *
- * See http://www.brucelindbloom.com/index.html?LContinuity.html
- */
-const val CIE_E = 0.008856 // ϵ ~ 216/24389 = (6/29)^3
-const val CIE_K = 903.3 // κ ~ 24389/27 = (29/3)^3
-const val CIE_E_times_K = 8.0
+// Constants defined in the CIE standard.
+// See http://www.brucelindbloom.com/index.html?LContinuity.html
+
+/** ϵ ~ 216/24389 = (6/29)^3 */
+internal const val CIE_E = 0.008856
+
+/** κ ~ 24389/27 = (29/3)^3 */
+internal const val CIE_K = 903.3
+
+/** ϵ × κ */
+internal const val CIE_E_times_K = 8.0
