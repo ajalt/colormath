@@ -24,7 +24,7 @@ interface Color {
      * Convert this color to an RGB hex string.
      *
      * If [renderAlpha] is `ALWAYS`, the [alpha] value will be added e.g. the `aa` in `#ffffffaa`.
-     * If it's `NEVER`, the [alpha] will be omitted. If it's `NEVER`, then the [alpha] will be added
+     * If it's `NEVER`, the [alpha] will be omitted. If it's `AUTO`, then the [alpha] will be added
      * if it's less than 1.
      *
      * @return A string in the form `"#ffffff"` if [withNumberSign] is true,
