@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.Illuminant.D65
 import kotlin.math.pow
 import kotlin.math.roundToInt
-import kotlin.math.sqrt
 
 /**
  * CIE XYZ color space.
@@ -43,15 +43,15 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
     }
 
     override fun toLAB(): LAB {
+        // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html
         fun f(t: Double) = when {
-            t > 0.008856 -> t.pow(1.0/3)
-            else -> (t * 7.787037) + (4 / 29.0)
+            t > CIE_E -> t.pow(1.0 / 3)
+            else -> (t * CIE_K + 16) / 116
         }
 
-
-        val fx = f(x / 95.047)
-        val fy = f(y / 100.0)
-        val fz = f(z / 108.883)
+        val fx = f(x / D65.x)
+        val fy = f(y / D65.y)
+        val fz = f(z / D65.z)
 
         val l = (116 * fy) - 16
         val a = 500 * (fx - fy)
