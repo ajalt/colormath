@@ -21,9 +21,9 @@ class LABTest {
                 row(LAB(000.0, 000.0, 100.0), 0.0, 0.0, 0.0)
         ) { lab, x, y, z ->
             val xyz = lab.toXYZ()
-            xyz.x shouldBe (x plusOrMinus 0.5)
-            xyz.y shouldBe (y plusOrMinus 0.5)
-            xyz.z shouldBe (z plusOrMinus 0.5)
+            xyz.x shouldBe (x plusOrMinus 0.005)
+            xyz.y shouldBe (y plusOrMinus 0.005)
+            xyz.z shouldBe (z plusOrMinus 0.005)
         }
     }
 }

@@ -136,6 +136,27 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_LUV")
+    fun `RGB to LUV`() {
+        forAll(
+                row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
+                row(RGB(255, 255, 255), 100.0, 0.0, 0.0),
+                row(RGB(255, 0, 0), 53.2408, 175.0151, 37.7564),
+                row(RGB(0, 255, 0), 87.7347, -83.0776, 107.3985),
+                row(RGB(0, 0, 255), 32.2970, -9.4054, -130.3423),
+                row(RGB(255, 255, 0), 97.1393, 7.7056, 106.7866),
+                row(RGB(0, 255, 255), 91.1132, -70.4773, -15.2042),
+                row(RGB(255, 0, 255), 60.3242, 84.0714, -108.6834),
+                row(RGB(92, 191, 84), 69.5940, -46.2383, 63.2284)
+        ) { rgb, l, u, v ->
+            val xyz = rgb.toLUV()
+            xyz.l shouldBe (l plusOrMinus 0.0005)
+            xyz.u shouldBe (u plusOrMinus 0.0005)
+            xyz.v shouldBe (v plusOrMinus 0.0005)
+        }
+    }
+
+    @Test
     @JsName("RGB_to_CMYK")
     fun `RGB to CMYK`() {
         forAll(

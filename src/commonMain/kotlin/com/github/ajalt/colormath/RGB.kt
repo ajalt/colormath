@@ -168,6 +168,8 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
 
     override fun toLAB(): LAB = toXYZ().toLAB()
 
+    override fun toLUV(): LUV = toXYZ().toLUV()
+
     override fun toCMYK(): CMYK {
         val r = this.r / 255.0
         val b = this.b / 255.0
