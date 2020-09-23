@@ -34,7 +34,7 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
             else (116 * t - 16) / CIE_K
         }
 
-        val yr = if (l > `CIE_E * CIE_K`) fy.pow(3) else l / CIE_K
+        val yr = if (l > CIE_E_times_K) fy.pow(3) else l / CIE_K
         val zr = f(fz)
         val xr = f(fx)
 

@@ -31,7 +31,7 @@ data class LUV(val l: Double, val u: Double, val v: Double, override val alpha: 
 
         val (u0, v0) = fuv(D65.x, D65.y, D65.z)
 
-        val y = if (l > `CIE_E * CIE_K`) ((l + 16) / 116).pow(3) else l / CIE_K
+        val y = if (l > CIE_E_times_K) ((l + 16) / 116).pow(3) else l / CIE_K
 
         val a = (52 * l / (u + 13 * l * u0) - 1) / 3
         val b = -5 * y

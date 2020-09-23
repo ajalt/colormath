@@ -71,7 +71,7 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
         val (`ur'`, `vr'`) = fuv(x / D65.x, yr, z / D65.z)
 
         val l = (CIE_K * yr).let {
-            if (it > `CIE_E * CIE_K`) 116 * yr.pow(1.0 / 3) - 16
+            if (it > CIE_E_times_K) 116 * yr.pow(1.0 / 3) - 16
             else it
         }
         val u = 13 * l * (`u'` - `ur'`)
