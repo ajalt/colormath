@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.Illuminant.D65
 import kotlin.math.pow
 import kotlin.math.roundToInt
-import kotlin.math.sqrt
 
 /**
  * CIE XYZ color space.
@@ -43,20 +43,42 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
     }
 
     override fun toLAB(): LAB {
+        // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html
         fun f(t: Double) = when {
-            t > 0.008856 -> t.pow(1.0/3)
-            else -> (t * 7.787037) + (4 / 29.0)
+            t > CIE_E -> t.pow(1.0 / 3)
+            else -> (t * CIE_K + 16) / 116
         }
 
-
-        val fx = f(x / 95.047)
-        val fy = f(y / 100.0)
-        val fz = f(z / 108.883)
+        val fx = f(x / D65.x)
+        val fy = f(y / D65.y)
+        val fz = f(z / D65.z)
 
         val l = (116 * fy) - 16
         val a = 500 * (fx - fy)
         val b = 200 * (fy - fz)
 
         return LAB(l.coerceIn(0.0, 100.0), a, b, alpha)
+    }
+
+    override fun toLUV(): LUV {
+        // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
+        val yr = y / D65.y
+
+        val denominator = x + 15 * y + 3 * z
+        val uPrime = if (denominator == 0.0) 0.0 else (4 * x) / denominator
+        val vPrime = if (denominator == 0.0) 0.0 else (9 * y) / denominator
+
+        val denominatorr = D65.x + 15 * D65.y + 3 * D65.z
+        val urPrime = (4 * D65.x) / denominatorr
+        val vrPrime = (9 * D65.y) / denominatorr
+
+        val l = (CIE_K * yr).let {
+            if (it > CIE_E_times_K) 116 * yr.pow(1.0 / 3) - 16
+            else it
+        }
+        val u = 13 * l * (uPrime - urPrime)
+        val v = 13 * l * (vPrime - vrPrime)
+
+        return LUV(l.coerceIn(0.0, 100.0), u, v, alpha)
     }
 }

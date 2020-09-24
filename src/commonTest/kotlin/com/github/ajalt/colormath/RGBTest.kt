@@ -128,10 +128,31 @@ class RGBTest {
                 row(RGB(255, 0, 255), 60.32, 98.23, -60.82),
                 row(RGB(92, 191, 84), 69.59, -50.11, 44.64)
         ) { rgb, l, a, b ->
-            val xyz = rgb.toLAB()
-            xyz.l shouldBe (l plusOrMinus 0.01)
-            xyz.a shouldBe (a plusOrMinus 0.01)
-            xyz.b shouldBe (b plusOrMinus 0.01)
+            val lab = rgb.toLAB()
+            lab.l shouldBe (l plusOrMinus 0.01)
+            lab.a shouldBe (a plusOrMinus 0.01)
+            lab.b shouldBe (b plusOrMinus 0.01)
+        }
+    }
+
+    @Test
+    @JsName("RGB_to_LUV")
+    fun `RGB to LUV`() {
+        forAll(
+                row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
+                row(RGB(255, 255, 255), 100.0, 0.0, 0.0),
+                row(RGB(255, 0, 0), 53.2408, 175.0151, 37.7564),
+                row(RGB(0, 255, 0), 87.7347, -83.0776, 107.3985),
+                row(RGB(0, 0, 255), 32.2970, -9.4054, -130.3423),
+                row(RGB(255, 255, 0), 97.1393, 7.7056, 106.7866),
+                row(RGB(0, 255, 255), 91.1132, -70.4773, -15.2042),
+                row(RGB(255, 0, 255), 60.3242, 84.0714, -108.6834),
+                row(RGB(92, 191, 84), 69.5940, -46.2383, 63.2284)
+        ) { rgb, l, u, v ->
+            val luv = rgb.toLUV()
+            luv.l shouldBe (l plusOrMinus 0.0005)
+            luv.u shouldBe (u plusOrMinus 0.0005)
+            luv.v shouldBe (v plusOrMinus 0.0005)
         }
     }
 

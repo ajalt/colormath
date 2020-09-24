@@ -11,6 +11,7 @@ spaces, and to parse CSS colors into any of the supported color spaces.
 * HSV
 * XYZ
 * LAB
+* LUV
 * ANSI-16 color codes
 * ANSI-256 color codes
 

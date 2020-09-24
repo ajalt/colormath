@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.Illuminant.D65
 import kotlin.math.pow
 
 /**
@@ -23,18 +24,21 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
     override fun toXYZ(): XYZ {
         if (l == 0.0) return XYZ(0.0, 0.0, 0.0)
 
-        val d = 6 / 29.0
-        fun f(t: Double) = when {
-            t > d -> t.pow(3)
-            else -> (3 * d.pow(2)) * (t - (4 / 29.0))
+        // Equations from http://www.brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
+        val fy = (l + 16) / 116
+        val fz = fy - b / 200
+        val fx = a / 500 + fy
+
+        fun f(t: Double) = t.pow(3).let {
+            if (it > CIE_E) it
+            else (116 * t - 16) / CIE_K
         }
 
-        val lp = (l + 16) / 116
-        val x = 0.95047 * f(lp + (a / 500))
-        val y = f(lp)
-        val z = 1.08883 * f(lp - (b / 200))
+        val yr = if (l > CIE_E_times_K) fy.pow(3) else l / CIE_K
+        val zr = f(fz)
+        val xr = f(fx)
 
-        return XYZ(x * 100, y * 100, z * 100, alpha)
+        return XYZ(xr * D65.x, yr * D65.y, zr * D65.z, alpha)
     }
 
     override fun toLAB(): LAB = this
