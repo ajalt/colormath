@@ -91,12 +91,12 @@ publishing {
     publications.withType<MavenPublication>().all {
         pom {
             description.set("Multiplatform color space conversions for Kotlin")
-            name.set("Mordant")
-            url.set("https://github.com/ajalt/mordant")
+            name.set("Colormath")
+            url.set("https://github.com/ajalt/colormath")
             scm {
-                url.set("https://github.com/ajalt/mordant")
-                connection.set("scm:git:git://github.com/ajalt/mordant.git")
-                developerConnection.set("scm:git:ssh://git@github.com/ajalt/mordant.git")
+                url.set("https://github.com/ajalt/colormath")
+                connection.set("scm:git:git://github.com/ajalt/colormath.git")
+                developerConnection.set("scm:git:ssh://git@github.com/ajalt/colormath.git")
             }
             licenses {
                 license {
