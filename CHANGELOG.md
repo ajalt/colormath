@@ -2,7 +2,12 @@
 
 ## [Unreleased]
 ### Added
-- Added CIE LUV colorspace support.
+- Added CIE LUV colorspace support
+- JS target now publishes IR format in addition to legacy jars
+
+### Changed
+- Updated Kotlin to 1.4.31
+
 
 ## [2.0.0] - 2020-09-12
 ### Added
