@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE", "PropertyName")
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 

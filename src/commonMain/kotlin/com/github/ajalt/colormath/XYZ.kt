@@ -68,16 +68,16 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
         val uPrime = if (denominator == 0.0) 0.0 else (4 * x) / denominator
         val vPrime = if (denominator == 0.0) 0.0 else (9 * y) / denominator
 
-        val denominatorr = D65.x + 15 * D65.y + 3 * D65.z
-        val urPrime = (4 * D65.x) / denominatorr
-        val vrPrime = (9 * D65.y) / denominatorr
+        val denominatorReference = D65.x + 15 * D65.y + 3 * D65.z
+        val uPrimeReference = (4 * D65.x) / denominatorReference
+        val vPrimeReference = (9 * D65.y) / denominatorReference
 
-        val l = (CIE_K * yr).let {
-            if (it > CIE_E_times_K) 116 * yr.pow(1.0 / 3) - 16
-            else it
+        val l = when {
+            yr > CIE_E -> 116 * yr.pow(1.0 / 3) - 16
+            else -> CIE_K * yr
         }
-        val u = 13 * l * (uPrime - urPrime)
-        val v = 13 * l * (vPrime - vrPrime)
+        val u = 13 * l * (uPrime - uPrimeReference)
+        val v = 13 * l * (vPrime - vPrimeReference)
 
         return LUV(l.coerceIn(0.0, 100.0), u, v, alpha)
     }
