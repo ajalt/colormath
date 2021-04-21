@@ -1,18 +1,22 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.Illuminant.D65
+import kotlin.math.atan2
 import kotlin.math.pow
+import kotlin.math.sqrt
+import kotlin.math.withSign
 
 /**
  * CIE LAB color space.
  *
  * Conversions use D65 reference white, and sRGB profile.
  *
- * [l] is in the range `[0, 100]`. [a] and [b] are in the range `[-128, 128]`
+ * [l] is a percentage, typically in the range `[0, 100]`, but can exceed 100 (e.g. for HDR systems).
+ * [a] and [b] are unbounded, but are typically the range `[-160, 160]`.
  */
 data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: Float = 1f) : Color {
     init {
-        require(l in 0.0..100.0) { "l must be in interval [0, 100] in $this" }
+        require(l >= 0) { "l must not be negative in $this" }
         require(alpha in 0f..1f) { "a must be in range [0, 1] in $this" }
     }
 
@@ -22,9 +26,9 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
     }
 
     override fun toXYZ(): XYZ {
+        // http://www.brucelindbloom.com/Eqn_Lab_to_XYZ.html
         if (l == 0.0) return XYZ(0.0, 0.0, 0.0)
 
-        // Equations from http://www.brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
         val fy = (l + 16) / 116
         val fz = fy - b / 200
         val fx = a / 500 + fy
@@ -39,6 +43,15 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
         val xr = f(fx)
 
         return XYZ(xr * D65.x, yr * D65.y, zr * D65.z, alpha)
+    }
+
+    override fun toLCH(): LCH {
+        // https://www.w3.org/TR/css-color-4/#lab-to-lch
+        val c = sqrt(a * a + b * b)
+        val h = if (c < 1e-8) 0.0 else {
+            atan2(b, a).radToDeg().rem(360).withSign(1)
+        }.let { if (it < 0) it + 360 else it }
+        return LCH(l, c, h)
     }
 
     override fun toLAB(): LAB = this

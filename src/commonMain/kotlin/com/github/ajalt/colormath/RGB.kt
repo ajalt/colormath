@@ -4,7 +4,7 @@ import kotlin.math.pow
 import kotlin.math.roundToInt
 
 /**
- * A color in the sRGB color space
+ * A color in the sRGB color space, which uses the D65 illuminant.
  *
  * @property r The red channel, a value in the range `[0, 255]`
  * @property g The green channel, a value in the range `[0, 255]`
@@ -169,6 +169,8 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     override fun toLAB(): LAB = toXYZ().toLAB()
 
     override fun toLUV(): LUV = toXYZ().toLUV()
+
+    override fun toLCH(): LCH = toXYZ().toLUV().toLCH()
 
     override fun toCMYK(): CMYK {
         val r = this.r / 255.0

@@ -11,7 +11,7 @@ internal object Illuminant {
     /**
      * CIE Standard Illuminant D65, using the standard 2° observer.
      *
-     * [x], [y], and [z] are normalized for relative luminance (i.e. set `Y = 100`).
+     * `x`, `y`, and `z` are normalized for relative luminance (i.e. set `Y = 100`).
      */
     val D65 = WhitePoint(95.047, 100.0, 108.883)
 }
