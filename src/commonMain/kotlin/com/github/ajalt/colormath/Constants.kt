@@ -19,11 +19,11 @@ internal object Illuminant {
 // Constants defined in the CIE standard.
 // See http://www.brucelindbloom.com/index.html?LContinuity.html
 
-/** ϵ ~ 216/24389 = (6/29)^3 */
-internal const val CIE_E = 0.008856
+/** ϵ = (6/29)^3 */
+internal const val CIE_E = 216.0 / 24389.0
 
-/** κ ~ 24389/27 = (29/3)^3 */
-internal const val CIE_K = 903.3
+/** κ = (29/3)^3 */
+internal const val CIE_K = 24389.0 / 27.0
 
 /** ϵ × κ */
 internal const val CIE_E_times_K = 8.0
