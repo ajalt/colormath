@@ -1,12 +1,13 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.Illuminant.D65
+import kotlin.math.atan2
 import kotlin.math.pow
+import kotlin.math.sqrt
+import kotlin.math.withSign
 
 /**
  * CIE LUV (CIE 1976 L*u*v*) color space.
- *
- * Conversions use D65/2° illuminant, and sRGB profile.
  *
  * [l] is in the range `[0, 100]`. [u] and [v] are in the range `[-100, 100]`
  */
@@ -22,9 +23,9 @@ data class LUV(val l: Double, val u: Double, val v: Double, override val alpha: 
     }
 
     override fun toXYZ(): XYZ {
+        // http://www.brucelindbloom.com/Eqn_Luv_to_XYZ.html
         if (l == 0.0) return XYZ(0.0, 0.0, 0.0)
 
-        // Equations from http://www.brucelindbloom.com/index.html?Eqn_Luv_to_XYZ.html
         val denominator0 = D65.x + 15 * D65.y + 3 * D65.z
         val u0 = 4 * D65.x / denominator0
         val v0 = 9 * D65.y / denominator0
@@ -44,4 +45,13 @@ data class LUV(val l: Double, val u: Double, val v: Double, override val alpha: 
     }
 
     override fun toLUV(): LUV = this
+
+    override fun toLCH(): LCH {
+        // http://www.brucelindbloom.com/Eqn_Luv_to_LCH.html
+        val c = sqrt(u * u + v * v)
+        val h = if (c < 1e-8) 0.0 else {
+            atan2(v, u).radToDeg()
+        }.let { if (it < 0) it + 360 else it }
+        return LCH(l, c, h)
+    }
 }

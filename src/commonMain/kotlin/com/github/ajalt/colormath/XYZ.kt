@@ -62,8 +62,6 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
 
     override fun toLUV(): LUV {
         // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
-        val yr = y / D65.y
-
         val denominator = x + 15 * y + 3 * z
         val uPrime = if (denominator == 0.0) 0.0 else (4 * x) / denominator
         val vPrime = if (denominator == 0.0) 0.0 else (9 * y) / denominator
@@ -72,6 +70,7 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
         val uPrimeReference = (4 * D65.x) / denominatorReference
         val vPrimeReference = (9 * D65.y) / denominatorReference
 
+        val yr = y / D65.y
         val l = when {
             yr > CIE_E -> 116 * yr.pow(1.0 / 3) - 16
             else -> CIE_K * yr
