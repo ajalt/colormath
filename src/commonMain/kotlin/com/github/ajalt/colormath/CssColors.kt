@@ -4,6 +4,7 @@ package com.github.ajalt.colormath
  * All css color keywords.
  */
 object CssColors {
+    // https://www.w3.org/TR/css-color-4/#typedef-named-color
     val black = RGB(0, 0, 0)
     val silver = RGB(192, 192, 192)
     val gray = RGB(128, 128, 128)

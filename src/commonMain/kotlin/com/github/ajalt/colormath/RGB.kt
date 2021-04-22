@@ -18,10 +18,10 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
          * `android.graphics.Color.argb` or `java.awt.image.BufferedImage.getRGB`.
          */
         fun fromInt(argb: Int): RGB = RGB(
-                r = (argb ushr 16) and 0xff,
-                g = (argb ushr 8) and 0xff,
-                b = (argb) and 0xff,
-                a = ((argb ushr 24) and 0xff) / 255f)
+            r = (argb ushr 16) and 0xff,
+            g = (argb ushr 8) and 0xff,
+            b = (argb) and 0xff,
+            a = ((argb ushr 24) and 0xff) / 255f)
     }
 
     init {
@@ -34,14 +34,18 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     /**
      * Construct an RGB instance from a hex string with optional alpha channel.
      *
-     * @param hex An rgb hex string in the form "#ffffff" or "ffffff", or an rgba hex string in the
-     *   form "#ffffffaa", or "ffffaa"
+     * [hex] may optionally start with a `#`. The remaining characters should be one of the following forms:
+     *
+     * - `ddeeff`: The RGB values specified in pairs of hex digits
+     * - `ddeeffaa`: Like the 6 digit form, but with an extra pair of hex digits for specifying the alpha channel
+     * - `def`: A shorter version of the 6 digit form. Each digit is repeated, so `def` is equivalent to `ddeeff`
+     * - `defa`: A shorter version of the 8 digit for.Each digit is repeated, so `defa` is equivalent to `ddeeffaa`
      */
     constructor(hex: String) : this(
-            r = hex.validateHex().parseHex(0),
-            g = hex.parseHex(2),
-            b = hex.parseHex(4),
-            a = if (hex.length < 8) 1f else hex.parseHex(6) / 255f
+        r = hex.validateHex().parseHex(0),
+        g = hex.parseHex(1),
+        b = hex.parseHex(2),
+        a = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) / 255f else 1f
     )
 
     /**
@@ -55,17 +59,17 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
      * Construct an RGB instance from Float values in the range `[0, 1]`.
      */
     constructor(r: Float, g: Float, b: Float, a: Float = 1f) : this(
-            r = (r * 255).roundToInt(),
-            g = (g * 255).roundToInt(),
-            b = (b * 255).roundToInt(),
-            a = a
+        r = (r * 255).roundToInt(),
+        g = (g * 255).roundToInt(),
+        b = (b * 255).roundToInt(),
+        a = a
     )
 
     /**
      * Construct an RGB instance from Double values in the range `[0, 1]`.
      */
     constructor(r: Double, g: Double, b: Double, a: Double = 1.0) : this(
-            r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat()
+        r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat()
     )
 
     override val alpha: Float get() = a
@@ -180,7 +184,13 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
         val c = if (k == 1.0) 0.0 else (1 - r - k) / (1 - k)
         val m = if (k == 1.0) 0.0 else (1 - g - k) / (1 - k)
         val y = if (k == 1.0) 0.0 else (1 - b - k) / (1 - k)
-        return CMYK((c * 100).roundToInt(), (m * 100).roundToInt(), (y * 100).roundToInt(), (k * 100).roundToInt(), alpha)
+        return CMYK(
+            (c * 100).roundToInt(),
+            (m * 100).roundToInt(),
+            (y * 100).roundToInt(),
+            (k * 100).roundToInt(),
+            alpha
+        )
     }
 
     override fun toAnsi16(): Ansi16 = toAnsi16(toHSV().v)
@@ -216,13 +226,21 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
 }
 
 private fun Int.renderHex() = toString(16).padStart(2, '0')
+
 private fun String.validateHex() = apply {
-    require(if (startsWith('#')) length == 7 || length == 9 else length == 6 || length == 8) {
+    require(hexLength.let { it == 3 || it == 4 || it == 6 || it == 8 }) {
         "Hex string must be in the format \"#ffffff\" or \"ffffff\""
     }
 }
 
 private fun String.parseHex(startIndex: Int): Int {
-    val i = if (this[0] == '#') startIndex + 1 else startIndex
-    return slice(i..i + 1).toInt(16)
+    return if (hexLength > 4) {
+        val i = if (this[0] == '#') startIndex * 2 + 1 else startIndex * 2
+        slice(i..i + 1).toInt(16)
+    } else {
+        val i = if (this[0] == '#') startIndex + 1 else startIndex
+        get(i).let { "$it$it" }.toInt(16)
+    }
 }
+
+private val String.hexLength get() = if (startsWith("#")) length - 1 else length

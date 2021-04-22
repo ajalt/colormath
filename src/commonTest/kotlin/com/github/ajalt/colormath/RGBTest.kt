@@ -87,7 +87,11 @@ class RGBTest {
             row("#8CC864", RGB(140, 200, 100)),
             row("ffffff", RGB(255, 255, 255)),
             row("ffffff00", RGB(255, 255, 255, 0f)),
-            row("#ffffff00", RGB(255, 255, 255, 0f))
+            row("#ffffff00", RGB(255, 255, 255, 0f)),
+            row("#3a30", RGB(51, 170, 51, 0f)),
+            row("#3A3F", RGB(51, 170, 51, 1f)),
+            row("#33aa3300", RGB(51, 170, 51, 0f)),
+            row("#33AA3380", RGB(51, 170, 51, 0x80 / 0xff.toFloat())),
         ) { hex, rgb ->
             RGB(hex) shouldBe rgb
         }
