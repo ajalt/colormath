@@ -35,7 +35,7 @@ jobs:
 
       - name: Run macOS and iOS tests
         if: matrix.os == 'macOS-latest'
-        run: ./gradlew macosX64Test tvosX64Test watchosX86Test iosX64Test
+        run: ./gradlew macosX64Test tvosX64Test watchosX64Test iosX64Test
 
       - name: Bundle the build report
         if: failure()
