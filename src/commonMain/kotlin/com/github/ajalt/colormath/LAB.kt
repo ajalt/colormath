@@ -49,7 +49,7 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
         // https://www.w3.org/TR/css-color-4/#lab-to-lch
         val c = sqrt(a * a + b * b)
         val h = if (c < 1e-8) 0.0 else {
-            atan2(b, a).radToDeg().rem(360).withSign(1)
+            atan2(b, a).radToDeg()
         }.let { if (it < 0) it + 360 else it }
         return LCH(l, c, h)
     }

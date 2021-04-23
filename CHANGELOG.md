@@ -3,10 +3,13 @@
 ## [Unreleased]
 ### Added
 - Added CIE LUV colorspace support
+- Added CIE LCH(uv) colorspace support
+- Added `lab()` support to `Color.fromCss`
 - JS target now publishes IR format in addition to legacy jars
 
 ### Changed
 - Updated Kotlin to 1.4.31
+- `Color.fromCss` now clamps out-of-range values in accordance with the CSS Color Module Level 4 spec
 
 
 ## [2.0.0] - 2020-09-12
