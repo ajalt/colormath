@@ -18,3 +18,5 @@ fun HueColor.hueAsTurns(): Float = h / 360f
 
 internal fun Double.degToRad(): Double = this * PI / 180
 internal fun Double.radToDeg(): Double = this * 180 / PI
+internal fun Double.gradToDeg(): Double = this * .9
+internal fun Double.turnToDeg(): Double = this * 360
