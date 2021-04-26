@@ -8,237 +8,106 @@ import kotlin.math.roundToInt
  * @throws IllegalArgumentException if the value cannot be parsed
  */
 fun Color.Companion.fromCss(color: String): Color {
-    return Parser(color).parse()
+    val keywordColor = CssColors.colorsByName[color]
+    return when {
+        keywordColor != null -> keywordColor
+        color.startsWith("#") -> RGB(color)
+        else -> {
+            PATTERNS.RGB_1.matchEntire(color)?.let { rgb(it) }
+                ?: PATTERNS.RGB_2.matchEntire(color)?.let { rgb(it) }
+                ?: PATTERNS.RGB_3.matchEntire(color)?.let { rgb(it) }
+                ?: PATTERNS.RGB_4.matchEntire(color)?.let { rgb(it) }
+                ?: PATTERNS.HSL_1.matchEntire(color)?.let { hsl(it) }
+                ?: PATTERNS.HSL_2.matchEntire(color)?.let { hsl(it) }
+                ?: PATTERNS.LAB.matchEntire(color)?.let { lab(it) }
+                ?: PATTERNS.LCH.matchEntire(color)?.let { lch(it) }
+                ?: PATTERNS.HWB.matchEntire(color)?.let { hwb(it) }
+                ?: throw IllegalArgumentException("Invalid color: $color")
+        }
+    }
 }
 
-private class Parser(str: String) {
-    private val str = str.trim()
-    private var i = 0
+// https://www.w3.org/TR/css-color-4/#color-syntax
+private object PATTERNS {
+    private const val NUMBER = """[+-]?(?:\d+|\d*\.\d+)(?:[eE][+-]?\d+)?"""
+    private const val PERCENT = "$NUMBER%"
+    private const val ALPHA = "$NUMBER%?"
+    private const val HUE = "$NUMBER(?:deg|grad|rad|turn)?"
 
-    // https://www.w3.org/TR/css-color-4/#color-syntax
-    fun parse(): Color {
-        val keywordColor = CssColors.colorsByName[str]
-        return when {
-            keywordColor != null -> keywordColor
-            peek("#") -> hex()
-            peek("rgba") -> rgb("rgba")
-            peek("rgb") -> rgb("rgb")
-            peek("hsla") -> hsl("hsla")
-            peek("hsl") -> hsl("hsl")
-            peek("hwb") -> throw NotImplementedError("HWB color space is not currently supported")
-            peek("lab") -> lab()
-            peek("lch") -> lch()
-            else -> error()
-        }
+    val RGB_1 = Regex("""rgba?\(($PERCENT)\s+($PERCENT)\s+($PERCENT)\s*(?:/\s*($ALPHA))?\s*\)""")
+    val RGB_2 = Regex("""rgba?\(($PERCENT)\s*,\s*($PERCENT)\s*,\s*($PERCENT)(?:\s*,\s*($ALPHA))?\s*\)""")
+    val RGB_3 = Regex("""rgba?\(($NUMBER)\s+($NUMBER)\s+($NUMBER)\s*(?:/\s*($ALPHA)\s*)?\)""")
+    val RGB_4 = Regex("""rgba?\(($NUMBER)\s*,\s*($NUMBER)\s*,\s*($NUMBER)(?:\s*,\s*($ALPHA))?\s*\)""")
 
-    }
+    val HSL_1 = Regex("""hsla?\(($HUE)\s+($PERCENT)\s+($PERCENT)\s*(?:/\s*($ALPHA))?\s*\)""")
+    val HSL_2 = Regex("""hsla?\(($HUE)\s*,\s*($PERCENT)\s*,\s*($PERCENT)(?:\s*,\s*($ALPHA))?\s*\)""")
 
-    // region == colors ==
-    private fun hex(): Color = RGB(str)
-
-    private fun rgb(name: String): Color = colorFunction(name) {
-        val (r, percents) = numberOrPercent()
-        val commas = commaOrWs()
-
-        val (g, p2) = numberOrPercent()
-        if (percents != p2) error()
-        if (commas != commaOrWs()) error()
-
-        val (b, p3) = numberOrPercent()
-        if (percents != p3) error()
-
-        val a = alpha(sep = if (commas) "," else "/")
-
-        if (percents) {
-            RGB((r * 255).clampInt(), (g * 255).clampInt(), (b * 255).clampInt(), a.coerceIn(0f, 1f))
-        } else {
-            RGB(r.clampInt(), g.clampInt(), b.clampInt(), a.clampF())
-        }
-    }
-
-    private fun hsl(name: String): Color = colorFunction(name) {
-        val h = hue()
-        val commas = commaOrWs()
-
-        val s = percentage()
-        if (commas != commaOrWs()) error()
-
-        val l = percentage()
-
-        val a = alpha(sep = if (commas) "," else "/")
-        HSL(h.toFloat(), s.clampF(), l.clampF(), a.clampF())
-    }
-
-    private fun lab(): Color = colorFunction("lab") {
-        val l = percentage()
-        requireWs()
-        val a = number()
-        requireWs()
-        val b = number()
-        val alpha = alpha()
-
-        LAB(l.coerceAtLeast(0.0), a, b, alpha)
-    }
-
-    private fun lch(): Color = colorFunction("lch") {
-        val l = percentage()
-        requireWs()
-        val c = number()
-        requireWs()
-        val h = hue()
-        val alpha = alpha()
-
-        LCH(l.coerceAtLeast(0.0), c.coerceAtLeast(0.0), h, alpha)
-    }
-
-    // endregion
-    // region == sub parsers ==
-
-    /** require a comma or whitespace, return true if a comma was encountered */
-    private fun commaOrWs(): Boolean {
-        val ws = skipWs()
-        if (skip(",")) {
-            skipWs()
-            return true
-        }
-        if (!ws) error()
-        return false
-    }
-
-    private inline fun colorFunction(name: String, body: () -> Color): Color {
-        require(name)
-        require("(")
-        skipWs()
-        val color = body()
-        skipWs()
-        require(")")
-        return color
-    }
-
-    /** return degrees in [-360, 360] */
-    private fun hue(): Double {
-        val n = number()
-        val deg = when {
-            skip("deg") -> n
-            skip("grad") -> n.gradToDeg()
-            skip("rad") -> n.radToDeg()
-            skip("turn") -> n.turnToDeg()
-            else -> n
-        }
-
-        val mod = deg % 360
-        return if (mod < 0) mod + 360 else mod
-    }
-
-    private fun alpha(sep: String = "/"): Float {
-        skipWs()
-        return if (skip(sep)) {
-            skipWs()
-            numberOrPercent().first.clampF()
-        } else 1f
-    }
-
-    private fun number() = numberOrNull() ?: error()
-
-    private fun numberOrNull(): Double? = tryParse {
-        val start = i
-        skipAny("+-")
-        val intDigits = skipDigits()
-        val dot = skip(".")
-        val decDigits = skipDigits()
-
-        if (dot && !decDigits) error()
-
-        if (skipAny("eE")) {
-            if (!intDigits && !decDigits) error()
-            requireDigits()
-        }
-        return str.slice(start until i).toDouble()
-    }
-
-    private fun percentage() = percentageOrNull() ?: error()
-
-    private fun percentageOrNull(): Double? = tryParse {
-        val num = numberOrNull() ?: return null
-        if (skip("%")) return num / 100
-        return null
-    }
-
-    private fun numberOrPercent(): Pair<Double, Boolean> {
-        val num = numberOrNull() ?: error()
-        if (skip("%")) return (num / 100) to true
-        return num to false
-    }
-
-
-    // endregion
-    // region == utils ==
-
-    private fun peek(needle: String) = str.startsWith(needle, i)
-
-    private fun require(needle: String) {
-        if (peek(needle)) i += needle.length
-        else error()
-    }
-
-    private fun skip(needle: String): Boolean {
-        val matches = peek(needle)
-        if (matches) i += needle.length
-        return matches
-    }
-
-    private fun skipAny(chars: String): Boolean {
-        val matches = str.getOrNull(i)?.let { it in chars } == true
-        if (matches) {
-            i += 1
-        }
-        return matches
-    }
-
-    private fun requireWs() {
-        if (!skipWs()) error()
-    }
-
-    private fun skipWs(): Boolean {
-        var matches = false
-        while (i < str.length && str[i].isWhitespace()) {
-            matches = true
-            i += 1
-        }
-        return matches
-    }
-
-    private fun skipDigits(): Boolean {
-        var matches = false
-        while (i < str.length && str[i].isDigit()) {
-            matches = true
-            i += 1
-        }
-        return matches
-    }
-
-    private fun requireDigits() {
-        if (!skipDigits()) error()
-    }
-
-    private fun error(): Nothing {
-        throw IllegalArgumentException("Invalid color: $str")
-    }
-
-    /** Run [block], and return its result. Reset [i] if the result is `null` */
-    private inline fun <R : Any> tryParse(block: () -> R?): R? {
-        val start = i
-        val res = block()
-        if (res == null) {
-            i = start
-        }
-        return res
-    }
-
-    private fun Double.clampInt(min: Int = 0, max: Int = 255) = roundToInt().coerceIn(min, max)
-    private fun Double.clampF(min: Float = 0f, max: Float = 1f) = toFloat().coerceIn(min, max)
-    private fun Float.clampF(min: Float = 0f, max: Float = 1f) = coerceIn(min, max)
-    private fun Char.isDigit() = this in "0123456789"
-    // endregion
+    val LAB = Regex("""lab\(($PERCENT)\s+($NUMBER)\s+($NUMBER)\s*(?:/\s*($ALPHA))?\s*\)""")
+    val LCH = Regex("""lch\(($PERCENT)\s+($NUMBER)\s+($HUE)\s*(?:/\s*($ALPHA))?\s*\)""")
+    val HWB = Regex("""hwb\(($HUE)\s+($PERCENT)\s+($PERCENT)\s*(?:/\s*($ALPHA))?\s*\)""")
 }
 
+
+private fun rgb(match: MatchResult): Color {
+    val r = percentOrNumber(match.groupValues[1])
+    val g = percentOrNumber(match.groupValues[2])
+    val b = percentOrNumber(match.groupValues[3])
+    val a = alpha(match.groupValues[4])
+
+    return if (match.groupValues[1].endsWith("%")) {
+        RGB((r * 255).clampInt(), (g * 255).clampInt(), (b * 255).clampInt(), a)
+    } else {
+        RGB(r.clampInt(), g.clampInt(), b.clampInt(), a)
+    }
+}
+
+fun hsl(match: MatchResult): Color {
+    val h = hue(match.groupValues[1])
+    val s = percent(match.groupValues[2])
+    val l = percent(match.groupValues[3])
+    val a = alpha(match.groupValues[4])
+    return HSL(h.toFloat(), s.clampF(), l.clampF(), a.clampF())
+}
+
+private fun lab(match: MatchResult): Color {
+    val l = percent(match.groupValues[1])
+    val a = number(match.groupValues[2])
+    val b = number(match.groupValues[3])
+    val alpha = alpha(match.groupValues[4])
+    return LAB(l.coerceAtLeast(0.0), a, b, alpha)
+}
+
+private fun lch(match: MatchResult): Color {
+    val l = percent(match.groupValues[1])
+    val c = number(match.groupValues[2])
+    val h = hue(match.groupValues[3])
+    val a = alpha(match.groupValues[4])
+    return LCH(l.coerceAtLeast(0.0), c.coerceAtLeast(0.0), h, a)
+}
+
+private fun hwb(match: MatchResult): Nothing {
+    // TODO: parse hwb once that colorspace is implemented
+    throw NotImplementedError("HWB color space is not currently supported")
+}
+
+private fun percent(str: String) = str.dropLast(1).toDouble() / 100
+private fun number(str: String) = str.toDouble()
+private fun percentOrNumber(str: String) = if (str.endsWith("%")) percent(str) else number(str)
+private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str).toFloat()).clampF()
+
+/** return degrees in [-360, 360] */
+private fun hue(str: String): Double {
+    val deg = when {
+        str.endsWith("deg") -> str.dropLast(3).toDouble()
+        str.endsWith("grad") -> str.dropLast(4).toDouble().gradToDeg()
+        str.endsWith("rad") -> str.dropLast(3).toDouble().radToDeg()
+        str.endsWith("turn") -> str.dropLast(4).toDouble().turnToDeg()
+        else -> str.toDouble()
+    }
+    val mod = deg % 360
+    return if (mod < 0) mod + 360 else mod
+}
+
+private fun Double.clampInt(min: Int = 0, max: Int = 255) = roundToInt().coerceIn(min, max)
+private fun Double.clampF(min: Float = 0f, max: Float = 1f) = toFloat().coerceIn(min, max)
+private fun Float.clampF(min: Float = 0f, max: Float = 1f) = coerceIn(min, max)
