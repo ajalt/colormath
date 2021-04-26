@@ -9,7 +9,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [macOS-latest, windows-latest, ubuntu-latest]
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
 
     runs-on: ${{matrix.os}}
 
@@ -35,7 +35,7 @@ jobs:
 
       - name: Run macOS and iOS tests
         if: matrix.os == 'macOS-latest'
-        run: ./gradlew macosX64Test tvosX64Test watchosX86Test iosX64Test
+        run: ./gradlew macosX64Test tvosX64Test iosX64Test
 
       - name: Bundle the build report
         if: failure()

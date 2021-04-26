@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 
 plugins {
-    kotlin("multiplatform") version "1.4.10"
+    kotlin("multiplatform") version "1.4.31"
     id("org.jetbrains.dokka") version "0.10.1"
     id("maven-publish")
     id("signing")
@@ -20,7 +20,7 @@ repositories {
 
 kotlin {
     jvm()
-    js {
+    js(BOTH) {
         nodejs()
         browser()
     }
@@ -38,7 +38,7 @@ kotlin {
             dependencies {
                 api(kotlin("test-common"))
                 api(kotlin("test-annotations-common"))
-                api("io.kotest:kotest-assertions-core:4.2.4")
+                api("io.kotest:kotest-assertions-core:4.4.3")
             }
         }
 
