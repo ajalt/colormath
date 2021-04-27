@@ -208,6 +208,49 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_TO_HWB")
+    // https://www.w3.org/TR/css-color-4/#hwb-examples
+    fun `RGB to HWB`() {
+        forAll(
+            row(RGB("#996666"), HWB(0f, .4f, .4f)),
+            row(RGB("#998066"), HWB(30f, .4f, .4f)),
+            row(RGB("#999966"), HWB(60f, .4f, .4f)),
+            row(RGB("#809966"), HWB(90f, .4f, .4f)),
+            row(RGB("#669966"), HWB(120f, .4f, .4f)),
+            row(RGB("#66997f"), HWB(150f, .4f, .4f)),
+            row(RGB("#669999"), HWB(180f, .4f, .4f)),
+            row(RGB("#667f99"), HWB(210f, .4f, .4f)),
+            row(RGB("#666699"), HWB(240f, .4f, .4f)),
+            row(RGB("#7f6699"), HWB(270f, .4f, .4f)),
+            row(RGB("#996699"), HWB(300f, .4f, .4f)),
+            row(RGB("#996680"), HWB(330f, .4f, .4f)),
+
+            row(RGB("#80ff00"), HWB(90f, 0f, 0f)),
+            row(RGB("#000000"), HWB(90f, 0f, 1f)),
+            row(RGB("#ffffff"), HWB(90f, 1f, 0f)),
+            row(RGB("#808080"), HWB(90f, 1f, 1f)),
+        ) { rgb, hwb ->
+            rgb.toHWB() shouldBe hwb
+        }
+    }
+
+    @Test
+    @JsName("RGB_TO_HWB_gray")
+    // https://www.w3.org/TR/css-color-4/#hwb-examples
+    fun `RGB to HWB gray`() {
+        forAll(
+            row(RGB("#000000"), 0f, 100f),
+            row(RGB("#ffffff"), 100f, 0f),
+            row(RGB("#808080"), 100f, 100f),
+        ) { rgb, ew, eb ->
+            // hue is arbitrary for grays
+            val (_, w, b) = rgb.toHWB()
+            w shouldBe ew
+            b shouldBe eb
+        }
+    }
+
+    @Test
     @JsName("RGB_to_Ansi16")
     fun `RGB to Ansi16`() {
         forAll(

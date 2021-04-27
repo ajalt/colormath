@@ -91,26 +91,11 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     }
 
     override fun toHSL(): HSL {
-        val r = this.r / 255.0
-        val g = this.g / 255.0
-        val b = this.b / 255.0
-        val min = minOf(r, g, b)
-        val max = maxOf(r, g, b)
-        val delta = max - min
-        var h = when {
-            max == min -> 0.0
-            r == max -> (g - b) / delta
-            g == max -> 2 + (b - r) / delta
-            b == max -> 4 + (r - g) / delta
-            else -> 0.0
-        }
-
-        h = minOf(h * 60, 360.0)
-        if (h < 0) h += 360
-        val l = (min + max) / 2.0
+        val (h, min, max, delta) = hueMinMaxDelta()
+        val l = (min + max) / 2
         val s = when {
-            max == min -> 0.0
-            l <= 0.5 -> delta / (max + min)
+            max == min -> 0f
+            l <= .5f -> delta / (max + min)
             else -> delta / (2 - max - min)
         }
 
@@ -118,35 +103,13 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     }
 
     override fun toHSV(): HSV {
-        val r = this.r.toDouble()
-        val g = this.g.toDouble()
-        val b = this.b.toDouble()
-        val min = minOf(r, g, b)
-        val max = maxOf(r, g, b)
-        val delta = max - min
-
+        val (h, _, max, delta) = hueMinMaxDelta()
         val s = when (max) {
-            0.0 -> 0.0
-            else -> (delta / max * 1000) / 10
+            0f -> 0f
+            else -> (delta / max)
         }
 
-        var h = when {
-            max == min -> 0.0
-            r == max -> (g - b) / delta
-            g == max -> 2 + (b - r) / delta
-            b == max -> 4 + (r - g) / delta
-            else -> 0.0
-        }
-
-        h = minOf(h * 60, 360.0)
-
-        if (h < 0) {
-            h += 360
-        }
-
-        val v = ((max / 255) * 1000) / 10
-
-        return HSV(h.roundToInt(), s.roundToInt(), v.roundToInt(), alpha)
+        return HSV(h.roundToInt(), (s * 100).roundToInt(), (max * 100).roundToInt(), alpha)
     }
 
     override fun toXYZ(): XYZ {
@@ -193,6 +156,17 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
         )
     }
 
+    override fun toHWB(): HWB {
+        // https://www.w3.org/TR/css-color-4/#rgb-to-hwb
+        val (hue, min, max) = hueMinMaxDelta()
+        return HWB(
+            h = hue,
+            w = 100 * min,
+            b = 100 * (1 - max),
+            a = alpha
+        )
+    }
+
     override fun toAnsi16(): Ansi16 = toAnsi16(toHSV().v)
 
     private fun toAnsi16(value: Int): Ansi16 {
@@ -223,6 +197,34 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     }
 
     override fun toRGB() = this
+
+    /**
+     * Return an array containing the hue, min of color channels, max of color channels, and the
+     * delta between min and max.
+     *
+     * Min and max are scaled to [0, 1]
+     */
+    private fun hueMinMaxDelta(): FloatArray {
+        val r = this.r / 255f
+        val g = this.g / 255f
+        val b = this.b / 255f
+        val min = minOf(r, g, b)
+        val max = maxOf(r, g, b)
+        val delta = max - min
+
+        var h = when {
+            max == min -> 0f
+            r == max -> (g - b) / delta
+            g == max -> 2 + (b - r) / delta
+            b == max -> 4 + (r - g) / delta
+            else -> 0f
+        }
+
+        h = minOf(h * 60, 360f).rem(360f)
+        if (h < 0) h += 360
+
+        return floatArrayOf(h, min, max, delta)
+    }
 }
 
 private fun Int.renderHex() = toString(16).padStart(2, '0')
