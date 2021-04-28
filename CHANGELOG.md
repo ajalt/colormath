@@ -4,6 +4,7 @@
 ### Added
 - Added CIE LUV colorspace support
 - Added CIE LCH(uv) colorspace support
+- Added HWB colorspace support
 - Added `lab()` support to `Color.fromCss`
 - JS target now publishes IR format in addition to legacy jars
 
