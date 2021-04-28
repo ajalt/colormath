@@ -220,7 +220,7 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
             else -> 0f
         }
 
-        h = minOf(h * 60, 360f).rem(360f)
+        h = minOf(h * 60, 360f)
         if (h < 0) h += 360
 
         return floatArrayOf(h, min, max, delta)
