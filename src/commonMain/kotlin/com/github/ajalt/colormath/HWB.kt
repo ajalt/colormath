@@ -10,7 +10,7 @@ import kotlin.math.roundToInt
  * @property b The lightness, as a percent in the range `[0, 100]`
  * @property a The alpha, as a fraction in the range `[0, 1]`
  */
-data class HWB(val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Color {
+data class HWB(val h: Double, val w: Double, val b: Double, val a: Float = 1f) : Color {
     override val alpha: Float get() = a
 
     override fun toRGB(): RGB {
@@ -19,11 +19,12 @@ data class HWB(val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Co
         val h = this.h / 60 // Smith defines hue as normalized to [0, 6] for some reason
         val w = this.w / 100
         val b = this.b / 100
+        val a = this.a.toDouble()
 
         // Smith just declares that w + b must be <= 1. We use the fast-exit from
         // https://www.w3.org/TR/css-color-4/#hwb-to-rgb rather than normalizing.
         if (w + b >= 1) {
-            val gray = w / (w + b)
+            val gray = (w / (w + b))
             return RGB(gray, gray, gray, a)
         }
 

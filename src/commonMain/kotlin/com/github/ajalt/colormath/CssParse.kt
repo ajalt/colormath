@@ -74,7 +74,7 @@ private fun lab(match: MatchResult): Color {
     val a = number(match.groupValues[2])
     val b = number(match.groupValues[3])
     val alpha = alpha(match.groupValues[4])
-    return LAB(l.coerceAtLeast(0.0), a, b, alpha)
+    return LAB(l.coerceAtLeast(0.0) * 100, a, b, alpha)
 }
 
 private fun lch(match: MatchResult): Color {
@@ -82,12 +82,15 @@ private fun lch(match: MatchResult): Color {
     val c = number(match.groupValues[2])
     val h = hue(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return LCH(l.coerceAtLeast(0.0), c.coerceAtLeast(0.0), h, a)
+    return LCH(100 * l.coerceAtLeast(0.0), c.coerceAtLeast(0.0), h, a)
 }
 
-private fun hwb(match: MatchResult): Nothing {
-    // TODO: parse hwb once that colorspace is implemented
-    throw NotImplementedError("HWB color space is not currently supported")
+private fun hwb(match: MatchResult): Color {
+    val h = hue(match.groupValues[1])
+    val w = percent(match.groupValues[2])
+    val b = percent(match.groupValues[3])
+    val a = alpha(match.groupValues[4])
+    return HWB(h, 100 * w.clampD(), 100 * b.clampD(), a)
 }
 
 private fun percent(str: String) = str.dropLast(1).toDouble() / 100
@@ -110,4 +113,5 @@ private fun hue(str: String): Double {
 
 private fun Double.clampInt(min: Int = 0, max: Int = 255) = roundToInt().coerceIn(min, max)
 private fun Double.clampF(min: Float = 0f, max: Float = 1f) = toFloat().coerceIn(min, max)
+private fun Double.clampD(min: Double = 0.0, max: Double = 1.0) = coerceIn(min, max)
 private fun Float.clampF(min: Float = 0f, max: Float = 1f) = coerceIn(min, max)

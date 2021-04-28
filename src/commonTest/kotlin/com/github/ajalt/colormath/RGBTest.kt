@@ -213,30 +213,29 @@ class RGBTest {
     // https://www.w3.org/TR/css-color-4/#hwb-examples
     fun `RGB to HWB`() {
         forAll(
-            row(RGB("#996666"), HWB(0f, 40f, 40f)),
-            row(RGB("#998066"), HWB(30f, 40f, 40f)),
-            row(RGB("#999966"), HWB(60f, 40f, 40f)),
-            row(RGB("#809966"), HWB(90f, 40f, 40f)),
-            row(RGB("#669966"), HWB(120f, 40f, 40f)),
-            row(RGB("#66997f"), HWB(150f, 40f, 40f)),
-            row(RGB("#669999"), HWB(180f, 40f, 40f)),
-            row(RGB("#667f99"), HWB(210f, 40f, 40f)),
-            row(RGB("#666699"), HWB(240f, 40f, 40f)),
-            row(RGB("#7f6699"), HWB(270f, 40f, 40f)),
-            row(RGB("#996699"), HWB(300f, 40f, 40f)),
-            row(RGB("#996680"), HWB(330f, 40f, 40f)),
-
-            row(RGB("#80ff00"), HWB(90f, 0f, 0f)),
-            row(RGB("#b3cc99"), HWB(90f, 60f, 20f)),
-            row(RGB("#4c6633"), HWB(90f, 20f, 60f)),
+            row(RGB("#996666"), HWB(0.0, 40.0, 40.0)),
+            row(RGB("#998066"), HWB(30.0, 40.0, 40.0)),
+            row(RGB("#999966"), HWB(60.0, 40.0, 40.0)),
+            row(RGB("#809966"), HWB(90.0, 40.0, 40.0)),
+            row(RGB("#669966"), HWB(120.0, 40.0, 40.0)),
+            row(RGB("#66997f"), HWB(150.0, 40.0, 40.0)),
+            row(RGB("#669999"), HWB(180.0, 40.0, 40.0)),
+            row(RGB("#667f99"), HWB(210.0, 40.0, 40.0)),
+            row(RGB("#666699"), HWB(240.0, 40.0, 40.0)),
+            row(RGB("#7f6699"), HWB(270.0, 40.0, 40.0)),
+            row(RGB("#996699"), HWB(300.0, 40.0, 40.0)),
+            row(RGB("#996680"), HWB(330.0, 40.0, 40.0)),
+            row(RGB("#80ff00"), HWB(90.0, 0.0, 0.0)),
+            row(RGB("#b3cc99"), HWB(90.0, 60.0, 20.0)),
+            row(RGB("#4c6633"), HWB(90.0, 20.0, 60.0)),
         ) { rgb, hwb ->
             val it = rgb.toHWB()
             // the tolerances here are really wide, due to the imprecision of the integer RGB.
             // The w3 spec doesn't have any rgb -> hwb test cases, so this is as precise as we can
             // get by flipping the hwb -> rgb examples.
-            withClue("h") { it.h shouldBe (hwb.h plusOrMinus 0.6f) }
-            withClue("w") { it.w shouldBe (hwb.w plusOrMinus 0.6f) }
-            withClue("b") { it.b shouldBe (hwb.b plusOrMinus 0.6f) }
+            withClue("h") { it.h shouldBe (hwb.h plusOrMinus 0.6) }
+            withClue("w") { it.w shouldBe (hwb.w plusOrMinus 0.6) }
+            withClue("b") { it.b shouldBe (hwb.b plusOrMinus 0.6) }
         }
     }
 
@@ -245,15 +244,15 @@ class RGBTest {
     // https://www.w3.org/TR/css-color-4/#hwb-examples
     fun `RGB to HWB gray`() {
         forAll(
-            row(RGB("#000000"), 0f, 100f),
-            row(RGB("#666666"), 40f, 60f),
-            row(RGB("#999999"), 60f, 40f),
-            row(RGB("#ffffff"), 100f, 0f),
+            row(RGB("#000000"), 0.0, 100.0),
+            row(RGB("#666666"), 40.0, 60.0),
+            row(RGB("#999999"), 60.0, 40.0),
+            row(RGB("#ffffff"), 100.0, 0.0),
         ) { rgb, ew, eb ->
             // hue is arbitrary for grays
             val (_, w, b) = rgb.toHWB()
-            withClue("w") { w shouldBe (ew plusOrMinus 0.005f) }
-            withClue("b") { b shouldBe (eb plusOrMinus 0.005f) }
+            withClue("w") { w shouldBe (ew plusOrMinus 0.005) }
+            withClue("b") { b shouldBe (eb plusOrMinus 0.005) }
         }
     }
 
