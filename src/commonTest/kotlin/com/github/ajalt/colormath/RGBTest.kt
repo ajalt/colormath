@@ -4,6 +4,7 @@ import io.kotest.assertions.withClue
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus
+import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.random.Random
@@ -212,25 +213,30 @@ class RGBTest {
     // https://www.w3.org/TR/css-color-4/#hwb-examples
     fun `RGB to HWB`() {
         forAll(
-            row(RGB("#996666"), HWB(0f, .4f, .4f)),
-            row(RGB("#998066"), HWB(30f, .4f, .4f)),
-            row(RGB("#999966"), HWB(60f, .4f, .4f)),
-            row(RGB("#809966"), HWB(90f, .4f, .4f)),
-            row(RGB("#669966"), HWB(120f, .4f, .4f)),
-            row(RGB("#66997f"), HWB(150f, .4f, .4f)),
-            row(RGB("#669999"), HWB(180f, .4f, .4f)),
-            row(RGB("#667f99"), HWB(210f, .4f, .4f)),
-            row(RGB("#666699"), HWB(240f, .4f, .4f)),
-            row(RGB("#7f6699"), HWB(270f, .4f, .4f)),
-            row(RGB("#996699"), HWB(300f, .4f, .4f)),
-            row(RGB("#996680"), HWB(330f, .4f, .4f)),
+            row(RGB("#996666"), HWB(0f, 40f, 40f)),
+            row(RGB("#998066"), HWB(30f, 40f, 40f)),
+            row(RGB("#999966"), HWB(60f, 40f, 40f)),
+            row(RGB("#809966"), HWB(90f, 40f, 40f)),
+            row(RGB("#669966"), HWB(120f, 40f, 40f)),
+            row(RGB("#66997f"), HWB(150f, 40f, 40f)),
+            row(RGB("#669999"), HWB(180f, 40f, 40f)),
+            row(RGB("#667f99"), HWB(210f, 40f, 40f)),
+            row(RGB("#666699"), HWB(240f, 40f, 40f)),
+            row(RGB("#7f6699"), HWB(270f, 40f, 40f)),
+            row(RGB("#996699"), HWB(300f, 40f, 40f)),
+            row(RGB("#996680"), HWB(330f, 40f, 40f)),
 
             row(RGB("#80ff00"), HWB(90f, 0f, 0f)),
-            row(RGB("#000000"), HWB(90f, 0f, 1f)),
-            row(RGB("#ffffff"), HWB(90f, 1f, 0f)),
-            row(RGB("#808080"), HWB(90f, 1f, 1f)),
+            row(RGB("#b3cc99"), HWB(90f, 60f, 20f)),
+            row(RGB("#4c6633"), HWB(90f, 20f, 60f)),
         ) { rgb, hwb ->
-            rgb.toHWB() shouldBe hwb
+            val it = rgb.toHWB()
+            // the tolerances here are really wide, due to the imprecision of the integer RGB.
+            // The w3 spec doesn't have any rgb -> hwb test cases, so this is as precise as we can
+            // get by flipping the hwb -> rgb examples.
+            withClue("h") { it.h shouldBe (hwb.h plusOrMinus 0.6f) }
+            withClue("w") { it.w shouldBe (hwb.w plusOrMinus 0.6f) }
+            withClue("b") { it.b shouldBe (hwb.b plusOrMinus 0.6f) }
         }
     }
 
@@ -240,13 +246,14 @@ class RGBTest {
     fun `RGB to HWB gray`() {
         forAll(
             row(RGB("#000000"), 0f, 100f),
+            row(RGB("#666666"), 40f, 60f),
+            row(RGB("#999999"), 60f, 40f),
             row(RGB("#ffffff"), 100f, 0f),
-            row(RGB("#808080"), 100f, 100f),
         ) { rgb, ew, eb ->
             // hue is arbitrary for grays
             val (_, w, b) = rgb.toHWB()
-            w shouldBe ew
-            b shouldBe eb
+            withClue("w") { w shouldBe (ew plusOrMinus 0.005f) }
+            withClue("b") { b shouldBe (eb plusOrMinus 0.005f) }
         }
     }
 

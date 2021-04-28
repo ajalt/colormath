@@ -14,26 +14,40 @@ data class HWB(val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Co
     override val alpha: Float get() = a
 
     override fun toRGB(): RGB {
-        // https://www.w3.org/TR/css-color-4/#hwb-to-rgb
-        val white = w / 100
-        val black = b / 100
-        if (white + black > 1) {
-            val gray = white / (white + black)
+        // Algorithm from Smith and Lyons, http://alvyray.com/Papers/CG/HWB_JGTv208.pdf, Appendix B
+
+        val h = this.h / 60 // Smith defines hue as normalized to [0, 6] for some reason
+        val w = this.w / 100
+        val b = this.b / 100
+
+        // Smith just declares that w + b must be <= 1. We use the fast-exit from
+        // https://www.w3.org/TR/css-color-4/#hwb-to-rgb rather than normalizing.
+        if (w + b >= 1) {
+            val gray = w / (w + b)
             return RGB(gray, gray, gray, a)
         }
 
-        val (r, g, b) = HSL(h, 1f, .5f).toRGB()
-        val mul = 1 - white - black
-        return RGB(
-            r = r * mul + white,
-            g = g * mul + white,
-            b = b * mul + white,
-            a = a
-        )
+        val v = 1 - b
+        val i = h.toInt()
+        val f = when {
+            i % 2 == 1 -> 1 - (h - i)
+            else -> h - i
+        }
+        val n = w + f * (v - w) // linear interpolation between w and v
+        return when (i) {
+            1 -> RGB(n, v, w, a)
+            2 -> RGB(w, v, n, a)
+            3 -> RGB(w, n, v, a)
+            4 -> RGB(n, w, v, a)
+            5 -> RGB(v, w, n, a)
+            else -> RGB(v, n, w, a)
+        }
     }
 
     override fun toHSV(): HSV {
-        // http://alvyray.com/Papers/CG/HWB_JGTv208.pdf
+        // http://alvyray.com/Papers/CG/HWB_JGTv208.pdf, Page 3
+        val w = this.w / 100
+        val b = this.b / 100
         val s = 1 - w / (1 - b)
         val v = 1 - b
         return HSV(h.roundToInt(), (s * 100).roundToInt(), (v * 100).roundToInt(), a)
