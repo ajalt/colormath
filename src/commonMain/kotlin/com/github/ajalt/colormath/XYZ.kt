@@ -78,6 +78,6 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
         val u = 13 * l * (uPrime - uPrimeReference)
         val v = 13 * l * (vPrime - vPrimeReference)
 
-        return LUV(l.coerceIn(0.0, 100.0), u, v, alpha)
+        return LUV(l.toFloat().coerceIn(0f, 100f), u.toFloat(), v.toFloat(), alpha)
     }
 }

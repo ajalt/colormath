@@ -10,7 +10,7 @@ import kotlin.math.sin
  * [c] is typically in the range `[0, 230]`, but theoretically the maximum is unbounded.
  * [h] is an angle in degrees, in the range `[0, 360]`
  */
-data class LCH(val l: Double, val c: Double, val h: Double, override val alpha: Float = 1f) : Color {
+data class LCH(val l: Float, val c: Float, val h: Float, override val alpha: Float = 1f) : Color {
     init {
         require(l >= 0) { "l must not be negative in $this" }
         require(c >= 0) { "c must not be negative in $this" }
@@ -18,8 +18,11 @@ data class LCH(val l: Double, val c: Double, val h: Double, override val alpha: 
         require(alpha in 0f..1f) { "a must be in range [0, 1] in $this" }
     }
 
+    constructor(l: Double, c: Double, h: Double, alpha: Double = 1.0)
+            : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
+
     override fun toRGB(): RGB = when (l) {
-        0.0 -> RGB(0, 0, 0, alpha)
+        0f -> RGB(0, 0, 0, alpha)
         else -> toLUV().toXYZ().toRGB()
     }
 
@@ -29,7 +32,7 @@ data class LCH(val l: Double, val c: Double, val h: Double, override val alpha: 
         val hDegrees = h.degToRad()
         val a = c * cos(hDegrees)
         val b = c * sin(hDegrees)
-        return LAB(l, a, b)
+        return LAB(l.toDouble(), a.toDouble(), b.toDouble())
     }
 
     override fun toLUV(): LUV {

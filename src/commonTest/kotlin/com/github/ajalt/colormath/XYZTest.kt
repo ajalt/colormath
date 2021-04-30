@@ -3,6 +3,7 @@ package com.github.ajalt.colormath
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus
+import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
@@ -62,9 +63,9 @@ class XYZTest {
             row(XYZ(95.0470, 100.0000, 108.883), 100.0, 0.0, 0.0),
         ) { xyz, l, u, v ->
             val luv = xyz.toLUV()
-            luv.l shouldBe (l plusOrMinus 0.005)
-            luv.u shouldBe (u plusOrMinus 0.005)
-            luv.v shouldBe (v plusOrMinus 0.005)
+            luv.l shouldBe (l.toFloat() plusOrMinus 0.005f)
+            luv.u shouldBe (u.toFloat() plusOrMinus 0.005f)
+            luv.v shouldBe (v.toFloat() plusOrMinus 0.005f)
         }
     }
 }

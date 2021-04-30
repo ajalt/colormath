@@ -4,33 +4,35 @@ import com.github.ajalt.colormath.Illuminant.D65
 import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
-import kotlin.math.withSign
 
 /**
  * CIE LUV (CIE 1976 L*u*v*) color space.
  *
  * [l] is in the range `[0, 100]`. [u] and [v] are in the range `[-100, 100]`
  */
-data class LUV(val l: Double, val u: Double, val v: Double, override val alpha: Float = 1f) : Color {
+data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Float = 1f) : Color {
+    constructor(l: Double, u: Double, v: Double, alpha: Double = 1.0)
+            : this(l.toFloat(), u.toFloat(), v.toFloat(), alpha.toFloat())
+
     init {
         require(l in 0.0..100.0) { "l must be in interval [0, 100] in $this" }
         require(alpha in 0f..1f) { "a must be in range [0, 1] in $this" }
     }
 
     override fun toRGB(): RGB = when (l) {
-        0.0 -> RGB(0, 0, 0, alpha)
+        0f -> RGB(0, 0, 0, alpha)
         else -> toXYZ().toRGB()
     }
 
     override fun toXYZ(): XYZ {
         // http://www.brucelindbloom.com/Eqn_Luv_to_XYZ.html
-        if (l == 0.0) return XYZ(0.0, 0.0, 0.0)
+        if (l == 0f) return XYZ(0.0, 0.0, 0.0)
 
         val denominator0 = D65.x + 15 * D65.y + 3 * D65.z
         val u0 = 4 * D65.x / denominator0
         val v0 = 9 * D65.y / denominator0
 
-        val y = if (l > CIE_E_times_K) ((l + 16) / 116).pow(3) else l / CIE_K
+        val y = if (l > CIE_E_times_K) ((l + 16) / 116.0).pow(3) else l / CIE_K
 
         val a = (52 * l / (u + 13 * l * u0) - 1) / 3
         val b = -5 * y
@@ -49,7 +51,7 @@ data class LUV(val l: Double, val u: Double, val v: Double, override val alpha: 
     override fun toLCH(): LCH {
         // http://www.brucelindbloom.com/Eqn_Luv_to_LCH.html
         val c = sqrt(u * u + v * v)
-        val h = if (c < 1e-8) 0.0 else {
+        val h = if (c < 1e-8) 0f else {
             atan2(v, u).radToDeg()
         }.let { if (it < 0) it + 360 else it }
         return LCH(l, c, h)

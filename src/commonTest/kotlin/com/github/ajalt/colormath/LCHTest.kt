@@ -3,6 +3,7 @@ package com.github.ajalt.colormath
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus
+import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
@@ -23,9 +24,9 @@ class LCHTest {
             row(LCH(69.5940, 78.3314, 126.1776), 69.5940, -46.2383, 63.2284),
         ) { lch, l, u, v ->
             val luv = lch.toLUV()
-            luv.l shouldBe (l plusOrMinus 0.0005)
-            luv.u shouldBe (u plusOrMinus 0.0005)
-            luv.v shouldBe (v plusOrMinus 0.0005)
+            luv.l shouldBe (l.toFloat() plusOrMinus 0.0005f)
+            luv.u shouldBe (u.toFloat() plusOrMinus 0.0005f)
+            luv.v shouldBe (v.toFloat() plusOrMinus 0.0005f)
         }
     }
 }

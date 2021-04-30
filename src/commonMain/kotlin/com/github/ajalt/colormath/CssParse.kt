@@ -66,7 +66,7 @@ fun hsl(match: MatchResult): Color {
     val s = percent(match.groupValues[2])
     val l = percent(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return HSL(h.toFloat(), s.clampF(), l.clampF(), a.clampF())
+    return HSL(h, s.clampF(), l.clampF(), a.clampF())
 }
 
 private fun lab(match: MatchResult): Color {
@@ -74,7 +74,7 @@ private fun lab(match: MatchResult): Color {
     val a = number(match.groupValues[2])
     val b = number(match.groupValues[3])
     val alpha = alpha(match.groupValues[4])
-    return LAB(l.coerceAtLeast(0.0) * 100, a, b, alpha)
+    return LAB(l.coerceAtLeast(0f) * 100.0, a.toDouble(), b.toDouble(), alpha)
 }
 
 private fun lch(match: MatchResult): Color {
@@ -82,7 +82,7 @@ private fun lch(match: MatchResult): Color {
     val c = number(match.groupValues[2])
     val h = hue(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return LCH(100 * l.coerceAtLeast(0.0), c.coerceAtLeast(0.0), h, a)
+    return LCH(100 * l.coerceAtLeast(0f), c.coerceAtLeast(0f), h, a)
 }
 
 private fun hwb(match: MatchResult): Color {
@@ -90,28 +90,26 @@ private fun hwb(match: MatchResult): Color {
     val w = percent(match.groupValues[2])
     val b = percent(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return HWB(h, 100 * w.clampD(), 100 * b.clampD(), a)
+    return HWB(h, 100 * w.clampF(), 100 * b.clampF(), a)
 }
 
-private fun percent(str: String) = str.dropLast(1).toDouble() / 100
-private fun number(str: String) = str.toDouble()
+private fun percent(str: String) = str.dropLast(1).toFloat() / 100
+private fun number(str: String) = str.toFloat()
 private fun percentOrNumber(str: String) = if (str.endsWith("%")) percent(str) else number(str)
 private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str).toFloat()).clampF()
 
 /** return degrees in [-360, 360] */
-private fun hue(str: String): Double {
+private fun hue(str: String): Float {
     val deg = when {
-        str.endsWith("deg") -> str.dropLast(3).toDouble()
-        str.endsWith("grad") -> str.dropLast(4).toDouble().gradToDeg()
-        str.endsWith("rad") -> str.dropLast(3).toDouble().radToDeg()
-        str.endsWith("turn") -> str.dropLast(4).toDouble().turnToDeg()
-        else -> str.toDouble()
+        str.endsWith("deg") -> str.dropLast(3).toFloat()
+        str.endsWith("grad") -> str.dropLast(4).toFloat().gradToDeg()
+        str.endsWith("rad") -> str.dropLast(3).toFloat().radToDeg()
+        str.endsWith("turn") -> str.dropLast(4).toFloat().turnToDeg()
+        else -> str.toFloat()
     }
     val mod = deg % 360
     return if (mod < 0) mod + 360 else mod
 }
 
-private fun Double.clampInt(min: Int = 0, max: Int = 255) = roundToInt().coerceIn(min, max)
-private fun Double.clampF(min: Float = 0f, max: Float = 1f) = toFloat().coerceIn(min, max)
-private fun Double.clampD(min: Double = 0.0, max: Double = 1.0) = coerceIn(min, max)
+private fun Float.clampInt(min: Int = 0, max: Int = 255) = roundToInt().coerceIn(min, max)
 private fun Float.clampF(min: Float = 0f, max: Float = 1f) = coerceIn(min, max)

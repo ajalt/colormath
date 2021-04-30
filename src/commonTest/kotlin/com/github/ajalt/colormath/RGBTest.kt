@@ -155,9 +155,9 @@ class RGBTest {
             row(RGB(92, 191, 84), 69.5940, -46.2383, 63.2284)
         ) { rgb, l, u, v ->
             val luv = rgb.toLUV()
-            luv.l shouldBe (l plusOrMinus 0.0005)
-            luv.u shouldBe (u plusOrMinus 0.0005)
-            luv.v shouldBe (v plusOrMinus 0.0005)
+            withClue("l") { luv.l.toDouble() } shouldBe (l plusOrMinus 0.0005)
+            withClue("u") { luv.u.toDouble() } shouldBe (u plusOrMinus 0.0005)
+            withClue("v") { luv.v.toDouble() } shouldBe (v plusOrMinus 0.0005)
         }
     }
 
@@ -175,9 +175,9 @@ class RGBTest {
             row(RGB(92, 191, 84), 69.5940, 78.3314, 126.1776),
         ) { rgb, l, c, h ->
             val lch = rgb.toLCH()
-            withClue("l") { lch.l shouldBe (l plusOrMinus 0.0005) }
-            withClue("c") { lch.c shouldBe (c plusOrMinus 0.0005) }
-            withClue("h") { lch.h shouldBe (h plusOrMinus 0.0005) }
+            withClue("l") { lch.l.toDouble() shouldBe (l plusOrMinus 0.0005) }
+            withClue("c") { lch.c.toDouble() shouldBe (c plusOrMinus 0.0005) }
+            withClue("h") { lch.h.toDouble() shouldBe (h plusOrMinus 0.0005) }
         }
     }
 
@@ -186,8 +186,8 @@ class RGBTest {
     fun `RGB white to LCH`() {
         // With white, any hue can be used, so only test L and C
         val lch = RGB(255, 255, 255).toLCH()
-        lch.l shouldBe (100.0 plusOrMinus 0.0005)
-        lch.c shouldBe (0.0 plusOrMinus 0.0005)
+        lch.l shouldBe (100f plusOrMinus 0.0005f)
+        lch.c shouldBe (0f plusOrMinus 0.0005f)
     }
 
     @Test
@@ -233,9 +233,9 @@ class RGBTest {
             // the tolerances here are really wide, due to the imprecision of the integer RGB.
             // The w3 spec doesn't have any rgb -> hwb test cases, so this is as precise as we can
             // get by flipping the hwb -> rgb examples.
-            withClue("h") { it.h shouldBe (hwb.h plusOrMinus 0.6) }
-            withClue("w") { it.w shouldBe (hwb.w plusOrMinus 0.6) }
-            withClue("b") { it.b shouldBe (hwb.b plusOrMinus 0.6) }
+            withClue("h") { it.h shouldBe (hwb.h plusOrMinus 0.6f) }
+            withClue("w") { it.w shouldBe (hwb.w plusOrMinus 0.6f) }
+            withClue("b") { it.b shouldBe (hwb.b plusOrMinus 0.6f) }
         }
     }
 
@@ -244,15 +244,15 @@ class RGBTest {
     // https://www.w3.org/TR/css-color-4/#hwb-examples
     fun `RGB to HWB gray`() {
         forAll(
-            row(RGB("#000000"), 0.0, 100.0),
-            row(RGB("#666666"), 40.0, 60.0),
-            row(RGB("#999999"), 60.0, 40.0),
-            row(RGB("#ffffff"), 100.0, 0.0),
+            row(RGB("#000000"), 0f, 100f),
+            row(RGB("#666666"), 40f, 60f),
+            row(RGB("#999999"), 60f, 40f),
+            row(RGB("#ffffff"), 100f, 0f),
         ) { rgb, ew, eb ->
             // hue is arbitrary for grays
             val (_, w, b) = rgb.toHWB()
-            withClue("w") { w shouldBe (ew plusOrMinus 0.005) }
-            withClue("b") { b shouldBe (eb plusOrMinus 0.005) }
+            withClue("w") { w shouldBe (ew plusOrMinus 0.005f) }
+            withClue("b") { b shouldBe (eb plusOrMinus 0.005f) }
         }
     }
 
