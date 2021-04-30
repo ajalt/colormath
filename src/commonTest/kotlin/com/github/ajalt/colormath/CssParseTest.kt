@@ -5,6 +5,7 @@ import io.kotest.assertions.withClue
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus
+import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlin.js.JsName
@@ -201,9 +202,9 @@ class CssParseTest {
         row("lch(67.5345% 42.5 258.2)", LCH(67.5345, 42.5, 258.2)),
     ) { str, lch ->
         val (l, c, h) = Color.fromCss(str).shouldBeInstanceOf<LCH>()
-        withClue("l") { l shouldBe (lch.l plusOrMinus 0.0005) }
-        withClue("c") { c shouldBe (lch.c plusOrMinus 0.0005) }
-        withClue("h") { h shouldBe (lch.h plusOrMinus 0.0005) }
+        withClue("l") { l shouldBe (lch.l plusOrMinus 0.0005f) }
+        withClue("c") { c shouldBe (lch.c plusOrMinus 0.0005f) }
+        withClue("h") { h shouldBe (lch.h plusOrMinus 0.0005f) }
     }
 
     @Test
@@ -217,8 +218,8 @@ class CssParseTest {
         row("hwb(3.1416rad 23.4% 45.6%)", HWB(180.0, 23.4, 45.6)),
     ) { str, hwb ->
         val (h, w, b) = Color.fromCss(str).shouldBeInstanceOf<HWB>()
-        withClue("h") { h shouldBe (hwb.h plusOrMinus 0.0005) }
-        withClue("w") { w shouldBe (hwb.w plusOrMinus 0.0005) }
-        withClue("b") { b shouldBe (hwb.b plusOrMinus 0.0005) }
+        withClue("h") { h shouldBe (hwb.h plusOrMinus 0.0005f) }
+        withClue("w") { w shouldBe (hwb.w plusOrMinus 0.0005f) }
+        withClue("b") { b shouldBe (hwb.b plusOrMinus 0.0005f) }
     }
 }

@@ -30,7 +30,7 @@ class HWBTest {
 
             row(HWB(90.0, 0.0, 0.0), RGB("#80ff00")),
             row(HWB(90.0, 60.0, 20.0), RGB("#b3cc99")),
-            row(HWB(90.0, 20.0, 60.0), RGB("#4d6633")),
+            row(HWB(90.0, 20.0, 60.0), RGB("#4c6633")),
         ) { hwb, rgb ->
             hwb.toRGB() shouldBe rgb
         }

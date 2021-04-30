@@ -16,7 +16,7 @@ fun HueColor.hueAsRad(): Float = (h * PI / 180).toFloat()
 /** Convert this color's hue to turns (360° == 1 turn) */
 fun HueColor.hueAsTurns(): Float = h / 360f
 
-internal fun Double.degToRad(): Double = this * PI / 180
-internal fun Double.radToDeg(): Double = this * 180 / PI
-internal fun Double.gradToDeg(): Double = this * .9
-internal fun Double.turnToDeg(): Double = this * 360
+internal fun Float.degToRad(): Float = (this * PI / 180).toFloat()
+internal fun Float.radToDeg(): Float = (this * 180 / PI).toFloat()
+internal fun Float.gradToDeg(): Float = this * .9f
+internal fun Float.turnToDeg(): Float = this * 360

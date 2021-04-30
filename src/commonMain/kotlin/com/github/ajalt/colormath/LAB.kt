@@ -4,7 +4,6 @@ import com.github.ajalt.colormath.Illuminant.D65
 import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
-import kotlin.math.withSign
 
 /**
  * CIE LAB color space.
@@ -33,14 +32,9 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
         val fz = fy - b / 200
         val fx = a / 500 + fy
 
-        fun f(t: Double) = t.pow(3).let {
-            if (it > CIE_E) it
-            else (116 * t - 16) / CIE_K
-        }
-
         val yr = if (l > CIE_E_times_K) fy.pow(3) else l / CIE_K
-        val zr = f(fz)
-        val xr = f(fx)
+        val zr = fz.pow(3).let { if (it > CIE_E) it else (116 * fz - 16) / CIE_K }
+        val xr = fx.pow(3).let { if (it > CIE_E) it else (116 * fx - 16) / CIE_K }
 
         return XYZ(xr * D65.x, yr * D65.y, zr * D65.z, alpha)
     }
@@ -48,10 +42,10 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
     override fun toLCH(): LCH {
         // https://www.w3.org/TR/css-color-4/#lab-to-lch
         val c = sqrt(a * a + b * b)
-        val h = if (c < 1e-8) 0.0 else {
-            atan2(b, a).radToDeg()
+        val h = if (c < 1e-8) 0f else {
+            atan2(b, a).toFloat().radToDeg()
         }.let { if (it < 0) it + 360 else it }
-        return LCH(l, c, h)
+        return LCH(l.toFloat(), c.toFloat(), h)
     }
 
     override fun toLAB(): LAB = this

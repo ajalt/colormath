@@ -94,7 +94,7 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
         val (h, min, max, delta) = hueMinMaxDelta()
         val l = (min + max) / 2
         val s = when {
-            max == min -> 0.0
+            max == min -> 0f
             l <= .5f -> delta / (max + min)
             else -> delta / (2 - max - min)
         }
@@ -105,7 +105,7 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     override fun toHSV(): HSV {
         val (h, _, max, delta) = hueMinMaxDelta()
         val s = when (max) {
-            0.0 -> 0.0
+            0f -> 0f
             else -> (delta / max)
         }
 
@@ -115,7 +115,7 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     override fun toXYZ(): XYZ {
         // linearize sRGB
         fun adj(num: Int): Double {
-            val c = num.toDouble() / 255.0
+            val c = num / 255.0
             return when {
                 c > 0.04045 -> ((c + 0.055) / 1.055).pow(2.4)
                 else -> c / 12.92
@@ -161,8 +161,8 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
         val (hue, min, max) = hueMinMaxDelta()
         return HWB(
             h = hue,
-            w = 100.0 * min,
-            b = 100.0 * (1.0 - max),
+            w = 100f * min,
+            b = 100f * (1f - max),
             a = alpha
         )
     }
@@ -204,26 +204,26 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
      *
      * Min and max are scaled to [0, 1]
      */
-    private fun hueMinMaxDelta(): DoubleArray {
-        val r = this.r / 255.0
-        val g = this.g / 255.0
-        val b = this.b / 255.0
+    private fun hueMinMaxDelta(): FloatArray {
+        val r = this.r / 255f
+        val g = this.g / 255f
+        val b = this.b / 255f
         val min = minOf(r, g, b)
         val max = maxOf(r, g, b)
         val delta = max - min
 
         var h = when {
-            max == min -> 0.0
+            max == min -> 0f
             r == max -> (g - b) / delta
             g == max -> 2 + (b - r) / delta
             b == max -> 4 + (r - g) / delta
-            else -> 0.0
+            else -> 0f
         }
 
-        h = minOf(h * 60, 360.0)
+        h = minOf(h * 60, 360f)
         if (h < 0) h += 360
 
-        return doubleArrayOf(h, min, max, delta)
+        return floatArrayOf(h, min, max, delta)
     }
 }
 
