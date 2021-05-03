@@ -69,7 +69,10 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
      * Construct an RGB instance from Double values in the range `[0, 1]`.
      */
     constructor(r: Double, g: Double, b: Double, a: Double = 1.0) : this(
-        r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat()
+        r = (r * 255).roundToInt(),
+        g = (g * 255).roundToInt(),
+        b = (b * 255).roundToInt(),
+        a = a.toFloat()
     )
 
     override val alpha: Float get() = a
@@ -94,22 +97,20 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
         val (h, min, max, delta) = hueMinMaxDelta()
         val l = (min + max) / 2
         val s = when {
-            max == min -> 0f
-            l <= .5f -> delta / (max + min)
+            max == min -> 0.0
+            l <= .5 -> delta / (max + min)
             else -> delta / (2 - max - min)
         }
-
-        return HSL(h.roundToInt(), (s * 100).roundToInt(), (l * 100).roundToInt(), alpha)
+        return HSL(h.toFloat(), s.toFloat(), l.toFloat(), alpha)
     }
 
     override fun toHSV(): HSV {
         val (h, _, max, delta) = hueMinMaxDelta()
         val s = when (max) {
-            0f -> 0f
+            0.0 -> 0.0
             else -> (delta / max)
         }
-
-        return HSV(h.roundToInt(), (s * 100).roundToInt(), (max * 100).roundToInt(), alpha)
+        return HSV(h.toFloat(), s.toFloat(), max.toFloat(), alpha)
     }
 
     override fun toXYZ(): XYZ {
@@ -161,9 +162,9 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
         val (hue, min, max) = hueMinMaxDelta()
         return HWB(
             h = hue,
-            w = 100f * min,
-            b = 100f * (1f - max),
-            a = alpha
+            w = 100 * min,
+            b = 100 * (1 - max),
+            alpha = alpha.toDouble()
         )
     }
 
@@ -204,26 +205,26 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
      *
      * Min and max are scaled to [0, 1]
      */
-    private fun hueMinMaxDelta(): FloatArray {
-        val r = this.r / 255f
-        val g = this.g / 255f
-        val b = this.b / 255f
+    private fun hueMinMaxDelta(): DoubleArray {
+        val r = this.r / 255.0
+        val g = this.g / 255.0
+        val b = this.b / 255.0
         val min = minOf(r, g, b)
         val max = maxOf(r, g, b)
         val delta = max - min
 
         var h = when {
-            max == min -> 0f
+            max == min -> 0.0
             r == max -> (g - b) / delta
             g == max -> 2 + (b - r) / delta
             b == max -> 4 + (r - g) / delta
-            else -> 0f
+            else -> 0.0
         }
 
-        h = minOf(h * 60, 360f)
+        h = minOf(h * 60, 360.0)
         if (h < 0) h += 360
 
-        return floatArrayOf(h, min, max, delta)
+        return doubleArrayOf(h, min, max, delta)
     }
 }
 

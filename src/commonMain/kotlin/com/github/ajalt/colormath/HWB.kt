@@ -19,9 +19,10 @@ data class HWB(val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Co
     override fun toRGB(): RGB {
         // Algorithm from Smith and Lyons, http://alvyray.com/Papers/CG/HWB_JGTv208.pdf, Appendix B
 
-        val h = this.h / 60 // Smith defines hue as normalized to [0, 6] for some reason
-        val w = this.w / 100
-        val b = this.b / 100
+        val h = this.h / 60.0 // Smith defines hue as normalized to [0, 6] for some reason
+        val w = this.w / 100.0
+        val b = this.b / 100.0
+        val a = this.a.toDouble()
 
         // Smith just declares that w + b must be <= 1. We use the fast-exit from
         // https://www.w3.org/TR/css-color-4/#hwb-to-rgb rather than normalizing.
