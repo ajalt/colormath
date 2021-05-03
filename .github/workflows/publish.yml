@@ -8,95 +8,68 @@ on:
       - master
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        os: [ macos-latest, windows-latest, ubuntu-latest ]
-    runs-on: ${{matrix.os}}
+  linux-tests:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repo
-        uses: actions/checkout@v2
-
-      - name: Cache gradle
-        uses: actions/cache@v1
+      - uses: actions/checkout@v2
+      - uses: eskatos/gradle-command-action@v1
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Run ubuntu tests
-        if: matrix.os == 'ubuntu-latest'
-        run: ./gradlew check
-
-      - name: Run windows tests
-        if: matrix.os == 'windows-latest'
-        run: ./gradlew mingwX64Test
-
-      - name: Run macOS tests
-        if: matrix.os == 'macOS-latest'
-        run: ./gradlew macosX64Test tvosX64Test iosX64Test
-
+          dependencies-cache-enabled: true
+          arguments: check --stacktrace
       - name: Bundle the build report
         if: failure()
         run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
-
       - name: Upload the build report
         if: failure()
         uses: actions/upload-artifact@master
         with:
           name: error-report
           path: build-reports.zip
-
-  deploy-mac-and-linux:
-    needs: test
+  macos-tests:
     runs-on: macos-latest
     steps:
-      - name: Checkout the repo
-        uses: actions/checkout@v2
-
-      - name: Fetch git tags
-        run: git fetch origin +refs/tags/*:refs/tags/*
-
-      - name: Cache gradle
-        uses: actions/cache@v1
+      - uses: actions/checkout@v2
+      - uses: eskatos/gradle-command-action@v1
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Deploy to sonatype snapshots
-        run: ./gradlew publish -PinferVersion=true
-        env:
-          ORG_GRADLE_PROJECT_SONATYPE_USERNAME: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_USERNAME }}
-          ORG_GRADLE_PROJECT_SONATYPE_PASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_PASSWORD }}
-          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_signingKey }}
-
-  deploy-windows:
-    needs: test
+          dependencies-cache-enabled: true
+          arguments: macosX64Test tvosX64Test iosX64Test --stacktrace
+  windows-tests:
     runs-on: windows-latest
     steps:
-      - name: Checkout the repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: eskatos/gradle-command-action@v1
+        with:
+          dependencies-cache-enabled: true
+          arguments: mingwX64Test --stacktrace
 
+  deploy-mac-and-linux:
+    needs: [ linux-tests, macos-tests, windows-tests ]
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Fetch git tags
         run: git fetch origin +refs/tags/*:refs/tags/*
-
-      - name: Cache gradle
-        uses: actions/cache@v1
+      - name: Deploy to sonatype
+        uses: eskatos/gradle-command-action@v1
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          dependencies-cache-enabled: true
+          arguments: publish -PinferVersion=true
 
-      - name: Deploy to sonatype snapshots
-        run: ./gradlew publishMingwX64PublicationToMavenRepository -PinferVersion=true
-        env:
-          ORG_GRADLE_PROJECT_SONATYPE_USERNAME: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_USERNAME }}
-          ORG_GRADLE_PROJECT_SONATYPE_PASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_PASSWORD }}
-          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_signingKey }}
+  deploy-windows:
+    needs: [ linux-tests, macos-tests, windows-tests ]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Fetch git tags
+        run: git fetch origin +refs/tags/*:refs/tags/*
+      - name: Deploy to sonatype
+        uses: eskatos/gradle-command-action@v1
+        with:
+          dependencies-cache-enabled: true
+          arguments: publishMingwX64PublicationToMavenRepository -PinferVersion=true
 
 env:
-  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx5g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+  ORG_GRADLE_PROJECT_SONATYPE_USERNAME: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_USERNAME }}
+  ORG_GRADLE_PROJECT_SONATYPE_PASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPE_PASSWORD }}
+  ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_signingKey }}
