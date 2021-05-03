@@ -62,6 +62,12 @@ tasks.withType<KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+val jvmJar by tasks.getting(Jar::class) {
+    manifest {
+        attributes("Automatic-Module-Name" to "com.github.ajalt.colormath")
+    }
+}
+
 
 fun getPublishVersion(): String {
     // Call gradle with -PinferVersion to set the dynamic version name. Otherwise we skip it to save time.
