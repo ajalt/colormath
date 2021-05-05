@@ -1,11 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.1.0] - 2021-05-05
 ### Added
 - Added CIE LUV colorspace support
 - Added CIE LCH(uv) colorspace support
 - Added HWB colorspace support
-- Added `lab()` support to `Color.fromCss`
+- Added `lab()` and `hwb()` support to `Color.fromCss`
 - JS target now publishes IR format in addition to legacy jars
 
 ### Changed

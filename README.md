@@ -12,12 +12,14 @@ spaces, and to parse CSS colors into any of the supported color spaces.
 * XYZ
 * LAB
 * LUV
+* LCH
+* HWB
 * ANSI-16 color codes
 * ANSI-256 color codes
 
-Most conversions run in a single step. If there isn't a formula for a
-direct conversion between two color spaces, the color will first be
-converted to another form such as RGB and then to final color space.
+Most conversions run in a single step. If there isn't a formula for a direct conversion between two
+color spaces, the color will be converted to one or more intermediate color spaces before the final
+conversion.
 
 ## Usage
 
@@ -80,9 +82,11 @@ Colormath is distributed through [Maven Central](https://search.maven.org/artifa
 
 ```groovy
 dependencies {
-   implementation("com.github.ajalt.colormath:colormath:2.0.0")
+   implementation("com.github.ajalt.colormath:colormath:2.1.0")
 }
 ```
+
+###### If you're using Maven instead of Gradle, use `<artifactId>colormath-jvm</artifactId>`
 
 ###### In version 2.0, the maven coordinates changed. Make sure you're using the new coordinates if you're updating from an older version.
 
@@ -114,7 +118,7 @@ repositories {
 
 ## License
 
-    Copyright 2018-2020 AJ Alt
+    Copyright 2018-2021 AJ Alt
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
