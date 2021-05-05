@@ -59,7 +59,7 @@ data class HSV(override val h: Int, val s: Int, val v: Int, val a: Float = 1f) :
 
         val l = ((2 - s) * v) / 2
         val lmin = (2 - s) * vmin
-        val sl = if(lmin == 2.0) 0.0 else (s * vmin) / (if (lmin <= 1) lmin else 2 - lmin)
+        val sl = if (lmin == 2.0) 0.0 else (s * vmin) / (if (lmin <= 1) lmin else 2 - lmin)
 
         return HSL(h.roundToInt(), (sl * 100).roundToInt(), (l * 100).roundToInt(), alpha)
     }
