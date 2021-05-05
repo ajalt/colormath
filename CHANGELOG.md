@@ -9,7 +9,7 @@
 - JS target now publishes IR format in addition to legacy jars
 
 ### Changed
-- Updated Kotlin to 1.4.32
+- Updated Kotlin to 1.5.0
 - `Color.fromCss` now clamps out-of-range values in accordance with the CSS Color Module Level 4 spec
 
 

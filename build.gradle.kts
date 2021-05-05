@@ -1,10 +1,9 @@
 @file:Suppress("UNUSED_VARIABLE", "PropertyName")
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 
 plugins {
-    kotlin("multiplatform") version "1.4.32"
+    kotlin("multiplatform") version "1.5.0"
     id("org.jetbrains.dokka") version "0.10.1"
     id("maven-publish")
     id("signing")
@@ -32,34 +31,20 @@ kotlin {
     macosX64()
 
     ios()
-    watchos()
     tvos()
+
+    // kotest doesn't publish watchosX64 yet, so we can't use the `watchos()` shortcut
+    watchosArm32()
+    watchosArm64()
 
     sourceSets {
         val commonTest by getting {
             dependencies {
-                api(kotlin("test-common"))
-                api(kotlin("test-annotations-common"))
-                api("io.kotest:kotest-assertions-core:4.4.3")
-            }
-        }
-
-        val jvmTest by getting {
-            dependencies {
-                api(kotlin("test-junit"))
-            }
-        }
-
-        val jsTest by getting {
-            dependencies {
-                api(kotlin("test-js"))
+                implementation(kotlin("test"))
+                implementation("io.kotest:kotest-assertions-core:4.5.0")
             }
         }
     }
-}
-
-tasks.withType<KotlinCompile>().all {
-    kotlinOptions.jvmTarget = "1.8"
 }
 
 val jvmJar by tasks.getting(Jar::class) {
@@ -109,7 +94,7 @@ publishing {
             licenses {
                 license {
                     name.set("The Apache Software License, Version 2.0")
-                    url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
                     distribution.set("repo")
                 }
             }
