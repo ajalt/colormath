@@ -1,0 +1,41 @@
+site_name: Colormath
+repo_name: Colormath
+repo_url: https://github.com/ajalt/colormath
+site_description: "Colormath: Multiplatform color space conversions for Kotlin"
+site_author: AJ Alt
+remote_branch: gh-pages
+
+copyright: 'Copyright &copy; 2021 AJ Alt'
+
+theme:
+  name: 'material'
+  logo: img/palette_white_24dp.svg
+  favicon: img/favicon.ico
+  palette:
+    scheme: slate
+    primary: deep purple
+    accent: purple
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - smarty
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - tables
+
+nav:
+  - 'API Reference': api/colormath/com.github.ajalt.colormath/index.html
+  - 'Releases': changelog.md

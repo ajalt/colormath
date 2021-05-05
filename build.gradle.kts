@@ -1,12 +1,21 @@
 @file:Suppress("UNUSED_VARIABLE", "PropertyName")
 
+import org.jetbrains.dokka.base.DokkaBase
+import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import java.io.ByteArrayOutputStream
 
 plugins {
     kotlin("multiplatform") version "1.5.0"
-    id("org.jetbrains.dokka") version "0.10.1"
+    id("org.jetbrains.dokka") version "1.4.32"
     id("maven-publish")
     id("signing")
+}
+
+
+buildscript {
+    dependencies {
+        classpath("org.jetbrains.dokka:dokka-base:1.4.30")
+    }
 }
 
 val VERSION_NAME: String by project
@@ -70,6 +79,20 @@ fun getPublishVersion(): String {
     return "$VERSION_NAME.$buildNumber-SNAPSHOT"
 }
 
+tasks.dokkaHtml.configure {
+    outputDirectory.set(rootDir.resolve("docs/api"))
+    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
+        customStyleSheets = listOf(rootDir.resolve("docs/css/logo-styles.css"))
+        customAssets = listOf(rootDir.resolve("docs/img/palette_black_36dp.svg"))
+        footerMessage = "Copyright &copy; 2021 AJ Alt"
+    }
+    dokkaSourceSets {
+        configureEach {
+            reportUndocumented.set(false)
+            skipDeprecated.set(true)
+        }
+    }
+}
 
 val emptyJavadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")

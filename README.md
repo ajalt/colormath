@@ -1,25 +1,21 @@
 # Colormath
 
 Colormath is a Kotlin Multiplatform library that allows you to convert between a number of color
-spaces, and to parse CSS colors into any of the supported color spaces.
+spaces. Colormath can also parse and render CSS colors.
 
 ## Supported color spaces
 
-* RGB
-* CMYK
-* HSL
-* HSV
-* XYZ
-* LAB
-* LUV
-* LCH
-* HWB
-* ANSI-16 color codes
-* ANSI-256 color codes
-
-Most conversions run in a single step. If there isn't a formula for a direct conversion between two
-color spaces, the color will be converted to one or more intermediate color spaces before the final
-conversion.
+* [RGB](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-r-g-b/index.html)
+* [CMYK](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-c-m-y-k/index.html)
+* [HSL](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-h-s-l/index.html)
+* [HSV](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-h-s-v/index.html)
+* [HWB](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-h-w-b/index.html)
+* [LAB](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-l-a-b/index.html)
+* [LCH](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-l-c-h/index.html)
+* [LUV](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-l-u-v/index.html)
+* [XYZ](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-x-y-z/index.html)
+* [ANSI-16 color codes](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-ansi16/index.html)
+* [ANSI-256 color codes](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-ansi256/index.html)
 
 ## Usage
 
