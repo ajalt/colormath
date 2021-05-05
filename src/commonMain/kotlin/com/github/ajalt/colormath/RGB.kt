@@ -101,7 +101,7 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
             l <= .5 -> delta / (max + min)
             else -> delta / (2 - max - min)
         }
-        return HSL(h.toFloat(), s.toFloat(), l.toFloat(), alpha)
+        return HSL(h.roundToInt(), (s * 100).roundToInt(), (l * 100).roundToInt(), alpha)
     }
 
     override fun toHSV(): HSV {
@@ -110,7 +110,7 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
             0.0 -> 0.0
             else -> (delta / max)
         }
-        return HSV(h.toFloat(), s.toFloat(), max.toFloat(), alpha)
+        return HSV(h.roundToInt(), (s * 100).roundToInt(), (max * 100).roundToInt(), alpha)
     }
 
     override fun toXYZ(): XYZ {
