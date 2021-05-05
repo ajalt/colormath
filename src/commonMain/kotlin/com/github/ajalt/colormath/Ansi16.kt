@@ -39,8 +39,8 @@ data class Ansi16(val code: Int) : Color {
         // grayscale
         if (color == 0 || color == 7) {
             val c: Double =
-                    if (code > 50) color + 3.5
-                    else color.toDouble()
+                if (code > 50) color + 3.5
+                else color.toDouble()
 
             val v = (c / 10.5 * 255).roundToInt()
 

@@ -30,6 +30,7 @@ data class Ansi256(val code: Int) : Color {
     }
 
     override fun toAnsi256() = this
+
     // 0-7 are standard ansi16 colors
     // 8-15 are bright ansi16 colors
     override fun toAnsi16() = when {

@@ -5,8 +5,10 @@ import kotlin.math.roundToInt
 enum class RenderCondition {
     /** Always show the value */
     ALWAYS,
+
     /** Never show the value */
     NEVER,
+
     /** Only show the value if it differs from its default */
     AUTO
 }
@@ -14,12 +16,16 @@ enum class RenderCondition {
 enum class AngleUnit {
     /** Degrees with implicit units */
     AUTO,
+
     /** Degrees with explicit units */
     DEGREES,
+
     /** 360° == 2π radians */
     RADIANS,
+
     /** 360° == 400 gradians */
     GRADIANS,
+
     /** 360° == 1 turn */
     TURNS
 }
@@ -50,11 +56,11 @@ enum class AngleUnit {
  * @param renderAlpha Whether or not to render the alpha value.
  */
 fun Color.toCssRgb(
-        commas: Boolean = true,
-        namedRgba: Boolean = false,
-        rgbPercent: Boolean = false,
-        alphaPercent: Boolean = false,
-        renderAlpha: RenderCondition = RenderCondition.AUTO
+    commas: Boolean = true,
+    namedRgba: Boolean = false,
+    rgbPercent: Boolean = false,
+    alphaPercent: Boolean = false,
+    renderAlpha: RenderCondition = RenderCondition.AUTO,
 ): String {
     val (r, g, b, a) = toRGB()
     val sep = if (commas) ", " else " "
@@ -99,11 +105,11 @@ fun Color.toCssRgb(
  * @param renderAlpha Whether or not to render the alpha value.
  */
 fun Color.toCssHsl(
-        commas: Boolean = true,
-        namedHsla: Boolean = false,
-        hueUnit: AngleUnit = AngleUnit.AUTO,
-        alphaPercent: Boolean = false,
-        renderAlpha: RenderCondition = RenderCondition.AUTO
+    commas: Boolean = true,
+    namedHsla: Boolean = false,
+    hueUnit: AngleUnit = AngleUnit.AUTO,
+    alphaPercent: Boolean = false,
+    renderAlpha: RenderCondition = RenderCondition.AUTO,
 ): String {
     val hsl = toHSL()
     val (h, s, l, a) = hsl
@@ -117,7 +123,7 @@ fun Color.toCssHsl(
     }
 
     val args = listOf(hue, (s / 100f).render(true), (l / 100f).render(true)).joinToString(sep)
-            .withAlpha(a, commas, renderAlpha, alphaPercent)
+        .withAlpha(a, commas, renderAlpha, alphaPercent)
     val name = if (namedHsla) "hsla" else "hsl"
     return "$name($args)"
 }

@@ -31,8 +31,8 @@ interface Color {
      *     or in the form `"ffffff"` otherwise.
      */
     fun toHex(
-            withNumberSign: Boolean = true,
-            renderAlpha: RenderCondition = RenderCondition.AUTO
+        withNumberSign: Boolean = true,
+        renderAlpha: RenderCondition = RenderCondition.AUTO,
     ): String = toRGB().toHex(withNumberSign)
 
     /** Convert this color to Hue-Saturation-Luminosity */
