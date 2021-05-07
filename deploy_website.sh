@@ -29,7 +29,7 @@ EOM
 # Copy the README into the index, omitting the license and fixing hrefs
 cat README.md \
   | sed '/## License/Q' \
-  | sed 's!https://ajalt.github.io/colormath/api/!api/!g' \
+  | sed 's!https://ajalt.github.io/colormath/!/!g' \
   >> docs/index.md
 
 # Build and deploy the new site to github pages
