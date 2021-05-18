@@ -13,15 +13,8 @@ import kotlin.math.roundToInt
  */
 data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     companion object {
-        /**
-         * Create an [RGB] instance from a packed (a)rgb integer, such as those returned from
-         * `android.graphics.Color.argb` or `java.awt.image.BufferedImage.getRGB`.
-         */
-        fun fromInt(argb: Int): RGB = RGB(
-            r = (argb ushr 16) and 0xff,
-            g = (argb ushr 8) and 0xff,
-            b = (argb) and 0xff,
-            a = ((argb ushr 24) and 0xff) / 255f)
+        @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
+        fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toRGB()
     }
 
     init {
@@ -77,13 +70,13 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
 
     override val alpha: Float get() = a
 
+    @Deprecated("use toRGBInt instead", ReplaceWith("toRGBInt()"))
+    fun toPackedInt(): Int = toRGBInt().argb.toInt()
+
     /**
-     * Return this color as a packed ARGB integer, such as those returned from
-     * `android.graphics.Color.argb` or `java.awt.image.BufferedImage.getRGB`.
+     * Return this color as a packed ARGB integer.
      */
-    fun toPackedInt(): Int {
-        return (a * 0xff).roundToInt() shl 24 or (r shl 16) or (g shl 8) or b
-    }
+    fun toRGBInt() = RGBInt(r.toUByte(), g.toUByte(), b.toUByte(), (a * 255).toUInt().toUByte())
 
     override fun toHex(withNumberSign: Boolean, renderAlpha: RenderCondition): String = buildString(9) {
         if (withNumberSign) append('#')
