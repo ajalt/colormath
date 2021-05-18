@@ -30,18 +30,6 @@ class RGBTest {
     }
 
     @Test
-    @JsName("RGB_from_packed")
-    fun `RGB from packed`() {
-        forAll(
-            row(0, 0, 0),
-            row(76, 127, 201),
-            row(255, 255, 255)
-        ) { r, g, b ->
-            RGB.fromInt(packRgb(r, g, b)) shouldBe RGB(r, g, b)
-        }
-    }
-
-    @Test
     @JsName("RGB_to_HSV")
     fun `RGB to HSV`() {
         forAll(
@@ -292,22 +280,6 @@ class RGBTest {
             row(RGB(238, 238, 238), 254)
         ) { rgb, ansi ->
             rgb.toAnsi256() shouldBe Ansi256(ansi)
-        }
-    }
-
-    @Test
-    fun toPackedInt() {
-        // kotest's property testing doesn't support K/N yet
-        repeat(10000) {
-            val rgb = RGB(
-                r = Random.nextInt(0..255),
-                g = Random.nextInt(0..255),
-                b = Random.nextInt(0..255),
-                a = Random.nextInt(0..255) / 255f
-            )
-            withClue("$rgb") {
-                RGB.fromInt(rgb.toPackedInt()) shouldBe rgb
-            }
         }
     }
 }
