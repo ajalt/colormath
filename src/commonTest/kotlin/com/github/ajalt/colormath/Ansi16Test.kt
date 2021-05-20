@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
@@ -28,7 +29,7 @@ class Ansi16Test {
                 row(96, RGB(0, 255, 255)),
                 row(97, RGB(255, 255, 255))
         ) { ansi, rgb ->
-            Ansi16(ansi).toRGB() shouldBe rgb
+            Ansi16(ansi) should convertTo(rgb)
         }
     }
 

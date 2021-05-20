@@ -15,7 +15,7 @@ package com.github.ajalt.colormath
  */
 interface Color {
     /** The opacity of this color, in the range `[0, 1]`. */
-    val alpha: Float get() = 1f
+    val alpha: Float
 
     /** Convert this color to Red-Green-Blue (using sRGB color space) */
     fun toRGB(): RGB

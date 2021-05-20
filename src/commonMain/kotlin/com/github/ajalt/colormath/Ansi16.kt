@@ -1,7 +1,5 @@
 package com.github.ajalt.colormath
 
-import kotlin.math.roundToInt
-
 /**
  * An ANSI-16 color code
  */
@@ -12,6 +10,8 @@ data class Ansi16(val code: Int) : Color {
             "code not valid: $code"
         }
     }
+
+    override val alpha: Float get() = 1f
 
     companion object {
         val black: Ansi16 get() = Ansi16(30)
@@ -42,13 +42,12 @@ data class Ansi16(val code: Int) : Color {
                 if (code > 50) color + 3.5
                 else color.toDouble()
 
-            val v = (c / 10.5 * 255).roundToInt()
-
+            val v = c / 10.5
             return RGB(v, v, v)
         }
 
         // color
-        val mul = if (code > 50) 1.0 else 0.5
+        val mul = if (code > 50) 1f else 0.5f
         val r = ((color % 2) * mul)
         val g = (((color / 2) % 2) * mul)
         val b = (((color / 4) % 2) * mul)

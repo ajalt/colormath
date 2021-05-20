@@ -29,16 +29,15 @@ data class HSV(override val h: Int, val s: Int, val v: Int, val a: Float = 1f) :
     override val alpha: Float get() = a
 
     override fun toRGB(): RGB {
-        val h = h.toDouble() / 60
-        val s = s.toDouble() / 100
-        var v = v.toDouble() / 100
+        val h = h / 60.0
+        val s = s / 100.0
+        val v = v / 100.0
         val hi = floor(h) % 6
 
         val f = h - floor(h)
-        val p = 255 * v * (1 - s)
-        val q = 255 * v * (1 - (s * f))
-        val t = 255 * v * (1 - (s * (1 - f)))
-        v *= 255
+        val p =  v * (1 - s)
+        val q =  v * (1 - (s * f))
+        val t =  v * (1 - (s * (1 - f)))
 
         val (r, g, b) = when (hi.roundToInt()) {
             0 -> Triple(v, t, p)
@@ -48,7 +47,7 @@ data class HSV(override val h: Int, val s: Int, val v: Int, val a: Float = 1f) :
             4 -> Triple(t, p, v)
             else -> Triple(v, p, q)
         }
-        return RGB(r.roundToInt(), g.roundToInt(), b.roundToInt(), alpha)
+        return RGB(r.toFloat(), g.toFloat(), b.toFloat(), alpha)
     }
 
     override fun toHSL(): HSL {

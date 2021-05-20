@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
@@ -32,7 +33,7 @@ class HWBTest {
             row(HWB(90.0, 60.0, 20.0), RGB("#b3cc99")),
             row(HWB(90.0, 20.0, 60.0), RGB("#4d6633")),
         ) { hwb, rgb ->
-            hwb.toRGB() shouldBe rgb
+            hwb should convertTo(rgb)
         }
     }
 
@@ -41,11 +42,11 @@ class HWBTest {
     // All hues convert to the same gray values
     fun `HWB to RGB gray`() {
         for (h in 0..3600) {
-            HWB(h / 10.0, 0.0, 100.0).toRGB() shouldBe RGB("#000000")
-            HWB(h / 10.0, 40.0, 60.0).toRGB() shouldBe RGB("#666666")
-            HWB(h / 10.0, 60.0, 40.0).toRGB() shouldBe RGB("#999999")
-            HWB(h / 10.0, 100.0, 0.0).toRGB() shouldBe RGB("#ffffff")
-            HWB(h / 10.0, 100.0, 100.0).toRGB() shouldBe RGB("#808080")
+            HWB(h / 10.0, 0.0, 100.0).toRGB() should convertTo(RGB("#000000"))
+            HWB(h / 10.0, 40.0, 60.0).toRGB() should convertTo(RGB("#666666"))
+            HWB(h / 10.0, 60.0, 40.0).toRGB() should convertTo(RGB("#999999"))
+            HWB(h / 10.0, 100.0, 0.0).toRGB() should convertTo(RGB("#ffffff"))
+            HWB(h / 10.0, 100.0, 100.0).toRGB() should convertTo(RGB("#808080"))
         }
     }
 }

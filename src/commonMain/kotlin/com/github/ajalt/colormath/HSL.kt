@@ -31,8 +31,7 @@ data class HSL(override val h: Int, val s: Int, val l: Int, val a: Float = 1f) :
         val s = this.s / 100.0
         val l = this.l / 100.0
         if (s == 0.0) {
-            val v = (l * 255).roundToInt()
-            return RGB(v, v, v)
+            return RGB(l, l, l)
         }
 
         val t2 = when {

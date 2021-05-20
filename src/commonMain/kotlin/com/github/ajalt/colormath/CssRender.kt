@@ -62,14 +62,15 @@ fun Color.toCssRgb(
     alphaPercent: Boolean = false,
     renderAlpha: RenderCondition = RenderCondition.AUTO,
 ): String {
-    val (r, g, b, a) = toRGB()
+    val rgb = toRGB()
+    val (r, g, b) = rgb.toRGBInt()
     val sep = if (commas) ", " else " "
     val args = listOf(r, g, b).joinToString(sep) {
         when (rgbPercent) {
-            true -> it.div(255f).render(percent = true)
-            false -> it.toString()
+            true -> it.toInt().div(255f).render(percent = true)
+            false -> it.toInt().toString()
         }
-    }.withAlpha(a, commas, renderAlpha, alphaPercent)
+    }.withAlpha(rgb.alpha, commas, renderAlpha, alphaPercent)
     val name = if (namedRgba) "rgba" else "rgb"
     return "$name($args)"
 }

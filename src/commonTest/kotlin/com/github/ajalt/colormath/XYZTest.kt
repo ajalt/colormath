@@ -1,9 +1,12 @@
 package com.github.ajalt.colormath
 
+import io.kotest.assertions.assertSoftly
+import io.kotest.assertions.withClue
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.floats.plusOrMinus
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
@@ -17,13 +20,20 @@ class XYZTest {
             row(XYZ(025.0, 025.0, 025.0), RGB(149, 134, 131)),
             row(XYZ(050.0, 050.0, 050.0), RGB(204, 183, 180)),
             row(XYZ(075.0, 075.0, 075.0), RGB(244, 219, 215)),
-            row(XYZ(100.0, 100.0, 100.0), RGB(255, 249, 244)),
-            row(XYZ(100.0, 000.0, 000.0), RGB(255, 0, 67)),
-            row(XYZ(000.0, 100.0, 000.0), RGB(0, 255, 0)),
-            row(XYZ(000.0, 000.0, 100.0), RGB(0, 57, 255)),
             row(XYZ(95.0470, 100.0000, 108.8830), RGB(255, 255, 255)),
         ) { xyz, rgb ->
-            xyz.toRGB() shouldBe rgb
+            xyz should convertTo(rgb)
+        }
+    }
+
+    @Test
+    @JsName("XYZ_to_RGB_HDR")
+    fun `XYZ to RGB_HDR`() {
+        val (r, g, b) = XYZ(100.0, 100.0, 100.0).toRGB()
+        assertSoftly {
+            withClue("r") { r shouldBe (1.08516f plusOrMinus 0.00005f) }
+            withClue("g") { g shouldBe (0.97692f plusOrMinus 0.00005f) }
+            withClue("b") { b shouldBe (0.95881f plusOrMinus 0.00005f) }
         }
     }
 

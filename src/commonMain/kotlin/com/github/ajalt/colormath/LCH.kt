@@ -22,7 +22,7 @@ data class LCH(val l: Float, val c: Float, val h: Float, override val alpha: Flo
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
 
     override fun toRGB(): RGB = when (l) {
-        0f -> RGB(0, 0, 0, alpha)
+        0f -> RGB(0f, 0f, 0f, alpha)
         else -> toLUV().toXYZ().toRGB()
     }
 

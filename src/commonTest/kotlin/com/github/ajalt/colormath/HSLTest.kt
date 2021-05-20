@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
@@ -16,7 +17,7 @@ class HSLTest {
                 row(HSL(279, 73, 13), RGB(40, 9, 57)),
                 row(HSL(0, 0, 100), RGB(255, 255, 255))
         ) { hsl, rgb ->
-            hsl.toRGB() shouldBe rgb
+            hsl should convertTo(rgb)
         }
     }
 
