@@ -10,6 +10,8 @@ data class Ansi256(val code: Int) : Color {
         check(code in 0..255) { "code must be in range [0,255]: $code" }
     }
 
+    override val alpha: Float get() = 1f
+
     override fun toRGB(): RGB {
         // ansi16 colors
         if (code < 16) return toAnsi16().toRGB()

@@ -6,24 +6,14 @@ import kotlin.math.roundToInt
 /**
  * A color in the sRGB color space, which uses the D65 illuminant.
  *
- * @property r The red channel, a value in the range `[0, 255]`
- * @property g The green channel, a value in the range `[0, 255]`
- * @property b The blue channel, a value in the range `[0, 255]`
- * @property a The alpha channel, a value in the range `[0f, 1f]`
+ * All color channels are floating point values normalized to `[0, 1]` for SDR colors. HDR colors may exceed this range.
+ *
+ * @property r The red channel, a value in the range `[0, 1]`
+ * @property g The green channel, a value in the range `[0, 1]`
+ * @property b The blue channel, a value in the range `[0, 1]`
+ * @property a The alpha channel, a value in the range `[0, 1]`
  */
-data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
-    companion object {
-        @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
-        fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toRGB()
-    }
-
-    init {
-        require(r in 0..255) { "r must be in range [0, 255] in $this" }
-        require(g in 0..255) { "g must be in range [0, 255] in $this" }
-        require(b in 0..255) { "b must be in range [0, 255] in $this" }
-        require(a in 0f..1f) { "a must be in range [0, 1] in $this" }
-    }
-
+data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
     /**
      * Construct an RGB instance from a hex string with optional alpha channel.
      *
@@ -41,20 +31,24 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
         a = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) / 255f else 1f
     )
 
-    /**
-     * Construct an RGB instance from [Byte] values.
-     *
-     * The signed byte values will be translated into the range `[0, 255]`
-     */
+    @Deprecated("The Byte constructor is deprecated", ReplaceWith("RGB((r + 128), (g + 128), (b + 128))"))
     constructor(r: Byte, g: Byte, b: Byte) : this(r + 128, g + 128, b + 128)
 
+    // A UByte constructor can't be declared since it clashes with the Byte constructor on JVM
+    //  constructor(r: UByte, g: UByte, b: UByte) : this(r.toInt(), g.toInt(), b.toInt())
+
     /**
-     * Construct an RGB instance from Float values in the range `[0, 1]`.
+     * Construct an RGB instance from Int values in the range `[0, 255]`.
+     *
+     * @property r The red channel, a value typically in the range `[0, 255]`
+     * @property g The green channel, a value typically in the range `[0, 255]`
+     * @property b The blue channel, a value typically in the range `[0, 255]`
+     * @property a The alpha channel, a value in the range `[0f, 1f]`
      */
-    constructor(r: Float, g: Float, b: Float, a: Float = 1f) : this(
-        r = (r * 255).roundToInt(),
-        g = (g * 255).roundToInt(),
-        b = (b * 255).roundToInt(),
+    constructor(r: Int, g: Int, b: Int, a: Float = 1f) : this(
+        r = (r / 255f),
+        g = (g / 255f),
+        b = (b / 255f),
         a = a
     )
 
@@ -62,28 +56,43 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
      * Construct an RGB instance from Double values in the range `[0, 1]`.
      */
     constructor(r: Double, g: Double, b: Double, a: Double = 1.0) : this(
-        r = (r * 255).roundToInt(),
-        g = (g * 255).roundToInt(),
-        b = (b * 255).roundToInt(),
+        r = r.toFloat(),
+        g = g.toFloat(),
+        b = b.toFloat(),
         a = a.toFloat()
     )
 
     override val alpha: Float get() = a
+
+    /** The red channel scaled to [0, 255]. HDR colors may exceed this range. */
+    val redInt: Int get() = (r * 255).roundToInt()
+
+    /** The green channel scaled to [0, 255]. HDR colors may exceed this range. */
+    val greenInt: Int get() = (g * 255).roundToInt()
+
+    /** The blue channel scaled to [0, 255]. HDR colors may exceed this range. */
+    val blueInt: Int get() = (b * 255).roundToInt()
+
+    /** The alpha channel scaled to [0, 255]. */
+    val alphaInt: Int get() = (a * 255).roundToInt()
 
     @Deprecated("use toRGBInt instead", ReplaceWith("toRGBInt()"))
     fun toPackedInt(): Int = toRGBInt().argb.toInt()
 
     /**
      * Return this color as a packed ARGB integer.
+     *
+     * The color will be clamped to the SDR range `[0, 255]`.
      */
-    fun toRGBInt() = RGBInt(r.toUByte(), g.toUByte(), b.toUByte(), (a * 255).toUInt().toUByte())
+    fun toRGBInt() = RGBInt(
+        a = alphaInt.coerceIn(0, 255).toUByte(),
+        r = redInt.coerceIn(0, 255).toUByte(),
+        g = greenInt.coerceIn(0, 255).toUByte(),
+        b = blueInt.coerceIn(0, 255).toUByte()
+    )
 
-    override fun toHex(withNumberSign: Boolean, renderAlpha: RenderCondition): String = buildString(9) {
-        if (withNumberSign) append('#')
-        append(r.renderHex()).append(g.renderHex()).append(b.renderHex())
-        if (renderAlpha == RenderCondition.ALWAYS || renderAlpha == RenderCondition.AUTO && a < 1) {
-            append((a * 255).roundToInt().renderHex())
-        }
+    override fun toHex(withNumberSign: Boolean, renderAlpha: RenderCondition): String {
+        return toRGBInt().toHex(withNumberSign, renderAlpha)
     }
 
     override fun toHSL(): HSL {
@@ -108,8 +117,7 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
 
     override fun toXYZ(): XYZ {
         // linearize sRGB
-        fun adj(num: Int): Double {
-            val c = num / 255.0
+        fun adj(c: Float): Double {
             return when {
                 c > 0.04045 -> ((c + 0.055) / 1.055).pow(2.4)
                 else -> c / 12.92
@@ -134,13 +142,10 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
     override fun toLCH(): LCH = toXYZ().toLUV().toLCH()
 
     override fun toCMYK(): CMYK {
-        val r = this.r / 255.0
-        val b = this.b / 255.0
-        val g = this.g / 255.0
         val k = 1 - maxOf(r, b, g)
-        val c = if (k == 1.0) 0.0 else (1 - r - k) / (1 - k)
-        val m = if (k == 1.0) 0.0 else (1 - g - k) / (1 - k)
-        val y = if (k == 1.0) 0.0 else (1 - b - k) / (1 - k)
+        val c = if (k == 1f) 0f else (1 - r - k) / (1 - k)
+        val m = if (k == 1f) 0f else (1 - g - k) / (1 - k)
+        val y = if (k == 1f) 0f else (1 - b - k) / (1 - k)
         return CMYK(
             (c * 100).roundToInt(),
             (m * 100).roundToInt(),
@@ -167,25 +172,23 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
         if (value == 30) return Ansi16(30)
         val v = (value / 50.0).roundToInt()
 
-        val ansi = 30 +
-                ((b / 255.0).roundToInt() * 4
-                        or ((g / 255.0).roundToInt() * 2)
-                        or (r / 255.0).roundToInt())
+        val ansi = 30 + ((b.roundToInt() * 4) or (g.roundToInt() * 2) or r.roundToInt())
         return Ansi16(if (v == 2) ansi + 60 else ansi)
     }
 
     override fun toAnsi256(): Ansi256 {
         // grayscale
         val code = if (r == g && g == b) {
+            val ri = redInt
             when {
-                r < 8 -> 16
-                r > 248 -> 231
-                else -> (((r - 8) / 247.0) * 24.0).roundToInt() + 232
+                ri < 8 -> 16
+                ri > 248 -> 231
+                else -> (((ri - 8) / 247.0) * 24.0).roundToInt() + 232
             }
         } else {
-            16 + (36 * (r / 255.0 * 5).roundToInt()) +
-                    (6 * (g / 255.0 * 5).roundToInt()) +
-                    (b / 255.0 * 5).roundToInt()
+            16 + (36 * (r * 5).roundToInt()) +
+                    (6 * (g * 5).roundToInt()) +
+                    (b * 5).roundToInt()
         }
         return Ansi256(code)
     }
@@ -199,9 +202,9 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
      * Min and max are scaled to [0, 1]
      */
     private fun hueMinMaxDelta(): DoubleArray {
-        val r = this.r / 255.0
-        val g = this.g / 255.0
-        val b = this.b / 255.0
+        val r = this.r.toDouble()
+        val g = this.g.toDouble()
+        val b = this.b.toDouble()
         val min = minOf(r, g, b)
         val max = maxOf(r, g, b)
         val delta = max - min
@@ -219,9 +222,13 @@ data class RGB(val r: Int, val g: Int, val b: Int, val a: Float = 1f) : Color {
 
         return doubleArrayOf(h, min, max, delta)
     }
+
+    companion object {
+        @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
+        fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toRGB()
+    }
 }
 
-private fun Int.renderHex() = toString(16).padStart(2, '0')
 
 private fun String.validateHex() = apply {
     require(hexLength.let { it == 3 || it == 4 || it == 6 || it == 8 }) {

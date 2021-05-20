@@ -55,7 +55,7 @@ private fun rgb(match: MatchResult): Color {
     val a = alpha(match.groupValues[4])
 
     return if (match.groupValues[1].endsWith("%")) {
-        RGB((r * 255).clampInt(), (g * 255).clampInt(), (b * 255).clampInt(), a)
+        RGB(r.clampF(), g.clampF(), b.clampF(), a)
     } else {
         RGB(r.clampInt(), g.clampInt(), b.clampInt(), a)
     }

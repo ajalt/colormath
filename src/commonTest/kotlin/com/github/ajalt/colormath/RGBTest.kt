@@ -19,6 +19,7 @@ class RGBTest {
 
     @Test
     @JsName("RGB_from_bytes")
+    @Suppress("Deprecation")
     fun `RGB from bytes`() {
         forAll(
             row(RGB(Byte.MIN_VALUE, Byte.MIN_VALUE, Byte.MIN_VALUE), RGB(0, 0, 0)),

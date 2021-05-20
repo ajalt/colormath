@@ -20,7 +20,7 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
     }
 
     override fun toRGB(): RGB = when (l) {
-        0.0 -> RGB(0, 0, 0, alpha)
+        0.0 -> RGB(0f, 0f, 0f, alpha)
         else -> toXYZ().toRGB()
     }
 

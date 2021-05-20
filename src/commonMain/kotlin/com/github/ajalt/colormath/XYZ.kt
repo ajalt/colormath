@@ -2,7 +2,6 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.Illuminant.D65
 import kotlin.math.pow
-import kotlin.math.roundToInt
 
 /**
  * CIE XYZ color space.
@@ -22,18 +21,15 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
     override val alpha: Float get() = a
 
     override fun toRGB(): RGB {
-        val x = this.x / 100
-        val y = this.y / 100
-        val z = this.z / 100
+        val x = this.x / 100.0
+        val y = this.y / 100.0
+        val z = this.z / 100.0
 
         // linearize sRGB values
-        fun adj(c: Double): Int {
-            val adj = when {
-                c < 0.0031308 -> 12.92 * c
-                else -> 1.055 * c.pow(1.0 / 2.4) - 0.055
-            }
-            return (255 * adj.coerceIn(0.0, 1.0)).roundToInt()
-        }
+        fun adj(c: Double): Float = when {
+            c < 0.0031308 -> 12.92 * c
+            else -> 1.055 * c.pow(1.0 / 2.4) - 0.055
+        }.toFloat()
 
         // Matrix from http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
         val r = 3.2404542 * x - 1.5371385 * y - 0.4985314 * z

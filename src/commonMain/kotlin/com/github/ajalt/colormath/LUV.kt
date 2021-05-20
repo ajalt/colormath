@@ -20,7 +20,7 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
     }
 
     override fun toRGB(): RGB = when (l) {
-        0f -> RGB(0, 0, 0, alpha)
+        0f -> RGB(0f, 0f, 0f, alpha)
         else -> toXYZ().toRGB()
     }
 
