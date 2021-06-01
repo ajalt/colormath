@@ -6,6 +6,7 @@ import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.floats.plusOrMinus
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlin.js.JsName
@@ -144,7 +145,7 @@ class CssParseTest {
         row("hsla(240 100% 50% / .05)", 240, 100, 50, .05f),
         row("hsla(240 100% 50% / 5%)", 240, 100, 50, .05f)
     ) { color, h, s, l, alpha ->
-        Color.fromCss(color) shouldBe HSL(h, s, l, alpha)
+        Color.fromCss(color) should convertTo(HSL(h, s, l, alpha))
     }
 
     @Test
@@ -172,7 +173,7 @@ class CssParseTest {
         row("0turn", 0),
         row("0rad", 0)
     ) { angle, degrees ->
-        Color.fromCss("hsl($angle, 0%, 0%)") shouldBe HSL(degrees, 0, 0)
+        Color.fromCss("hsl($angle, 0%, 0%)") should convertTo(HSL(degrees, 0, 0))
     }
 
     @Test

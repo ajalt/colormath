@@ -1,35 +1,26 @@
 package com.github.ajalt.colormath
 
-import kotlin.math.roundToInt
-
 /**
- * A color in the Hue-Saturation-Lightness color space.
+ * A color in the sRGB color space, represented with Hue, Saturation, and Lightness.
  *
  * @property h The hue, as degrees in the range `[0, 360]`
- * @property s The saturation, as a percent in the range `[0, 100]`
- * @property l The lightness, as a percent in the range `[0, 100]`
+ * @property s The saturation, as a fraction in the range `[0, 1]`
+ * @property l The lightness, as a fraction in the range `[0, 1]`
  * @property a The alpha, as a fraction in the range `[0, 1]`
  */
-data class HSL(override val h: Int, val s: Int, val l: Int, val a: Float = 1f) : Color, HueColor {
-    init {
-        require(h in 0..360) { "h must be in range [0, 360]" }
-        require(s in 0..100) { "s must be in range [0, 100]" }
-        require(l in 0..100) { "l must be in range [0, 100]" }
-        require(a in 0f..1f) { "a must be in range [0, 1] in $this" }
-    }
-
+data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float = 1f) : Color, HueColor {
     /**
-     * Construct an HSL instance from Float values, with h in `[0, 360]`, and s and l in the range `[0, 1]`.
+     * Construct an HSL instance from Int values, with h in `[0, 360]`, and s and l as percentages in the range `[0,
+     * 100]`.
      */
-    constructor(h: Float, s: Float, l: Float, a: Float = 1f)
-            : this(h.roundToInt(), (s * 100).roundToInt(), (l * 100).roundToInt(), a)
+    constructor(h: Int, s: Int, l: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, l / 100f, a)
 
     override val alpha: Float get() = a
 
     override fun toRGB(): RGB {
-        val h = this.h / 360.0
-        val s = this.s / 100.0
-        val l = this.l / 100.0
+        val h = this.h.normalizeDeg() / 360.0
+        val s = this.s.toDouble()
+        val l = this.l.toDouble()
         if (s == 0.0) {
             return RGB(l, l, l)
         }
@@ -41,39 +32,36 @@ data class HSL(override val h: Int, val s: Int, val l: Int, val a: Float = 1f) :
 
         val t1 = 2 * l - t2
 
-        val rgb = arrayOf(0.0, 0.0, 0.0)
-        for (i in 0..2) {
+        fun t(i: Int): Float {
             var t3: Double = h + 1.0 / 3.0 * -(i - 1.0)
             if (t3 < 0) t3 += 1.0
             if (t3 > 1) t3 -= 1.0
 
-            val v: Double = when {
+            return when {
                 6 * t3 < 1 -> t1 + (t2 - t1) * 6 * t3
                 2 * t3 < 1 -> t2
                 3 * t3 < 2 -> t1 + (t2 - t1) * (2.0 / 3.0 - t3) * 6
                 else -> t1
-            }
-
-            rgb[i] = v
+            }.toFloat()
         }
 
-        return RGB(rgb[0], rgb[1], rgb[2], alpha.toDouble())
+        return RGB(t(0), t(1), t(2), alpha)
     }
 
     override fun toHSV(): HSV {
-        val h = this.h.toDouble()
-        var s = this.s.toDouble() / 100
-        var l = this.l.toDouble() / 100
+        val h = this.h.normalizeDeg()
+        var s = this.s
+        var l = this.l
         var smin = s
-        val lmin = maxOf(l, 0.01)
+        val lmin = maxOf(l, 0.01f)
 
         l *= 2
         s *= if (l <= 1) l else 2 - l
         smin *= if (lmin <= 1) lmin else 2 - lmin
         val v = (l + s) / 2
-        val sv = if (l == 0.0) (2 * smin) / (lmin + smin) else (2 * s) / (l + s)
+        val sv = if (l == 0f) (2 * smin) / (lmin + smin) else (2 * s) / (l + s)
 
-        return HSV(h.roundToInt(), (sv * 100).roundToInt(), (v * 100).roundToInt(), alpha)
+        return HSV(h, sv, v, alpha)
     }
 
     override fun toHSL() = this

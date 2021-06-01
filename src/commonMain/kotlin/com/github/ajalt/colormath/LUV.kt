@@ -51,9 +51,7 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
     override fun toLCH(): LCH {
         // http://www.brucelindbloom.com/Eqn_Luv_to_LCH.html
         val c = sqrt(u * u + v * v)
-        val h = if (c < 1e-8) 0f else {
-            atan2(v, u).radToDeg()
-        }.let { if (it < 0) it + 360 else it }
-        return LCH(l, c, h)
+        val h = if (c < 1e-8) 0f else atan2(v, u).radToDeg()
+        return LCH(l, c, h.normalizeDeg())
     }
 }

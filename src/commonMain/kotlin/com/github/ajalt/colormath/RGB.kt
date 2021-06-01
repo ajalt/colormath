@@ -169,20 +169,21 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         }
     }
 
-    override fun toAnsi16(): Ansi16 = toAnsi16(toHSV().v)
-
-    private fun toAnsi16(value: Int): Ansi16 {
+    override fun toAnsi16(): Ansi16 {
+        val value = (toHSV().v * 100).roundToInt()
         if (value == 30) return Ansi16(30)
-        val v = (value / 50.0).roundToInt()
+        val v = value / 50
 
         val ansi = 30 + ((b.roundToInt() * 4) or (g.roundToInt() * 2) or r.roundToInt())
         return Ansi16(if (v == 2) ansi + 60 else ansi)
     }
 
     override fun toAnsi256(): Ansi256 {
+        val ri = redInt
+        val gi = greenInt
+        val bi = blueInt
         // grayscale
-        val code = if (r == g && g == b) {
-            val ri = redInt
+        val code = if (ri == gi && gi == bi) {
             when {
                 ri < 8 -> 16
                 ri > 248 -> 231

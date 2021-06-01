@@ -8,8 +8,6 @@ import io.kotest.assertions.show.show
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 
-fun convertTo(r: Int, g: Int, b: Int, a: Float = 1f) = convertTo(RGB(r, g, b, a))
-
 fun convertTo(expected: Color) = object : Matcher<Color> {
     override fun test(value: Color): MatcherResult {
         return MatcherResult(
