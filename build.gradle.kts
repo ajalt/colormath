@@ -25,7 +25,6 @@ version = getPublishVersion()
 
 repositories {
     mavenCentral()
-    jcenter() // for dokka
 }
 
 kotlin {
