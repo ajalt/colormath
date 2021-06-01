@@ -96,23 +96,25 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     }
 
     override fun toHSL(): HSL {
-        val (h, min, max, delta) = hueMinMaxDelta()
-        val l = (min + max) / 2
-        val s = when {
-            max == min -> 0.0
-            l <= .5 -> delta / (max + min)
-            else -> delta / (2 - max - min)
+        return hueMinMaxDelta { h, min, max, delta ->
+            val l = (min + max) / 2
+            val s = when {
+                max == min -> 0.0
+                l <= .5 -> delta / (max + min)
+                else -> delta / (2 - max - min)
+            }
+            HSL(h.roundToInt(), (s * 100.0).roundToInt(), (l * 100.0).roundToInt(), alpha)
         }
-        return HSL(h.roundToInt(), (s * 100).roundToInt(), (l * 100).roundToInt(), alpha)
     }
 
     override fun toHSV(): HSV {
-        val (h, _, max, delta) = hueMinMaxDelta()
-        val s = when (max) {
-            0.0 -> 0.0
-            else -> (delta / max)
+        return hueMinMaxDelta { h, _, max, delta ->
+            val s = when (max) {
+                0.0 -> 0.0
+                else -> (delta / max)
+            }
+            HSV(h.roundToInt(), (s * 100.0).roundToInt(), (max * 100.0).roundToInt(), alpha)
         }
-        return HSV(h.roundToInt(), (s * 100).roundToInt(), (max * 100).roundToInt(), alpha)
     }
 
     override fun toXYZ(): XYZ {
@@ -132,7 +134,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         val x = 0.4124564 * rL + 0.3575761 * gL + 0.1804375 * bL
         val y = 0.2126729 * rL + 0.7151522 * gL + 0.0721750 * bL
         val z = 0.0193339 * rL + 0.1191920 * gL + 0.9503041 * bL
-        return XYZ(x * 100, y * 100, z * 100, alpha)
+        return XYZ(x * 100.0, y * 100.0, z * 100.0, alpha)
     }
 
     override fun toLAB(): LAB = toXYZ().toLAB()
@@ -147,23 +149,24 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         val m = if (k == 1f) 0f else (1 - g - k) / (1 - k)
         val y = if (k == 1f) 0f else (1 - b - k) / (1 - k)
         return CMYK(
-            (c * 100).roundToInt(),
-            (m * 100).roundToInt(),
-            (y * 100).roundToInt(),
-            (k * 100).roundToInt(),
+            (c * 100f).roundToInt(),
+            (m * 100f).roundToInt(),
+            (y * 100f).roundToInt(),
+            (k * 100f).roundToInt(),
             alpha
         )
     }
 
     override fun toHWB(): HWB {
         // https://www.w3.org/TR/css-color-4/#rgb-to-hwb
-        val (hue, min, max) = hueMinMaxDelta()
-        return HWB(
-            h = hue,
-            w = 100 * min,
-            b = 100 * (1 - max),
-            alpha = alpha.toDouble()
-        )
+        return hueMinMaxDelta { hue, min, max, _ ->
+            HWB(
+                h = hue,
+                w = 100.0* min,
+                b = 100.0* (1.0 - max),
+                alpha = alpha.toDouble()
+            )
+        }
     }
 
     override fun toAnsi16(): Ansi16 = toAnsi16(toHSV().v)
@@ -196,12 +199,12 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     override fun toRGB() = this
 
     /**
-     * Return an array containing the hue, min of color channels, max of color channels, and the
+     * Call [block] with the hue, min of color channels, max of color channels, and the
      * delta between min and max.
      *
      * Min and max are scaled to [0, 1]
      */
-    private fun hueMinMaxDelta(): DoubleArray {
+    private inline fun <T> hueMinMaxDelta(block: (hue: Double, min: Double, max: Double, delta: Double) -> T): T {
         val r = this.r.toDouble()
         val g = this.g.toDouble()
         val b = this.b.toDouble()
@@ -220,7 +223,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         h = minOf(h * 60, 360.0)
         if (h < 0) h += 360
 
-        return doubleArrayOf(h, min, max, delta)
+        return block(h, min, max, delta)
     }
 
     companion object {
