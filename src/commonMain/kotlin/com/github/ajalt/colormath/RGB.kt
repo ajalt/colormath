@@ -162,8 +162,8 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         return hueMinMaxDelta { hue, min, max, _ ->
             HWB(
                 h = hue,
-                w = 100.0* min,
-                b = 100.0* (1.0 - max),
+                w = 100.0 * min,
+                b = 100.0 * (1.0 - max),
                 alpha = alpha.toDouble()
             )
         }
