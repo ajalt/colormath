@@ -1,7 +1,5 @@
 package com.github.ajalt.colormath
 
-import kotlin.math.roundToInt
-
 /**
  * A color in the CMYK (cyan, magenta, yellow, and key) color space.
  *

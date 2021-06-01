@@ -21,5 +21,6 @@ internal fun Float.degToRad(): Float = (this * PI / 180f).toFloat()
 internal fun Float.radToDeg(): Float = (this * 180f / PI).toFloat()
 internal fun Float.gradToDeg(): Float = this * .9f
 internal fun Float.turnToDeg(): Float = this * 360f
+
 /** Return this value shifted to lie in [0, 360]*/
 internal fun Float.normalizeDeg(): Float = this - (floor(this / 360f) * 360f)
