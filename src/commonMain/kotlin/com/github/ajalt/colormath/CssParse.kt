@@ -98,7 +98,7 @@ private fun number(str: String) = str.toFloat()
 private fun percentOrNumber(str: String) = if (str.endsWith("%")) percent(str) else number(str)
 private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str).toFloat()).clampF()
 
-/** return degrees in [-360, 360] */
+/** return degrees in [0, 360] */
 private fun hue(str: String): Float {
     val deg = when {
         str.endsWith("deg") -> str.dropLast(3).toFloat()
@@ -107,8 +107,7 @@ private fun hue(str: String): Float {
         str.endsWith("turn") -> str.dropLast(4).toFloat().turnToDeg()
         else -> str.toFloat()
     }
-    val mod = deg % 360
-    return if (mod < 0) mod + 360 else mod
+    return deg.normalizeDeg()
 }
 
 private fun Float.clampInt(min: Int = 0, max: Int = 255) = roundToInt().coerceIn(min, max)

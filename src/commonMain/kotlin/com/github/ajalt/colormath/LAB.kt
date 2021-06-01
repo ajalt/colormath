@@ -42,10 +42,8 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
     override fun toLCH(): LCH {
         // https://www.w3.org/TR/css-color-4/#lab-to-lch
         val c = sqrt(a * a + b * b)
-        val h = if (c < 1e-8) 0f else {
-            atan2(b, a).toFloat().radToDeg()
-        }.let { if (it < 0) it + 360 else it }
-        return LCH(l.toFloat(), c.toFloat(), h)
+        val h = if (c < 1e-8) 0f else atan2(b, a).toFloat().radToDeg()
+        return LCH(l.toFloat(), c.toFloat(), h.normalizeDeg())
     }
 
     override fun toLAB(): LAB = this

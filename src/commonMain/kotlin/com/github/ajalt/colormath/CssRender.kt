@@ -116,14 +116,14 @@ fun Color.toCssHsl(
     val (h, s, l, a) = hsl
     val sep = if (commas) ", " else " "
     val hue = when (hueUnit) {
-        AngleUnit.AUTO -> "$h"
-        AngleUnit.DEGREES -> "${h}deg"
+        AngleUnit.AUTO -> h.render()
+        AngleUnit.DEGREES -> "${h.render()}deg"
         AngleUnit.RADIANS -> "${hsl.hueAsRad().render()}rad"
         AngleUnit.GRADIANS -> "${hsl.hueAsGrad().render()}grad"
         AngleUnit.TURNS -> "${hsl.hueAsTurns().render()}turn"
     }
 
-    val args = listOf(hue, (s / 100f).render(true), (l / 100f).render(true)).joinToString(sep)
+    val args = listOf(hue, s.render(true), l.render(true)).joinToString(sep)
         .withAlpha(a, commas, renderAlpha, alphaPercent)
     val name = if (namedHsla) "hsla" else "hsl"
     return "$name($args)"
