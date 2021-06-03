@@ -37,5 +37,7 @@ markdown_extensions:
   - tables
 
 nav:
+  - 'Getting Started': index.md
+  - 'Try It Online': tryit.md
   - 'API Reference': api/colormath/com.github.ajalt.colormath/index.html
   - 'Releases': changelog.md

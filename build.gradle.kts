@@ -5,7 +5,7 @@ import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import java.io.ByteArrayOutputStream
 
 plugins {
-    kotlin("multiplatform") version "1.5.0"
+    kotlin("multiplatform") version "1.5.10"
     id("org.jetbrains.dokka") version "1.4.32"
     id("maven-publish")
     id("signing")
@@ -14,7 +14,7 @@ plugins {
 
 buildscript {
     dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:1.4.30")
+        classpath("org.jetbrains.dokka:dokka-base:1.4.32")
     }
 }
 

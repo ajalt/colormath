@@ -8,8 +8,8 @@
 
 set -ex
 
-# Generate API docs
-./gradlew dokkaHtml
+# Generate API docs and picker js
+./gradlew dokkaHtml jsBrowserDistribution
 
 # Copy the changelog into the site, omitting the unreleased section
 cat CHANGELOG.md \
@@ -31,6 +31,10 @@ cat README.md \
   | sed '/## License/Q' \
   | sed 's!https://ajalt.github.io/colormath/!/!g' \
   >> docs/index.md
+
+# Copy the website js into the docs
+mkdir -p docs/js
+cp website/build/distributions/website.js docs/js/tryit.js
 
 # Build and deploy the new site to github pages
 mkdocs gh-deploy
