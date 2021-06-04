@@ -1,11 +1,11 @@
 # Colormath
 
 Colormath is a Kotlin Multiplatform library that allows you to convert between a number of color
-spaces. Colormath can also parse and render CSS colors.
+models. Colormath can also parse and render CSS colors.
 
 [Try it online](https://ajalt.github.io/colormath/tryit/)
 
-## Supported color spaces
+## Supported color models
 
 * [RGB](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-r-g-b/index.html)
 * [CMYK](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-c-m-y-k/index.html)
@@ -23,10 +23,10 @@ spaces. Colormath can also parse and render CSS colors.
 
 ### Conversion
 
-Each color space is represented with a data class, and contains `.toXXX()` methods to convert to
-other spaces.
+Each color model is represented with a data class, and contains `.toXXX()` methods to convert to
+other models.
 
-All color classes contain an `alpha` channel, which defaults to `1` (fully opaque) for color spaces
+All `Color` classes contain an `alpha` channel, which defaults to `1` (fully opaque) for color models
 that don't support transparency (such as ANSI color codes).
 
 ```kotlin

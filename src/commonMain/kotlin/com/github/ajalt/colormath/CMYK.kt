@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
 /**
- * A color in the CMYK (cyan, magenta, yellow, and key) color space.
+ * A color in the CMYK (cyan, magenta, yellow, and key) color model.
  *
  * All color channels are integers in the range `[0, 100]`.
  */

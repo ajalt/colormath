@@ -3,7 +3,9 @@ package com.github.ajalt.colormath
 import kotlin.math.roundToInt
 
 /**
- * A color in the Hue-Whiteness-Blackness color space.
+ * A color model represented with Hue, Whiteness, and Blackness.
+ *
+ * The color space is the same sRGB space used in [RGB].
  *
  * @property h The hue, as degrees in the range `[0, 360]`
  * @property w The amount of white to mix in, as a percent in the range `[0, 100]`
