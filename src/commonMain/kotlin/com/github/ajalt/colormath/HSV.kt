@@ -5,7 +5,9 @@ import kotlin.math.max
 import kotlin.math.roundToInt
 
 /**
- * A color in the sRGB color space represented as Hue, Saturation, and Value.
+ * A color model represented with Hue, Saturation, and Value.
+ *
+ * The color space is the same sRGB space used in [RGB].
  *
  * @property h The hue, as degrees in the range `[0, 360]`
  * @property s The saturation, as a fraction in the range `[0, 1]`
