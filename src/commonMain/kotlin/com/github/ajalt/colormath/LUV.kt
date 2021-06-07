@@ -32,11 +32,11 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
         val u0 = 4 * D65.x / denominator0
         val v0 = 9 * D65.y / denominator0
 
-        val y = if (l > CIE_E_times_K) ((l + 16) / 116.0).pow(3) else l / CIE_K
+        val y = if (l > CIE_E_times_K) ((l + 16) / 116f).pow(3) else l / CIE_K
 
         val a = (52 * l / (u + 13 * l * u0) - 1) / 3
         val b = -5 * y
-        val c = -1.0 / 3
+        val c = -1f / 3
         val d = y * ((39 * l) / (v + 13 * l * v0) - 5)
 
         val x = (d - b) / (a - c)

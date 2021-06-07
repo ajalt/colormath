@@ -49,9 +49,9 @@ class XYZTest {
         row(XYZ(95.0470, 100.0000, 108.8830), 100.0, 0.0, 0.0),
     ) { xyz, l, a, b ->
         val lab = xyz.toLAB()
-        lab.l shouldBe (l plusOrMinus 0.005)
-        lab.a shouldBe (a plusOrMinus 0.005)
-        lab.b shouldBe (b plusOrMinus 0.005)
+        lab.l.toDouble() shouldBe (l plusOrMinus 0.0005)
+        lab.a.toDouble() shouldBe (a plusOrMinus 0.0005)
+        lab.b.toDouble() shouldBe (b plusOrMinus 0.0005)
     }
 
     @Test
@@ -68,8 +68,8 @@ class XYZTest {
         row(XYZ(95.0470, 100.0000, 108.883), 100.0, 0.0, 0.0),
     ) { xyz, l, u, v ->
         val luv = xyz.toLUV()
-        luv.l shouldBe (l.toFloat() plusOrMinus 0.005f)
-        luv.u shouldBe (u.toFloat() plusOrMinus 0.005f)
-        luv.v shouldBe (v.toFloat() plusOrMinus 0.005f)
+        luv.l.toDouble() shouldBe (l plusOrMinus 0.0005)
+        luv.u.toDouble() shouldBe (u plusOrMinus 0.0005)
+        luv.v.toDouble() shouldBe (v plusOrMinus 0.0005)
     }
 }

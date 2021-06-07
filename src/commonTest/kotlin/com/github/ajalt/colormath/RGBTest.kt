@@ -7,16 +7,9 @@ import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
-import kotlin.random.Random
-import kotlin.random.nextInt
 import kotlin.test.Test
 
 class RGBTest {
-    private fun packRgb(red: Int, green: Int, blue: Int): Int {
-        // Formula matches Android's Color.java
-        return -0x1000000 or (red shl 16) or (green shl 8) or blue
-    }
-
     @Test
     @JsName("RGB_from_bytes")
     @Suppress("Deprecation")
@@ -91,9 +84,9 @@ class RGBTest {
         row(RGB(92, 191, 84), 24.64, 40.17, 14.84)
     ) { rgb, x, y, z ->
         val xyz = rgb.toXYZ()
-        xyz.x shouldBe (x plusOrMinus 0.01)
-        xyz.y shouldBe (y plusOrMinus 0.01)
-        xyz.z shouldBe (z plusOrMinus 0.01)
+        xyz.x.toDouble() shouldBe (x plusOrMinus 0.01)
+        xyz.y.toDouble() shouldBe (y plusOrMinus 0.01)
+        xyz.z.toDouble() shouldBe (z plusOrMinus 0.01)
     }
 
     @Test
@@ -110,9 +103,9 @@ class RGBTest {
         row(RGB(92, 191, 84), 69.59, -50.11, 44.64)
     ) { rgb, l, a, b ->
         val lab = rgb.toLAB()
-        lab.l shouldBe (l plusOrMinus 0.01)
-        lab.a shouldBe (a plusOrMinus 0.01)
-        lab.b shouldBe (b plusOrMinus 0.01)
+        lab.l.toDouble() shouldBe (l plusOrMinus 0.01)
+        lab.a.toDouble() shouldBe (a plusOrMinus 0.01)
+        lab.b.toDouble() shouldBe (b plusOrMinus 0.01)
     }
 
     @Test
@@ -217,8 +210,8 @@ class RGBTest {
     ) { rgb, ew, eb ->
         // hue is arbitrary for grays
         val (_, w, b) = rgb.toHWB()
-        withClue("w") { w shouldBe (ew plusOrMinus 0.005f) }
-        withClue("b") { b shouldBe (eb plusOrMinus 0.005f) }
+        withClue("w") { w shouldBe (ew plusOrMinus 0.0005f) }
+        withClue("b") { b shouldBe (eb plusOrMinus 0.0005f) }
     }
 
     @Test

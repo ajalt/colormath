@@ -4,7 +4,6 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.assertions.withClue
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
-import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
@@ -187,9 +186,9 @@ class CssParseTest {
         row("lab(67.5345% -8.6911 -41.6019)", LAB(67.5345, -8.6911, -41.6019)),
     ) { str, lab ->
         val (l, a, b) = Color.fromCss(str).shouldBeInstanceOf<LAB>()
-        withClue("l") { l shouldBe (lab.l plusOrMinus 0.0005) }
-        withClue("a") { a shouldBe (lab.a plusOrMinus 0.0005) }
-        withClue("b") { b shouldBe (lab.b plusOrMinus 0.0005) }
+        withClue("l") { l shouldBe (lab.l plusOrMinus 0.0005f) }
+        withClue("a") { a shouldBe (lab.a plusOrMinus 0.0005f) }
+        withClue("b") { b shouldBe (lab.b plusOrMinus 0.0005f) }
     }
 
     @Test
