@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Changed
+- XYZ and LAB now store their color channels as `Float`
+
 ## [2.1.0] - 2021-05-05
 ### Added
 - Added CIE LUV colorspace support

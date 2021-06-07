@@ -10,13 +10,9 @@ import kotlin.math.pow
  *
  * [x], [y], and [z] are generally in the interval `[0, 100]`, but may be larger
  */
-data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) : Color {
-    init {
-        require(x >= 0) { "x must be >= 0 in $this" }
-        require(y >= 0) { "y must be >= 0 in $this" }
-        require(z >= 0) { "z must be >= 0 in $this" }
-        require(a in 0f..1f) { "a must be in range [0, 1] in $this" }
-    }
+data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Color {
+    constructor(x: Double, y: Double, z: Double, a: Float = 1f)
+            : this(x.toFloat(), y.toFloat(), z.toFloat(), a)
 
     override val alpha: Float get() = a
 
@@ -40,8 +36,8 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
 
     override fun toLAB(): LAB {
         // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html
-        fun f(t: Double) = when {
-            t > CIE_E -> t.pow(1.0 / 3)
+        fun f(t: Float) = when {
+            t > CIE_E -> t.pow(1f / 3)
             else -> (t * CIE_K + 16) / 116
         }
 
@@ -53,14 +49,14 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
         val a = 500 * (fx - fy)
         val b = 200 * (fy - fz)
 
-        return LAB(l.coerceIn(0.0, 100.0), a, b, alpha)
+        return LAB(l.coerceIn(0f, 100f), a, b, alpha)
     }
 
     override fun toLUV(): LUV {
         // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
         val denominator = x + 15 * y + 3 * z
-        val uPrime = if (denominator == 0.0) 0.0 else (4 * x) / denominator
-        val vPrime = if (denominator == 0.0) 0.0 else (9 * y) / denominator
+        val uPrime = if (denominator == 0f) 0f else (4 * x) / denominator
+        val vPrime = if (denominator == 0f) 0f else (9 * y) / denominator
 
         val denominatorReference = D65.x + 15 * D65.y + 3 * D65.z
         val uPrimeReference = (4 * D65.x) / denominatorReference
@@ -68,12 +64,12 @@ data class XYZ(val x: Double, val y: Double, val z: Double, val a: Float = 1f) :
 
         val yr = y / D65.y
         val l = when {
-            yr > CIE_E -> 116 * yr.pow(1.0 / 3) - 16
+            yr > CIE_E -> 116 * yr.pow(1f / 3) - 16
             else -> CIE_K * yr
         }
         val u = 13 * l * (uPrime - uPrimeReference)
         val v = 13 * l * (vPrime - vPrimeReference)
 
-        return LUV(l.toFloat().coerceIn(0f, 100f), u.toFloat(), v.toFloat(), alpha)
+        return LUV(l.coerceIn(0f, 100f), u, v, alpha)
     }
 }

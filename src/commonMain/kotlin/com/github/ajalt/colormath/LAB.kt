@@ -13,24 +13,22 @@ import kotlin.math.sqrt
  * [l] is a percentage, typically in the range `[0, 100]`, but can exceed 100 (e.g. for HDR systems).
  * [a] and [b] are unbounded, but are typically the range `[-160, 160]`.
  */
-data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: Float = 1f) : Color {
-    init {
-        require(l >= 0) { "l must not be negative in $this" }
-        require(alpha in 0f..1f) { "a must be in range [0, 1] in $this" }
-    }
+data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
+    constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
+            : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
     override fun toRGB(): RGB = when (l) {
-        0.0 -> RGB(0f, 0f, 0f, alpha)
+        0f -> RGB(0f, 0f, 0f, alpha)
         else -> toXYZ().toRGB()
     }
 
     override fun toXYZ(): XYZ {
         // http://www.brucelindbloom.com/Eqn_Lab_to_XYZ.html
-        if (l == 0.0) return XYZ(0.0, 0.0, 0.0)
+        if (l == 0f) return XYZ(0.0, 0.0, 0.0)
 
-        val fy = (l + 16) / 116
-        val fz = fy - b / 200
-        val fx = a / 500 + fy
+        val fy = (l + 16) / 116f
+        val fz = fy - b / 200f
+        val fx = a / 500f + fy
 
         val yr = if (l > CIE_E_times_K) fy.pow(3) else l / CIE_K
         val zr = fz.pow(3).let { if (it > CIE_E) it else (116 * fz - 16) / CIE_K }
@@ -42,8 +40,8 @@ data class LAB(val l: Double, val a: Double, val b: Double, override val alpha: 
     override fun toLCH(): LCH {
         // https://www.w3.org/TR/css-color-4/#lab-to-lch
         val c = sqrt(a * a + b * b)
-        val h = if (c < 1e-8) 0f else atan2(b, a).toFloat().radToDeg()
-        return LCH(l.toFloat(), c.toFloat(), h.normalizeDeg())
+        val h = if (c < 1e-8) 0f else atan2(b, a).radToDeg()
+        return LCH(l, c, h.normalizeDeg())
     }
 
     override fun toLAB(): LAB = this
