@@ -212,10 +212,10 @@ class CssParseTest {
     // No examples in the spec for this one
     fun `parseCssColor hwb`() = forAll(
         row("hwb(180 0% 0%)", HWB(180.0, 0.0, 0.0)),
-        row("hwb(180deg 23.4% 45.6%)", HWB(180.0, 23.4, 45.6)),
-        row("hwb(200grad 23.4% 45.6%)", HWB(180.0, 23.4, 45.6)),
-        row("hwb(0.5turn 23.4% 45.6%)", HWB(180.0, 23.4, 45.6)),
-        row("hwb(3.1416rad 23.4% 45.6%)", HWB(180.0, 23.4, 45.6)),
+        row("hwb(180deg 23.4% 45.6%)", HWB(180.0, .234, .456)),
+        row("hwb(200grad 23.4% 45.6%)", HWB(180.0, .234, .456)),
+        row("hwb(0.5turn 23.4% 45.6%)", HWB(180.0, .234, .456)),
+        row("hwb(3.1416rad 23.4% 45.6%)", HWB(180.0, .234, .456)),
     ) { str, hwb ->
         val (h, w, b) = Color.fromCss(str).shouldBeInstanceOf<HWB>()
         withClue("h") { h shouldBe (hwb.h plusOrMinus 0.0005f) }

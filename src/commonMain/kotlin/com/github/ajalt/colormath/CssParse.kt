@@ -90,7 +90,7 @@ private fun hwb(match: MatchResult): Color {
     val w = percent(match.groupValues[2])
     val b = percent(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return HWB(h, 100 * w.clampF(), 100 * b.clampF(), a)
+    return HWB(h, w.clampF(), b.clampF(), a)
 }
 
 private fun percent(str: String) = str.dropLast(1).toFloat() / 100
