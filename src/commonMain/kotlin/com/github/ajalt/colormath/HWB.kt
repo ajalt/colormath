@@ -7,9 +7,9 @@ import kotlin.math.roundToInt
  *
  * The color space is the same sRGB space used in [RGB].
  *
- * @property h The hue, as degrees in the range `[0, 360]`
- * @property w The amount of white to mix in, as a percent in the range `[0, 100]`
- * @property b The lightness, as a percent in the range `[0, 100]`
+ * @property h The hue, as degrees in the range `[0, 360)`
+ * @property w The amount of white to mix in, as a fraction in the range `[0, 1]`
+ * @property b The lightness, as a fraction in the range `[0, 1]`
  * @property a The alpha, as a fraction in the range `[0, 1]`
  */
 data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Color, HueColor {
@@ -21,10 +21,10 @@ data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float =
     override fun toRGB(): RGB {
         // Algorithm from Smith and Lyons, http://alvyray.com/Papers/CG/HWB_JGTv208.pdf, Appendix B
 
-        val h = this.h / 60.0 // Smith defines hue as normalized to [0, 6] for some reason
-        val w = this.w / 100.0
-        val b = this.b / 100.0
-        val a = this.a.toDouble()
+        val h = this.h / 60f // Smith defines hue as normalized to [0, 6] for some reason
+        val w = this.w
+        val b = this.b
+        val a = this.a
 
         // Smith just declares that w + b must be <= 1. We use the fast-exit from
         // https://www.w3.org/TR/css-color-4/#hwb-to-rgb rather than normalizing.
