@@ -12,7 +12,7 @@ import kotlin.math.roundToInt
  * @property b The lightness, as a percent in the range `[0, 100]`
  * @property a The alpha, as a fraction in the range `[0, 1]`
  */
-data class HWB(val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Color {
+data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Color, HueColor {
     constructor(h: Double, w: Double, b: Double, alpha: Double = 1.0)
             : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha.toFloat())
 
