@@ -23,4 +23,5 @@ internal fun Float.gradToDeg(): Float = this * .9f
 internal fun Float.turnToDeg(): Float = this * 360f
 
 /** Return this value shifted to lie in [0, 360]*/
-internal fun Float.normalizeDeg(): Float = this - (floor(this / 360f) * 360f)
+// formula from https://www.w3.org/TR/css-color-4/#hue-interpolation
+internal fun Float.normalizeDeg(): Float = ((this % 360) + 360) % 360 //
