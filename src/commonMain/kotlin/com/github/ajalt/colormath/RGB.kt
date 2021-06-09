@@ -103,7 +103,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
                 l <= .5 -> delta / (max + min)
                 else -> delta / (2 - max - min)
             }
-            HSL(h.roundToInt(), (s * 100.0).roundToInt(), (l * 100.0).roundToInt(), alpha)
+            HSL(h.toFloat(), s.toFloat(), l.toFloat(), alpha)
         }
     }
 
@@ -113,7 +113,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
                 0.0 -> 0.0
                 else -> (delta / max)
             }
-            HSV(h.roundToInt(), (s * 100.0).roundToInt(), (max * 100.0).roundToInt(), alpha)
+            HSV(h.toFloat(), s.toFloat(), max.toFloat(), alpha)
         }
     }
 
@@ -148,23 +148,17 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         val c = if (k == 1f) 0f else (1 - r - k) / (1 - k)
         val m = if (k == 1f) 0f else (1 - g - k) / (1 - k)
         val y = if (k == 1f) 0f else (1 - b - k) / (1 - k)
-        return CMYK(
-            (c * 100f).roundToInt(),
-            (m * 100f).roundToInt(),
-            (y * 100f).roundToInt(),
-            (k * 100f).roundToInt(),
-            alpha
-        )
+        return CMYK(c, m, y, k, alpha)
     }
 
     override fun toHWB(): HWB {
         // https://www.w3.org/TR/css-color-4/#rgb-to-hwb
         return hueMinMaxDelta { hue, min, max, _ ->
             HWB(
-                h = hue,
-                w = 100.0 * min,
-                b = 100.0 * (1.0 - max),
-                alpha = alpha.toDouble()
+                h = hue.toFloat(),
+                w = min.toFloat(),
+                b = (1.0 - max).toFloat(),
+                a = alpha
             )
         }
     }
