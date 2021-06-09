@@ -6,9 +6,9 @@ import kotlin.math.sin
 /**
  * CIE LCh(uv) (The cylindrical representation of CIE 1976 L*u*v*) color space.
  *
- * [l] is a percentage, typically in the range `[0, 100]`, but theoretically the maximum is unbounded.
- * [c] is typically in the range `[0, 230]`, but theoretically the maximum is unbounded.
- * [h] is an angle in degrees, in the range `[0, 360]`
+ * [l], lightness, is a percentage, typically in the range `[0, 100]`, but theoretically the maximum is unbounded.
+ * [c], chroma, is typically in the range `[0, 230]`, but theoretically the maximum is unbounded.
+ * [h], hue, is an angle in degrees, in the range `[0, 360]`
  */
 data class LCH(val l: Float, val c: Float, val h: Float, override val alpha: Float = 1f) : Color {
     constructor(l: Double, c: Double, h: Double, alpha: Double = 1.0)

@@ -11,7 +11,7 @@ import kotlin.math.sqrt
  * Conversions use D65 reference white, and sRGB profile.
  *
  * [l] is a percentage, typically in the range `[0, 100]`, but can exceed 100 (e.g. for HDR systems).
- * [a] and [b] are unbounded, but are typically the range `[-160, 160]`.
+ * [a] and [b] are unbounded, but are typically the range `[-128, 127]`.
  */
 data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
@@ -34,7 +34,7 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
         val zr = fz.pow(3).let { if (it > CIE_E) it else (116 * fz - 16) / CIE_K }
         val xr = fx.pow(3).let { if (it > CIE_E) it else (116 * fx - 16) / CIE_K }
 
-        return XYZ(xr * D65.x, yr * D65.y, zr * D65.z, alpha)
+        return XYZ(xr * D65.x / 100f, yr * D65.y / 100f, zr * D65.z / 100f, alpha)
     }
 
     override fun toLCH(): LCH {

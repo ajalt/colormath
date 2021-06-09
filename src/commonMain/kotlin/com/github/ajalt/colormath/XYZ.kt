@@ -8,7 +8,7 @@ import kotlin.math.pow
  *
  * Conversions use D65/2° illuminant, and sRGB profile.
  *
- * [x], [y], and [z] are generally in the interval `[0, 100]`, but may be larger
+ * [x], [y], and [z] are generally in the interval `[-2, 2]`, but may be larger
  */
 data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Color {
     constructor(x: Double, y: Double, z: Double, a: Float = 1f)
@@ -17,10 +17,6 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
     override val alpha: Float get() = a
 
     override fun toRGB(): RGB {
-        val x = this.x / 100.0
-        val y = this.y / 100.0
-        val z = this.z / 100.0
-
         // linearize sRGB values
         fun adj(c: Double): Float = when {
             c < 0.0031308 -> 12.92 * c
@@ -41,19 +37,22 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
             else -> (t * CIE_K + 16) / 116
         }
 
-        val fx = f(x / D65.x)
-        val fy = f(y / D65.y)
-        val fz = f(z / D65.z)
+        val fx = f(100f * x / D65.x)
+        val fy = f(100f * y / D65.y)
+        val fz = f(100f * z / D65.z)
 
         val l = (116 * fy) - 16
         val a = 500 * (fx - fy)
         val b = 200 * (fy - fz)
 
-        return LAB(l.coerceIn(0f, 100f), a, b, alpha)
+        return LAB(l, a, b, alpha)
     }
 
     override fun toLUV(): LUV {
         // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
+        val x = this.x * 100f
+        val y = this.y * 100f
+        val z = this.z * 100f
         val denominator = x + 15 * y + 3 * z
         val uPrime = if (denominator == 0f) 0f else (4 * x) / denominator
         val vPrime = if (denominator == 0f) 0f else (9 * y) / denominator

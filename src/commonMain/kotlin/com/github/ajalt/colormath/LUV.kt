@@ -8,7 +8,7 @@ import kotlin.math.sqrt
 /**
  * CIE LUV (CIE 1976 L*u*v*) color space.
  *
- * [l] is in the range `[0, 100]`. [u] and [v] are in the range `[-100, 100]`
+ * [l] is in the range `[0, 100]`. [u] and [v] are typically in the range `[-100, 100]`
  */
 data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Float = 1f) : Color {
     constructor(l: Double, u: Double, v: Double, alpha: Double = 1.0)
@@ -42,14 +42,14 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
         val x = (d - b) / (a - c)
         val z = x * a + b
 
-        // scale XYZ values from `[0, 1]` to `[0, 100]`.
-        return XYZ(100 * x, 100 * y, 100 * z, alpha)
+        return XYZ(x, y, z, alpha)
     }
 
     override fun toLUV(): LUV = this
 
     override fun toLCH(): LCH {
         // http://www.brucelindbloom.com/Eqn_Luv_to_LCH.html
+        if (l == 0f) return LCH(0f, 0f, 0f, alpha)
         val c = sqrt(u * u + v * v)
         val h = if (c < 1e-8) 0f else atan2(v, u).radToDeg()
         return LCH(l, c, h.normalizeDeg())

@@ -74,39 +74,39 @@ class RGBTest {
     @Test
     @JsName("RGB_to_XYZ")
     fun `RGB to XYZ`() = forAll(
-        row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
-        row(RGB(255, 255, 255), 95.04, 100.00, 108.88),
-        row(RGB(255, 0, 0), 41.24, 21.26, 1.93),
-        row(RGB(0, 255, 0), 35.75, 71.51, 11.91),
-        row(RGB(0, 0, 255), 18.04, 7.21, 95.03),
-        row(RGB(255, 255, 0), 77.00, 92.78, 13.85),
-        row(RGB(0, 255, 255), 53.80, 78.73, 106.95),
-        row(RGB(255, 0, 255), 59.28, 28.48, 96.964),
-        row(RGB(92, 191, 84), 24.64, 40.17, 14.84)
-    ) { rgb, x, y, z ->
-        val xyz = rgb.toXYZ()
-        xyz.x.toDouble() shouldBe (x plusOrMinus 0.01)
-        xyz.y.toDouble() shouldBe (y plusOrMinus 0.01)
-        xyz.z.toDouble() shouldBe (z plusOrMinus 0.01)
+        row(RGB(0, 0, 0), XYZ(0.0, 0.0, 0.0)),
+        row(RGB(255, 255, 255), XYZ(0.950470, 1.000000, 1.088830)),
+        row(RGB(255, 0, 0), XYZ(0.412456, 0.212673, 0.019334)),
+        row(RGB(0, 255, 0), XYZ(0.357576, 0.715152, 0.119192)),
+        row(RGB(0, 0, 255), XYZ(0.180437, 0.072175, 0.950304)),
+        row(RGB(255, 255, 0), XYZ(0.770033, 0.927825, 0.138526)),
+        row(RGB(0, 255, 255), XYZ(0.538014, 0.787327, 1.069496)),
+        row(RGB(255, 0, 255), XYZ(0.592894, 0.284848, 0.969638)),
+        row(RGB(92, 191, 84), XYZ(0.246435, 0.401751, 0.148417)),
+    ) { rgb, xyz ->
+        val (x, y, z) = rgb.toXYZ()
+        withClue("x") { x shouldBe (xyz.x plusOrMinus 0.000005f) }
+        withClue("y") { y shouldBe (xyz.y plusOrMinus 0.000005f) }
+        withClue("z") { z shouldBe (xyz.z plusOrMinus 0.000005f) }
     }
 
     @Test
     @JsName("RGB_to_LAB")
     fun `RGB to LAB`() = forAll(
-        row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
-        row(RGB(255, 255, 255), 100.0, 0.0, 0.0),
-        row(RGB(255, 0, 0), 53.24, 80.09, 67.20),
-        row(RGB(0, 255, 0), 87.73, -86.18, 83.17),
-        row(RGB(0, 0, 255), 32.29, 79.18, -107.86),
-        row(RGB(255, 255, 0), 97.13, -21.55, 94.47),
-        row(RGB(0, 255, 255), 91.11, -48.08, -14.13),
-        row(RGB(255, 0, 255), 60.32, 98.23, -60.82),
-        row(RGB(92, 191, 84), 69.59, -50.11, 44.64)
-    ) { rgb, l, a, b ->
-        val lab = rgb.toLAB()
-        lab.l.toDouble() shouldBe (l plusOrMinus 0.01)
-        lab.a.toDouble() shouldBe (a plusOrMinus 0.01)
-        lab.b.toDouble() shouldBe (b plusOrMinus 0.01)
+        row(RGB(0, 0, 0), LAB(0.0, 0.0, 0.0)),
+        row(RGB(255, 0, 0), LAB(53.2408, 80.0925, 67.2032)),
+        row(RGB(255, 255, 0), LAB(97.1393, -21.5537, 94.4780)),
+        row(RGB(0, 255, 0), LAB(87.7347, -86.1827, 83.1793)),
+        row(RGB(0, 255, 255), LAB(91.1132, -48.0875, -14.1312)),
+        row(RGB(0, 0, 255), LAB(32.2970, 79.1875, -107.8602)),
+        row(RGB(255, 0, 255), LAB(60.3242, 98.2343, -60.8249)),
+        row(RGB(255, 255, 255), LAB(100.000, 0.0000, 0.0000)),
+        row(RGB(92, 191, 84), LAB(69.5940, -50.1108, 44.6468)),
+    ) { rgb, lab ->
+        val (l, a, b) = rgb.toLAB()
+        withClue("l") { l shouldBe (lab.l plusOrMinus 0.0005f) }
+        withClue("a") { a shouldBe (lab.a plusOrMinus 0.0005f) }
+        withClue("b") { b shouldBe (lab.b plusOrMinus 0.0005f) }
     }
 
     @Test
@@ -131,19 +131,19 @@ class RGBTest {
     @Test
     @JsName("RGB_to_LCH")
     fun `RGB to LCH`() = forAll(
-        row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
-        row(RGB(255, 0, 0), 53.2408, 179.0414, 12.1740),
-        row(RGB(0, 255, 0), 87.7347, 135.7804, 127.7236),
-        row(RGB(0, 0, 255), 32.2970, 130.6812, 265.8727),
-        row(RGB(255, 255, 0), 97.1393, 107.0643, 85.8727),
-        row(RGB(0, 255, 255), 91.1132, 72.0987, 192.1740),
-        row(RGB(255, 0, 255), 60.3242, 137.4048, 307.7236),
-        row(RGB(92, 191, 84), 69.5940, 78.3314, 126.1776),
-    ) { rgb, l, c, h ->
-        val lch = rgb.toLCH()
-        withClue("l") { lch.l.toDouble() shouldBe (l plusOrMinus 0.0005) }
-        withClue("c") { lch.c.toDouble() shouldBe (c plusOrMinus 0.0005) }
-        withClue("h") { lch.h.toDouble() shouldBe (h plusOrMinus 0.0005) }
+        row(RGB(0, 0, 0), LCH(0.0, 0.0, 0.0)),
+        row(RGB(255, 0, 0), LCH(53.2408, 179.0414, 12.1740)),
+        row(RGB(0, 255, 0), LCH(87.7347, 135.7804, 127.7236)),
+        row(RGB(0, 0, 255), LCH(32.2970, 130.6812, 265.8727)),
+        row(RGB(255, 255, 0), LCH(97.1393, 107.0643, 85.8727)),
+        row(RGB(0, 255, 255), LCH(91.1132, 72.0987, 192.1740)),
+        row(RGB(255, 0, 255), LCH(60.3242, 137.4048, 307.7236)),
+        row(RGB(92, 191, 84), LCH(69.5940, 78.3314, 126.1776)),
+    ) { rgb, lch ->
+        val (l, c, h) = rgb.toLCH()
+        withClue("l") { l shouldBe (lch.l plusOrMinus 0.0005f) }
+        withClue("c") { c shouldBe (lch.c plusOrMinus 0.0005f) }
+        withClue("h") { h shouldBe (lch.h plusOrMinus 0.0005f) }
     }
 
     @Test
@@ -168,7 +168,7 @@ class RGBTest {
         row(RGB(255, 0, 255), CMYK(0, 100, 0, 0)),
         row(RGB(140, 200, 100), CMYK(30, 0, 50, 22))
     ) { rgb, cmyk ->
-        val (c,m,y,k) = rgb.toCMYK()
+        val (c, m, y, k) = rgb.toCMYK()
         c shouldBe (cmyk.c plusOrMinus 0.005f)
         m shouldBe (cmyk.m plusOrMinus 0.005f)
         y shouldBe (cmyk.y plusOrMinus 0.005f)
