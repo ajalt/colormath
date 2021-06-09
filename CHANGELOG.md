@@ -11,6 +11,7 @@
 - All `Color` classes now support HDR colors. Constructors no longer require that color channel values fall in SDR ranges.
 - `RGB` now stores its color channels normalized to `[0, 1]` rather than `[0, 255]`. You can read the color channels in their old integer representations with `RGB.redInt`, `greenInt`, and `blueInt`.
 - `HSV`, `HSL`, and `HWB` now store their rectangular channels (`s`, `v`, `l`, `w`, and `b`) normalized to `[0, 1]` rather than `[0, 100]`.
+- `XYZ` channels are no longer multiplied by 100: their range is now `[-2, 2]` rather than `[-200, 200]`
 
 ## [2.1.0] - 2021-05-05
 ### Added

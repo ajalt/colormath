@@ -134,7 +134,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         val x = 0.4124564 * rL + 0.3575761 * gL + 0.1804375 * bL
         val y = 0.2126729 * rL + 0.7151522 * gL + 0.0721750 * bL
         val z = 0.0193339 * rL + 0.1191920 * gL + 0.9503041 * bL
-        return XYZ(x * 100.0, y * 100.0, z * 100.0, alpha)
+        return XYZ(x, y, z, alpha)
     }
 
     override fun toLAB(): LAB = toXYZ().toLAB()
