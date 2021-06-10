@@ -65,6 +65,9 @@ interface Color {
     /** Convert this color to HWB */
     fun toHWB(): HWB = toRGB().toHWB()
 
+    /** Convert this color to Linear sRGB */
+    fun toLinearRGB(): LinearRGB = toRGB().toLinearRGB()
+
     companion object // enables extensions on the interface
 }
 
