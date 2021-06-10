@@ -220,6 +220,23 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_Linear")
+    fun `RGB to Linear`() = forAll(
+        row(RGB(0, 0, 0), LinearRGB(0.0, 0.0, 0.0)),
+        row(RGB(8, 8, 8), LinearRGB(0.00242, 0.00242, 0.00242)),
+        row(RGB(16, 16, 16), LinearRGB(0.00518, 0.00518, 0.00518)),
+        row(RGB(32, 32, 32), LinearRGB(0.01444, 0.01444, 0.01444)),
+        row(RGB(64, 64, 64), LinearRGB(0.05126, 0.05126, 0.05126)),
+        row(RGB(128, 128, 128), LinearRGB(0.21586, 0.21586, 0.21586)),
+        row(RGB(255, 255, 255), LinearRGB(1.0, 1.0, 1.0)),
+    ) { rgb, linear ->
+        val (r, g, b) = rgb.toLinearRGB()
+        withClue("r") { r shouldBe (linear.r plusOrMinus 0.00005f) }
+        withClue("g") { g shouldBe (linear.g plusOrMinus 0.00005f) }
+        withClue("b") { b shouldBe (linear.b plusOrMinus 0.00005f) }
+    }
+
+    @Test
     @JsName("RGB_to_Ansi16")
     fun `RGB to Ansi16`() = forAll(
         row(RGB(0, 0, 0), 30),

@@ -118,17 +118,9 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     }
 
     override fun toXYZ(): XYZ {
-        // linearize sRGB
-        fun adj(c: Float): Double {
-            return when {
-                c > 0.04045 -> ((c + 0.055) / 1.055).pow(2.4)
-                else -> c / 12.92
-            }
-        }
-
-        val rL = adj(r)
-        val gL = adj(g)
-        val bL = adj(b)
+        val rL = linearize(r)
+        val gL = linearize(g)
+        val bL = linearize(b)
 
         // Matrix from http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
         val x = 0.4124564 * rL + 0.3575761 * gL + 0.1804375 * bL
@@ -161,6 +153,10 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
                 a = alpha
             )
         }
+    }
+
+    override fun toLinearRGB(): LinearRGB {
+        return LinearRGB(linearize(r), linearize(g), linearize(b), a)
     }
 
     override fun toAnsi16(): Ansi16 {
@@ -219,6 +215,13 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         if (h < 0) h += 360
 
         return block(h, min, max, delta)
+    }
+
+    private fun linearize(s: Float): Float {
+        return when {
+            s <= 0.04045f -> s / 12.92f
+            else -> ((s + 0.055f) / 1.055f).pow(2.4f)
+        }
     }
 
     companion object {
