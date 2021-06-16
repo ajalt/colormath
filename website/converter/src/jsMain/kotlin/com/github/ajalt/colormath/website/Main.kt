@@ -1,9 +1,8 @@
+@file:NoLiveLiterals // work around some compose bug
+
 package com.github.ajalt.colormath.website
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.CssColors
 import com.github.ajalt.colormath.RGB
