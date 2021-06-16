@@ -189,6 +189,18 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
 
     override fun toRGB() = this
 
+    fun blend(other: Color, amount: Float = .5f): RGB {
+        // TODO: premultiply alpha
+        val l = toLinearRGB()
+        val r = other.toLinearRGB()
+        return LinearRGB(
+            lerp(l.r, r.r, amount),
+            lerp(l.g, r.g, amount),
+            lerp(l.b, r.b, amount),
+            lerp(l.a, r.a, amount),
+        ).toRGB()
+    }
+
     /**
      * Call [block] with the hue, min of color channels, max of color channels, and the
      * delta between min and max.
