@@ -1,4 +1,4 @@
-include("website")
+include("website:converter")
 
 // For compose web
 pluginManagement {
