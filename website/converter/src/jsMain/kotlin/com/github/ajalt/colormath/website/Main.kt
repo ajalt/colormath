@@ -27,17 +27,17 @@ fun main() {
             Div(attrs = {
                 style {
                     display(DisplayStyle.InlineBlock)
-                    property("min-width", value(5.em))
+                    property("min-width", 5.em)
                 }
             }) { Text(title) }
             for ((get, set) in a) {
                 Input(InputType.Number, value = fmt(get.toDouble() * (intScale ?: 1)), attrs = {
                     style {
-                        property("max-width", value(20.percent))
-                        property("appearance", value("textfield"))
-                        property("margin-right", value(4.px))
-                        property("padding-left", value(1.rem))
-                        property("padding-right", value(1.rem))
+                        property("max-width", 20.percent)
+                        property("appearance", "textfield")
+                        property("margin-right", 4.px)
+                        property("padding-left", 1.cssRem)
+                        property("padding-right", 1.cssRem)
                     }
                     classes("md-search__input") // class is part of mkdocs material
                     attr("step", if (intScale == null) "0.1" else "1")
@@ -52,7 +52,7 @@ fun main() {
             P {
                 Label("pickerInput", attrs = {
                     style {
-                        property("min-width", value(5.em))
+                        property("min-width", 5.em)
                         display(DisplayStyle.InlineBlock)
                     }
                 }) { Text("Pick Color") }
@@ -133,7 +133,7 @@ fun main() {
                     color(if (color.toHSL().l > 40) "black" else "white")
                     padding(25.px)
                     border(1.px, LineStyle.Solid, Color("#ced4da"))
-                    borderRadius(.25.rem)
+                    borderRadius(.25.cssRem)
                 }
             }) {
                 Text(color.toHex())
