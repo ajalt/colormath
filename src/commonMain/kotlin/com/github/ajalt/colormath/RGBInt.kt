@@ -49,6 +49,7 @@ value class RGBInt(val argb: UInt) : Color {
     private fun UByte.renderHex() = toString(16).padStart(2, '0')
 
 
+    override fun convertToThis(other: Color): RGBInt = other.toRGB().toRGBInt()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
     override fun fromComponents(components: FloatArray): RGBInt {

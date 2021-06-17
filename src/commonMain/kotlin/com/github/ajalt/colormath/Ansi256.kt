@@ -42,6 +42,7 @@ data class Ansi256(val code: Int) : Color {
 
     override fun toAnsi256() = this
 
+    override fun convertToThis(other: Color): Ansi256 = other.toAnsi256()
     override fun componentCount(): Int = 2
     override fun components(): FloatArray = floatArrayOf(code.toFloat(), alpha)
     override fun fromComponents(components: FloatArray): Ansi256 {

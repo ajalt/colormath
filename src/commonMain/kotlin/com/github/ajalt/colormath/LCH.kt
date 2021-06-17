@@ -40,6 +40,7 @@ data class LCH(val l: Float, val c: Float, val h: Float, override val alpha: Flo
 
     override fun toLCH(): LCH = this
 
+    override fun convertToThis(other: Color): LCH = other.toLCH()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(l, c, h, alpha)
     override fun fromComponents(components: FloatArray): LCH {

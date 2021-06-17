@@ -69,6 +69,7 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
         return LUV(l.coerceIn(0f, 100f), u, v, alpha)
     }
 
+    override fun convertToThis(other: Color): XYZ = other.toXYZ()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(x, y, z, alpha)
     override fun fromComponents(components: FloatArray): XYZ {

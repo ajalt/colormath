@@ -68,6 +68,9 @@ interface Color {
     /** Convert this color to Linear sRGB */
     fun toLinearRGB(): LinearRGB = toRGB().toLinearRGB()
 
+    /** Convert an [other] color to this color's model */
+    fun convertToThis(other: Color): Color
+
     /** Create a [FloatArray] containing all components of this color, with the [alpha] as the last component */
     fun components(): FloatArray
 

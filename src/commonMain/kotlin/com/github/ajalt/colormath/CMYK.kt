@@ -25,6 +25,7 @@ data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, val a: F
 
     override fun toCMYK() = this
 
+    override fun convertToThis(other: Color): CMYK = other.toCMYK()
     override fun componentCount(): Int = 5
     override fun components(): FloatArray = floatArrayOf(c, m, y, k, alpha)
     override fun fromComponents(components: FloatArray): CMYK {

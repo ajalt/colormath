@@ -177,6 +177,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
 
     override fun toRGB() = this
 
+    override fun convertToThis(other: Color): RGB = other.toRGB()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
     override fun fromComponents(components: FloatArray): RGB {
