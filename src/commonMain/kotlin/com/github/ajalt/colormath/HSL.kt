@@ -71,6 +71,7 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
 
     override fun toHSL() = this
 
+    override fun convertToThis(other: Color): HSL = other.toHSL()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(h, s, l, alpha)
     override fun fromComponents(components: FloatArray): HSL {

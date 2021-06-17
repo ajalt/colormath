@@ -18,6 +18,7 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
     override fun toRGB(): RGB = RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), a)
     override fun toLinearRGB(): LinearRGB = this
 
+    override fun convertToThis(other: Color): LinearRGB = other.toLinearRGB()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
     override fun fromComponents(components: FloatArray): LinearRGB {

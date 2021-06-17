@@ -60,6 +60,7 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
 
     override fun toLUV(): LUV = this
 
+    override fun convertToThis(other: Color): LUV = other.toLUV()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(l, u, v, alpha)
     override fun fromComponents(components: FloatArray): LUV {

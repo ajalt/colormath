@@ -52,6 +52,7 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
 
     override fun toLAB(): LAB = this
 
+    override fun convertToThis(other: Color): LAB = other.toLAB()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(l, a, b, alpha)
     override fun fromComponents(components: FloatArray): LAB {

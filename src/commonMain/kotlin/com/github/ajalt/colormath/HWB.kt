@@ -62,6 +62,7 @@ data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float =
 
     override fun toHWB(): HWB = this
 
+    override fun convertToThis(other: Color): HWB = other.toHWB()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(h, w, b, alpha)
     override fun fromComponents(components: FloatArray): HWB {
