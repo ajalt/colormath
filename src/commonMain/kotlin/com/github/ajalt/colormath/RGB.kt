@@ -1,6 +1,5 @@
 package com.github.ajalt.colormath
 
-import kotlin.math.pow
 import kotlin.math.roundToInt
 
 /**
@@ -117,22 +116,9 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         }
     }
 
-    override fun toXYZ(): XYZ {
-        val rL = linearize(r)
-        val gL = linearize(g)
-        val bL = linearize(b)
-
-        // Matrix from http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
-        val x = 0.4124564 * rL + 0.3575761 * gL + 0.1804375 * bL
-        val y = 0.2126729 * rL + 0.7151522 * gL + 0.0721750 * bL
-        val z = 0.0193339 * rL + 0.1191920 * gL + 0.9503041 * bL
-        return XYZ(x, y, z, alpha)
-    }
-
+    override fun toXYZ(): XYZ = linearRGBToXYZ(sRGBToLinear(r), sRGBToLinear(g), sRGBToLinear(b), alpha)
     override fun toLAB(): LAB = toXYZ().toLAB()
-
     override fun toLUV(): LUV = toXYZ().toLUV()
-
     override fun toLCH(): LCH = toXYZ().toLUV().toLCH()
 
     override fun toCMYK(): CMYK {
@@ -156,7 +142,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     }
 
     override fun toLinearRGB(): LinearRGB {
-        return LinearRGB(linearize(r), linearize(g), linearize(b), a)
+        return LinearRGB(sRGBToLinear(r), sRGBToLinear(g), sRGBToLinear(b), a)
     }
 
     override fun toAnsi16(): Ansi16 {
@@ -227,13 +213,6 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         if (h < 0) h += 360
 
         return block(h, min, max, delta)
-    }
-
-    private fun linearize(s: Float): Float {
-        return when {
-            s <= 0.04045f -> s / 12.92f
-            else -> ((s + 0.055f) / 1.055f).pow(2.4f)
-        }
     }
 
     companion object {

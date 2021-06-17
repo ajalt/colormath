@@ -16,22 +16,16 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
 
     override val alpha: Float get() = a
 
-    override fun toRGB(): RGB {
-        // linearize sRGB values
-        fun adj(c: Double): Float = when {
-            c < 0.0031308 -> 12.92 * c
-            else -> 1.055 * c.pow(1.0 / 2.4) - 0.055
-        }.toFloat()
+    // Matrix from http://www.brucelindbloom.com/Eqn_XYZ_to_RGB.html
+    private fun r() = 3.2404542f * x - 1.5371385f * y - 0.4985314f * z
+    private fun g() = -0.9692660f * x + 1.8760108f * y + 0.0415560f * z
+    private fun b() = 0.0556434f * x - 0.2040259f * y + 1.0572252f * z
 
-        // Matrix from http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
-        val r = 3.2404542 * x - 1.5371385 * y - 0.4985314 * z
-        val g = -0.9692660 * x + 1.8760108 * y + 0.0415560 * z
-        val b = 0.0556434 * x - 0.2040259 * y + 1.0572252 * z
-        return RGB(adj(r), adj(g), adj(b), alpha)
-    }
+    override fun toRGB(): RGB = RGB(linearToSRGB(r()), linearToSRGB(g()), linearToSRGB(b()), alpha)
+    override fun toLinearRGB(): LinearRGB = LinearRGB(r(), g(), b(), alpha)
 
     override fun toLAB(): LAB {
-        // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html
+        // http://www.brucelindbloom.com/Eqn_XYZ_to_Lab.html
         fun f(t: Float) = when {
             t > CIE_E -> t.pow(1f / 3)
             else -> (t * CIE_K + 16) / 116
