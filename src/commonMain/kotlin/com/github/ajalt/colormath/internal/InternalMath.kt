@@ -2,8 +2,6 @@ package com.github.ajalt.colormath.internal
 
 import kotlin.math.PI
 
-internal fun lerp(l: Float, r: Float, amount: Float): Float = l + amount * (r - l)
-
 internal fun Float.degToRad(): Float = (this * PI / 180f).toFloat()
 internal fun Float.radToDeg(): Float = (this * 180f / PI).toFloat()
 internal fun Float.gradToDeg(): Float = this * .9f

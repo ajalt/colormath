@@ -1,6 +1,5 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.lerp
 import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.math.roundToInt
 
@@ -10,7 +9,7 @@ import kotlin.math.roundToInt
  * All color channels are floating point values normalized to `[0, 1]` for SDR colors. HDR colors may exceed this range.
  *
  * @property r The red channel, a value in the range `[0, 1]`
- * @property g The green channel, a value in the range `[0, 1]`
+ * @property g The green channel, a value in the ran `[0, 1]`
  * @property b The blue channel, a value in the range `[0, 1]`
  * @property a The alpha channel, a value in the range `[0, 1]`
  */
@@ -183,18 +182,6 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     override fun fromComponents(components: FloatArray): RGB {
         requireComponentSize(components)
         return RGB(components[0], components[1], components[2], components.getOrElse(3) { 1f })
-    }
-
-    fun blend(other: Color, amount: Float = .5f): RGB {
-        // TODO: premultiply alpha
-        val l = toLinearRGB()
-        val r = other.toLinearRGB()
-        return LinearRGB(
-            lerp(l.r, r.r, amount),
-            lerp(l.g, r.g, amount),
-            lerp(l.b, r.b, amount),
-            lerp(l.a, r.a, amount),
-        ).toRGB()
     }
 
     /**
