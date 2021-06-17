@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.math.pow
 
 /**
@@ -16,6 +17,13 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
     override fun toXYZ(): XYZ = linearRGBToXYZ(r, g, b, alpha)
     override fun toRGB(): RGB = RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), a)
     override fun toLinearRGB(): LinearRGB = this
+
+    override fun componentCount(): Int = 4
+    override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
+    override fun fromComponents(components: FloatArray): LinearRGB {
+        requireComponentSize(components)
+        return LinearRGB(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    }
 }
 
 internal fun linearRGBToXYZ(r: Float, g: Float, b: Float, alpha: Float): XYZ {

@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.jvm.JvmInline
 
 /**
@@ -9,6 +10,8 @@ import kotlin.jvm.JvmInline
  * `android.graphics.Color.argb` or `java.awt.image.BufferedImage.getRGB`.
  *
  * You can destructure this class into [r], [g], [b], and [a] components: `val (r, g, b, a) = RGBInt(0xff112233u)`
+ *
+ * [r], [g], [b], and [a] all have a range `[0, 255]`
  */
 @JvmInline
 value class RGBInt(val argb: UInt) : Color {
@@ -16,7 +19,7 @@ value class RGBInt(val argb: UInt) : Color {
         (a.toUInt() shl 24) or (r.toUInt() shl 16) or (g.toUInt() shl 8) or b.toUInt()
     )
 
-    override val alpha: Float get() = (a.toFloat() / 255)
+    override val alpha: Float get() = (a.toFloat() / 255f)
 
     val a: UByte get() = (argb shr 24).toUByte()
     val r: UByte get() = (argb shr 16).toUByte()
@@ -44,4 +47,15 @@ value class RGBInt(val argb: UInt) : Color {
     operator fun component4() = a
 
     private fun UByte.renderHex() = toString(16).padStart(2, '0')
+
+
+    override fun componentCount(): Int = 4
+    override fun components(): FloatArray = floatArrayOf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
+    override fun fromComponents(components: FloatArray): RGBInt {
+        requireComponentSize(components)
+        return RGBInt(components[0].toInt().toUByte(),
+            components[1].toInt().toUByte(),
+            components[2].toInt().toUByte(),
+            components.getOrElse(3) { 1f }.toInt().toUByte())
+    }
 }

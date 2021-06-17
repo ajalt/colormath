@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.math.floor
 
 /**
@@ -31,13 +32,20 @@ data class Ansi256(val code: Int) : Color {
         return RGB(r, g, b)
     }
 
-    override fun toAnsi256() = this
-
     // 0-7 are standard ansi16 colors
     // 8-15 are bright ansi16 colors
     override fun toAnsi16() = when {
         code < 8 -> Ansi16(code + 30)
         code < 16 -> Ansi16(code - 8 + 90)
         else -> toRGB().toAnsi16()
+    }
+
+    override fun toAnsi256() = this
+
+    override fun componentCount(): Int = 2
+    override fun components(): FloatArray = floatArrayOf(code.toFloat(), alpha)
+    override fun fromComponents(components: FloatArray): Ansi256 {
+        requireComponentSize(components)
+        return Ansi256(components[0].toInt())
     }
 }

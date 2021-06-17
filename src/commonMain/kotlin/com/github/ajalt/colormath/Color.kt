@@ -68,5 +68,19 @@ interface Color {
     /** Convert this color to Linear sRGB */
     fun toLinearRGB(): LinearRGB = toRGB().toLinearRGB()
 
+    /** Create a [FloatArray] containing all components of this color, with the [alpha] as the last component */
+    fun components(): FloatArray
+
+    /** The number of components, including [alpha], in this color. This is the the size of the array returned by [components] */
+    fun componentCount(): Int
+
+    /**
+     * Create a  new instance of this color from an array of [components].
+     *
+     * The [components] array must have a size equal to either the [componentCount] of this color, or one less, in which
+     * case [alpha] will default to 1.
+     */
+    fun fromComponents(components: FloatArray): Color
+
     companion object // enables extensions on the interface
 }

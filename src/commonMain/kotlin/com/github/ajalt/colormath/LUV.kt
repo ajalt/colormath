@@ -1,6 +1,11 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.Illuminant.D65
+import com.github.ajalt.colormath.internal.CIE_E_times_K
+import com.github.ajalt.colormath.internal.CIE_K
+import com.github.ajalt.colormath.internal.Illuminant.D65
+import com.github.ajalt.colormath.internal.normalizeDeg
+import com.github.ajalt.colormath.internal.radToDeg
+import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -45,13 +50,20 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
         return XYZ(x, y, z, alpha)
     }
 
-    override fun toLUV(): LUV = this
-
     override fun toLCH(): LCH {
         // http://www.brucelindbloom.com/Eqn_Luv_to_LCH.html
         if (l == 0f) return LCH(0f, 0f, 0f, alpha)
         val c = sqrt(u * u + v * v)
         val h = if (c < 1e-8) 0f else atan2(v, u).radToDeg()
         return LCH(l, c, h.normalizeDeg())
+    }
+
+    override fun toLUV(): LUV = this
+
+    override fun componentCount(): Int = 4
+    override fun components(): FloatArray = floatArrayOf(l, u, v, alpha)
+    override fun fromComponents(components: FloatArray): LUV {
+        requireComponentSize(components)
+        return LUV(components[0], components[1], components[2], components.getOrElse(3) { 1f })
     }
 }

@@ -1,4 +1,4 @@
-package com.github.ajalt.colormath
+package com.github.ajalt.colormath.internal
 
 import kotlin.math.PI
 
