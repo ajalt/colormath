@@ -1,6 +1,12 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.Illuminant.D65
+import com.github.ajalt.colormath.internal.CIE_E
+import com.github.ajalt.colormath.internal.CIE_E_times_K
+import com.github.ajalt.colormath.internal.CIE_K
+import com.github.ajalt.colormath.internal.Illuminant.D65
+import com.github.ajalt.colormath.internal.normalizeDeg
+import com.github.ajalt.colormath.internal.radToDeg
+import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -45,4 +51,11 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
     }
 
     override fun toLAB(): LAB = this
+
+    override fun componentCount(): Int = 4
+    override fun components(): FloatArray = floatArrayOf(l, a, b, alpha)
+    override fun fromComponents(components: FloatArray): LAB {
+        requireComponentSize(components)
+        return LAB(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    }
 }

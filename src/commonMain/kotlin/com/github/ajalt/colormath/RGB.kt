@@ -1,5 +1,7 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.lerp
+import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.math.roundToInt
 
 /**
@@ -174,6 +176,13 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     }
 
     override fun toRGB() = this
+
+    override fun componentCount(): Int = 4
+    override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
+    override fun fromComponents(components: FloatArray): RGB {
+        requireComponentSize(components)
+        return RGB(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    }
 
     fun blend(other: Color, amount: Float = .5f): RGB {
         // TODO: premultiply alpha

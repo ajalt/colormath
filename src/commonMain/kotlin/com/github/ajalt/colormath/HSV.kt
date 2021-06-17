@@ -1,5 +1,7 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.normalizeDeg
+import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -50,4 +52,11 @@ data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float =
     }
 
     override fun toHSV() = this
+
+    override fun componentCount(): Int = 4
+    override fun components(): FloatArray = floatArrayOf(h, s, v, alpha)
+    override fun fromComponents(components: FloatArray): HSV {
+        requireComponentSize(components)
+        return HSV(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    }
 }

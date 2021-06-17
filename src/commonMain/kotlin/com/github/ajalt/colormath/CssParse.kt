@@ -1,5 +1,9 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.gradToDeg
+import com.github.ajalt.colormath.internal.normalizeDeg
+import com.github.ajalt.colormath.internal.radToDeg
+import com.github.ajalt.colormath.internal.turnToDeg
 import kotlin.math.roundToInt
 
 /**

@@ -1,5 +1,7 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.requireComponentSize
+
 /**
  * An ANSI-16 color code
  */
@@ -55,9 +57,17 @@ data class Ansi16(val code: Int) : Color {
         return RGB(r, g, b)
     }
 
-    override fun toAnsi16() = this
     override fun toAnsi256() = when {
         code >= 90 -> Ansi256(code - 90 + 8)
         else -> Ansi256(code - 30)
+    }
+
+    override fun toAnsi16() = this
+
+    override fun componentCount(): Int = 2
+    override fun components(): FloatArray = floatArrayOf(code.toFloat(), alpha)
+    override fun fromComponents(components: FloatArray): Ansi16 {
+        requireComponentSize(components)
+        return Ansi16(components[0].toInt())
     }
 }
