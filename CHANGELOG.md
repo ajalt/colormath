@@ -14,6 +14,10 @@
 - `HSV`, `HSL`, and `HWB` now store their rectangular channels (`s`, `v`, `l`, `w`, and `b`) normalized to `[0, 1]` rather than `[0, 100]`.
 - `XYZ` channels are no longer multiplied by 100: their range is now `[-2, 2]` rather than `[-200, 200]`
 
+## Removed
+
+- Removed the previously deprecated `ConvertibleColor` typealias.
+
 ## [2.1.0] - 2021-05-05
 ### Added
 - Added CIE LUV colorspace support

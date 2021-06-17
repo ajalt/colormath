@@ -54,10 +54,10 @@ interface Color {
     fun toXYZ(): XYZ = toRGB().toXYZ()
 
     /** Convert this color to CIE LAB */
-    fun toLAB(): LAB = toRGB().toLAB()
+    fun toLAB(): LAB = toXYZ().toLAB()
 
     /** Convert this color to CIE LUV */
-    fun toLUV(): LUV = toRGB().toLUV()
+    fun toLUV(): LUV = toXYZ().toLUV()
 
     /** Convert this color to CIE LCh(uv) */
     fun toLCH(): LCH = toLUV().toLCH()
@@ -70,6 +70,3 @@ interface Color {
 
     companion object // enables extensions on the interface
 }
-
-@Deprecated("This interface has been renamed Color", replaceWith = ReplaceWith("Color"))
-typealias ConvertibleColor = Color
