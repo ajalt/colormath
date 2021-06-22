@@ -4,8 +4,8 @@ package com.github.ajalt.colormath.website
 
 import androidx.compose.runtime.*
 import com.github.ajalt.colormath.Color
-import com.github.ajalt.colormath.CssColors
 import com.github.ajalt.colormath.RGB
+import com.github.ajalt.colormath.fromCss
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
@@ -14,7 +14,7 @@ import org.jetbrains.compose.web.renderComposable
 import kotlin.js.json
 
 fun main() {
-    var color: Color by mutableStateOf(CssColors.rebeccapurple)
+    var color: Color by mutableStateOf(Color.fromCss("rebeccapurple"))
 
     @Composable
     fun row(
