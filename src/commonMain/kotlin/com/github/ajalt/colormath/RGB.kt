@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.math.roundToInt
 
@@ -91,7 +92,17 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         b = blueInt.coerceIn(0, 255).toUByte()
     )
 
-    override fun toHex(withNumberSign: Boolean, renderAlpha: RenderCondition): String {
+    /**
+     * Convert this color to an RGB hex string.
+     *
+     * If [renderAlpha] is `ALWAYS`, the [alpha] value will be added e.g. the `aa` in `#ffffffaa`.
+     * If it's `NEVER`, the [alpha] will be omitted. If it's `AUTO`, then the [alpha] will be added
+     * if it's less than 1.
+     *
+     * @return A string in the form `"#ffffff"` if [withNumberSign] is true,
+     *     or in the form `"ffffff"` otherwise.
+     */
+    fun toHex(withNumberSign: Boolean = true, renderAlpha: RenderCondition = AUTO): String {
         return toRGBInt().toHex(withNumberSign, renderAlpha)
     }
 

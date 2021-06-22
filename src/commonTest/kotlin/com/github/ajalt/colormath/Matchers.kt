@@ -13,8 +13,8 @@ fun convertTo(expected: Color) = object : Matcher<Color> {
         return MatcherResult(
             value.toRGB().toRGBInt().argb == expected.toRGB().toRGBInt().argb,
             {
-                val e = Expected("RGB(${expected.toHex()})".show())
-                val a = Actual("RGB(${value.toHex()})".show())
+                val e = Expected("RGB(${expected.toRGB().toHex()})".show())
+                val a = Actual("RGB(${value.toRGB().toHex()})".show())
                 failure(e, a).message ?: intellijFormatError(e, a)
             },
             { "${expected.show().value} should not equal ${value.show().value}" }
