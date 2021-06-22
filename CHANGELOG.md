@@ -17,6 +17,7 @@
 ## Removed
 
 - Removed the previously deprecated `ConvertibleColor` typealias.
+- Removed the `CssColors` object. Use `Color.fromCss` instead. 
 
 ## [2.1.0] - 2021-05-05
 ### Added

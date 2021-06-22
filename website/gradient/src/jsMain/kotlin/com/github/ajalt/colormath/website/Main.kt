@@ -4,8 +4,8 @@ package com.github.ajalt.colormath.website
 
 import androidx.compose.runtime.*
 import com.github.ajalt.colormath.Color
-import com.github.ajalt.colormath.CssColors
 import com.github.ajalt.colormath.RGB
+import com.github.ajalt.colormath.fromCss
 import com.github.ajalt.colormath.transform.blend
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.css.borderRadius
@@ -22,8 +22,8 @@ import org.khronos.webgl.Uint8ClampedArray
 import org.w3c.dom.HTMLCanvasElement
 
 fun main() {
-    var color1: Color by mutableStateOf(CssColors.rebeccapurple)
-    var color2: Color by mutableStateOf(CssColors.aliceblue)
+    var color1: Color by mutableStateOf(Color.fromCss("rebeccapurple"))
+    var color2: Color by mutableStateOf(Color.fromCss("aliceblue"))
 
     @Composable
     fun row(title: String, convert: (Color) -> Color) {
