@@ -4,6 +4,19 @@ import com.github.ajalt.colormath.internal.requireComponentSize
 
 /**
  * An ANSI-16 color code
+ *
+ * ## Valid codes
+ *
+ * | Color  | Foreground | Background | Bright FG | Bright BG |
+ * | ------ | ---------- | ---------- | --------- | --------- |
+ * | black  | 30         | 40         | 90        | 100       |
+ * | red    | 31         | 41         | 91        | 101       |
+ * | green  | 32         | 42         | 92        | 102       |
+ * | yellow | 33         | 43         | 93        | 103       |
+ * | blue   | 34         | 44         | 94        | 104       |
+ * | purple | 35         | 45         | 95        | 105       |
+ * | cyan   | 36         | 46         | 96        | 106       |
+ * | white  | 37         | 47         | 97        | 107       |
  */
 data class Ansi16(val code: Int) : Color {
     init {
@@ -13,27 +26,9 @@ data class Ansi16(val code: Int) : Color {
         }
     }
 
+    companion object;
+
     override val alpha: Float get() = 1f
-
-    companion object {
-        val black: Ansi16 get() = Ansi16(30)
-        val red: Ansi16 get() = Ansi16(31)
-        val green: Ansi16 get() = Ansi16(32)
-        val yellow: Ansi16 get() = Ansi16(33)
-        val blue: Ansi16 get() = Ansi16(34)
-        val purple: Ansi16 get() = Ansi16(35)
-        val cyan: Ansi16 get() = Ansi16(36)
-        val white: Ansi16 get() = Ansi16(37)
-
-        val brightBlack: Ansi16 get() = Ansi16(90)
-        val brightRed: Ansi16 get() = Ansi16(91)
-        val brightGreen: Ansi16 get() = Ansi16(92)
-        val brightYellow: Ansi16 get() = Ansi16(93)
-        val brightBlue: Ansi16 get() = Ansi16(94)
-        val brightPurple: Ansi16 get() = Ansi16(95)
-        val brightCyan: Ansi16 get() = Ansi16(96)
-        val brightWhite: Ansi16 get() = Ansi16(97)
-    }
 
     override fun toRGB(): RGB {
         val color = code % 10

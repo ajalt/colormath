@@ -5,6 +5,15 @@ import kotlin.math.floor
 
 /**
  * An ANSI-256 color code
+ *
+ * Unlike [Ansi16], these codes don't have separate values for foreground and background.
+ *
+ * ## Valid codes
+ *
+ * - `0-7`: Standard colors corresponding to [Ansi16] codes `30-37`
+ * - `8-15`: Bright colors corresponding to [Ansi16] codes `90-97`
+ * - `16-231`: 216 colors encoded in a 6×6×6 cube
+ * - `232-255`: Grayscale colors
  */
 data class Ansi256(val code: Int) : Color {
     init {
