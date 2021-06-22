@@ -19,6 +19,7 @@
 - Removed the previously deprecated `ConvertibleColor` typealias.
 - Removed the `CssColors` object. Use `Color.fromCss` instead. 
 - Removed `Ansi16` companion object color constants.
+- Removed `Color.toHex()`. Use `RGB.toHex()` instead.
 
 ## [2.1.0] - 2021-05-05
 ### Added
