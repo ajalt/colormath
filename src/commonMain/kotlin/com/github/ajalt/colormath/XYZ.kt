@@ -66,6 +66,24 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
         return LUV(l.coerceIn(0f, 100f), u, v, alpha)
     }
 
+    // https://bottosson.github.io/posts/oklab/#converting-from-xyz-to-oklab
+    override fun toOklab(): Oklab {
+        val l = +0.8189330101 * x + 0.3618667424 * y - 0.1288597137 * z
+        val m = +0.0329845436 * x + 0.9293118715 * y + 0.0361456387 * z
+        val s = +0.0482003018 * x + 0.2643662691 * y + 0.6338517070 * z
+
+        val ll = cbrt(l)
+        val mm = cbrt(m)
+        val ss = cbrt(s)
+
+        return Oklab(
+            l = +0.2104542553 * ll + 0.7936177850 * mm - 0.0040720468 * ss,
+            a = +1.9779984951 * ll - 2.4285922050 * mm + 0.4505937099 * ss,
+            b = +0.0259040371 * ll + 0.7827717662 * mm - 0.8086757660 * ss,
+            alpha = alpha
+        )
+    }
+
     override fun convertToThis(other: Color): XYZ = other.toXYZ()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(x, y, z, alpha)

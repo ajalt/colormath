@@ -158,6 +158,8 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         return LinearRGB(sRGBToLinear(r), sRGBToLinear(g), sRGBToLinear(b), a)
     }
 
+    override fun toOklab(): Oklab = toLinearRGB().toOklab()
+
     override fun toAnsi16(): Ansi16 {
         val value = (toHSV().v * 100).roundToInt()
         if (value == 30) return Ansi16(30)

@@ -7,6 +7,9 @@ import io.kotest.assertions.intellijFormatError
 import io.kotest.assertions.show.show
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
+import io.kotest.matchers.floats.plusOrMinus
+import io.kotest.matchers.shouldBe
+import kotlin.math.abs
 
 fun convertTo(expected: Color) = object : Matcher<Color> {
     override fun test(value: Color): MatcherResult {
@@ -19,5 +22,18 @@ fun convertTo(expected: Color) = object : Matcher<Color> {
             },
             { "${expected.show().value} should not equal ${value.show().value}" }
         )
+    }
+}
+
+fun Color.shouldEqualColor(expected: Color, tolerance: Float = 0.0005f) {
+    try {
+        this::class shouldBe expected::class
+        components().size shouldBe expected.components().size
+        components().zip(expected.components()).forEach { (a, e) ->
+            a shouldBe (e plusOrMinus tolerance)
+        }
+    } catch (e: AssertionError) {
+        println(this)
+        throw e
     }
 }

@@ -53,6 +53,9 @@ interface Color {
     /** Convert this color to Linear sRGB */
     fun toLinearRGB(): LinearRGB = toRGB().toLinearRGB()
 
+    /** Convert this color to Oklab */
+    fun toOklab(): Oklab = toXYZ().toOklab()
+
     /** Convert an [other] color to this color's model */
     fun convertToThis(other: Color): Color
 
