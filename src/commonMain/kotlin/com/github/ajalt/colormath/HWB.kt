@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.math.roundToInt
 
 /**
@@ -65,6 +66,7 @@ data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float =
     override fun convertToThis(other: Color): HWB = other.toHWB()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(h, w, b, alpha)
+    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { i == 0 }
     override fun fromComponents(components: FloatArray): HWB {
         requireComponentSize(components)
         return HWB(components[0], components[1], components[2], components.getOrElse(3) { 1f })

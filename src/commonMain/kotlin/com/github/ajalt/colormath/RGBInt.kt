@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.jvm.JvmInline
 
 /**
@@ -63,6 +64,7 @@ value class RGBInt(val argb: UInt) : Color {
     override fun convertToThis(other: Color): RGBInt = other.toRGB().toRGBInt()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
+    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): RGBInt {
         requireComponentSize(components)
         return RGBInt(components[0].toInt().toUByte(),
