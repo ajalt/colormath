@@ -1,11 +1,7 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.CIE_E_times_K
-import com.github.ajalt.colormath.internal.CIE_K
+import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.internal.Illuminant.D65
-import com.github.ajalt.colormath.internal.normalizeDeg
-import com.github.ajalt.colormath.internal.radToDeg
-import com.github.ajalt.colormath.internal.requireComponentSize
 import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -63,6 +59,7 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
     override fun convertToThis(other: Color): LUV = other.toLUV()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(l, u, v, alpha)
+    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): LUV {
         requireComponentSize(components)
         return LUV(components[0], components[1], components[2], components.getOrElse(3) { 1f })

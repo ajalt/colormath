@@ -62,6 +62,9 @@ interface Color {
     /** The number of components, including [alpha], in this color. This is the the size of the array returned by [components] */
     fun componentCount(): Int
 
+    /** Return `true` if the component at index [i] uses polar coordinates (e.g. a hue), and `false` if it's rectangular. */
+    fun componentIsPolar(i: Int): Boolean
+
     /**
      * Create a  new instance of this color from an array of [components].
      *

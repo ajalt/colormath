@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.degToRad
 import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -43,6 +44,7 @@ data class LCH(val l: Float, val c: Float, val h: Float, override val alpha: Flo
     override fun convertToThis(other: Color): LCH = other.toLCH()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(l, c, h, alpha)
+    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { i == 2 }
     override fun fromComponents(components: FloatArray): LCH {
         requireComponentSize(components)
         return LCH(components[0], components[1], components[2], components.getOrElse(3) { 1f })

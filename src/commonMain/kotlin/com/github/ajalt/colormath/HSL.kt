@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.normalizeDeg
 import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.withValidCIndex
 
 /**
  * A color model represented with Hue, Saturation, and Lightness.
@@ -74,6 +75,7 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
     override fun convertToThis(other: Color): HSL = other.toHSL()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(h, s, l, alpha)
+    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { i == 1 }
     override fun fromComponents(components: FloatArray): HSL {
         requireComponentSize(components)
         return HSL(components[0], components[1], components[2], components.getOrElse(3) { 1f })

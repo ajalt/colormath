@@ -4,6 +4,7 @@ import com.github.ajalt.colormath.internal.CIE_E
 import com.github.ajalt.colormath.internal.CIE_K
 import com.github.ajalt.colormath.internal.Illuminant.D65
 import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.math.pow
 
 /**
@@ -72,6 +73,7 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
     override fun convertToThis(other: Color): XYZ = other.toXYZ()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(x, y, z, alpha)
+    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): XYZ {
         requireComponentSize(components)
         return XYZ(components[0], components[1], components[2], components.getOrElse(3) { 1f })
