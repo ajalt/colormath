@@ -15,6 +15,24 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
 
     override val alpha: Float get() = a
 
+    // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
+    override fun toOklab(): Oklab {
+        val l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b
+        val m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b
+        val s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b
+
+        val ll = l.pow(1.0 / 3.0)
+        val mm = m.pow(1.0 / 3.0)
+        val ss = s.pow(1.0 / 3.0)
+
+        return Oklab(
+            l = 0.2104542553f * ll + 0.7936177850f * mm - 0.0040720468f * ss,
+            a = 1.9779984951f * ll - 2.4285922050f * mm + 0.4505937099f * ss,
+            b = 0.0259040371f * ll + 0.7827717662f * mm - 0.8086757660f * ss,
+            alpha = a
+        )
+    }
+
     override fun toXYZ(): XYZ = linearRGBToXYZ(r, g, b, alpha)
     override fun toRGB(): RGB = RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), a)
     override fun toLinearRGB(): LinearRGB = this

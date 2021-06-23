@@ -237,6 +237,20 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_Oklab")
+    fun `RGB to Oklab`() = forAll(
+        row(RGB("#fff"), Oklab(1.0000, 0.0000, 0.0000)),
+        row(RGB("#111"), Oklab(0.1776, 0.0000, 0.0000)),
+        row(RGB("#000"), Oklab(0.0000, 0.0000, 0.0000)),
+        row(RGB("#f00"), Oklab(0.6279, 0.2249, 0.1258)),
+    ) { rgb, oklab ->
+        val (l, a, b) = rgb.toOklab()
+        withClue("l") { l shouldBe (oklab.l plusOrMinus 0.0005f) }
+        withClue("a") { a shouldBe (oklab.a plusOrMinus 0.0005f) }
+        withClue("b") { b shouldBe (oklab.b plusOrMinus 0.0005f) }
+    }
+
+    @Test
     @JsName("RGB_to_Ansi16")
     fun `RGB to Ansi16`() = forAll(
         row(RGB(0, 0, 0), 30),

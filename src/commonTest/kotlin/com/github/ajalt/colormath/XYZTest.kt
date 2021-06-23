@@ -68,4 +68,15 @@ class XYZTest {
         withClue("u") { u shouldBe (luv.u plusOrMinus 0.0005f) }
         withClue("v") { v shouldBe (luv.v plusOrMinus 0.0005f) }
     }
+
+    @Test
+    @JsName("XYZ_to_Oklab")
+    fun `XYZ to Oklab`() = forAll(
+        row(XYZ(0.950, 1.000, 1.089), Oklab(1.000, +0.000, +0.000)),
+        row(XYZ(1.000, 0.000, 0.000), Oklab(0.450, +1.236, -0.019)),
+        row(XYZ(0.000, 1.000, 0.000), Oklab(0.922, -0.671, +0.263)),
+        row(XYZ(0.000, 0.000, 1.000), Oklab(0.153, -1.415, -0.449)),
+    ) { xyz, oklab ->
+        xyz.toOklab().shouldEqualColor(oklab)
+    }
 }
