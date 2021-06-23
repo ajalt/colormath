@@ -46,6 +46,33 @@ kotlin {
     watchosArm64()
 
     sourceSets {
+        val commonMain by getting
+
+        val nativeMain by creating {
+            dependsOn(commonMain)
+        }
+        val macosX64Main by getting {
+            dependsOn(nativeMain)
+        }
+        val linuxX64Main by getting {
+            dependsOn(nativeMain)
+        }
+        val mingwX64Main by getting {
+            dependsOn(nativeMain)
+        }
+        val iosMain by getting {
+            dependsOn(nativeMain)
+        }
+        val tvosMain by getting {
+            dependsOn(nativeMain)
+        }
+        val watchosArm32Main by getting {
+            dependsOn(nativeMain)
+        }
+        val watchosArm64Main by getting {
+            dependsOn(nativeMain)
+        }
+
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
