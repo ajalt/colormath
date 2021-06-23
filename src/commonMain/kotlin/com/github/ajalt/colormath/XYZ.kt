@@ -1,11 +1,7 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.CIE_E
-import com.github.ajalt.colormath.internal.CIE_K
+import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.internal.Illuminant.D65
-import com.github.ajalt.colormath.internal.requireComponentSize
-import com.github.ajalt.colormath.internal.withValidCIndex
-import kotlin.math.pow
 
 /**
  * CIE XYZ color space.
@@ -31,7 +27,7 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
     override fun toLAB(): LAB {
         // http://www.brucelindbloom.com/Eqn_XYZ_to_Lab.html
         fun f(t: Float) = when {
-            t > CIE_E -> t.pow(1f / 3)
+            t > CIE_E -> cbrt(t)
             else -> (t * CIE_K + 16) / 116
         }
 
@@ -61,7 +57,7 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
 
         val yr = y / D65.y
         val l = when {
-            yr > CIE_E -> 116 * yr.pow(1f / 3) - 16
+            yr > CIE_E -> 116 * cbrt(yr) - 16
             else -> CIE_K * yr
         }
         val u = 13 * l * (uPrime - uPrimeReference)
