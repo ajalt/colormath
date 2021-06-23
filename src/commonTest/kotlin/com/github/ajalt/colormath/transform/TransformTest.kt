@@ -16,7 +16,7 @@ class TransformTest {
         row(RGB(0, 0, 0), RGB(254, 254, 254), 1f, RGB(254, 254, 254)),
         row(RGB(0, 0, 0), RGB(254, 254, 254).toXYZ(), 1f, RGB(254, 254, 254)),
     ) { c1, c2, a, ex ->
-        val actual = c1.blend(c2, a)
+        val actual = c1.interpolate(c2, a)
         actual.shouldBeTypeOf<RGB>()
         actual should convertTo(ex)
     }
