@@ -6,7 +6,7 @@ import androidx.compose.runtime.*
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.RGB
 import com.github.ajalt.colormath.fromCss
-import com.github.ajalt.colormath.transform.blend
+import com.github.ajalt.colormath.transform.interpolate
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.css.borderRadius
 import org.jetbrains.compose.web.css.margin
@@ -69,7 +69,7 @@ private fun updateCanvas(canvas: HTMLCanvasElement, color1: Color, color2: Color
     canvas.edit2dImageData {
         repeat(width) { x ->
             repeat(height) { y ->
-                data.setColor(x, y, width, color1.blend(color2, x / width.toFloat()).toRGB())
+                data.setColor(x, y, width, color1.interpolate(color2, x / width.toFloat()).toRGB())
             }
         }
     }
