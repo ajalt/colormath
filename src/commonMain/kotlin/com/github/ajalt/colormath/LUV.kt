@@ -7,7 +7,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
- * CIE LUV (CIE 1976 L*u*v*) color space.
+ * CIE LUV (`CIE 1976 L*u*v*`) color space.
  *
  * [l] is in the range `[0, 100]`. [u] and [v] are typically in the range `[-100, 100]`
  */

@@ -56,6 +56,9 @@ interface Color {
     /** Convert this color to Oklab */
     fun toOklab(): Oklab = toXYZ().toOklab()
 
+    /** Convert this color to Oklch*/
+    fun toOklch(): Oklch = toOklab().toOklch()
+
     /** Convert an [other] color to this color's model */
     fun convertToThis(other: Color): Color
 
