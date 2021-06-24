@@ -55,7 +55,7 @@ fun main() {
                         display(DisplayStyle.InlineBlock)
                     }
                 }) { Text("Pick Color") }
-                Input(InputType.Color, value = color.toHex(), attrs = {
+                Input(InputType.Color, value = color.toRGB().toHex(), attrs = {
                     id("pickerInput")
                     onChange { color = RGB(it.stringValue) }
                 })
@@ -128,14 +128,14 @@ fun main() {
             )
             Div(attrs = {
                 style {
-                    backgroundColor(color.toHex())
+                    backgroundColor(color.toRGB().toHex())
                     color(if (color.toHSL().l > 40) "black" else "white")
                     padding(25.px)
                     border(1.px, LineStyle.Solid, Color("#ced4da"))
                     borderRadius(.25.cssRem)
                 }
             }) {
-                Text(color.toHex())
+                Text(color.toRGB().toHex())
             }
         }
     }

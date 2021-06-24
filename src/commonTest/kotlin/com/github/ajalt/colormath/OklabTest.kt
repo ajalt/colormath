@@ -15,7 +15,7 @@ class OklabTest {
         row(Oklab(+0.922, -0.671, +0.263), XYZ(0.000, 1.000, 0.000)),
         row(Oklab(+0.153, -1.415, -0.449), XYZ(0.000, 0.000, 1.000)),
     ) { oklab, xyz ->
-        oklab.toXYZ().shouldEqualColor(xyz, 0.002f)
+        oklab.toXYZ().shouldEqualColor(xyz, 0.002)
     }
 
     // Ottosson only provides test cases for XYZ <-> Oklab. These RGB cases are taken from
