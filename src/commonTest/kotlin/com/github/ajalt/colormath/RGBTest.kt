@@ -226,6 +226,17 @@ class RGBTest {
     }
 
     @Test
+    @JsName("RGB_to_Oklch")
+    fun `RGB to Oklch`() = forAll(
+        row(RGB("#fff"), Oklab(1.0000, 0.0000, 00.0000)),
+        row(RGB("#111"), Oklab(0.1776, 0.0000, 00.0000)),
+        row(RGB("#000"), Oklab(0.0000, 0.0000, 00.0000)),
+        row(RGB("#f00"), Oklab(0.6279, 0.2576, 29.2210)),
+    ) { rgb, oklch ->
+        rgb.toOklch().shouldEqualColor(oklch)
+    }
+
+    @Test
     @JsName("RGB_to_Ansi16")
     fun `RGB to Ansi16`() = forAll(
         row(RGB(0, 0, 0), 30),
