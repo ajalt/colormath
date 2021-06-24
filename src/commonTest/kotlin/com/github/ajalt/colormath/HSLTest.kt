@@ -2,7 +2,6 @@ package com.github.ajalt.colormath
 
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
-import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
@@ -29,10 +28,7 @@ class HSLTest {
         row(HSL(279, 73, 13), HSV(279, 84, 22)),
         row(HSL(0, 0, 100), HSV(0, 0, 100))
     ) { hsl, hsv ->
-        val (h, s, v) = hsl.toHSV()
-        h shouldBe (hsv.h plusOrMinus 0.005f)
-        s shouldBe (hsv.s plusOrMinus 0.005f)
-        v shouldBe (hsv.v plusOrMinus 0.005f)
+        hsl.toHSV().shouldEqualColor(hsv, 0.005)
     }
 
     @Test

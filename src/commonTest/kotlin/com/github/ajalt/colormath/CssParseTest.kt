@@ -1,13 +1,10 @@
 package com.github.ajalt.colormath
 
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.assertions.withClue
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
-import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -177,7 +174,7 @@ class CssParseTest {
 
     @Test
     @JsName("parseCssColor_lab")
-    // Tests from https://www.w3.org/TR/css-color-4/#funcdef-lab
+    // https://www.w3.org/TR/css-color-4/#funcdef-lab
     fun `parseCssColor lab`() = forAll(
         row("lab(29.2345% 39.3825 20.0664)", LAB(29.2345, 39.3825, 20.0664)),
         row("lab(52.2345% 40.1645 59.9971)", LAB(52.2345, 40.1645, 59.9971)),
@@ -185,15 +182,12 @@ class CssParseTest {
         row("lab(62.2345% -34.9638 47.7721)", LAB(62.2345, -34.9638, 47.7721)),
         row("lab(67.5345% -8.6911 -41.6019)", LAB(67.5345, -8.6911, -41.6019)),
     ) { str, lab ->
-        val (l, a, b) = Color.fromCss(str).shouldBeInstanceOf<LAB>()
-        withClue("l") { l shouldBe (lab.l plusOrMinus 0.0005f) }
-        withClue("a") { a shouldBe (lab.a plusOrMinus 0.0005f) }
-        withClue("b") { b shouldBe (lab.b plusOrMinus 0.0005f) }
+        Color.fromCss(str).shouldEqualColor(lab)
     }
 
     @Test
     @JsName("parseCssColor_lch")
-    // Tests from https://www.w3.org/TR/css-color-4/#funcdef-lch
+    // https://www.w3.org/TR/css-color-4/#funcdef-lch
     fun `parseCssColor lch`() = forAll(
         row("lch(29.2345% 44.2 27)", LCH(29.2345, 44.2, 27.0)),
         row("lch(52.2345% 72.2 56.2)", LCH(52.2345, 72.2, 56.2)),
@@ -201,10 +195,7 @@ class CssParseTest {
         row("lch(62.2345% 59.2 126.2)", LCH(62.2345, 59.2, 126.2)),
         row("lch(67.5345% 42.5 258.2)", LCH(67.5345, 42.5, 258.2)),
     ) { str, lch ->
-        val (l, c, h) = Color.fromCss(str).shouldBeInstanceOf<LCH>()
-        withClue("l") { l shouldBe (lch.l plusOrMinus 0.0005f) }
-        withClue("c") { c shouldBe (lch.c plusOrMinus 0.0005f) }
-        withClue("h") { h shouldBe (lch.h plusOrMinus 0.0005f) }
+        Color.fromCss(str).shouldEqualColor(lch)
     }
 
     @Test
@@ -217,9 +208,6 @@ class CssParseTest {
         row("hwb(0.5turn 23.4% 45.6%)", HWB(180.0, .234, .456)),
         row("hwb(3.1416rad 23.4% 45.6%)", HWB(180.0, .234, .456)),
     ) { str, hwb ->
-        val (h, w, b) = Color.fromCss(str).shouldBeInstanceOf<HWB>()
-        withClue("h") { h shouldBe (hwb.h plusOrMinus 0.0005f) }
-        withClue("w") { w shouldBe (hwb.w plusOrMinus 0.0005f) }
-        withClue("b") { b shouldBe (hwb.b plusOrMinus 0.0005f) }
+        Color.fromCss(str).shouldEqualColor(hwb)
     }
 }

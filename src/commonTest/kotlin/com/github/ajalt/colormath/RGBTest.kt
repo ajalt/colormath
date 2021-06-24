@@ -3,7 +3,6 @@ package com.github.ajalt.colormath
 import io.kotest.assertions.withClue
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
-import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
@@ -84,10 +83,7 @@ class RGBTest {
         row(RGB(255, 0, 255), XYZ(0.592894, 0.284848, 0.969638)),
         row(RGB(92, 191, 84), XYZ(0.246435, 0.401751, 0.148417)),
     ) { rgb, xyz ->
-        val (x, y, z) = rgb.toXYZ()
-        withClue("x") { x shouldBe (xyz.x plusOrMinus 0.000005f) }
-        withClue("y") { y shouldBe (xyz.y plusOrMinus 0.000005f) }
-        withClue("z") { z shouldBe (xyz.z plusOrMinus 0.000005f) }
+        rgb.toXYZ().shouldEqualColor(xyz, 0.000005)
     }
 
     @Test
@@ -103,29 +99,23 @@ class RGBTest {
         row(RGB(255, 255, 255), LAB(100.000, 0.0000, 0.0000)),
         row(RGB(92, 191, 84), LAB(69.5940, -50.1108, 44.6468)),
     ) { rgb, lab ->
-        val (l, a, b) = rgb.toLAB()
-        withClue("l") { l shouldBe (lab.l plusOrMinus 0.0005f) }
-        withClue("a") { a shouldBe (lab.a plusOrMinus 0.0005f) }
-        withClue("b") { b shouldBe (lab.b plusOrMinus 0.0005f) }
+        rgb.toLAB().shouldEqualColor(lab)
     }
 
     @Test
     @JsName("RGB_to_LUV")
     fun `RGB to LUV`() = forAll(
-        row(RGB(0, 0, 0), 0.0, 0.0, 0.0),
-        row(RGB(255, 255, 255), 100.0, 0.0, 0.0),
-        row(RGB(255, 0, 0), 53.2408, 175.0151, 37.7564),
-        row(RGB(0, 255, 0), 87.7347, -83.0776, 107.3985),
-        row(RGB(0, 0, 255), 32.2970, -9.4054, -130.3423),
-        row(RGB(255, 255, 0), 97.1393, 7.7056, 106.7866),
-        row(RGB(0, 255, 255), 91.1132, -70.4773, -15.2042),
-        row(RGB(255, 0, 255), 60.3242, 84.0714, -108.6834),
-        row(RGB(92, 191, 84), 69.5940, -46.2383, 63.2284)
-    ) { rgb, l, u, v ->
-        val luv = rgb.toLUV()
-        withClue("l") { luv.l.toDouble() } shouldBe (l plusOrMinus 0.0005)
-        withClue("u") { luv.u.toDouble() } shouldBe (u plusOrMinus 0.0005)
-        withClue("v") { luv.v.toDouble() } shouldBe (v plusOrMinus 0.0005)
+        row(RGB(0, 0, 0), LUV(0.0, 0.0, 0.0)),
+        row(RGB(255, 255, 255), LUV(100.0, 0.0, 0.0)),
+        row(RGB(255, 0, 0), LUV(53.2408, 175.0151, 37.7564)),
+        row(RGB(0, 255, 0), LUV(87.7347, -83.0776, 107.3985)),
+        row(RGB(0, 0, 255), LUV(32.2970, -9.4054, -130.3423)),
+        row(RGB(255, 255, 0), LUV(97.1393, 7.7056, 106.7866)),
+        row(RGB(0, 255, 255), LUV(91.1132, -70.4773, -15.2042)),
+        row(RGB(255, 0, 255), LUV(60.3242, 84.0714, -108.6834)),
+        row(RGB(92, 191, 84), LUV(69.5940, -46.2383, 63.2284))
+    ) { rgb, luv ->
+        rgb.toLUV().shouldEqualColor(luv)
     }
 
     @Test
@@ -140,10 +130,7 @@ class RGBTest {
         row(RGB(255, 0, 255), LCH(60.3242, 137.4048, 307.7236)),
         row(RGB(92, 191, 84), LCH(69.5940, 78.3314, 126.1776)),
     ) { rgb, lch ->
-        val (l, c, h) = rgb.toLCH()
-        withClue("l") { l shouldBe (lch.l plusOrMinus 0.0005f) }
-        withClue("c") { c shouldBe (lch.c plusOrMinus 0.0005f) }
-        withClue("h") { h shouldBe (lch.h plusOrMinus 0.0005f) }
+        rgb.toLCH().shouldEqualColor(lch)
     }
 
     @Test
@@ -168,11 +155,7 @@ class RGBTest {
         row(RGB(255, 0, 255), CMYK(0, 100, 0, 0)),
         row(RGB(140, 200, 100), CMYK(30, 0, 50, 22))
     ) { rgb, cmyk ->
-        val (c, m, y, k) = rgb.toCMYK()
-        c shouldBe (cmyk.c plusOrMinus 0.005f)
-        m shouldBe (cmyk.m plusOrMinus 0.005f)
-        y shouldBe (cmyk.y plusOrMinus 0.005f)
-        k shouldBe (cmyk.k plusOrMinus 0.005f)
+        rgb.toCMYK().shouldEqualColor(cmyk, 0.005)
     }
 
     @Test
@@ -199,9 +182,7 @@ class RGBTest {
         // the tolerances here are really wide, due to the imprecision of the integer RGB.
         // The w3 spec doesn't have any rgb -> hwb test cases, so this is as precise as we can
         // get by flipping the hwb -> rgb examples.
-        withClue("h") { it.h shouldBe (hwb.h plusOrMinus 0.6f) }
-        withClue("w") { it.w shouldBe (hwb.w plusOrMinus 0.6f) }
-        withClue("b") { it.b shouldBe (hwb.b plusOrMinus 0.6f) }
+        rgb.toHWB().shouldEqualColor(hwb, 0.6)
     }
 
     @Test
@@ -230,10 +211,7 @@ class RGBTest {
         row(RGB(128, 128, 128), LinearRGB(0.21586, 0.21586, 0.21586)),
         row(RGB(255, 255, 255), LinearRGB(1.0, 1.0, 1.0)),
     ) { rgb, linear ->
-        val (r, g, b) = rgb.toLinearRGB()
-        withClue("r") { r shouldBe (linear.r plusOrMinus 0.00005f) }
-        withClue("g") { g shouldBe (linear.g plusOrMinus 0.00005f) }
-        withClue("b") { b shouldBe (linear.b plusOrMinus 0.00005f) }
+        rgb.toLinearRGB().shouldEqualColor(linear, 0.00005)
     }
 
     @Test
@@ -244,10 +222,7 @@ class RGBTest {
         row(RGB("#000"), Oklab(0.0000, 0.0000, 0.0000)),
         row(RGB("#f00"), Oklab(0.6279, 0.2249, 0.1258)),
     ) { rgb, oklab ->
-        val (l, a, b) = rgb.toOklab()
-        withClue("l") { l shouldBe (oklab.l plusOrMinus 0.0005f) }
-        withClue("a") { a shouldBe (oklab.a plusOrMinus 0.0005f) }
-        withClue("b") { b shouldBe (oklab.b plusOrMinus 0.0005f) }
+        rgb.toOklab().shouldEqualColor(oklab)
     }
 
     @Test

@@ -1,11 +1,8 @@
 package com.github.ajalt.colormath
 
-import io.kotest.assertions.withClue
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
-import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.should
-import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -25,10 +22,7 @@ class XYZTest {
     @Test
     @JsName("XYZ_to_RGB_HDR")
     fun `XYZ to RGB_HDR`() {
-        val (r, g, b) = XYZ(1.0, 1.0, 1.0).toRGB()
-        withClue("r") { r shouldBe (1.08516f plusOrMinus 0.00005f) }
-        withClue("g") { g shouldBe (0.97692f plusOrMinus 0.00005f) }
-        withClue("b") { b shouldBe (0.95881f plusOrMinus 0.00005f) }
+        XYZ(1.0, 1.0, 1.0).toRGB().shouldEqualColor(RGB(1.08516, 0.97692, 0.95881), 0.00005)
     }
 
     @Test
@@ -44,10 +38,7 @@ class XYZTest {
         row(XYZ(0.000, 0.000, 1.000), LAB(0.000, 0.000, -166.820)),
         row(XYZ(.95047, 1.0000, 1.08883), LAB(100.0, 0.0, 0.0)),
     ) { xyz, lab ->
-        val (l, a, b) = xyz.toLAB()
-        withClue("l") { l shouldBe (lab.l plusOrMinus 0.0005f) }
-        withClue("a") { a shouldBe (lab.a plusOrMinus 0.0005f) }
-        withClue("b") { b shouldBe (lab.b plusOrMinus 0.0005f) }
+        xyz.toLAB().shouldEqualColor(lab)
     }
 
     @Test
@@ -63,10 +54,7 @@ class XYZTest {
         row(XYZ(0.750, 0.750, 0.750), LUV(89.3930, 14.7431, 6.2149)),
         row(XYZ(1.000, 1.000, 1.000), LUV(100.0000, 16.4924, 6.9523)),
     ) { xyz, luv ->
-        val (l, u, v) = xyz.toLUV()
-        withClue("l") { l shouldBe (luv.l plusOrMinus 0.0005f) }
-        withClue("u") { u shouldBe (luv.u plusOrMinus 0.0005f) }
-        withClue("v") { v shouldBe (luv.v plusOrMinus 0.0005f) }
+        xyz.toLUV().shouldEqualColor(luv)
     }
 
     @Test
