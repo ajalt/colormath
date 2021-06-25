@@ -53,8 +53,8 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
     }
 
     override fun toOklch(): Oklch = toPolarModel(a, b) { c, h -> Oklch(l, c, h, alpha) }
-
     override fun toOklab(): Oklab = this
+
     override fun convertToThis(other: Color): Oklab = other.toOklab()
     override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(l, a, b, alpha)

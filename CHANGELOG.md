@@ -6,6 +6,7 @@
 - `RGBInt`: an inline class that stores `RGB` colors in a single Int. Create instances directly, or convert to it with `RGB.toRGBInt()`
 - `LinearRGB`: a linearization of the sRGB color space, more suitable for color manipulation.
 - `Oklab` and `Oklch`: perceptual color spaces for image processing
+- `LCH`: the cylindrical representation of `LAB`
 
 ### Changed
 
