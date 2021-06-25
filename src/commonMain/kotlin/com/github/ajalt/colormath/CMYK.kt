@@ -6,7 +6,12 @@ import com.github.ajalt.colormath.internal.withValidCIndex
 /**
  * A color in the CMYK (cyan, magenta, yellow, and key) color model.
  *
- * All color channels are fractions in the range `[0, 1]`.
+ * | Component  | Description | Gamut    |
+ * | ---------- | ----------- | -------- |
+ * | [c]        | cyan        | `[0, 1]` |
+ * | [m]        | magenta     | `[0, 1]` |
+ * | [y]        | yellow      | `[0, 1]` |
+ * | [k]        | key / black | `[0, 1]` |
  */
 data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, val a: Float = 1f) : Color {
     /**

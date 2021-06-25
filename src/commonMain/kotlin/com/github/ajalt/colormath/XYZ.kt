@@ -8,7 +8,11 @@ import com.github.ajalt.colormath.internal.Illuminant.D65
  *
  * Conversions use D65/2° illuminant, and sRGB profile.
  *
- * [x], [y], and [z] are generally in the interval `[-2, 2]`, but may be larger
+ * | Component  | Gamut     |
+ * | ---------- | --------- |
+ * | [x]        | `[-2, 2]` |
+ * | [y]        | `[-2, 2]` |
+ * | [z]        | `[-2, 2]` |
  */
 data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Color {
     constructor(x: Double, y: Double, z: Double, a: Float = 1f)

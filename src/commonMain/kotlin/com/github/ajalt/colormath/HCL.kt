@@ -7,11 +7,13 @@ import com.github.ajalt.colormath.internal.withValidCIndex
 /**
  * CIE LCh(uv) color model, the cylindrical representation of [LUV].
  *
- * [h], hue, is an angle in degrees, in the range `[0, 360]`
- * [c], chroma, is typically in the range `[0, 230]`, but theoretically the maximum is unbounded.
- * [l], luminance, is a percentage, typically in the range `[0, 100]`, but theoretically the maximum is unbounded.
+ * | Component  | Description  | Gamut      |
+ * | ---------- | ------------ | ---------- |
+ * | [h]        | hue, degrees | `[0, 360)` |
+ * | [c]        | chroma       | `[0, 230]` |
+ * | [l]        | lightness    | `[0, 100]` |
  */
-data class HCL(val h: Float, val c: Float, val l: Float, override val alpha: Float = 1f) : Color {
+data class HCL(override val h: Float, val c: Float, val l: Float, override val alpha: Float = 1f) : Color, HueColor {
     constructor(h: Double, c: Double, l: Double, alpha: Double)
             : this(h.toFloat(), c.toFloat(), l.toFloat(), alpha.toFloat())
 

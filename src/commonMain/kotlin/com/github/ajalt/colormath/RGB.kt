@@ -8,12 +8,11 @@ import kotlin.math.roundToInt
 /**
  * A color in the sRGB color space, which uses the D65 illuminant.
  *
- * All color channels are floating point values normalized to `[0, 1]` for SDR colors. HDR colors may exceed this range.
- *
- * @property r The red channel, a value in the range `[0, 1]`
- * @property g The green channel, a value in the ran `[0, 1]`
- * @property b The blue channel, a value in the range `[0, 1]`
- * @property a The alpha channel, a value in the range `[0, 1]`
+ * | Component  | Description | Gamut    |
+ * | ---------- | ----------- | -------- |
+ * | [r]        | red         | `[0, 1]` |
+ * | [g]        | green       | `[0, 1]` |
+ * | [b]        | blue        | `[0, 1]` |
  */
 data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
     /**

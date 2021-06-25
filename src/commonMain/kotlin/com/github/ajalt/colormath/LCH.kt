@@ -7,11 +7,13 @@ import com.github.ajalt.colormath.internal.withValidCIndex
 /**
  * CIE LCh(ab) color model, the cylindrical representation of [LAB].
  *
- * [l], lightness, is a percentage, typically in the range `[0, 100]`, but theoretically the maximum is unbounded.
- * [c], chroma, is typically in the range `[0, 230]`, but theoretically the maximum is unbounded.
- * [h], hue, is an angle in degrees, in the range `[0, 360]`
+ * | Component  | Description  | Gamut      |
+ * | ---------- | ------------ | ---------- |
+ * | [l]        | lightness    | `[0, 100]` |
+ * | [c]        | chroma       | `[0, 230]` |
+ * | [h]        | hue, degrees | `[0, 360)` |
  */
-data class LCH(val l: Float, val c: Float, val h: Float, override val alpha: Float = 1f) : Color {
+data class LCH(val l: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
     constructor(l: Double, c: Double, h: Double, alpha: Double)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
 
