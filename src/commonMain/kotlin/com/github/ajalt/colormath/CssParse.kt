@@ -6,12 +6,17 @@ import com.github.ajalt.colormath.internal.radToDeg
 import com.github.ajalt.colormath.internal.turnToDeg
 import kotlin.math.roundToInt
 
+@Deprecated("Function renamed Color.parse", ReplaceWith("this.parse(color)"))
+fun Color.Companion.fromCss(color: String): Color  = Color.parse(color)
+
 /**
- * Parse a string representing any value from CSS Color Module Level 1 through 4
+ * Parse a string representing a color value from CSS Color Module Level 1 through 4
+ *
+ * The `color()` and `device-cmyk()` functions are not currently supported.
  *
  * @throws IllegalArgumentException if the value cannot be parsed
  */
-fun Color.Companion.fromCss(color: String): Color {
+fun Color.Companion.parse(color: String): Color {
     val keywordColor = CssColors.colorsByName[color]
     return when {
         keywordColor != null -> keywordColor
