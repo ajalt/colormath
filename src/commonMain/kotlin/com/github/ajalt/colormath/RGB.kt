@@ -132,7 +132,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     override fun toXYZ(): XYZ = linearRGBToXYZ(sRGBToLinear(r), sRGBToLinear(g), sRGBToLinear(b), alpha)
     override fun toLAB(): LAB = toXYZ().toLAB()
     override fun toLUV(): LUV = toXYZ().toLUV()
-    override fun toLCH(): LCH = toXYZ().toLUV().toLCH()
+    override fun toHCL(): HCL = toXYZ().toLUV().toHCL()
 
     override fun toCMYK(): CMYK {
         val k = 1 - maxOf(r, b, g)

@@ -2,9 +2,7 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.internal.Illuminant.D65
-import kotlin.math.atan2
 import kotlin.math.pow
-import kotlin.math.sqrt
 
 /**
  * CIE LAB color space.
@@ -38,12 +36,8 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
         return XYZ(xr * D65.x / 100f, yr * D65.y / 100f, zr * D65.z / 100f, alpha)
     }
 
-    override fun toLCH(): LCH {
-        // https://www.w3.org/TR/css-color-4/#lab-to-lch
-        val c = sqrt(a * a + b * b)
-        val h = if (c < 1e-8) 0f else atan2(b, a).radToDeg()
-        return LCH(l, c, h.normalizeDeg())
-    }
+    // TODO
+//    override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCH(h, c, l, alpha) }
 
     override fun toLAB(): LAB = this
 

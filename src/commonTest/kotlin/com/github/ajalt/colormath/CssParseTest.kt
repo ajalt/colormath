@@ -189,11 +189,11 @@ class CssParseTest {
     @JsName("parseCssColor_lch")
     // https://www.w3.org/TR/css-color-4/#funcdef-lch
     fun `parseCssColor lch`() = forAll(
-        row("lch(29.2345% 44.2 27)", LCH(29.2345, 44.2, 27.0)),
-        row("lch(52.2345% 72.2 56.2)", LCH(52.2345, 72.2, 56.2)),
-        row("lch(60.2345% 59.2 95.2)", LCH(60.2345, 59.2, 95.2)),
-        row("lch(62.2345% 59.2 126.2)", LCH(62.2345, 59.2, 126.2)),
-        row("lch(67.5345% 42.5 258.2)", LCH(67.5345, 42.5, 258.2)),
+        row("lch(29.2345% 44.2 27)", HCL(27.0, 44.2, 29.2345)),
+        row("lch(52.2345% 72.2 56.2)", HCL(56.2, 72.2, 52.2345)),
+        row("lch(60.2345% 59.2 95.2)", HCL(95.2, 59.2, 60.2345)),
+        row("lch(62.2345% 59.2 126.2)", HCL(126.2, 59.2, 62.2345)),
+        row("lch(67.5345% 42.5 258.2)", HCL(258.2, 42.5, 67.5345)),
     ) { str, lch ->
         Color.fromCss(str).shouldEqualColor(lch)
     }

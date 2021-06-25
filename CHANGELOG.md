@@ -3,16 +3,18 @@
 ## Unreleased
 
 ### Added
-- `RGBInt`, an inline class that stores `RGB` colors in a single Int. Create instances directly, or convert to it with `RGB.toRGBInt()`
-- `LinearRGB`, a linearization of the sRGB color space, more suitable for color manipulation. 
+- `RGBInt`: an inline class that stores `RGB` colors in a single Int. Create instances directly, or convert to it with `RGB.toRGBInt()`
+- `LinearRGB`: a linearization of the sRGB color space, more suitable for color manipulation.
+- `Oklab` and `Oklch`: perceptual color spaces for image processing
 
 ### Changed
 
 - All `Color` classes now store their colors channels as `Float`
 - All `Color` classes now support HDR colors. Constructors no longer require that color channel values fall in SDR ranges.
-- `RGB` now stores its color channels normalized to `[0, 1]` rather than `[0, 255]`. You can read the color channels in their old integer representations with `RGB.redInt`, `greenInt`, and `blueInt`.
-- `HSV`, `HSL`, and `HWB` now store their rectangular channels (`s`, `v`, `l`, `w`, and `b`) normalized to `[0, 1]` rather than `[0, 100]`.
+- `RGB` now stores its color components normalized to `[0, 1]` rather than `[0, 255]`. You can read the color components in their old integer representations with `RGB.redInt`, `greenInt`, and `blueInt`.
+- `HSV`, `HSL`, and `HWB` now store their rectangular components (`s`, `v`, `l`, `w`, and `b`) normalized to `[0, 1]` rather than `[0, 100]`.
 - `XYZ` channels are no longer multiplied by 100: their range is now `[-2, 2]` rather than `[-200, 200]`
+- The class name of the cylindrical representation of `LUV` is now `HCL`
 
 ## Removed
 
