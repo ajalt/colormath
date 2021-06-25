@@ -178,7 +178,6 @@ class RGBTest {
         row(RGB("#b3cc99"), HWB(90.0, .6, .2)),
         row(RGB("#4c6633"), HWB(90.0, .2, .6)),
     ) { rgb, hwb ->
-        val it = rgb.toHWB()
         // the tolerances here are really wide, due to the imprecision of the integer RGB.
         // The w3 spec doesn't have any rgb -> hwb test cases, so this is as precise as we can
         // get by flipping the hwb -> rgb examples.
