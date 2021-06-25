@@ -46,12 +46,12 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
         return XYZ(x, y, z, alpha)
     }
 
-    override fun toLCH(): LCH {
+    override fun toHCL(): HCL {
         // http://www.brucelindbloom.com/Eqn_Luv_to_LCH.html
-        if (l == 0f) return LCH(0f, 0f, 0f, alpha)
+        if (l == 0f) return HCL(0f, 0f, 0f, alpha)
         val c = sqrt(u * u + v * v)
         val h = if (c < 1e-8) 0f else atan2(v, u).radToDeg()
-        return LCH(l, c, h.normalizeDeg())
+        return HCL(h.normalizeDeg(), c, l)
     }
 
     override fun toLUV(): LUV = this

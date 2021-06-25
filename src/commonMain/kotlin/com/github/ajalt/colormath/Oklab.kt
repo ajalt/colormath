@@ -1,11 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.normalizeDeg
-import com.github.ajalt.colormath.internal.radToDeg
 import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.toPolarModel
 import com.github.ajalt.colormath.internal.withValidCIndex
-import kotlin.math.atan2
-import kotlin.math.sqrt
 
 /**
  * Oklab color space.
@@ -55,13 +52,7 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
         return block(l, m, s)
     }
 
-    // https://bottosson.github.io/posts/oklab/#the-oklab-color-space
-    // This is the same formula as LAB -> LCH
-    override fun toOklch(): Oklch {
-        val c = sqrt(a * a + b * b)
-        val h = if (c < 1e-8) 0f else atan2(b, a).radToDeg()
-        return Oklch(l, c, h.normalizeDeg())
-    }
+    override fun toOklch(): Oklch = toPolarModel(a, b) { c, h -> Oklch(l, c, h, alpha) }
 
     override fun toOklab(): Oklab = this
     override fun convertToThis(other: Color): Oklab = other.toOklab()

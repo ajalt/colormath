@@ -86,7 +86,7 @@ private fun lch(match: MatchResult): Color {
     val c = number(match.groupValues[2])
     val h = hue(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return LCH(100 * l.coerceAtLeast(0f), c.coerceAtLeast(0f), h, a)
+    return HCL(h, c.coerceAtLeast(0f), 100 * l.coerceAtLeast(0f), a)
 }
 
 private fun hwb(match: MatchResult): Color {

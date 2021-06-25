@@ -1,10 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.degToRad
+import com.github.ajalt.colormath.internal.fromPolarModel
 import com.github.ajalt.colormath.internal.requireComponentSize
 import com.github.ajalt.colormath.internal.withValidCIndex
-import kotlin.math.cos
-import kotlin.math.sin
 
 /**
  * Oklch color model, the cylindrical representation of [Oklab].
@@ -20,20 +18,14 @@ data class Oklch(val l: Float, val c: Float, val h: Float, override val alpha: F
     constructor(l: Double, c: Double, h: Double, alpha: Float = 1.0f)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 
-
     override fun toRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
         else -> toOklab().toRGB()
     }
 
-    // https://bottosson.github.io/posts/oklab/#the-oklab-color-space
-    // This is the same formula as LCH -> LAB
-    override fun toOklab(): Oklab {
-        val hDegrees = h.degToRad()
-        val a = c * cos(hDegrees)
-        val b = c * sin(hDegrees)
-        return Oklab(l.toDouble(), a.toDouble(), b.toDouble())
-    }
+    override fun toXYZ(): XYZ = toOklab().toXYZ()
+
+    override fun toOklab(): Oklab = fromPolarModel(c, h) { a, b -> return Oklab(l, a, b, alpha) }
 
     override fun toOklch(): Oklch = this
     override fun convertToThis(other: Color): Oklch = other.toOklch()

@@ -100,9 +100,9 @@ fun main() {
             )
             row(
                 "LCH",
-                color.toLCH().l to { color.toLCH().copy(l = it) },
-                color.toLCH().c to { color.toLCH().copy(c = it) },
-                color.toLCH().h to { color.toLCH().copy(h = it) },
+                color.toHCL().l to { color.toHCL().copy(l = it) },
+                color.toHCL().c to { color.toHCL().copy(c = it) },
+                color.toHCL().h to { color.toHCL().copy(h = it) },
             )
             row(
                 "LUV",

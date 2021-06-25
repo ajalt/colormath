@@ -121,23 +121,23 @@ class RGBTest {
     @Test
     @JsName("RGB_to_LCH")
     fun `RGB to LCH`() = forAll(
-        row(RGB(0, 0, 0), LCH(0.0, 0.0, 0.0)),
-        row(RGB(255, 0, 0), LCH(53.2408, 179.0414, 12.1740)),
-        row(RGB(0, 255, 0), LCH(87.7347, 135.7804, 127.7236)),
-        row(RGB(0, 0, 255), LCH(32.2970, 130.6812, 265.8727)),
-        row(RGB(255, 255, 0), LCH(97.1393, 107.0643, 85.8727)),
-        row(RGB(0, 255, 255), LCH(91.1132, 72.0987, 192.1740)),
-        row(RGB(255, 0, 255), LCH(60.3242, 137.4048, 307.7236)),
-        row(RGB(92, 191, 84), LCH(69.5940, 78.3314, 126.1776)),
+        row(RGB(0, 0, 0), HCL(0.0, 0.0, 0.0)),
+        row(RGB(255, 0, 0), HCL(12.1740, 179.0414, 53.2408)),
+        row(RGB(0, 255, 0), HCL(127.7236, 135.7804, 87.7347)),
+        row(RGB(0, 0, 255), HCL(265.8727, 130.6812, 32.2970)),
+        row(RGB(255, 255, 0), HCL(85.8727, 107.0643, 97.1393)),
+        row(RGB(0, 255, 255), HCL(192.1740, 72.0987, 91.1132)),
+        row(RGB(255, 0, 255), HCL(307.7236, 137.4048, 60.3242)),
+        row(RGB(92, 191, 84), HCL(126.1776, 78.3314, 69.5940)),
     ) { rgb, lch ->
-        rgb.toLCH().shouldEqualColor(lch)
+        rgb.toHCL().shouldEqualColor(lch)
     }
 
     @Test
     @JsName("RGB_white_to_LCH")
     fun `RGB white to LCH`() {
         // With white, any hue can be used, so only test L and C
-        val lch = RGB(255, 255, 255).toLCH()
+        val lch = RGB(255, 255, 255).toHCL()
         lch.l shouldBe (100f plusOrMinus 0.0005f)
         lch.c shouldBe (0f plusOrMinus 0.0005f)
     }
