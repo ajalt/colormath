@@ -8,6 +8,12 @@ import com.github.ajalt.colormath.internal.withValidCIndex
  * Oklab color space.
  *
  * Learn more: https://bottosson.github.io/posts/oklab/
+ *
+ * | Component  | Description | Gamut         |
+ * | ---------- | ----------- | ------------- |
+ * | [l]        | lightness   | `[0, 100]`    |
+ * | [a]        | green/red   | `[-160, 160]` |
+ * | [b]        | blue/yellow | `[-160, 160]` |
  */
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     constructor (l: Double, a: Double, b: Double, alpha: Double = 1.0)

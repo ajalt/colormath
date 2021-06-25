@@ -12,10 +12,11 @@ import kotlin.math.roundToInt
  *
  * The color space is the same sRGB space used in [RGB].
  *
- * @property h The hue, as degrees in the range `[0, 360]`
- * @property s The saturation, as a fraction in the range `[0, 1]`
- * @property v The value, as a fraction in the range `[0, 1]`
- * @property a The alpha, as a fraction in the range `[0, 1]`
+ * | Component  | Description  | Gamut      |
+ * | ---------- | ------------ | ---------- |
+ * | [h]        | hue, degrees | `[0, 360)` |
+ * | [s]        | saturation   | `[0, 1]`   |
+ * | [v]        | value        | `[0, 1]`   |
  */
 data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float = 1f) : Color, HueColor {
     /**

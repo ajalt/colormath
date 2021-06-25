@@ -9,10 +9,11 @@ import kotlin.math.roundToInt
  *
  * The color space is the same sRGB space used in [RGB].
  *
- * @property h The hue, as degrees in the range `[0, 360)`
- * @property w The amount of white to mix in, as a fraction in the range `[0, 1]`
- * @property b The lightness, as a fraction in the range `[0, 1]`
- * @property a The alpha, as a fraction in the range `[0, 1]`
+ * | Component  | Description  | Gamut      |
+ * | ---------- | ------------ | ---------- |
+ * | [h]        | hue, degrees | `[0, 360)` |
+ * | [w]        | whiteness    | `[0, 1]`   |
+ * | [b]        | blackness    | `[0, 1]`   |
  */
 data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Color, HueColor {
     constructor(h: Double, w: Double, b: Double, alpha: Double = 1.0)

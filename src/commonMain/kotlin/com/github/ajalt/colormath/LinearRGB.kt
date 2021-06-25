@@ -8,6 +8,12 @@ import kotlin.math.pow
  * Linear sRGB color space.
  *
  * This color space removes the nonlinearity present in [RGB].
+ *
+ * | Component  | Description | Gamut    |
+ * | ---------- | ----------- | -------- |
+ * | [r]        | red         | `[0, 1]` |
+ * | [g]        | green       | `[0, 1]` |
+ * | [b]        | blue        | `[0, 1]` |
  */
 data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
     constructor(r: Double, g: Double, b: Double, a: Float = 1f)

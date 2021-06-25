@@ -9,8 +9,11 @@ import kotlin.math.pow
  *
  * Conversions use D65 reference white, and sRGB profile.
  *
- * [l] is a percentage, typically in the range `[0, 100]`, but can exceed 100 (e.g. for HDR systems).
- * [a] and [b] are unbounded, but are typically the range `[-128, 127]`.
+ * | Component  | Description | Gamut         |
+ * | ---------- | ----------- | ------------- |
+ * | [l]        | lightness   | `[0, 100]`    |
+ * | [a]        | green/red   | `[-160, 160]` |
+ * | [b]        | blue/yellow | `[-160, 160]` |
  */
 data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)

@@ -9,7 +9,12 @@ import kotlin.math.sqrt
 /**
  * CIE LUV (`CIE 1976 L*u*v*`) color space.
  *
- * [l] is in the range `[0, 100]`. [u] and [v] are typically in the range `[-100, 100]`
+ *
+ * | Component  | Description  | Gamut         |
+ * | ---------- | ------------ | ------------- |
+ * | [l]        | lightness    | `[0, 100]`    |
+ * | [u]        |              | `[-100, 100]` |
+ * | [v]        |              | `[-100, 100]` |
  */
 data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Float = 1f) : Color {
     constructor(l: Double, u: Double, v: Double, alpha: Double = 1.0)

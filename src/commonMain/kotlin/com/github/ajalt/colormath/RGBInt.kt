@@ -13,7 +13,11 @@ import kotlin.jvm.JvmInline
  *
  * You can destructure this class into [r], [g], [b], and [a] components: `val (r, g, b, a) = RGBInt(0xff112233u)`
  *
- * [r], [g], [b], and [a] all have a range `[0, 255]`
+ * | Component  | Description | Gamut      |
+ * | ---------- | ----------- | ---------- |
+ * | [r]        | red         | `[0, 255]` |
+ * | [g]        | green       | `[0, 255]` |
+ * | [b]        | blue        | `[0, 255]` |
  */
 @JvmInline
 value class RGBInt(val argb: UInt) : Color {

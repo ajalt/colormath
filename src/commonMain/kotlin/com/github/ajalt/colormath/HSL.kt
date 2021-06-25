@@ -9,14 +9,15 @@ import com.github.ajalt.colormath.internal.withValidCIndex
  *
  * The color space is the same sRGB space used in [RGB].
  *
- * @property h The hue, as degrees in the range `[0, 360]`
- * @property s The saturation, as a fraction in the range `[0, 1]`
- * @property l The lightness, as a fraction in the range `[0, 1]`
- * @property a The alpha, as a fraction in the range `[0, 1]`
+ * | Component  | Description  | Gamut      |
+ * | ---------- | ------------ | ---------- |
+ * | [h]        | hue, degrees | `[0, 360)` |
+ * | [s]        | saturation   | `[0, 1]`   |
+ * | [l]        | lightness    | `[0, 1]`   |
  */
 data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float = 1f) : Color, HueColor {
     /**
-     * Construct an HSL instance from Int values, with h in `[0, 360]`, and s and l as percentages in the range `[0,
+     * Construct an HSL instance from `Int` values, with [h] in `[0, 360)`, and [s] and [l] as percentages in the range `[0,
      * 100]`.
      */
     constructor(h: Int, s: Int, l: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, l / 100f, a)
