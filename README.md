@@ -45,19 +45,19 @@ CMYK(c=95, m=50, y=0, k=0, a=.5f)
 You can parse most colors allowed by the CSS Color Module Levels 1 through 4.
 
 ```kotlin
-> Color.fromCss("#ff009980")
+> Color.parse("#ff009980")
 RGB(r=255, g=0, b=153, a=.5)
 
-> Color.fromCss("rgb(100%, 0%, 60%)")
+> Color.parse("rgb(100%, 0%, 60%)")
 RGB(r=255, g=0, b=153, a=1)
 
-> Color.fromCss("rgb(1e2, .5e1, .5e0, +.25e2%)")
+> Color.parse("rgb(1e2, .5e1, .5e0, +.25e2%)")
 RGB(r=100, g=5, b=1, a=.25)
 
-> Color.fromCss("hsl(.75turn, 60%, 70%)")
+> Color.parse("hsl(.75turn, 60%, 70%)")
 HSL(h=270, s=60, l=70, a=1)
 
-> Color.fromCss("rebeccapurple").toHex()
+> Color.parse("rebeccapurple").toRGB().toHex()
 "#663399"
 ```
 
