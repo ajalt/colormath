@@ -42,7 +42,7 @@ CMYK(c=95, m=50, y=0, k=0, a=.5f)
 
 ### CSS Parsing and rendering
 
-You can parse any color allowed by the CSS Color Module Levels 1 through 4.
+You can parse most colors allowed by the CSS Color Module Levels 1 through 4.
 
 ```kotlin
 > Color.fromCss("#ff009980")

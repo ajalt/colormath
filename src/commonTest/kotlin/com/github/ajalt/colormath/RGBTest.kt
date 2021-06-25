@@ -227,12 +227,12 @@ class RGBTest {
     @Test
     @JsName("RGB_to_Oklch")
     fun `RGB to Oklch`() = forAll(
-        row(RGB("#fff"), Oklab(1.0000, 0.0000, 00.0000)),
-        row(RGB("#111"), Oklab(0.1776, 0.0000, 00.0000)),
-        row(RGB("#000"), Oklab(0.0000, 0.0000, 00.0000)),
-        row(RGB("#f00"), Oklab(0.6279, 0.2576, 29.2210)),
+        row(RGB("#fff"), Oklch(1.0000, 0.0000, 00.0000)),
+        row(RGB("#111"), Oklch(0.1776, 0.0000, 00.0000)),
+        row(RGB("#000"), Oklch(0.0000, 0.0000, 00.0000)),
+        row(RGB("#f00"), Oklch(0.6279, 0.2576, 29.2210)),
     ) { rgb, oklch ->
-        rgb.toOklch().shouldEqualColor(oklch)
+        rgb.toOklch().shouldEqualColor(oklch, 0.1)
     }
 
     @Test

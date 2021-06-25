@@ -41,6 +41,9 @@ interface Color {
     /** Convert this color to CIE LAB */
     fun toLAB(): LAB = toXYZ().toLAB()
 
+    /** Convert this color to CIE LCh */
+    fun toLCH(): LCH = toLAB().toLCH()
+
     /** Convert this color to CIE LUV */
     fun toLUV(): LUV = toXYZ().toLUV()
 

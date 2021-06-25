@@ -13,13 +13,13 @@ internal fun Float.degToTurns(): Float = this / 360f
 // formula from https://www.w3.org/TR/css-color-4/#hue-interpolation
 internal fun Float.normalizeDeg(): Float = ((this % 360) + 360) % 360
 
-// Used for LAB -> LCH, Oklab -> Oklch, LUV -> HCL
+// Used for LAB <-> LCH, Oklab <-> Oklch, LUV -> HCL
 // https://www.w3.org/TR/css-color-4/#lab-to-lch
 // https://bottosson.github.io/posts/oklab/#the-oklab-color-space
 // https://en.wikipedia.org/wiki/CIELUV#Cylindrical_representation_.28CIELCH.29
 internal inline fun <T> toPolarModel(a: Float, b: Float, block: (c: Float, h: Float) -> T): T {
     val c = sqrt(a * a + b * b)
-    val h = if (c < 1e-8) 0f else atan2(b, a).radToDeg()
+    val h = if (c < 1e-7) 0f else atan2(b, a).radToDeg()
     return block(c, h.normalizeDeg())
 }
 

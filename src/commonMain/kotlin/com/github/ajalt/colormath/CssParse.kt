@@ -78,7 +78,7 @@ private fun lab(match: MatchResult): Color {
     val a = number(match.groupValues[2])
     val b = number(match.groupValues[3])
     val alpha = alpha(match.groupValues[4])
-    return LAB(l.coerceAtLeast(0f) * 100.0, a.toDouble(), b.toDouble(), alpha)
+    return LAB(l.coerceAtLeast(0f) * 100f, a, b, alpha)
 }
 
 private fun lch(match: MatchResult): Color {
@@ -86,7 +86,7 @@ private fun lch(match: MatchResult): Color {
     val c = number(match.groupValues[2])
     val h = hue(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return HCL(h, c.coerceAtLeast(0f), 100 * l.coerceAtLeast(0f), a)
+    return LCH(l.coerceAtLeast(0f) * 100f, c.coerceAtLeast(0f), h, a)
 }
 
 private fun hwb(match: MatchResult): Color {
@@ -97,10 +97,10 @@ private fun hwb(match: MatchResult): Color {
     return HWB(h, w.clampF(), b.clampF(), a)
 }
 
-private fun percent(str: String) = str.dropLast(1).toFloat() / 100
+private fun percent(str: String) = str.dropLast(1).toFloat() / 100f
 private fun number(str: String) = str.toFloat()
 private fun percentOrNumber(str: String) = if (str.endsWith("%")) percent(str) else number(str)
-private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str).toFloat()).clampF()
+private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str)).clampF()
 
 /** return degrees in [0, 360] */
 private fun hue(str: String): Float {
