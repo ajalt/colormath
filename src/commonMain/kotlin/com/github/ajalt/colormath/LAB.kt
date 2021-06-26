@@ -39,7 +39,7 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
         return XYZ(xr * D65.x / 100f, yr * D65.y / 100f, zr * D65.z / 100f, alpha)
     }
 
-    override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCH(h, c, l, alpha) }
+    override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCH(l, c, h, alpha) }
 
     override fun toLAB(): LAB = this
 
