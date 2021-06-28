@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.componentInfo
 import com.github.ajalt.colormath.internal.requireComponentSize
-import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.math.roundToInt
 
 /**
@@ -9,17 +9,29 @@ import kotlin.math.roundToInt
  *
  * The color space is the same sRGB space used in [RGB].
  *
- * | Component  | Description  | Gamut      |
+ * | Component  | Description  | sRGB Gamut |
  * | ---------- | ------------ | ---------- |
  * | [h]        | hue, degrees | `[0, 360)` |
  * | [w]        | whiteness    | `[0, 1]`   |
  * | [b]        | blackness    | `[0, 1]`   |
  */
 data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Color, HueColor {
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "HWB"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("H", true, 0f, 360f),
+                ColorComponentInfo("W", false, 0f, 1f),
+                ColorComponentInfo("B", false, 0f, 1f),
+            )
+        }
+    }
+
     constructor(h: Double, w: Double, b: Double, alpha: Double = 1.0)
             : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha.toFloat())
 
     override val alpha: Float get() = a
+    override val model: ColorModel get() = HWB.model
 
     override fun toRGB(): RGB {
         // Algorithm from Smith and Lyons, http://alvyray.com/Papers/CG/HWB_JGTv208.pdf, Appendix B
@@ -65,9 +77,7 @@ data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float =
     override fun toHWB(): HWB = this
 
     override fun convertToThis(other: Color): HWB = other.toHWB()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(h, w, b, alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { i == 0 }
     override fun fromComponents(components: FloatArray): HWB {
         requireComponentSize(components)
         return HWB(components[0], components[1], components[2], components.getOrElse(3) { 1f })

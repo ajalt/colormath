@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.componentInfo
 import com.github.ajalt.colormath.internal.requireComponentSize
-import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.math.pow
 
 /**
@@ -16,10 +16,22 @@ import kotlin.math.pow
  * | [b]        | blue        | `[0, 1]` |
  */
 data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "LinearRGB"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("R", false, 0f, 1f),
+                ColorComponentInfo("G", false, 0f, 1f),
+                ColorComponentInfo("B", false, 0f, 1f),
+            )
+        }
+    }
+
     constructor(r: Double, g: Double, b: Double, a: Float = 1f)
             : this(r.toFloat(), g.toFloat(), b.toFloat(), a)
 
     override val alpha: Float get() = a
+    override val model: ColorModel get() = LinearRGB.model
 
     // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
     override fun toOklab(): Oklab {
@@ -44,9 +56,7 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
     override fun toLinearRGB(): LinearRGB = this
 
     override fun convertToThis(other: Color): LinearRGB = other.toLinearRGB()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): LinearRGB {
         requireComponentSize(components)
         return LinearRGB(components[0], components[1], components[2], components.getOrElse(3) { 1f })

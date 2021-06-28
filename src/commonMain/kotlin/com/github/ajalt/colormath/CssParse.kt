@@ -7,7 +7,7 @@ import com.github.ajalt.colormath.internal.turnToDeg
 import kotlin.math.roundToInt
 
 @Deprecated("Function renamed Color.parse", ReplaceWith("this.parse(color)"))
-fun Color.Companion.fromCss(color: String): Color  = Color.parse(color)
+fun Color.Companion.fromCss(color: String): Color = Color.parse(color)
 
 /**
  * Parse a string representing a color value from CSS Color Module Level 1 through 4

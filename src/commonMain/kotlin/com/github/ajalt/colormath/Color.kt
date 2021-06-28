@@ -17,6 +17,9 @@ interface Color {
     /** The opacity of this color, in the range `[0, 1]`. */
     val alpha: Float
 
+    /** The model describing this color */
+    val model: ColorModel
+
     /** Convert this color to Red-Green-Blue (using sRGB color space) */
     fun toRGB(): RGB
 
@@ -68,17 +71,11 @@ interface Color {
     /** Create a [FloatArray] containing all components of this color, with the [alpha] as the last component */
     fun components(): FloatArray
 
-    /** The number of components, including [alpha], in this color. This is the the size of the array returned by [components] */
-    fun componentCount(): Int
-
-    /** Return `true` if the component at index [i] uses polar coordinates (e.g. a hue), and `false` if it's rectangular. */
-    fun componentIsPolar(i: Int): Boolean
-
     /**
      * Create a  new instance of this color from an array of [components].
      *
-     * The [components] array must have a size equal to either the [componentCount] of this color, or one less, in which
-     * case [alpha] will default to 1.
+     * The [components] array must have a size equal to either the [componentCount][ColorModel.getComponentCount] of this
+     * color, or one less, in which case [alpha] will default to 1.
      */
     fun fromComponents(components: FloatArray): Color
 

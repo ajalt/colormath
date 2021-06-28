@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.componentInfo
 import com.github.ajalt.colormath.internal.normalizeDeg
 import com.github.ajalt.colormath.internal.requireComponentSize
-import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -19,12 +19,24 @@ import kotlin.math.roundToInt
  * | [v]        | value        | `[0, 1]`   |
  */
 data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float = 1f) : Color, HueColor {
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "HSV"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("H", true, 0f, 360f),
+                ColorComponentInfo("S", false, 0f, 1f),
+                ColorComponentInfo("V", false, 0f, 1f),
+            )
+        }
+    }
+
     /**
-     * Construct an HSV instance from Float values, with h in `[0, 360]`, and s and v in the range `[0, 1]`.
+     * Construct an HSV instance from Int values, with [h] in `[0, 360]`, and [s] and [v] in the range `[0, 100]`.
      */
     constructor(h: Int, s: Int, v: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, v / 100f, a)
 
     override val alpha: Float get() = a
+    override val model: ColorModel get() = HSV.model
 
     override fun toRGB(): RGB {
         val h = h.normalizeDeg() / 60f
@@ -56,9 +68,7 @@ data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float =
     override fun toHSV() = this
 
     override fun convertToThis(other: Color): HSV = other.toHSV()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(h, s, v, alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { i == 0 }
     override fun fromComponents(components: FloatArray): HSV {
         requireComponentSize(components)
         return HSV(components[0], components[1], components[2], components.getOrElse(3) { 1f })

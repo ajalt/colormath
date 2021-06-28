@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RenderCondition.AUTO
+import com.github.ajalt.colormath.internal.componentInfo
 import com.github.ajalt.colormath.internal.requireComponentSize
-import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.math.roundToInt
 
 /**
@@ -15,6 +15,20 @@ import kotlin.math.roundToInt
  * | [b]        | blue        | `[0, 1]` |
  */
 data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "RGB"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("R", false, 0f, 1f),
+                ColorComponentInfo("G", false, 0f, 1f),
+                ColorComponentInfo("B", false, 0f, 1f),
+            )
+        }
+
+        @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
+        fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toRGB()
+    }
+
     /**
      * Construct an RGB instance from a hex string with optional alpha channel.
      *
@@ -64,6 +78,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     )
 
     override val alpha: Float get() = a
+    override val model: ColorModel get() = RGB.model
 
     /** The red channel scaled to [0, 255]. HDR colors may exceed this range. */
     val redInt: Int get() = (r * 255).roundToInt()
@@ -86,10 +101,10 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
      * The color will be clamped to the SDR range `[0, 255]`.
      */
     fun toRGBInt() = RGBInt(
-        a = alphaInt.coerceIn(0, 255).toUByte(),
         r = redInt.coerceIn(0, 255).toUByte(),
         g = greenInt.coerceIn(0, 255).toUByte(),
-        b = blueInt.coerceIn(0, 255).toUByte()
+        b = blueInt.coerceIn(0, 255).toUByte(),
+        a = alphaInt.coerceIn(0, 255).toUByte()
     )
 
     /**
@@ -190,9 +205,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     override fun toRGB() = this
 
     override fun convertToThis(other: Color): RGB = other.toRGB()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): RGB {
         requireComponentSize(components)
         return RGB(components[0], components[1], components[2], components.getOrElse(3) { 1f })
@@ -224,11 +237,6 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         if (h < 0) h += 360
 
         return block(h, min, max, delta)
-    }
-
-    companion object {
-        @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
-        fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toRGB()
     }
 }
 

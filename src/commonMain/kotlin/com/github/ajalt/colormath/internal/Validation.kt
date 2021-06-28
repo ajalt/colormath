@@ -1,18 +1,13 @@
 package com.github.ajalt.colormath.internal
 
 import com.github.ajalt.colormath.Color
+import com.github.ajalt.colormath.ColorComponentInfo
 
 internal fun Color.requireComponentSize(components: FloatArray) {
-    require(components.size in (componentCount() - 1)..componentCount()) {
-        "Invalid component array length: ${components.size}, expected ${componentCount() - 1} or ${componentCount()}"
+    val size = model.components.size
+    require(components.size in (size - 1)..size) {
+        "Invalid component array length: ${components.size}, expected ${size - 1} or $size"
     }
 }
 
-internal fun Color.validateComponentIndex(i: Int) {
-    require(i in 0..componentCount()) { "Invalid component index $i for color with ${componentCount()} components" }
-}
-
-internal inline fun <T> Color.withValidCIndex(i: Int, block: () -> T): T {
-    validateComponentIndex(i)
-    return block()
-}
+internal fun componentInfo(vararg c: ColorComponentInfo) = listOf(*c, ColorComponentInfo("alpha", false, 0f, 1f))

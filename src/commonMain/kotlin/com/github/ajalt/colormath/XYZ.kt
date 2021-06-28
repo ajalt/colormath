@@ -8,17 +8,30 @@ import com.github.ajalt.colormath.internal.Illuminant.D65
  *
  * Conversions use D65/2° illuminant, and sRGB profile.
  *
- * | Component  | Gamut     |
- * | ---------- | --------- |
- * | [x]        | `[-2, 2]` |
- * | [y]        | `[-2, 2]` |
- * | [z]        | `[-2, 2]` |
+ * | Component  | sRGB Gamut  |
+ * | ---------- | ----------- |
+ * | [x]        | `[0, 0.95]` |
+ * | [y]        | `[0, 1]`    |
+ * | [z]        | `[0, 1.09]` |
  */
 data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Color {
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "XYZ"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                // Note that the max values are the D65 illuminant
+                ColorComponentInfo("X", false, 0f, 0.95047f),
+                ColorComponentInfo("Y", false, 0f, 1.00000f),
+                ColorComponentInfo("Z", false, 0f, 1.08883f),
+            )
+        }
+    }
+
     constructor(x: Double, y: Double, z: Double, a: Float = 1f)
             : this(x.toFloat(), y.toFloat(), z.toFloat(), a)
 
     override val alpha: Float get() = a
+    override val model: ColorModel get() = XYZ.model
 
     // Matrix from http://www.brucelindbloom.com/Eqn_XYZ_to_RGB.html
     private fun r() = 3.2404542f * x - 1.5371385f * y - 0.4985314f * z
@@ -89,9 +102,7 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
     }
 
     override fun convertToThis(other: Color): XYZ = other.toXYZ()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(x, y, z, alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): XYZ {
         requireComponentSize(components)
         return XYZ(components[0], components[1], components[2], components.getOrElse(3) { 1f })
