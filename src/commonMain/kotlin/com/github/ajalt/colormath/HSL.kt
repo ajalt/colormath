@@ -1,21 +1,32 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.componentInfo
 import com.github.ajalt.colormath.internal.normalizeDeg
 import com.github.ajalt.colormath.internal.requireComponentSize
-import com.github.ajalt.colormath.internal.withValidCIndex
 
 /**
  * A color model represented with Hue, Saturation, and Lightness.
  *
  * The color space is the same sRGB space used in [RGB].
  *
- * | Component  | Description  | Gamut      |
+ * | Component  | Description  | sRGB Gamut |
  * | ---------- | ------------ | ---------- |
  * | [h]        | hue, degrees | `[0, 360)` |
  * | [s]        | saturation   | `[0, 1]`   |
  * | [l]        | lightness    | `[0, 1]`   |
  */
 data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float = 1f) : Color, HueColor {
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "HSL"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("H", true, 0f, 360f),
+                ColorComponentInfo("S", false, 0f, 1f),
+                ColorComponentInfo("L", false, 0f, 1f),
+            )
+        }
+    }
+
     /**
      * Construct an HSL instance from `Int` values, with [h] in `[0, 360)`, and [s] and [l] as percentages in the range `[0,
      * 100]`.
@@ -23,12 +34,13 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
     constructor(h: Int, s: Int, l: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, l / 100f, a)
 
     override val alpha: Float get() = a
+    override val model: ColorModel get() = HSL.model
 
     override fun toRGB(): RGB {
         val h = this.h.normalizeDeg() / 360.0
         val s = this.s.toDouble()
         val l = this.l.toDouble()
-        if (s == 0.0) {
+        if (s < 1e-7) {
             return RGB(l, l, l)
         }
 
@@ -74,9 +86,7 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
     override fun toHSL() = this
 
     override fun convertToThis(other: Color): HSL = other.toHSL()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(h, s, l, alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { i == 1 }
     override fun fromComponents(components: FloatArray): HSL {
         requireComponentSize(components)
         return HSL(components[0], components[1], components[2], components.getOrElse(3) { 1f })

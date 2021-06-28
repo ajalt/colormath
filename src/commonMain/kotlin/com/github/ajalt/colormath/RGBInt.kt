@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RenderCondition.AUTO
+import com.github.ajalt.colormath.internal.componentInfo
 import com.github.ajalt.colormath.internal.requireComponentSize
-import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.jvm.JvmInline
 
 /**
@@ -13,7 +13,7 @@ import kotlin.jvm.JvmInline
  *
  * You can destructure this class into [r], [g], [b], and [a] components: `val (r, g, b, a) = RGBInt(0xff112233u)`
  *
- * | Component  | Description | Gamut      |
+ * | Component  | Description | sRGB Gamut |
  * | ---------- | ----------- | ---------- |
  * | [r]        | red         | `[0, 255]` |
  * | [g]        | green       | `[0, 255]` |
@@ -21,11 +21,23 @@ import kotlin.jvm.JvmInline
  */
 @JvmInline
 value class RGBInt(val argb: UInt) : Color {
-    constructor(a: UByte, r: UByte, g: UByte, b: UByte) : this(
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "RGBInt"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("R", false, 0f, 255f),
+                ColorComponentInfo("G", false, 0f, 255f),
+                ColorComponentInfo("B", false, 0f, 255f),
+            )
+        }
+    }
+
+    constructor(r: UByte, g: UByte, b: UByte, a: UByte = 0xff.toUByte()) : this(
         (a.toUInt() shl 24) or (r.toUInt() shl 16) or (g.toUInt() shl 8) or b.toUInt()
     )
 
     override val alpha: Float get() = (a.toFloat() / 255f)
+    override val model: ColorModel get() = RGBInt.model
 
     val a: UByte get() = (argb shr 24).toUByte()
     val r: UByte get() = (argb shr 16).toUByte()
@@ -64,16 +76,15 @@ value class RGBInt(val argb: UInt) : Color {
 
     private fun UByte.renderHex() = toString(16).padStart(2, '0')
 
-
     override fun convertToThis(other: Color): RGBInt = other.toRGB().toRGBInt()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): RGBInt {
         requireComponentSize(components)
-        return RGBInt(components[0].toInt().toUByte(),
-            components[1].toInt().toUByte(),
-            components[2].toInt().toUByte(),
-            components.getOrElse(3) { 1f }.toInt().toUByte())
+        return RGBInt(
+            r = components[0].toInt().toUByte(),
+            g = components[1].toInt().toUByte(),
+            b = components[2].toInt().toUByte(),
+            a = components.getOrElse(3) { 1f }.toInt().toUByte()
+        )
     }
 }

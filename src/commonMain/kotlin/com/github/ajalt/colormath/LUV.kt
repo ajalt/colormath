@@ -2,13 +2,12 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.internal.Illuminant.D65
-import kotlin.math.atan2
 import kotlin.math.pow
-import kotlin.math.sqrt
 
 /**
  * CIE LUV (`CIE 1976 L*u*v*`) color space.
  *
+ * Uses the D65 standard illuminant.
  *
  * | Component  | Description  | Gamut         |
  * | ---------- | ------------ | ------------- |
@@ -17,13 +16,21 @@ import kotlin.math.sqrt
  * | [v]        |              | `[-100, 100]` |
  */
 data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Float = 1f) : Color {
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "LUV"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("L", false, 0f, 100f),
+                ColorComponentInfo("U", false, -83.07753f, 175.01505f),
+                ColorComponentInfo("V", false, -134.103f, 107.39863f),
+            )
+        }
+    }
+
     constructor(l: Double, u: Double, v: Double, alpha: Double = 1.0)
             : this(l.toFloat(), u.toFloat(), v.toFloat(), alpha.toFloat())
 
-    init {
-        require(l in 0.0..100.0) { "l must be in interval [0, 100] in $this" }
-        require(alpha in 0f..1f) { "a must be in range [0, 1] in $this" }
-    }
+    override val model: ColorModel get() = LUV.model
 
     override fun toRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
@@ -51,20 +58,11 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
         return XYZ(x, y, z, alpha)
     }
 
-    override fun toHCL(): HCL {
-        // http://www.brucelindbloom.com/Eqn_Luv_to_LCH.html
-        if (l == 0f) return HCL(0f, 0f, 0f, alpha)
-        val c = sqrt(u * u + v * v)
-        val h = if (c < 1e-8) 0f else atan2(v, u).radToDeg()
-        return HCL(h.normalizeDeg(), c, l)
-    }
-
+    override fun toHCL(): HCL = toPolarModel(u, v) { c, h -> HCL(h, c, l) }
     override fun toLUV(): LUV = this
 
     override fun convertToThis(other: Color): LUV = other.toLUV()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(l, u, v, alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): LUV {
         requireComponentSize(components)
         return LUV(components[0], components[1], components[2], components.getOrElse(3) { 1f })

@@ -1,26 +1,39 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.componentInfo
 import com.github.ajalt.colormath.internal.requireComponentSize
 import com.github.ajalt.colormath.internal.toPolarModel
-import com.github.ajalt.colormath.internal.withValidCIndex
 
 /**
  * Oklab color space.
  *
  * Learn more: https://bottosson.github.io/posts/oklab/
  *
- * | Component  | Description | Gamut         |
- * | ---------- | ----------- | ------------- |
- * | [l]        | lightness   | `[0, 100]`    |
- * | [a]        | green/red   | `[-160, 160]` |
- * | [b]        | blue/yellow | `[-160, 160]` |
+ * | Component  | Description | sRGB Gamut      |
+ * | ---------- | ----------- | --------------- |
+ * | [l]        | lightness   | `[0, 1]`        |
+ * | [a]        | green/red   | `[-0.23, 0.28]` |
+ * | [b]        | blue/yellow | `[-0.31, 0.20]` |
  */
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "Oklab"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("L", false, 0f, 100f),
+                ColorComponentInfo("A", false, -0.23388757f, 0.2762164f),
+                ColorComponentInfo("B", false, -0.31152815f, 0.19856976f),
+            )
+        }
+    }
+
     constructor (l: Double, a: Double, b: Double, alpha: Double = 1.0)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
 
     constructor (l: Double, a: Double, b: Double, alpha: Float)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
+
+    override val model: ColorModel get() = Oklab.model
 
     override fun toRGB(): RGB = toLinearRGB().toRGB()
 
@@ -62,9 +75,7 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
     override fun toOklab(): Oklab = this
 
     override fun convertToThis(other: Color): Oklab = other.toOklab()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(l, a, b, alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): Oklab {
         requireComponentSize(components)
         return Oklab(components[0], components[1], components[2], components.getOrElse(3) { 1f })

@@ -7,17 +7,33 @@ import kotlin.math.pow
 /**
  * CIE LAB color space.
  *
- * Conversions use D65 reference white, and sRGB profile.
+ * Conversions use D65 reference white.
  *
- * | Component  | Description | Gamut         |
- * | ---------- | ----------- | ------------- |
- * | [l]        | lightness   | `[0, 100]`    |
- * | [a]        | green/red   | `[-160, 160]` |
- * | [b]        | blue/yellow | `[-160, 160]` |
+ * | Component  | Description | sRGB Gamut         |
+ * | ---------- | ----------- | ------------------ |
+ * | [l]        | lightness   | `[0, 100]`         |
+ * | [a]        | green/red   | `[-86.1, 98.23]`   |
+ * | [b]        | blue/yellow | `[-107.86, 94.48]` |
  */
 data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "LAB"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("L", false, 0f, 100f),
+                ColorComponentInfo("A", false, -86.18272f, 98.23433f),
+                ColorComponentInfo("B", false, -107.86016f, 94.477974f),
+            )
+        }
+    }
+
+    constructor (l: Double, a: Double, b: Double, alpha: Double)
+            : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
+
     constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
+
+    override val model: ColorModel get() = LAB.model
 
     override fun toRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
@@ -40,13 +56,10 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
     }
 
     override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCH(l, c, h, alpha) }
-
     override fun toLAB(): LAB = this
 
     override fun convertToThis(other: Color): LAB = other.toLAB()
-    override fun componentCount(): Int = 4
     override fun components(): FloatArray = floatArrayOf(l, a, b, alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): LAB {
         requireComponentSize(components)
         return LAB(components[0], components[1], components[2], components.getOrElse(3) { 1f })

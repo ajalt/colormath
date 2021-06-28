@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.componentInfo
 import com.github.ajalt.colormath.internal.requireComponentSize
-import com.github.ajalt.colormath.internal.withValidCIndex
 import kotlin.math.floor
 
 /**
@@ -17,11 +17,17 @@ import kotlin.math.floor
  * - `232-255`: Grayscale colors
  */
 data class Ansi256(val code: Int) : Color {
-    init {
-        check(code in 0..255) { "code must be in range [0,255]: $code" }
+    companion object {
+        val model = object : ColorModel {
+            override val name: String get() = "Ansi256"
+            override val components: List<ColorComponentInfo> = componentInfo(
+                ColorComponentInfo("code", false, 0f, 255f),
+            )
+        }
     }
 
     override val alpha: Float get() = 1f
+    override val model: ColorModel get() = Ansi256.model
 
     override fun toRGB(): RGB {
         // ansi16 colors
@@ -53,9 +59,7 @@ data class Ansi256(val code: Int) : Color {
     override fun toAnsi256() = this
 
     override fun convertToThis(other: Color): Ansi256 = other.toAnsi256()
-    override fun componentCount(): Int = 2
     override fun components(): FloatArray = floatArrayOf(code.toFloat(), alpha)
-    override fun componentIsPolar(i: Int): Boolean = withValidCIndex(i) { false }
     override fun fromComponents(components: FloatArray): Ansi256 {
         requireComponentSize(components)
         return Ansi256(components[0].toInt())
