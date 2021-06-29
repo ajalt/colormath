@@ -17,20 +17,25 @@ import kotlin.math.pow
  */
 data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Float = 1f) : Color {
     companion object {
-        val model = object : ColorModel {
+        val model = object : ColorModel<LUV> {
             override val name: String get() = "LUV"
             override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("L", false, 0f, 100f),
                 ColorComponentInfo("U", false, -83.07753f, 175.01505f),
                 ColorComponentInfo("V", false, -134.103f, 107.39863f),
             )
+
+            override fun convert(color: Color): LUV = color.toLUV()
+            override fun create(components: FloatArray): LUV = withValidComps(components) {
+                LUV(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+            }
         }
     }
 
     constructor(l: Double, u: Double, v: Double, alpha: Double = 1.0)
             : this(l.toFloat(), u.toFloat(), v.toFloat(), alpha.toFloat())
 
-    override val model: ColorModel get() = LUV.model
+    override val model: ColorModel<LUV> get() = LUV.model
 
     override fun toRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
@@ -60,10 +65,5 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
 
     override fun toHCL(): HCL = toPolarModel(u, v) { c, h -> HCL(h, c, l) }
     override fun toLUV(): LUV = this
-
-    override fun convertToThis(other: Color): LUV = other.toLUV()
     override fun components(): FloatArray = floatArrayOf(l, u, v, alpha)
-    override fun fromComponents(components: FloatArray): LUV = withValidComps(components) {
-        LUV(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
 }

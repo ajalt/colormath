@@ -17,13 +17,18 @@ import com.github.ajalt.colormath.internal.withValidComps
  */
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     companion object {
-        val model = object : ColorModel {
+        val model = object : ColorModel<Oklab> {
             override val name: String get() = "Oklab"
             override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("L", false, 0f, 100f),
                 ColorComponentInfo("A", false, -0.23388757f, 0.2762164f),
                 ColorComponentInfo("B", false, -0.31152815f, 0.19856976f),
             )
+
+            override fun convert(color: Color): Oklab = color.toOklab()
+            override fun create(components: FloatArray): Oklab = withValidComps(components) {
+                Oklab(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+            }
         }
     }
 
@@ -33,7 +38,7 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
     constructor (l: Double, a: Double, b: Double, alpha: Float)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
-    override val model: ColorModel get() = Oklab.model
+    override val model: ColorModel<Oklab> get() = Oklab.model
 
     override fun toRGB(): RGB = toLinearRGB().toRGB()
 
@@ -73,10 +78,5 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
 
     override fun toOklch(): Oklch = toPolarModel(a, b) { c, h -> Oklch(l, c, h, alpha) }
     override fun toOklab(): Oklab = this
-
-    override fun convertToThis(other: Color): Oklab = other.toOklab()
     override fun components(): FloatArray = floatArrayOf(l, a, b, alpha)
-    override fun fromComponents(components: FloatArray): Oklab = withValidComps(components) {
-        Oklab(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
 }
