@@ -16,13 +16,18 @@ import kotlin.math.roundToInt
  */
 data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
     companion object {
-        val model = object : ColorModel {
+        val model = object : ColorModel<RGB> {
             override val name: String get() = "RGB"
             override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("R", false, 0f, 1f),
                 ColorComponentInfo("G", false, 0f, 1f),
                 ColorComponentInfo("B", false, 0f, 1f),
             )
+
+            override fun convert(color: Color): RGB = color.toRGB()
+            override fun create(components: FloatArray): RGB = withValidComps(components) {
+                RGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+            }
         }
 
         @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
@@ -78,7 +83,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     )
 
     override val alpha: Float get() = a
-    override val model: ColorModel get() = RGB.model
+    override val model: ColorModel<RGB> get() = RGB.model
 
     /** The red channel scaled to [0, 255]. HDR colors may exceed this range. */
     val redInt: Int get() = (r * 255).roundToInt()
@@ -203,12 +208,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     }
 
     override fun toRGB() = this
-
-    override fun convertToThis(other: Color): RGB = other.toRGB()
     override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
-    override fun fromComponents(components: FloatArray): RGB = withValidComps(components) {
-        RGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
 
     /**
      * Call [block] with the hue, min of color channels, max of color channels, and the

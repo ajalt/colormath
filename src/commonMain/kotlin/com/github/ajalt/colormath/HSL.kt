@@ -17,13 +17,18 @@ import com.github.ajalt.colormath.internal.withValidComps
  */
 data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float = 1f) : Color, HueColor {
     companion object {
-        val model = object : ColorModel {
+        val model = object : ColorModel<HSL> {
             override val name: String get() = "HSL"
             override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("H", true, 0f, 360f),
                 ColorComponentInfo("S", false, 0f, 1f),
                 ColorComponentInfo("L", false, 0f, 1f),
             )
+
+            override fun convert(color: Color): HSL = color.toHSL()
+            override fun create(components: FloatArray): HSL = withValidComps(components) {
+                HSL(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+            }
         }
     }
 
@@ -34,7 +39,7 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
     constructor(h: Int, s: Int, l: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, l / 100f, a)
 
     override val alpha: Float get() = a
-    override val model: ColorModel get() = HSL.model
+    override val model: ColorModel<HSL> get() = HSL.model
 
     override fun toRGB(): RGB {
         val h = this.h.normalizeDeg() / 360.0
@@ -84,10 +89,5 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
     }
 
     override fun toHSL() = this
-
-    override fun convertToThis(other: Color): HSL = other.toHSL()
     override fun components(): FloatArray = floatArrayOf(h, s, l, alpha)
-    override fun fromComponents(components: FloatArray): HSL = withValidComps(components) {
-        HSL(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
 }

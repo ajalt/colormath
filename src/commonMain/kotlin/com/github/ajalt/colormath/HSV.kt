@@ -20,13 +20,18 @@ import kotlin.math.roundToInt
  */
 data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float = 1f) : Color, HueColor {
     companion object {
-        val model = object : ColorModel {
+        val model = object : ColorModel<HSV> {
             override val name: String get() = "HSV"
             override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("H", true, 0f, 360f),
                 ColorComponentInfo("S", false, 0f, 1f),
                 ColorComponentInfo("V", false, 0f, 1f),
             )
+
+            override fun convert(color: Color): HSV = color.toHSV()
+            override fun create(components: FloatArray): HSV = withValidComps(components) {
+                HSV(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+            }
         }
     }
 
@@ -36,7 +41,7 @@ data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float =
     constructor(h: Int, s: Int, v: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, v / 100f, a)
 
     override val alpha: Float get() = a
-    override val model: ColorModel get() = HSV.model
+    override val model: ColorModel<HSV> get() = HSV.model
 
     override fun toRGB(): RGB {
         val h = h.normalizeDeg() / 60f
@@ -66,10 +71,5 @@ data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float =
     }
 
     override fun toHSV() = this
-
-    override fun convertToThis(other: Color): HSV = other.toHSV()
     override fun components(): FloatArray = floatArrayOf(h, s, v, alpha)
-    override fun fromComponents(components: FloatArray): HSV = withValidComps(components) {
-        HSV(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
 }

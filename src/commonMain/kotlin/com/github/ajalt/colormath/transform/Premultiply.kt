@@ -9,7 +9,7 @@ import com.github.ajalt.colormath.ColorComponentInfo
  * [Polar components][ColorComponentInfo.isPolar] and the alpha value itself are not changed.
  */
 fun <T : Color> T.multiplyAlpha() = transform(multiplyAlphaTransform)
-internal val multiplyAlphaTransform: ColorTransform = { model, components ->
+internal val multiplyAlphaTransform: ColorTransform<*> = { model, components ->
     val a = components.last()
     FloatArray(components.size) { i ->
         if (i == components.lastIndex || model.components[i].isPolar) components[i]
@@ -26,7 +26,7 @@ internal val multiplyAlphaTransform: ColorTransform = { model, components ->
  * If `alpha == 0`, all components are left unchanged.
  */
 fun <T : Color> T.divideAlpha(): T = transform(divideAlphaTransform)
-val divideAlphaTransform: ColorTransform = { model, components ->
+val divideAlphaTransform: ColorTransform<*> = { model, components ->
     val a = components.last()
     FloatArray(components.size) { i ->
         if (a == 0f || i == components.lastIndex || model.components[i].isPolar) components[i]

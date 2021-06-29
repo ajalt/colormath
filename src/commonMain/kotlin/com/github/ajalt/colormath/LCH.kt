@@ -15,13 +15,18 @@ import com.github.ajalt.colormath.internal.withValidComps
  */
 data class LCH(val l: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object {
-        val model = object : ColorModel {
+        val model = object : ColorModel<LCH> {
             override val name: String get() = "LCH"
             override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("L", false, 0f, 100f),
                 ColorComponentInfo("C", false, 0f, 133.80763f),
                 ColorComponentInfo("H", true, 0f, 360f),
             )
+
+            override fun convert(color: Color): LCH = color.toLCH()
+            override fun create(components: FloatArray): LCH = withValidComps(components) {
+                LCH(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+            }
         }
     }
 
@@ -31,16 +36,11 @@ data class LCH(val l: Float, val c: Float, override val h: Float, override val a
     constructor(l: Double, c: Double, h: Double, alpha: Float = 1.0f)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 
-    override val model: ColorModel get() = LCH.model
+    override val model: ColorModel<LCH> get() = LCH.model
 
     override fun toRGB(): RGB = toLAB().toRGB()
     override fun toXYZ(): XYZ = toLAB().toXYZ()
     override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LAB(l, a, b, alpha) }
     override fun toLCH(): LCH = this
-
-    override fun convertToThis(other: Color): LCH = other.toLCH()
     override fun components(): FloatArray = floatArrayOf(l, c, h, alpha)
-    override fun fromComponents(components: FloatArray): LCH = withValidComps(components) {
-        LCH(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
 }

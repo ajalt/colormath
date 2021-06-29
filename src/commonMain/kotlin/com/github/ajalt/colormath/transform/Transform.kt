@@ -3,9 +3,9 @@ package com.github.ajalt.colormath.transform
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorModel
 
-typealias ColorTransform = (model: ColorModel, components: FloatArray) -> FloatArray
+typealias ColorTransform<T> = (model: ColorModel<T>, components: FloatArray) -> FloatArray
 
 @Suppress("UNCHECKED_CAST")
-fun <T : Color> T.transform(transform: ColorTransform): T {
-    return this.fromComponents(transform(model, components())) as T
+fun <T : Color> T.transform(transform: ColorTransform<*>): T {
+    return model.create(transform(model, components())) as T
 }

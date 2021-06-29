@@ -17,13 +17,18 @@ import kotlin.math.pow
  */
 data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
     companion object {
-        val model = object : ColorModel {
+        val model = object : ColorModel<LinearRGB> {
             override val name: String get() = "LinearRGB"
             override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("R", false, 0f, 1f),
                 ColorComponentInfo("G", false, 0f, 1f),
                 ColorComponentInfo("B", false, 0f, 1f),
             )
+
+            override fun convert(color: Color): LinearRGB = color.toLinearRGB()
+            override fun create(components: FloatArray): LinearRGB = withValidComps(components) {
+                LinearRGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+            }
         }
     }
 
@@ -31,7 +36,7 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
             : this(r.toFloat(), g.toFloat(), b.toFloat(), a)
 
     override val alpha: Float get() = a
-    override val model: ColorModel get() = LinearRGB.model
+    override val model: ColorModel<LinearRGB> get() = LinearRGB.model
 
     // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
     override fun toOklab(): Oklab {
@@ -54,12 +59,7 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
     override fun toXYZ(): XYZ = linearRGBToXYZ(r, g, b, alpha)
     override fun toRGB(): RGB = RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), a)
     override fun toLinearRGB(): LinearRGB = this
-
-    override fun convertToThis(other: Color): LinearRGB = other.toLinearRGB()
     override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
-    override fun fromComponents(components: FloatArray): LinearRGB = withValidComps(components) {
-        LinearRGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
 }
 
 internal fun linearRGBToXYZ(r: Float, g: Float, b: Float, alpha: Float): XYZ {

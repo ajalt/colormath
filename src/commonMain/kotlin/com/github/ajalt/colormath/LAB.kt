@@ -17,13 +17,18 @@ import kotlin.math.pow
  */
 data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     companion object {
-        val model = object : ColorModel {
+        val model = object : ColorModel<LAB> {
             override val name: String get() = "LAB"
             override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("L", false, 0f, 100f),
                 ColorComponentInfo("A", false, -86.18272f, 98.23433f),
                 ColorComponentInfo("B", false, -107.86016f, 94.477974f),
             )
+
+            override fun convert(color: Color): LAB = color.toLAB()
+            override fun create(components: FloatArray): LAB = withValidComps(components) {
+                LAB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+            }
         }
     }
 
@@ -33,7 +38,7 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
     constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
-    override val model: ColorModel get() = LAB.model
+    override val model: ColorModel<LAB> get() = LAB.model
 
     override fun toRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
@@ -58,9 +63,5 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
     override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCH(l, c, h, alpha) }
     override fun toLAB(): LAB = this
 
-    override fun convertToThis(other: Color): LAB = other.toLAB()
     override fun components(): FloatArray = floatArrayOf(l, a, b, alpha)
-    override fun fromComponents(components: FloatArray): LAB = withValidComps(components) {
-        LAB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
 }
