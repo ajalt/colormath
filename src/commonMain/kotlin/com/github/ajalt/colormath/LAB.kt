@@ -19,7 +19,7 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "LAB"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("L", false, 0f, 100f),
                 ColorComponentInfo("A", false, -86.18272f, 98.23433f),
                 ColorComponentInfo("B", false, -107.86016f, 94.477974f),
@@ -60,8 +60,7 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
 
     override fun convertToThis(other: Color): LAB = other.toLAB()
     override fun components(): FloatArray = floatArrayOf(l, a, b, alpha)
-    override fun fromComponents(components: FloatArray): LAB {
-        requireComponentSize(components)
-        return LAB(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): LAB = withValidComps(components) {
+        LAB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }

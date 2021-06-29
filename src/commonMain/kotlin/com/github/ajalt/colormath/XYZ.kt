@@ -18,7 +18,7 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "XYZ"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 // Note that the max values are the D65 illuminant
                 ColorComponentInfo("X", false, 0f, 0.95047f),
                 ColorComponentInfo("Y", false, 0f, 1.00000f),
@@ -103,8 +103,7 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
 
     override fun convertToThis(other: Color): XYZ = other.toXYZ()
     override fun components(): FloatArray = floatArrayOf(x, y, z, alpha)
-    override fun fromComponents(components: FloatArray): XYZ {
-        requireComponentSize(components)
-        return XYZ(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): XYZ = withValidComps(components) {
+        XYZ(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }

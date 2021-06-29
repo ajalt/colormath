@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfo
+import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.withValidComps
 
 /**
  * Oklch color model, the cylindrical representation of [Oklab].
@@ -17,7 +17,7 @@ data class Oklch(val l: Float, val c: Float, override val h: Float, override val
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "Oklch"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("L", false, 0f, 1f),
                 ColorComponentInfo("C", false, 0f, 0.32249096f),
                 ColorComponentInfo("H", true, 0f, 360f),
@@ -44,8 +44,7 @@ data class Oklch(val l: Float, val c: Float, override val h: Float, override val
 
     override fun convertToThis(other: Color): Oklch = other.toOklch()
     override fun components(): FloatArray = floatArrayOf(l, c, h, alpha)
-    override fun fromComponents(components: FloatArray): Oklch {
-        requireComponentSize(components)
-        return Oklch(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): Oklch = withValidComps(components) {
+        Oklch(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }

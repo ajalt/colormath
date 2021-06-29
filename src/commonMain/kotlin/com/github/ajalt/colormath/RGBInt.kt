@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RenderCondition.AUTO
-import com.github.ajalt.colormath.internal.componentInfo
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.jvm.JvmInline
 
 /**
@@ -24,7 +24,7 @@ value class RGBInt(val argb: UInt) : Color {
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "RGBInt"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("R", false, 0f, 255f),
                 ColorComponentInfo("G", false, 0f, 255f),
                 ColorComponentInfo("B", false, 0f, 255f),
@@ -78,13 +78,12 @@ value class RGBInt(val argb: UInt) : Color {
 
     override fun convertToThis(other: Color): RGBInt = other.toRGB().toRGBInt()
     override fun components(): FloatArray = floatArrayOf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
-    override fun fromComponents(components: FloatArray): RGBInt {
-        requireComponentSize(components)
-        return RGBInt(
-            r = components[0].toInt().toUByte(),
-            g = components[1].toInt().toUByte(),
-            b = components[2].toInt().toUByte(),
-            a = components.getOrElse(3) { 1f }.toInt().toUByte()
+    override fun fromComponents(components: FloatArray): RGBInt = withValidComps(components) {
+        RGBInt(
+            r = it[0].toInt().toUByte(),
+            g = it[1].toInt().toUByte(),
+            b = it[2].toInt().toUByte(),
+            a = it.getOrElse(3) { 255f }.toInt().toUByte()
         )
     }
 }

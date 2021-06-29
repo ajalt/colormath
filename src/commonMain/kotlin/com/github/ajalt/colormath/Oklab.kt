@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfo
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.toPolarModel
+import com.github.ajalt.colormath.internal.withValidComps
 
 /**
  * Oklab color space.
@@ -19,7 +19,7 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "Oklab"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("L", false, 0f, 100f),
                 ColorComponentInfo("A", false, -0.23388757f, 0.2762164f),
                 ColorComponentInfo("B", false, -0.31152815f, 0.19856976f),
@@ -76,8 +76,7 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
 
     override fun convertToThis(other: Color): Oklab = other.toOklab()
     override fun components(): FloatArray = floatArrayOf(l, a, b, alpha)
-    override fun fromComponents(components: FloatArray): Oklab {
-        requireComponentSize(components)
-        return Oklab(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): Oklab = withValidComps(components) {
+        Oklab(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }

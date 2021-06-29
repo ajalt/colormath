@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfo
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.math.floor
 
 /**
@@ -20,7 +20,7 @@ data class Ansi256(val code: Int) : Color {
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "Ansi256"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("code", false, 0f, 255f),
             )
         }
@@ -60,8 +60,7 @@ data class Ansi256(val code: Int) : Color {
 
     override fun convertToThis(other: Color): Ansi256 = other.toAnsi256()
     override fun components(): FloatArray = floatArrayOf(code.toFloat(), alpha)
-    override fun fromComponents(components: FloatArray): Ansi256 {
-        requireComponentSize(components)
-        return Ansi256(components[0].toInt())
+    override fun fromComponents(components: FloatArray): Ansi256 = withValidComps(components) {
+        Ansi256(it[0].toInt())
     }
 }

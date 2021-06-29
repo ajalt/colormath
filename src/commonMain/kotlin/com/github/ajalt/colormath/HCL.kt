@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfo
+import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.withValidComps
 
 /**
  * CIE LCh(uv) color model, the cylindrical representation of [LUV].
@@ -17,7 +17,7 @@ data class HCL(override val h: Float, val c: Float, val l: Float, override val a
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "HCL"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("H", true, 0f, 360f),
                 ColorComponentInfo("C", false, 0f, 179.04138f),
                 ColorComponentInfo("L", false, 0f, 100f),
@@ -40,8 +40,7 @@ data class HCL(override val h: Float, val c: Float, val l: Float, override val a
 
     override fun convertToThis(other: Color): HCL = other.toHCL()
     override fun components(): FloatArray = floatArrayOf(h, c, l, alpha)
-    override fun fromComponents(components: FloatArray): HCL {
-        requireComponentSize(components)
-        return HCL(components[2], components[1], components[0], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): HCL = withValidComps(components) {
+        HCL(it[2], it[1], it[0], it.getOrElse(3) { 1f })
     }
 }
