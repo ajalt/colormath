@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfo
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.withValidComps
 
 /**
  * A color in the CMYK (cyan, magenta, yellow, and key) color model.
@@ -17,7 +17,7 @@ data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, val a: F
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "CMYK"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("C", false, 0f, 1f),
                 ColorComponentInfo("M", false, 0f, 1f),
                 ColorComponentInfo("Y", false, 0f, 1f),
@@ -46,8 +46,7 @@ data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, val a: F
 
     override fun convertToThis(other: Color): CMYK = other.toCMYK()
     override fun components(): FloatArray = floatArrayOf(c, m, y, k, alpha)
-    override fun fromComponents(components: FloatArray): CMYK {
-        requireComponentSize(components)
-        return CMYK(components[0], components[1], components[2], components[3], components.getOrElse(4) { 1f })
+    override fun fromComponents(components: FloatArray): CMYK = withValidComps(components) {
+        CMYK(it[0], it[1], it[2], it[3], it.getOrElse(4) { 1f })
     }
 }

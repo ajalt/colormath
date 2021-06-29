@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfo
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.math.pow
 
 /**
@@ -19,7 +19,7 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "LinearRGB"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("R", false, 0f, 1f),
                 ColorComponentInfo("G", false, 0f, 1f),
                 ColorComponentInfo("B", false, 0f, 1f),
@@ -57,9 +57,8 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
 
     override fun convertToThis(other: Color): LinearRGB = other.toLinearRGB()
     override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
-    override fun fromComponents(components: FloatArray): LinearRGB {
-        requireComponentSize(components)
-        return LinearRGB(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): LinearRGB = withValidComps(components) {
+        LinearRGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }
 

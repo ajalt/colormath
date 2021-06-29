@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfo
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.withValidComps
 
 /**
  * An ANSI-16 color code
@@ -23,7 +23,7 @@ data class Ansi16(val code: Int) : Color {
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "Ansi16"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("code", false, 30f, 37f),
             )
         }
@@ -63,8 +63,7 @@ data class Ansi16(val code: Int) : Color {
 
     override fun convertToThis(other: Color): Ansi16 = other.toAnsi16()
     override fun components(): FloatArray = floatArrayOf(code.toFloat(), alpha)
-    override fun fromComponents(components: FloatArray): Ansi16 {
-        requireComponentSize(components)
-        return Ansi16(components[0].toInt())
+    override fun fromComponents(components: FloatArray): Ansi16 = withValidComps(components) {
+        Ansi16(it[0].toInt())
     }
 }

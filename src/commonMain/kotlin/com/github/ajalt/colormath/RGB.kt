@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RenderCondition.AUTO
-import com.github.ajalt.colormath.internal.componentInfo
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.math.roundToInt
 
 /**
@@ -18,7 +18,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "RGB"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("R", false, 0f, 1f),
                 ColorComponentInfo("G", false, 0f, 1f),
                 ColorComponentInfo("B", false, 0f, 1f),
@@ -206,9 +206,8 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
 
     override fun convertToThis(other: Color): RGB = other.toRGB()
     override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
-    override fun fromComponents(components: FloatArray): RGB {
-        requireComponentSize(components)
-        return RGB(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): RGB = withValidComps(components) {
+        RGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 
     /**

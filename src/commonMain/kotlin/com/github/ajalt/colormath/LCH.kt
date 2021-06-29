@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfo
+import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.withValidComps
 
 /**
  * CIE LCh(ab) color model, the cylindrical representation of [LAB].
@@ -17,7 +17,7 @@ data class LCH(val l: Float, val c: Float, override val h: Float, override val a
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "LCH"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("L", false, 0f, 100f),
                 ColorComponentInfo("C", false, 0f, 133.80763f),
                 ColorComponentInfo("H", true, 0f, 360f),
@@ -40,8 +40,7 @@ data class LCH(val l: Float, val c: Float, override val h: Float, override val a
 
     override fun convertToThis(other: Color): LCH = other.toLCH()
     override fun components(): FloatArray = floatArrayOf(l, c, h, alpha)
-    override fun fromComponents(components: FloatArray): LCH {
-        requireComponentSize(components)
-        return LCH(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): LCH = withValidComps(components) {
+        LCH(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }

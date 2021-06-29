@@ -19,7 +19,7 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "LUV"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("L", false, 0f, 100f),
                 ColorComponentInfo("U", false, -83.07753f, 175.01505f),
                 ColorComponentInfo("V", false, -134.103f, 107.39863f),
@@ -63,8 +63,7 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
 
     override fun convertToThis(other: Color): LUV = other.toLUV()
     override fun components(): FloatArray = floatArrayOf(l, u, v, alpha)
-    override fun fromComponents(components: FloatArray): LUV {
-        requireComponentSize(components)
-        return LUV(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): LUV = withValidComps(components) {
+        LUV(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }

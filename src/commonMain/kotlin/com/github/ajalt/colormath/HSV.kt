@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfo
+import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.normalizeDeg
-import com.github.ajalt.colormath.internal.requireComponentSize
+import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -22,7 +22,7 @@ data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float =
     companion object {
         val model = object : ColorModel {
             override val name: String get() = "HSV"
-            override val components: List<ColorComponentInfo> = componentInfo(
+            override val components: List<ColorComponentInfo> = componentInfoList(
                 ColorComponentInfo("H", true, 0f, 360f),
                 ColorComponentInfo("S", false, 0f, 1f),
                 ColorComponentInfo("V", false, 0f, 1f),
@@ -69,8 +69,7 @@ data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float =
 
     override fun convertToThis(other: Color): HSV = other.toHSV()
     override fun components(): FloatArray = floatArrayOf(h, s, v, alpha)
-    override fun fromComponents(components: FloatArray): HSV {
-        requireComponentSize(components)
-        return HSV(components[0], components[1], components[2], components.getOrElse(3) { 1f })
+    override fun fromComponents(components: FloatArray): HSV = withValidComps(components) {
+        HSV(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }
