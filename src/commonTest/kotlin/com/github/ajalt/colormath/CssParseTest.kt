@@ -13,7 +13,7 @@ class CssParseTest {
     @Test
     @JsName("parseCssColor_named")
     fun `parseCssColor named`() {
-        Color.fromCss("rebeccapurple") shouldBe RGB("#663399")
+        Color.parse("rebeccapurple") shouldBe RGB("#663399")
     }
 
     @Test
@@ -49,7 +49,7 @@ class CssParseTest {
         row("hsl(1Deg,2%,3%)")
     ) {
         shouldThrow<IllegalArgumentException> {
-            Color.fromCss(it)
+            Color.parse(it)
         }
     }
 
@@ -67,7 +67,7 @@ class CssParseTest {
         row("hsl(1,2%,-3%)", HSL(1, 2, 0)),
         row("hsl(1,2%,3%,-4%)", HSL(1, 2, 3, 0f)),
     ) { it, ex ->
-        Color.fromCss(it) shouldBe ex
+        Color.parse(it) shouldBe ex
     }
 
     // Cases mostly from https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
@@ -94,13 +94,13 @@ class CssParseTest {
         row("rgb(255 0 153 / 100%)"),
         row("rgb(255, 0, 153.4, 1)")
     ) {
-        Color.fromCss(it) shouldBe RGB(255, 0, 153)
+        Color.parse(it) shouldBe RGB(255, 0, 153)
     }
 
     @Test
     @JsName("parseCssColor_float_exponents")
     fun `parseCssColor float exponents`() {
-        Color.fromCss("rgb(1e2, .5e1, .5e0, +.25e2%)") shouldBe RGB(100, 5, 1, .25f)
+        Color.parse("rgb(1e2, .5e1, .5e0, +.25e2%)") shouldBe RGB(100, 5, 1, .25f)
     }
 
     @Test
@@ -118,7 +118,7 @@ class CssParseTest {
         row("rgba(51 170 51 / 40%)", .4f),
         row("rgba(51, 170, 50.6, 1)", 1f)
     ) { color, alpha ->
-        Color.fromCss(color) shouldBe RGB(51, 170, 51, alpha)
+        Color.parse(color) shouldBe RGB(51, 170, 51, alpha)
     }
 
     @Test
@@ -141,7 +141,7 @@ class CssParseTest {
         row("hsla(240 100% 50% / .05)", 240, 100, 50, .05f),
         row("hsla(240 100% 50% / 5%)", 240, 100, 50, .05f)
     ) { color, h, s, l, alpha ->
-        Color.fromCss(color) should convertTo(HSL(h, s, l, alpha))
+        Color.parse(color).shouldEqualColor(HSL(h, s, l, alpha))
     }
 
     @Test
@@ -169,7 +169,7 @@ class CssParseTest {
         row("0turn", 0),
         row("0rad", 0)
     ) { angle, degrees ->
-        Color.fromCss("hsl($angle, 0%, 0%)") should convertTo(HSL(degrees, 0, 0))
+        Color.parse("hsl($angle, 0%, 0%)").shouldEqualColor(HSL(degrees, 0, 0))
     }
 
     @Test
@@ -182,7 +182,7 @@ class CssParseTest {
         row("lab(62.2345% -34.9638 47.7721)", LAB(62.2345, -34.9638, 47.7721)),
         row("lab(67.5345% -8.6911 -41.6019)", LAB(67.5345, -8.6911, -41.6019)),
     ) { str, lab ->
-        Color.fromCss(str).shouldEqualColor(lab)
+        Color.parse(str).shouldEqualColor(lab)
     }
 
     @Test
@@ -195,7 +195,7 @@ class CssParseTest {
         row("lch(62.2345% 59.2 126.2)", LCH(62.2345, 59.2, 126.2)),
         row("lch(67.5345% 42.5 258.2)", LCH(67.5345, 42.5, 258.2)),
     ) { str, lch ->
-        Color.fromCss(str).shouldEqualColor(lch)
+        Color.parse(str).shouldEqualColor(lch)
     }
 
     @Test
@@ -208,6 +208,6 @@ class CssParseTest {
         row("hwb(0.5turn 23.4% 45.6%)", HWB(180.0, .234, .456)),
         row("hwb(3.1416rad 23.4% 45.6%)", HWB(180.0, .234, .456)),
     ) { str, hwb ->
-        Color.fromCss(str).shouldEqualColor(hwb)
+        Color.parse(str).shouldEqualColor(hwb)
     }
 }

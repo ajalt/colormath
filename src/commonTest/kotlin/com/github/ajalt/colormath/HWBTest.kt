@@ -31,7 +31,7 @@ class HWBTest {
         row(HWB(90.0, .600, .200), RGB("#b3cc99")),
         row(HWB(90.0, .200, .600), RGB("#4c6633")),
     ) { hwb, rgb ->
-        hwb should convertTo(rgb)
+        hwb.toRGB().shouldEqualColor(rgb, 0.002)
     }
 
     @Test
