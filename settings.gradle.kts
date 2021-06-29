@@ -1,5 +1,6 @@
 include("website:converter")
 include("website:gradient")
+include("scripts:limitfinder")
 
 // For compose web
 pluginManagement {

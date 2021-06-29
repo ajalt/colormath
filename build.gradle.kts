@@ -23,8 +23,10 @@ val VERSION_NAME: String by project
 group = "com.github.ajalt.colormath"
 version = getPublishVersion()
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
 kotlin {
