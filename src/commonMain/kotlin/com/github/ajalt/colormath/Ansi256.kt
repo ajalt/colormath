@@ -17,22 +17,21 @@ import kotlin.math.floor
  * - `232-255`: Grayscale colors
  */
 data class Ansi256(val code: Int) : Color {
-    companion object {
-        val model = object : ColorModel<Ansi256> {
-            override val name: String get() = "Ansi256"
-            override val components: List<ColorComponentInfo> = componentInfoList(
-                ColorComponentInfo("code", false, 0f, 255f),
-            )
+    companion object : ColorModel<Ansi256> {
+        override val name: String get() = "Ansi256"
+        override val components: List<ColorComponentInfo> = componentInfoList(
+            ColorComponentInfo("code", false, 0f, 255f),
+        )
 
-            override fun convert(color: Color): Ansi256 = color.toAnsi256()
-            override fun create(components: FloatArray): Ansi256 = withValidComps(components) {
-                Ansi256(it[0].toInt())
-            }
+        override fun convert(color: Color): Ansi256 = color.toAnsi256()
+        override fun create(components: FloatArray): Ansi256 = withValidComps(components) {
+            Ansi256(it[0].toInt())
         }
     }
 
+
     override val alpha: Float get() = 1f
-    override val model: ColorModel<Ansi256> get() = Ansi256.model
+    override val model: ColorModel<Ansi256> get() = Ansi256
 
     override fun toRGB(): RGB {
         // ansi16 colors

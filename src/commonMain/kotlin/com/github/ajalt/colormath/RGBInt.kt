@@ -21,24 +21,22 @@ import kotlin.jvm.JvmInline
  */
 @JvmInline
 value class RGBInt(val argb: UInt) : Color {
-    companion object {
-        val model = object : ColorModel<RGBInt> {
-            override val name: String get() = "RGBInt"
-            override val components: List<ColorComponentInfo> = componentInfoList(
-                ColorComponentInfo("R", false, 0f, 255f),
-                ColorComponentInfo("G", false, 0f, 255f),
-                ColorComponentInfo("B", false, 0f, 255f),
-            )
+    companion object : ColorModel<RGBInt> {
+        override val name: String get() = "RGBInt"
+        override val components: List<ColorComponentInfo> = componentInfoList(
+            ColorComponentInfo("R", false, 0f, 255f),
+            ColorComponentInfo("G", false, 0f, 255f),
+            ColorComponentInfo("B", false, 0f, 255f),
+        )
 
-            override fun convert(color: Color): RGBInt = color.toRGB().toRGBInt()
-            override fun create(components: FloatArray): RGBInt = withValidComps(components) {
-                RGBInt(
-                    r = it[0].toInt().toUByte(),
-                    g = it[1].toInt().toUByte(),
-                    b = it[2].toInt().toUByte(),
-                    a = it.getOrElse(3) { 255f }.toInt().toUByte()
-                )
-            }
+        override fun convert(color: Color): RGBInt = color.toRGB().toRGBInt()
+        override fun create(components: FloatArray): RGBInt = withValidComps(components) {
+            RGBInt(
+                r = it[0].toInt().toUByte(),
+                g = it[1].toInt().toUByte(),
+                b = it[2].toInt().toUByte(),
+                a = it.getOrElse(3) { 255f }.toInt().toUByte()
+            )
         }
     }
 
@@ -47,7 +45,7 @@ value class RGBInt(val argb: UInt) : Color {
     )
 
     override val alpha: Float get() = (a.toFloat() / 255f)
-    override val model: ColorModel<RGBInt> get() = RGBInt.model
+    override val model: ColorModel<RGBInt> get() = RGBInt
 
     val a: UByte get() = (argb shr 24).toUByte()
     val r: UByte get() = (argb shr 16).toUByte()
