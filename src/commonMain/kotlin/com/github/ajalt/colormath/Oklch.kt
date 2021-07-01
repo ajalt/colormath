@@ -44,5 +44,5 @@ data class Oklch(val l: Float, val c: Float, override val h: Float, override val
     override fun toXYZ(): XYZ = toOklab().toXYZ()
     override fun toOklab(): Oklab = fromPolarModel(c, h) { a, b -> return Oklab(l, a, b, alpha) }
     override fun toOklch(): Oklch = this
-    override fun components(): FloatArray = floatArrayOf(l, c, h, alpha)
+    override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
 }

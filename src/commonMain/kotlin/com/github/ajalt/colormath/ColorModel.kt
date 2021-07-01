@@ -7,7 +7,7 @@ interface ColorModel<T : Color> {
     /**
      * Information about the components of this color.
      *
-     * The components are the same size and order as the values returned from [Color.components]
+     * The components are the same size and order as the values returned from [Color.toArray]
      */
     val components: List<ColorComponentInfo>
 

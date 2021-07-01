@@ -69,5 +69,5 @@ data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float =
     }
 
     override fun toHSV() = this
-    override fun components(): FloatArray = floatArrayOf(h, s, v, alpha)
+    override fun toArray(): FloatArray = floatArrayOf(h, s, v, alpha)
 }

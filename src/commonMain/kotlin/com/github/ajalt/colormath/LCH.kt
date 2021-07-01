@@ -40,5 +40,5 @@ data class LCH(val l: Float, val c: Float, override val h: Float, override val a
     override fun toXYZ(): XYZ = toLAB().toXYZ()
     override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LAB(l, a, b, alpha) }
     override fun toLCH(): LCH = this
-    override fun components(): FloatArray = floatArrayOf(l, c, h, alpha)
+    override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
 }

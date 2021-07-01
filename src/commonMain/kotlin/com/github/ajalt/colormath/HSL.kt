@@ -87,5 +87,5 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
     }
 
     override fun toHSL() = this
-    override fun components(): FloatArray = floatArrayOf(h, s, l, alpha)
+    override fun toArray(): FloatArray = floatArrayOf(h, s, l, alpha)
 }

@@ -41,5 +41,5 @@ data class HCL(override val h: Float, val c: Float, val l: Float, override val a
     override fun toXYZ(): XYZ = toLUV().toXYZ()
     override fun toLUV(): LUV = fromPolarModel(c, h) { u, v -> LUV(l, u, v, alpha) }
     override fun toHCL(): HCL = this
-    override fun components(): FloatArray = floatArrayOf(h, c, l, alpha)
+    override fun toArray(): FloatArray = floatArrayOf(h, c, l, alpha)
 }
