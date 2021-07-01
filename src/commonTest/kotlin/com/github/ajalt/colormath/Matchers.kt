@@ -32,7 +32,7 @@ fun Color.shouldEqualColor(expected: Color, tolerance: Double = 0.0005) {
             a shouldBe (e plusOrMinus tolerance.toFloat())
         }
     } catch (e: AssertionError) {
-        println(this)
+        println("$this ${this.toRGB().toHex()}")
         throw e
     }
 }

@@ -20,13 +20,17 @@ fun <T : Color> ColorModel<T>.interpolator(vararg stops: Color, premultiplyAlpha
 
 interface Interpolator<T : Color> {
     fun interpolate(position: Float): T
+    fun interpolate(position: Double): T = interpolate(position.toFloat())
 }
 
 interface InterpolatorBuilder {
     fun stop(color: Color)
     fun stop(color: Color, position: Float)
+    fun stop(color: Color, position: Double) = stop(color, position.toFloat())
     fun stop(color: Color, position1: Float, position2: Float)
+    fun stop(color: Color, position1: Double, position2: Double) = stop(color, position1.toFloat(), position2.toFloat())
     fun hint(position: Float)
+    fun hint(position: Double) = hint(position.toFloat())
     var premultiplyAlpha: Boolean
 }
 
@@ -59,55 +63,64 @@ private class InterpolatorImpl<T : Color>(
 
         val (lc, lp) = stops[start]
         val (rc, rp) = stops[end]
-        return interpolateComponents(lc, rc, (rp - lp) / (pos - lp), premultiplyAlpha, model)
+        return interpolateComponents(lc, rc, (pos - lp) / (rp - lp), premultiplyAlpha, model)
     }
 }
 
 private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T>) : InterpolatorBuilder {
     override var premultiplyAlpha: Boolean = true
-    private val stops = mutableListOf<Pair<Color?, Float?>>()
+
+    // stops may omit position, never color
+    // hints omit color, never position
+    private data class Entry(val color: Color?, val pos: Float?) {
+        val isHint get() = color == null
+        val isStop get() = color != null
+    }
+    private val entries = mutableListOf<Entry>()
+
+
     override fun stop(color: Color) {
-        stops += color to null
+        entries += Entry(color, null)
     }
 
     override fun stop(color: Color, position: Float) {
-        stops += color to position
+        entries += Entry(color, position)
     }
 
     override fun stop(color: Color, position1: Float, position2: Float) {
-        stops += color to position1
-        stops += color to position2
+        entries += Entry(color, position1)
+        entries += Entry(color, position2)
     }
 
     override fun hint(position: Float) {
-        check(stops.isNotEmpty() && stops.last().first != null) { "Hints must be placed between two color stops" }
-        stops += null to position
+        check(entries.isNotEmpty() && entries.last().isStop) { "Hints must be placed between two color stops" }
+        entries += Entry(null, position)
     }
 
     fun build(): Interpolator<T> {
-        require(stops.count { it.first != null } >= 2) { "At least two color stops are required" }
-        require(stops.last().first != null) { "Must have a color stop after the last hint" }
+        require(entries.count { it.isStop } >= 2) { "At least two color stops are required" }
+        require(entries.last().isStop) { "Must have a color stop after the last hint" }
         // https://www.w3.org/TR/css-images-4/#color-stop-syntax
         fixupEndpoints()
         fixupDecreasingPos()
         fixupMissingPos()
         fixupHints()
 
-        return InterpolatorImpl(model, stops.map { (c, p) -> model.convert(c!!).toArray() to p!! }, premultiplyAlpha)
+        return InterpolatorImpl(model, entries.map { (c, p) -> model.convert(c!!).toArray() to p!! }, premultiplyAlpha)
     }
 
     // step 1
     private fun fixupEndpoints() {
-        stops[0] = stops[0].copy(second = stops[0].second ?: 0f)
-        stops[stops.lastIndex] = stops.last().copy(second = stops.last().second ?: 1f)
+        entries[0] = entries[0].copy(pos = entries[0].pos ?: 0f)
+        entries[entries.lastIndex] = entries.last().copy(pos = entries.last().pos ?: 1f)
     }
 
     // step 2
     private fun fixupDecreasingPos() {
         var pos = 0f
-        for ((i, stop) in stops.withIndex()) {
-            val p = stop.second ?: continue
-            if (p < pos) stops[i] = stop.copy(second = pos)
+        for ((i, entry) in entries.withIndex()) {
+            val p = entry.pos ?: continue
+            if (p < pos) entries[i] = entry.copy(pos = pos)
             pos = p
         }
     }
@@ -116,19 +129,25 @@ private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T
     // precondition: endpoints have positions
     private fun fixupMissingPos() {
         var runStart = -1
-        for ((i, stop) in stops.withIndex()) {
-            if (stop.second == null) {
+        var runLen = 0
+        for ((i, entry) in entries.withIndex()) {
+            if (entry.pos == null) {
                 if (runStart < 0) {
                     runStart = i
                 }
-            } else if (runStart < 0) {
-                val prevPos = stops[i - 1].second!!
-                val nextPos = stop.second!!
-                val len = i - runStart
-                for (j in 0 until len) {
-                    val k = runStart + j
-                    stops[k] = stops[k].copy(second = lerp(prevPos, nextPos, (1 + j).toFloat() / (len + 1)))
+                runLen += 1
+            } else if (entry.isStop && runLen > 0) {
+                val prevPos = entries[runStart - 1].pos!!
+                val nextPos = entry.pos
+                var fixed = 0
+                for (j in runStart until i) {
+                    if (entries[j].isHint) continue
+                    entries[j] = entries[j].copy(pos = lerp(prevPos, nextPos, (1 + fixed).toFloat() / (1 + runLen)))
+                    fixed += 1
                 }
+
+                runStart = -1
+                runLen = 0
             }
         }
     }
@@ -136,11 +155,11 @@ private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T
     private fun fixupHints() {
         // precondition: there is always a regular stop before and after every hint
         // precondition: all stops have positions
-        for ((i, stop) in stops.withIndex()) {
-            if (stop.first != null) continue
-            val prev = stops[i - 1].first!!
-            val next = stops[i + 1].first!!
-            stops[i] = stop.copy(first = prev.interpolate(next, 0.5f, premultiplyAlpha))
+        for ((i, stop) in entries.withIndex()) {
+            if (stop.isStop) continue
+            val prev = entries[i - 1].color!!
+            val next = entries[i + 1].color!!
+            entries[i] = stop.copy(color = prev.interpolate(next, 0.5f, premultiplyAlpha))
         }
     }
 }
