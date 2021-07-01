@@ -27,8 +27,8 @@ fun convertTo(expected: Color) = object : Matcher<Color> {
 fun Color.shouldEqualColor(expected: Color, tolerance: Double = 0.0005) {
     try {
         this::class shouldBe expected::class
-        components().size shouldBe expected.components().size
-        components().zip(expected.components()).forEach { (a, e) ->
+        toArray().size shouldBe expected.toArray().size
+        toArray().zip(expected.toArray()).forEach { (a, e) ->
             a shouldBe (e plusOrMinus tolerance.toFloat())
         }
     } catch (e: AssertionError) {

@@ -5,7 +5,7 @@ import com.github.ajalt.colormath.ColorModel
 
 fun <T : Color> T.interpolate(other: Color, amount: Float, premultiplyAlpha: Boolean = true): T =
     transform { model, components ->
-        interpolateComponents(components, model.convert(other).components(), amount, premultiplyAlpha, model)
+        interpolateComponents(components, model.convert(other).toArray(), amount, premultiplyAlpha, model)
     }
 
 fun <T : Color> ColorModel<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
@@ -14,7 +14,7 @@ fun <T : Color> ColorModel<T>.interpolator(builder: InterpolatorBuilder.() -> Un
 
 fun <T : Color> ColorModel<T>.interpolator(vararg stops: Color, premultiplyAlpha: Boolean = true): Interpolator<T> {
     require(stops.size > 1) { "interpolators require at least two stops" }
-    val positioned = stops.mapIndexed { i, it -> convert(it).components() to (i.toFloat() / stops.lastIndex) }
+    val positioned = stops.mapIndexed { i, it -> convert(it).toArray() to (i.toFloat() / stops.lastIndex) }
     return InterpolatorImpl(this, positioned, premultiplyAlpha)
 }
 
@@ -93,7 +93,7 @@ private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T
         fixupMissingPos()
         fixupHints()
 
-        return InterpolatorImpl(model, stops.map { (c, p) -> model.convert(c!!).components() to p!! }, premultiplyAlpha)
+        return InterpolatorImpl(model, stops.map { (c, p) -> model.convert(c!!).toArray() to p!! }, premultiplyAlpha)
     }
 
     // step 1

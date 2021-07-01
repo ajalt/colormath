@@ -58,7 +58,7 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
     override fun toXYZ(): XYZ = linearRGBToXYZ(r, g, b, alpha)
     override fun toRGB(): RGB = RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), a)
     override fun toLinearRGB(): LinearRGB = this
-    override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
+    override fun toArray(): FloatArray = floatArrayOf(r, g, b, alpha)
 }
 
 internal fun linearRGBToXYZ(r: Float, g: Float, b: Float, alpha: Float): XYZ {

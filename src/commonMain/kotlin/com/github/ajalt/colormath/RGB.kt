@@ -207,7 +207,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     }
 
     override fun toRGB() = this
-    override fun components(): FloatArray = floatArrayOf(r, g, b, alpha)
+    override fun toArray(): FloatArray = floatArrayOf(r, g, b, alpha)
 
     /**
      * Call [block] with the hue, min of color channels, max of color channels, and the

@@ -79,5 +79,5 @@ data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float =
     }
 
     override fun toHWB(): HWB = this
-    override fun components(): FloatArray = floatArrayOf(h, w, b, alpha)
+    override fun toArray(): FloatArray = floatArrayOf(h, w, b, alpha)
 }

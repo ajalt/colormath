@@ -104,5 +104,5 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
         )
     }
 
-    override fun components(): FloatArray = floatArrayOf(x, y, z, alpha)
+    override fun toArray(): FloatArray = floatArrayOf(x, y, z, alpha)
 }

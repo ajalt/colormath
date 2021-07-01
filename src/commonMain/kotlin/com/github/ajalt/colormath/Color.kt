@@ -44,7 +44,7 @@ interface Color {
     /** Convert this color to CIE LAB */
     fun toLAB(): LAB = toXYZ().toLAB()
 
-    /** Convert this color to CIE LCh */
+    /** Convert this color to CIE LCh(ab) */
     fun toLCH(): LCH = toLAB().toLCH()
 
     /** Convert this color to CIE LUV */
@@ -66,7 +66,7 @@ interface Color {
     fun toOklch(): Oklch = toOklab().toOklch()
 
     /** Create a [FloatArray] containing all components of this color, with the [alpha] as the last component */
-    fun components(): FloatArray
+    fun toArray(): FloatArray
 
     companion object // enables extensions on the interface
 }
