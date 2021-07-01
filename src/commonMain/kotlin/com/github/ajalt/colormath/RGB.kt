@@ -15,20 +15,19 @@ import kotlin.math.roundToInt
  * | [b]        | blue        | `[0, 1]` |
  */
 data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
-    companion object {
-        val model = object : ColorModel<RGB> {
-            override val name: String get() = "RGB"
-            override val components: List<ColorComponentInfo> = componentInfoList(
-                ColorComponentInfo("R", false, 0f, 1f),
-                ColorComponentInfo("G", false, 0f, 1f),
-                ColorComponentInfo("B", false, 0f, 1f),
-            )
+    companion object : ColorModel<RGB> {
+        override val name: String get() = "RGB"
+        override val components: List<ColorComponentInfo> = componentInfoList(
+            ColorComponentInfo("R", false, 0f, 1f),
+            ColorComponentInfo("G", false, 0f, 1f),
+            ColorComponentInfo("B", false, 0f, 1f),
+        )
 
-            override fun convert(color: Color): RGB = color.toRGB()
-            override fun create(components: FloatArray): RGB = withValidComps(components) {
-                RGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-            }
+        override fun convert(color: Color): RGB = color.toRGB()
+        override fun create(components: FloatArray): RGB = withValidComps(components) {
+            RGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
         }
+
 
         @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
         fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toRGB()
@@ -83,7 +82,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     )
 
     override val alpha: Float get() = a
-    override val model: ColorModel<RGB> get() = RGB.model
+    override val model: ColorModel<RGB> get() = RGB
 
     /** The red channel scaled to [0, 255]. HDR colors may exceed this range. */
     val redInt: Int get() = (r * 255).roundToInt()

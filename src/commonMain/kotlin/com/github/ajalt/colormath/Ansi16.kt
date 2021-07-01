@@ -20,22 +20,20 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | white  | 37         | 47         | 97        | 107       |
  */
 data class Ansi16(val code: Int) : Color {
-    companion object {
-        val model = object : ColorModel<Ansi16> {
-            override val name: String get() = "Ansi16"
-            override val components: List<ColorComponentInfo> = componentInfoList(
-                ColorComponentInfo("code", false, 30f, 37f),
-            )
+    companion object : ColorModel<Ansi16> {
+        override val name: String get() = "Ansi16"
+        override val components: List<ColorComponentInfo> = componentInfoList(
+            ColorComponentInfo("code", false, 30f, 37f),
+        )
 
-            override fun convert(color: Color): Ansi16 = color.toAnsi16()
-            override fun create(components: FloatArray): Ansi16 = withValidComps(components) {
-                Ansi16(it[0].toInt())
-            }
+        override fun convert(color: Color): Ansi16 = color.toAnsi16()
+        override fun create(components: FloatArray): Ansi16 = withValidComps(components) {
+            Ansi16(it[0].toInt())
         }
     }
 
     override val alpha: Float get() = 1f
-    override val model: ColorModel<Ansi16> get() = Ansi16.model
+    override val model: ColorModel<Ansi16> get() = Ansi16
 
     override fun toRGB(): RGB {
         val color = code % 10

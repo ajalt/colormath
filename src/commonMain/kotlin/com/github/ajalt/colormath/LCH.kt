@@ -14,19 +14,17 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | [h]        | hue, degrees | `[0, 360)`   |
  */
 data class LCH(val l: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
-    companion object {
-        val model = object : ColorModel<LCH> {
-            override val name: String get() = "LCH"
-            override val components: List<ColorComponentInfo> = componentInfoList(
-                ColorComponentInfo("L", false, 0f, 100f),
-                ColorComponentInfo("C", false, 0f, 133.80763f),
-                ColorComponentInfo("H", true, 0f, 360f),
-            )
+    companion object : ColorModel<LCH> {
+        override val name: String get() = "LCH"
+        override val components: List<ColorComponentInfo> = componentInfoList(
+            ColorComponentInfo("L", false, 0f, 100f),
+            ColorComponentInfo("C", false, 0f, 133.80763f),
+            ColorComponentInfo("H", true, 0f, 360f),
+        )
 
-            override fun convert(color: Color): LCH = color.toLCH()
-            override fun create(components: FloatArray): LCH = withValidComps(components) {
-                LCH(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-            }
+        override fun convert(color: Color): LCH = color.toLCH()
+        override fun create(components: FloatArray): LCH = withValidComps(components) {
+            LCH(it[0], it[1], it[2], it.getOrElse(3) { 1f })
         }
     }
 
@@ -36,7 +34,7 @@ data class LCH(val l: Float, val c: Float, override val h: Float, override val a
     constructor(l: Double, c: Double, h: Double, alpha: Float = 1.0f)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 
-    override val model: ColorModel<LCH> get() = LCH.model
+    override val model: ColorModel<LCH> get() = LCH
 
     override fun toRGB(): RGB = toLAB().toRGB()
     override fun toXYZ(): XYZ = toLAB().toXYZ()

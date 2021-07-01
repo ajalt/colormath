@@ -16,27 +16,26 @@ import kotlin.math.roundToInt
  * | [b]        | blackness    | `[0, 1]`   |
  */
 data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Color, HueColor {
-    companion object {
-        val model = object : ColorModel<HWB> {
-            override val name: String get() = "HWB"
-            override val components: List<ColorComponentInfo> = componentInfoList(
-                ColorComponentInfo("H", true, 0f, 360f),
-                ColorComponentInfo("W", false, 0f, 1f),
-                ColorComponentInfo("B", false, 0f, 1f),
-            )
+    companion object : ColorModel<HWB> {
+        override val name: String get() = "HWB"
+        override val components: List<ColorComponentInfo> = componentInfoList(
+            ColorComponentInfo("H", true, 0f, 360f),
+            ColorComponentInfo("W", false, 0f, 1f),
+            ColorComponentInfo("B", false, 0f, 1f),
+        )
 
-            override fun convert(color: Color): HWB = color.toHWB()
-            override fun create(components: FloatArray): HWB = withValidComps(components) {
-                HWB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-            }
+        override fun convert(color: Color): HWB = color.toHWB()
+        override fun create(components: FloatArray): HWB = withValidComps(components) {
+            HWB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
         }
+
     }
 
     constructor(h: Double, w: Double, b: Double, alpha: Double = 1.0)
             : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha.toFloat())
 
     override val alpha: Float get() = a
-    override val model: ColorModel<HWB> get() = HWB.model
+    override val model: ColorModel<HWB> get() = HWB
 
     override fun toRGB(): RGB {
         // Algorithm from Smith and Lyons, http://alvyray.com/Papers/CG/HWB_JGTv208.pdf, Appendix B

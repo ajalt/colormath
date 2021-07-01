@@ -8,9 +8,14 @@ fun <T : Color> T.interpolate(other: Color, amount: Float, premultiplyAlpha: Boo
         interpolateComponents(components, model.convert(other).components(), amount, premultiplyAlpha, model)
     }
 
-@Suppress("FunctionName")
-fun <T : Color> Interpolator(model: ColorModel<T>, builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
-    return InterpolatorBuilderImpl(model).apply(builder).build()
+fun <T : Color> ColorModel<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
+    return InterpolatorBuilderImpl(this).apply(builder).build()
+}
+
+fun <T : Color> ColorModel<T>.interpolator(vararg stops: Color, premultiplyAlpha: Boolean = true): Interpolator<T> {
+    require(stops.size > 1) { "interpolators require at least two stops" }
+    val positioned = stops.mapIndexed { i, it -> convert(it).components() to (i.toFloat() / stops.lastIndex) }
+    return InterpolatorImpl(this, positioned, premultiplyAlpha)
 }
 
 interface Interpolator<T : Color> {
@@ -31,6 +36,8 @@ fun <T : Color> Interpolator<T>.sequence(length: Int): Sequence<T> {
     return (0 until length).asSequence().map { interpolate(it / (length - 1).toFloat()) }
 }
 
+
+//region: implementations
 
 private class InterpolatorImpl<T : Color>(
     private val model: ColorModel<T>,
@@ -161,3 +168,4 @@ private fun div(model: ColorModel<*>, premultiplyAlpha: Boolean, components: Flo
 }
 
 private fun lerp(l: Float, r: Float, amount: Float): Float = l + amount * (r - l)
+//endregion

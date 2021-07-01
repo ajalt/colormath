@@ -16,27 +16,26 @@ import kotlin.math.pow
  * | [b]        | blue        | `[0, 1]` |
  */
 data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
-    companion object {
-        val model = object : ColorModel<LinearRGB> {
-            override val name: String get() = "LinearRGB"
-            override val components: List<ColorComponentInfo> = componentInfoList(
-                ColorComponentInfo("R", false, 0f, 1f),
-                ColorComponentInfo("G", false, 0f, 1f),
-                ColorComponentInfo("B", false, 0f, 1f),
-            )
+    companion object : ColorModel<LinearRGB> {
+        override val name: String get() = "LinearRGB"
+        override val components: List<ColorComponentInfo> = componentInfoList(
+            ColorComponentInfo("R", false, 0f, 1f),
+            ColorComponentInfo("G", false, 0f, 1f),
+            ColorComponentInfo("B", false, 0f, 1f),
+        )
 
-            override fun convert(color: Color): LinearRGB = color.toLinearRGB()
-            override fun create(components: FloatArray): LinearRGB = withValidComps(components) {
-                LinearRGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-            }
+        override fun convert(color: Color): LinearRGB = color.toLinearRGB()
+        override fun create(components: FloatArray): LinearRGB = withValidComps(components) {
+            LinearRGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
         }
     }
+
 
     constructor(r: Double, g: Double, b: Double, a: Float = 1f)
             : this(r.toFloat(), g.toFloat(), b.toFloat(), a)
 
     override val alpha: Float get() = a
-    override val model: ColorModel<LinearRGB> get() = LinearRGB.model
+    override val model: ColorModel<LinearRGB> get() = LinearRGB
 
     // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
     override fun toOklab(): Oklab {

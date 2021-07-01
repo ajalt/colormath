@@ -16,21 +16,20 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | [b]        | blue/yellow | `[-0.31, 0.20]` |
  */
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
-    companion object {
-        val model = object : ColorModel<Oklab> {
-            override val name: String get() = "Oklab"
-            override val components: List<ColorComponentInfo> = componentInfoList(
-                ColorComponentInfo("L", false, 0f, 100f),
-                ColorComponentInfo("A", false, -0.23388757f, 0.2762164f),
-                ColorComponentInfo("B", false, -0.31152815f, 0.19856976f),
-            )
+    companion object : ColorModel<Oklab> {
+        override val name: String get() = "Oklab"
+        override val components: List<ColorComponentInfo> = componentInfoList(
+            ColorComponentInfo("L", false, 0f, 100f),
+            ColorComponentInfo("A", false, -0.23388757f, 0.2762164f),
+            ColorComponentInfo("B", false, -0.31152815f, 0.19856976f),
+        )
 
-            override fun convert(color: Color): Oklab = color.toOklab()
-            override fun create(components: FloatArray): Oklab = withValidComps(components) {
-                Oklab(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-            }
+        override fun convert(color: Color): Oklab = color.toOklab()
+        override fun create(components: FloatArray): Oklab = withValidComps(components) {
+            Oklab(it[0], it[1], it[2], it.getOrElse(3) { 1f })
         }
     }
+
 
     constructor (l: Double, a: Double, b: Double, alpha: Double = 1.0)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
@@ -38,7 +37,7 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
     constructor (l: Double, a: Double, b: Double, alpha: Float)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
-    override val model: ColorModel<Oklab> get() = Oklab.model
+    override val model: ColorModel<Oklab> get() = Oklab
 
     override fun toRGB(): RGB = toLinearRGB().toRGB()
 
