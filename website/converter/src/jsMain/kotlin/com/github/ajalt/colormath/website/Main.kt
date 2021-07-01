@@ -3,23 +3,21 @@
 package com.github.ajalt.colormath.website
 
 import androidx.compose.runtime.*
+import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.Color
-import com.github.ajalt.colormath.RGB
-import com.github.ajalt.colormath.fromCss
 import org.jetbrains.compose.web.attributes.InputType
+import org.jetbrains.compose.web.attributes.value
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
-import org.jetbrains.compose.web.events.WrappedEvent
 import org.jetbrains.compose.web.renderComposable
 import kotlin.js.json
 
 fun main() {
-    var color: Color by mutableStateOf(Color.fromCss("rebeccapurple"))
+    var color: Color by mutableStateOf(Color.parse("rebeccapurple"))
 
     @Composable
     fun row(
-        title: String,
-        vararg a: Pair<Number, (Float) -> Color>,
+        model: ColorModel<*>,
         intScale: Int? = null,
     ) {
         P {
@@ -28,9 +26,9 @@ fun main() {
                     display(DisplayStyle.InlineBlock)
                     property("min-width", 5.em)
                 }
-            }) { Text(title) }
-            for ((get, set) in a) {
-                Input(InputType.Number, value = fmt(get.toDouble() * (intScale ?: 1)), attrs = {
+            }) { Text(model.name) }
+            for (i in 0 until model.components.lastIndex) {
+                Input(InputType.Number, attrs = {
                     style {
                         property("max-width", 20.percent)
                         property("appearance", "textfield")
@@ -40,7 +38,13 @@ fun main() {
                     }
                     classes("md-search__input") // class is part of mkdocs material
                     attr("step", if (intScale == null) "0.1" else "1")
-                    onChange { color = set(it.stringValue.toFloat() / (intScale ?: 1)) }
+
+                    onInput {
+                        val a = model.convert(color).toArray()
+                        a[i] = (it.value ?: 0).toFloat() / (intScale ?: 1)
+                        color = model.create(a)
+                    }
+                    value(fmt(model.convert(color).toArray()[i] * (intScale ?: 1)))
                 })
             }
         }
@@ -55,77 +59,17 @@ fun main() {
                         display(DisplayStyle.InlineBlock)
                     }
                 }) { Text("Pick Color") }
-                Input(InputType.Color, value = color.toRGB().toHex(), attrs = {
+                Input(InputType.Color, attrs = {
                     id("pickerInput")
-                    onChange { color = RGB(it.stringValue) }
+                    onInput { color = RGB(it.value) }
+                    value(color.toRGB().toHex())
                 })
             }
-            row(
-                "RGB",
-                color.toRGB().r to { color.toRGB().copy(r = it) },
-                color.toRGB().g to { color.toRGB().copy(g = it) },
-                color.toRGB().b to { color.toRGB().copy(b = it) },
-                intScale = 255,
-            )
-            row(
-                "CMYK",
-                color.toCMYK().c to { color.toCMYK().copy(c = it) },
-                color.toCMYK().m to { color.toCMYK().copy(m = it) },
-                color.toCMYK().y to { color.toCMYK().copy(y = it) },
-                color.toCMYK().k to { color.toCMYK().copy(k = it) },
-            )
-            row(
-                "HSL",
-                color.toHSL().h to { color.toHSL().copy(h = it) },
-                color.toHSL().s to { color.toHSL().copy(s = it) },
-                color.toHSL().l to { color.toHSL().copy(l = it) },
-            )
-            row(
-                "HSV",
-                color.toHSV().h to { color.toHSV().copy(h = it) },
-                color.toHSV().s to { color.toHSV().copy(s = it) },
-                color.toHSV().v to { color.toHSV().copy(v = it) },
-            )
-            row(
-                "HWB",
-                color.toHWB().h to { color.toHWB().copy(h = it) },
-                color.toHWB().w to { color.toHWB().copy(w = it) },
-                color.toHWB().b to { color.toHWB().copy(b = it) },
-            )
-            row(
-                "LAB",
-                color.toLAB().l to { color.toLAB().copy(l = it) },
-                color.toLAB().a to { color.toLAB().copy(a = it) },
-                color.toLAB().b to { color.toLAB().copy(b = it) },
-            )
-            row(
-                "LCH",
-                color.toHCL().l to { color.toHCL().copy(l = it) },
-                color.toHCL().c to { color.toHCL().copy(c = it) },
-                color.toHCL().h to { color.toHCL().copy(h = it) },
-            )
-            row(
-                "LUV",
-                color.toLUV().l to { color.toLUV().copy(l = it) },
-                color.toLUV().u to { color.toLUV().copy(u = it) },
-                color.toLUV().v to { color.toLUV().copy(v = it) },
-            )
-            row(
-                "XYZ",
-                color.toXYZ().x to { color.toXYZ().copy(x = it) },
-                color.toXYZ().y to { color.toXYZ().copy(y = it) },
-                color.toXYZ().z to { color.toXYZ().copy(z = it) },
-            )
-            row(
-                "Ansi-16",
-                color.toAnsi16().code to { color.toAnsi16().copy(code = it.toInt()) },
-                intScale = 1,
-            )
-            row(
-                "Ansi-256",
-                color.toAnsi256().code to { color.toAnsi256().copy(code = it.toInt()) },
-                intScale = 1,
-            )
+            row(RGB, intScale = 255)
+            listOf(HSL, HSV, HWB, LAB, LCH, LUV, HCL, XYZ, Oklab, Oklch, CMYK).forEach { row(it) }
+            row(Ansi16, intScale = 1)
+            row(Ansi256, intScale = 1)
+
             Div(attrs = {
                 style {
                     backgroundColor(color.toRGB().toHex())
@@ -146,5 +90,3 @@ private fun fmt(number: Number): String {
         json("useGrouping" to false, "maximumFractionDigits" to 3)
     ).unsafeCast<String>()
 }
-
-private val WrappedEvent.stringValue get() = nativeEvent.target.asDynamic().value as String
