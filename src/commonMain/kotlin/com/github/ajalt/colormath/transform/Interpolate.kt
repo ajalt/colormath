@@ -5,7 +5,9 @@ import com.github.ajalt.colormath.ColorModel
 
 fun <T : Color> T.interpolate(other: Color, amount: Float, premultiplyAlpha: Boolean = true): T =
     transform { model, components ->
-        interpolateComponents(components, model.convert(other).toArray(), amount, premultiplyAlpha, model)
+        val lmult = mult(model, premultiplyAlpha, components)
+        val rmult = mult(model, premultiplyAlpha,  model.convert(other).toArray())
+        interpolateComponents(lmult, rmult, amount, premultiplyAlpha, model)
     }
 
 fun <T : Color> ColorModel<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
@@ -76,6 +78,7 @@ private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T
         val isHint get() = color == null
         val isStop get() = color != null
     }
+
     private val entries = mutableListOf<Entry>()
 
 
@@ -106,7 +109,7 @@ private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T
         fixupMissingPos()
         fixupHints()
 
-        return InterpolatorImpl(model, entries.map { (c, p) -> model.convert(c!!).toArray() to p!! }, premultiplyAlpha)
+        return InterpolatorImpl(model, bakeComponents(), premultiplyAlpha)
     }
 
     // step 1
@@ -162,28 +165,36 @@ private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T
             entries[i] = stop.copy(color = prev.interpolate(next, 0.5f, premultiplyAlpha))
         }
     }
+
+    // Convert all colors to this model, premultiply alphas if necessary, and convert to arrays
+    private fun bakeComponents(): List<Pair<FloatArray, Float>> {
+        // precondition: all entries have colors and positions
+        return entries.map { (c, p) ->
+            mult(model, premultiplyAlpha, model.convert(c!!).toArray()) to p!!
+        }
+    }
 }
 
 private fun interpolateComponents(
     l: FloatArray,
     r: FloatArray,
     amount: Float,
-    premultiplyAlpha: Boolean,
+    divideAlpha: Boolean,
     model: ColorModel<*>,
 ): FloatArray {
-    val lmult = mult(model, premultiplyAlpha, l)
-    val rmult = mult(model, premultiplyAlpha, r)
-    return div(model, premultiplyAlpha, FloatArray(l.size) {
-        lerp(lmult[it], rmult[it], amount)
+    return div(model, divideAlpha, FloatArray(l.size) {
+        lerp(l[it], r[it], amount)
     })
 }
 
 private fun mult(model: ColorModel<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
-    return if (premultiplyAlpha) multiplyAlphaTransform(model, components) else components
+    if (premultiplyAlpha) multiplyAlphaInPlace(model, components)
+    return components
 }
 
 private fun div(model: ColorModel<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
-    return if (premultiplyAlpha) divideAlphaTransform(model, components) else components
+    if (premultiplyAlpha) divideAlphaInPlace(model, components)
+    return components
 }
 
 private fun lerp(l: Float, r: Float, amount: Float): Float = l + amount * (r - l)
