@@ -84,10 +84,10 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     override val alpha: Float get() = a
     override val model: ColorModel<RGB> get() = RGB
 
-    /** The red channel scaled to [0, 255]. HDR colors may exceed this range. */
+    /** The red channel scaled to [0, 255]. */
     val redInt: Int get() = (r * 255).roundToInt()
 
-    /** The green channel scaled to [0, 255]. HDR colors may exceed this range. */
+    /** The green channel scaled to [0, 255]. */
     val greenInt: Int get() = (g * 255).roundToInt()
 
     /** The blue channel scaled to [0, 255]. HDR colors may exceed this range. */
@@ -102,7 +102,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     /**
      * Return this color as a packed ARGB integer.
      *
-     * The color will be clamped to the SDR range `[0, 255]`.
+     * All components will be clamped to `[0, 255]`.
      */
     fun toRGBInt() = RGBInt(
         r = redInt.coerceIn(0, 255).toUByte(),
@@ -148,9 +148,6 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     }
 
     override fun toXYZ(): XYZ = linearRGBToXYZ(sRGBToLinear(r), sRGBToLinear(g), sRGBToLinear(b), alpha)
-    override fun toLAB(): LAB = toXYZ().toLAB()
-    override fun toLUV(): LUV = toXYZ().toLUV()
-    override fun toHCL(): HCL = toXYZ().toLUV().toHCL()
 
     override fun toCMYK(): CMYK {
         val k = 1 - maxOf(r, b, g)
