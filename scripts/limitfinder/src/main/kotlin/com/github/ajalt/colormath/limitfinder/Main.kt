@@ -19,7 +19,7 @@ fun main() {
         for (r in 0..255) {
             for (g in 0..255) {
                 for (b in 0..255) {
-                    val c = color.convertToThis(RGB(r, g, b)).components()
+                    val c = color.model.convert(RGB(r, g, b)).toArray()
                     for (i in mins.indices) {
                         mins[i] = minOf(mins[i], c[i])
                         maxs[i] = maxOf(maxs[i], c[i])
