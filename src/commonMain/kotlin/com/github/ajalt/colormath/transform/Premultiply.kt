@@ -2,18 +2,23 @@ package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
+import com.github.ajalt.colormath.ColorModel
 
 /**
  * Multiply this color's components by its alpha value.
  *
  * [Polar components][ColorComponentInfo.isPolar] and the alpha value itself are not changed.
  */
-fun <T : Color> T.multiplyAlpha() = transform(multiplyAlphaTransform)
-internal val multiplyAlphaTransform: ColorTransform<*> = { model, components ->
+fun <T : Color> T.multiplyAlpha() = transform { model, components ->
+    components.also { multiplyAlphaInPlace(model, it) }
+}
+
+internal fun multiplyAlphaInPlace(model: ColorModel<*>, components: FloatArray) {
     val a = components.last()
-    FloatArray(components.size) { i ->
-        if (i == components.lastIndex || model.components[i].isPolar) components[i]
-        else components[i] * a
+    if (a == 1f) return
+    for (i in 0 until components.lastIndex) {
+        if (model.components[i].isPolar) continue
+        components[i] = components[i] * a
     }
 }
 
@@ -25,12 +30,16 @@ internal val multiplyAlphaTransform: ColorTransform<*> = { model, components ->
  * [Polar components][ColorComponentInfo.isPolar] and the alpha value itself are not changed.
  * If `alpha == 0`, all components are left unchanged.
  */
-fun <T : Color> T.divideAlpha(): T = transform(divideAlphaTransform)
-val divideAlphaTransform: ColorTransform<*> = { model, components ->
+fun <T : Color> T.divideAlpha(): T = transform { model, components ->
+    components.also { divideAlphaInPlace(model, it) }
+}
+
+internal fun divideAlphaInPlace(model: ColorModel<*>, components: FloatArray) {
     val a = components.last()
-    FloatArray(components.size) { i ->
-        if (a == 0f || i == components.lastIndex || model.components[i].isPolar) components[i]
-        else components[i] / a
+    if (a == 0f || a == 1f) return
+    for (i in 0 until components.lastIndex) {
+        if (model.components[i].isPolar) continue
+        components[i] = components[i] / a
     }
 }
 
