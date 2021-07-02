@@ -10,11 +10,11 @@ package com.github.ajalt.colormath
  * the values may be converted through one or more intermediate representations. This may cause a
  * loss of precision.
  *
- * All colors have an [alpha] value, which is the opacity of the color as a fraction between 0 and 1. If a model doesn't
- * support an alpha channel, the value 1 (fully opaque) is used.
+ * All colors have an [alpha] value, which is the opacity of the color as a fraction between 0 and 1.
+ * If a model doesn't support an alpha channel, the value 1 (fully opaque) is used.
  */
 interface Color {
-    /** The opacity of this color, in the range `[0, 1]`. */
+    /** The opacity of this color, in the range `[0, 1]` */
     val alpha: Float
 
     /** The model describing this color */
