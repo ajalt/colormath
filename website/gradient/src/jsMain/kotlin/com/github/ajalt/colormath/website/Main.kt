@@ -18,7 +18,7 @@ import kotlin.js.json
 private val rectColors = listOf(RGB, LAB, LUV, Oklab)
 
 fun main() {
-    var colors by mutableStateOf(listOf(RGB("#0000cc"), Color.parse("aliceblue")))
+    var colors by mutableStateOf(listOf(RGB(0.0, 0.0, 0.5), Color.parse("aliceblue")))
 
     @Composable
     fun row(model: ColorModel<*>) {
@@ -37,8 +37,8 @@ fun main() {
                 }
             }) { Text(model.name) }
             Canvas(attrs = {
-                this.attr("width", "800")
-                this.attr("height", "60")
+                this.attr("width", "600")
+                this.attr("height", "50")
 
                 style {
                     borderRadius(4.px)
@@ -56,6 +56,7 @@ fun main() {
                 display(DisplayStyle.Flex)
                 flexWrap(FlexWrap.Wrap)
                 justifyContent(JustifyContent.SpaceEvenly)
+                property("margin-bottom", 8.px)
             }
         }) {
             for ((i, color) in colors.withIndex()) {
