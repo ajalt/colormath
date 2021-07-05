@@ -6,8 +6,8 @@ import com.github.ajalt.colormath.ColorModel
 fun <T : Color> T.interpolate(other: Color, amount: Float, premultiplyAlpha: Boolean = true): T =
     transform { model, components ->
         val lmult = mult(model, premultiplyAlpha, components)
-        val rmult = mult(model, premultiplyAlpha,  model.convert(other).toArray())
-        interpolateComponents(lmult, rmult, amount, premultiplyAlpha, model)
+        val rmult = mult(model, premultiplyAlpha, model.convert(other).toArray())
+        interpolateComponents(lmult, rmult, FloatArray(components.size), amount, premultiplyAlpha, model)
     }
 
 fun <T : Color> ColorModel<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
@@ -50,6 +50,8 @@ private class InterpolatorImpl<T : Color>(
     private val stops: List<Pair<FloatArray, Float>>,
     private val premultiplyAlpha: Boolean,
 ) : Interpolator<T> {
+    private val out = FloatArray(model.components.size)
+
     override fun interpolate(position: Float): T {
         return model.create(lerpComponents(position))
     }
@@ -65,7 +67,7 @@ private class InterpolatorImpl<T : Color>(
 
         val (lc, lp) = stops[start]
         val (rc, rp) = stops[end]
-        return interpolateComponents(lc, rc, (pos - lp) / (rp - lp), premultiplyAlpha, model)
+        return interpolateComponents(lc, rc, out, (pos - lp) / (rp - lp), premultiplyAlpha, model)
     }
 }
 
@@ -178,13 +180,13 @@ private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T
 private fun interpolateComponents(
     l: FloatArray,
     r: FloatArray,
+    out: FloatArray,
     amount: Float,
     divideAlpha: Boolean,
     model: ColorModel<*>,
 ): FloatArray {
-    return div(model, divideAlpha, FloatArray(l.size) {
-        lerp(l[it], r[it], amount)
-    })
+    repeat(out.size) { out[it] = lerp(l[it], r[it], amount) }
+    return div(model, divideAlpha, out)
 }
 
 private fun mult(model: ColorModel<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
