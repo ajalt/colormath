@@ -4,7 +4,7 @@ import com.github.ajalt.colormath.internal.degToGrad
 import com.github.ajalt.colormath.internal.degToRad
 import com.github.ajalt.colormath.internal.degToTurns
 
-interface HueColor {
+interface HueColor: Color {
     /** The hue, as degrees in the range `[0, 360)` */
     val h: Float
 }
