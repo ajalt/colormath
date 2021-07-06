@@ -4,9 +4,9 @@ import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.internal.Illuminant.D65
 
 /**
- * CIE XYZ color space.
+ * The CIEXYZ color space.
  *
- * Conversions use D65/2° illuminant, and sRGB profile.
+ * [XYZ] is calculated relative to the D65 standard illuminant.
  *
  * | Component  | sRGB Gamut  |
  * | ---------- | ----------- |

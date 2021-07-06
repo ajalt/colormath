@@ -29,6 +29,7 @@ class Ansi16Test {
         row(97, RGB(255, 255, 255))
     ) { ansi, rgb ->
         Ansi16(ansi) should convertTo(rgb)
+        Ansi16(ansi + 10) should convertTo(rgb)
     }
 
     @Test

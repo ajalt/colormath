@@ -5,9 +5,9 @@ import com.github.ajalt.colormath.internal.Illuminant.D65
 import kotlin.math.pow
 
 /**
- * CIE LUV (`CIE 1976 L*u*v*`) color space.
+ * The CIE LUV color space, also referred to as `CIE 1976 L*u*v*`.
  *
- * Uses the D65 standard illuminant.
+ * [LUV] is calculated relative to the D65 standard illuminant.
  *
  * | Component  | Description  | Gamut         |
  * | ---------- | ------------ | ------------- |

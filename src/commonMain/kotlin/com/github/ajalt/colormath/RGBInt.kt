@@ -6,7 +6,7 @@ import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.jvm.JvmInline
 
 /**
- * A color in the sRGB color space, which uses the D65 illuminant.
+ * A representation of [RGB] that packs color components into a single integer.
  *
  * This is an inline value class stores the color as a packed [argb] integer, such as those returned from
  * `android.graphics.Color.argb` or `java.awt.image.BufferedImage.getRGB`.

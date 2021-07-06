@@ -10,7 +10,7 @@ import kotlin.math.roundToInt
 /**
  * A color model represented with Hue, Saturation, and Value.
  *
- * The color space is the same sRGB space used in [RGB].
+ * This is a cylindrical representation of the sRGB space used in [RGB].
  *
  * | Component  | Description  | Gamut      |
  * | ---------- | ------------ | ---------- |
