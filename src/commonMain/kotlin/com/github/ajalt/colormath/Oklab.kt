@@ -5,9 +5,7 @@ import com.github.ajalt.colormath.internal.toPolarModel
 import com.github.ajalt.colormath.internal.withValidComps
 
 /**
- * Oklab color space.
- *
- * Learn more: https://bottosson.github.io/posts/oklab/
+ * The Oklab color space.
  *
  * | Component  | Description | sRGB Gamut      |
  * | ---------- | ----------- | --------------- |

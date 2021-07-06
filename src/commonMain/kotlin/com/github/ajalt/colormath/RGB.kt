@@ -6,7 +6,7 @@ import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.math.roundToInt
 
 /**
- * A color in the sRGB color space, which uses the D65 illuminant.
+ * The sRGB color space.
  *
  * | Component  | Description | Gamut    |
  * | ---------- | ----------- | -------- |

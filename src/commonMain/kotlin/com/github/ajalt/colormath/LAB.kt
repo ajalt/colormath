@@ -5,9 +5,11 @@ import com.github.ajalt.colormath.internal.Illuminant.D65
 import kotlin.math.pow
 
 /**
- * CIE LAB color space.
+ * CIE LAB color space, also referred to as `CIE 1976 L*a*b*`.
  *
- * Conversions use D65 reference white.
+ * The cylindrical representation of this space is [LCH].
+ *
+ * [LAB] is calculated relative to the D65 standard illuminant.
  *
  * | Component  | Description | sRGB Gamut         |
  * | ---------- | ----------- | ------------------ |

@@ -6,6 +6,8 @@ import com.github.ajalt.colormath.internal.withValidComps
 /**
  * An ANSI-16 color code
  *
+ * Conversions to Ansi16 will always use foreground color codes.
+ *
  * ## Valid codes
  *
  * | Color  | Foreground | Background | Bright FG | Bright BG |
@@ -39,13 +41,11 @@ data class Ansi16(val code: Int) : Color {
         val color = code % 10
 
         // grayscale
-        if (color == 0 || color == 7) {
-            val c: Double =
-                if (code > 50) color + 3.5
-                else color.toDouble()
-
-            val v = c / 10.5
-            return RGB(v, v, v)
+        when (color) {
+            30 -> return RGB(0f, 0f, 0f)
+            90 -> return RGB(1 / 3f, 1 / 3f, 1 / 3f)
+            37 -> return RGB(2 / 3f, 2 / 3f, 2 / 3f)
+            97 -> return RGB(1.0f, 1.0f, 1.0f)
         }
 
         // color
