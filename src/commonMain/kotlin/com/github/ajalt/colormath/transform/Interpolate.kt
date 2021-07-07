@@ -4,7 +4,7 @@ import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorModel
 
 fun <T : Color> T.interpolate(other: Color, amount: Float, premultiplyAlpha: Boolean = true): T =
-    transform { model, components ->
+    map { model, components ->
         val lmult = mult(model, premultiplyAlpha, components)
         val rmult = mult(model, premultiplyAlpha, model.convert(other).toArray())
         interpolateComponents(lmult, rmult, FloatArray(components.size), amount, premultiplyAlpha, model)
