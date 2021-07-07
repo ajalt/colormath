@@ -9,7 +9,7 @@ import com.github.ajalt.colormath.ColorModel
  *
  * [Polar components][ColorComponentInfo.isPolar] and the alpha value itself are not changed.
  */
-fun <T : Color> T.multiplyAlpha() = transform { model, components ->
+fun <T : Color> T.multiplyAlpha() = map { model, components ->
     components.also { multiplyAlphaInPlace(model, it) }
 }
 
@@ -30,7 +30,7 @@ internal fun multiplyAlphaInPlace(model: ColorModel<*>, components: FloatArray) 
  * [Polar components][ColorComponentInfo.isPolar] and the alpha value itself are not changed.
  * If `alpha == 0`, all components are left unchanged.
  */
-fun <T : Color> T.divideAlpha(): T = transform { model, components ->
+fun <T : Color> T.divideAlpha(): T = map { model, components ->
     components.also { divideAlphaInPlace(model, it) }
 }
 
