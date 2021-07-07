@@ -1,9 +1,6 @@
 package com.github.ajalt.colormath
 
-import io.kotest.assertions.Actual
-import io.kotest.assertions.Expected
-import io.kotest.assertions.failure
-import io.kotest.assertions.intellijFormatError
+import io.kotest.assertions.*
 import io.kotest.assertions.show.show
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
@@ -27,9 +24,11 @@ fun convertTo(expected: Color) = object : Matcher<Color> {
 fun Color.shouldEqualColor(expected: Color, tolerance: Double = 0.0005) {
     try {
         this::class shouldBe expected::class
-        toArray().size shouldBe expected.toArray().size
-        toArray().zip(expected.toArray()).forEach { (a, e) ->
-            a shouldBe (e plusOrMinus tolerance.toFloat())
+        val l = toArray()
+        val r = expected.toArray()
+        l.size shouldBe r.size
+        for (i in l.indices) {
+            withClue(model.components[i].name) {l[i] shouldBe (r[i] plusOrMinus tolerance.toFloat())}
         }
     } catch (e: AssertionError) {
         println("$this ${this.toRGB().toHex()}")
