@@ -67,4 +67,14 @@ class XYZTest {
     ) { xyz, oklab ->
         xyz.toOklab().shouldEqualColor(oklab)
     }
+
+    @Test
+    @JsName("XYZ_to_JzAzBz")
+    fun `XYZ to JzAzBz`() = forAll(
+        row(XYZ(0.20654008, 0.12197225, 0.05136952), JzAzBz(0.00535, +0.00924, +0.00526)),
+        row(XYZ(0.14222010, 0.23042768, 0.10495772), JzAzBz(0.00619, -0.00608, +0.00534)),
+        row(XYZ(0.96907232, 1.00000000, 1.12179215), JzAzBz(0.01766, +0.00064, -0.00052)),
+    ) { xyz, jab ->
+        xyz.toJzAzBz().shouldEqualColor(jab, 0.00001)
+    }
 }

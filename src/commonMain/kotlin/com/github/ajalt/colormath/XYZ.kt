@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.internal.Illuminant.D65
+import kotlin.math.pow
 
 /**
  * The CIEXYZ color space.
@@ -44,8 +45,8 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
     override fun toRGB(): RGB = RGB(linearToSRGB(r()), linearToSRGB(g()), linearToSRGB(b()), alpha)
     override fun toLinearRGB(): LinearRGB = LinearRGB(r(), g(), b(), alpha)
 
+    // http://www.brucelindbloom.com/Eqn_XYZ_to_Lab.html
     override fun toLAB(): LAB {
-        // http://www.brucelindbloom.com/Eqn_XYZ_to_Lab.html
         fun f(t: Float) = when {
             t > CIE_E -> cbrt(t)
             else -> (t * CIE_K + 16) / 116
@@ -62,8 +63,8 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
         return LAB(l, a, b, alpha)
     }
 
+    // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
     override fun toLUV(): LUV {
-        // Equations from http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
         val x = this.x * 100f
         val y = this.y * 100f
         val z = this.z * 100f
@@ -104,5 +105,24 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
         )
     }
 
+    override fun toJzAzBz(): JzAzBz {
+        fun pq(x: Double): Double {
+            val xx = (x * 1e-4).pow(0.1593017578125)
+            return ((0.8359375 + 18.8515625 * xx) / (1 + 18.6875 * xx)).pow(134.034375)
+        }
+
+        val lp = pq(0.674207838 * x + 0.382799340 * y - 0.047570458 * z)
+        val mp = pq(0.149284160 * x + 0.739628340 * y + 0.083327300 * z)
+        val sp = pq(0.070941080 * x + 0.174768000 * y + 0.670970020 * z)
+        val iz = 0.5 * (lp + mp)
+        return JzAzBz(
+            j = (0.44 * iz) / (1 - 0.56 * iz) - JzAzBz.d0,
+            a = 3.524000 * lp - 4.066708 * mp + 0.542708 * sp,
+            b = 0.199076 * lp + 1.096799 * mp - 1.295875 * sp,
+            alpha = alpha
+        )
+    }
+
+    override fun toXYZ(): XYZ = this
     override fun toArray(): FloatArray = floatArrayOf(x, y, z, alpha)
 }

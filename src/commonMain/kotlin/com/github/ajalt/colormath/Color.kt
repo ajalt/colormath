@@ -62,8 +62,14 @@ interface Color {
     /** Convert this color to Oklab */
     fun toOklab(): Oklab = toXYZ().toOklab()
 
-    /** Convert this color to Oklch*/
+    /** Convert this color to Oklch */
     fun toOklch(): Oklch = toOklab().toOklch()
+
+    /** Convert this color to JzAzBz */
+    fun toJzAzBz(): JzAzBz = toXYZ().toJzAzBz()
+
+    /** Convert this color to JzCzHz */
+    fun toJzCzHz(): JzCzHz = toJzAzBz().toJzCzHz()
 
     /** Create a [FloatArray] containing all components of this color, with the [alpha] as the last component */
     fun toArray(): FloatArray
