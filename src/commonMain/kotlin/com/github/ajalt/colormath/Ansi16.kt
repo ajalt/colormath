@@ -6,7 +6,8 @@ import com.github.ajalt.colormath.internal.withValidComps
 /**
  * An ANSI-16 color code
  *
- * Conversions to Ansi16 will always use foreground color codes.
+ * Conversions to [Ansi16] will always use foreground color codes. Conversions from [Ansi16] to [RGB] use the Windows XP
+ * Console palette.
  *
  * ## Valid codes
  *
@@ -38,17 +39,16 @@ data class Ansi16(val code: Int) : Color {
     override val model: ColorModel<Ansi16> get() = Ansi16
 
     override fun toRGB(): RGB {
-        val color = code % 10
-
         // grayscale
-        when (color) {
-            30 -> return RGB(0f, 0f, 0f)
-            90 -> return RGB(1 / 3f, 1 / 3f, 1 / 3f)
-            37 -> return RGB(2 / 3f, 2 / 3f, 2 / 3f)
-            97 -> return RGB(1.0f, 1.0f, 1.0f)
+        when (code) {
+            30, 40 -> return RGB(0f, 0f, 0f)
+            90, 100 -> return RGB(128, 128, 128)
+            37, 47 -> return RGB(192, 192, 192)
+            97, 107 -> return RGB(1.0f, 1.0f, 1.0f)
         }
 
         // color
+        val color = code % 10
         val mul = if (code > 50) 1f else 0.5f
         val r = ((color % 2) * mul)
         val g = (((color / 2) % 2) * mul)
