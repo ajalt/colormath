@@ -2,10 +2,17 @@ package com.github.ajalt.colormath
 
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class LUVTest {
+    @Test
+    fun roundtrip() {
+        LUV(0.01, 0.02, 0.03, 0.04).let { it.toLUV() shouldBeSameInstanceAs it }
+        LUV(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toLUV().shouldEqualColor(it) }
+    }
+
     @Test
     @JsName("LUV_to_XYZ")
     fun `LUV to XYZ`() = forAll(

@@ -8,6 +8,15 @@ import kotlin.test.Test
 
 class RGBIntTest {
     @Test
+    fun roundtrip() = forAll(
+        row(RGBInt(128, 128, 128, 128)),
+        row(RGBInt(128u, 128u, 128u, 128u)),
+        row(RGBInt(1128.toUByte(), 128.toUByte(), 128.toUByte(), 128.toUByte())),
+    ) {
+        it.toRGB().toRGBInt().shouldEqualColor(it)
+    }
+
+    @Test
     @JsName("RGBInt_to_RGB")
     fun `RGBInt to RGB`() = forAll(
         row(0x00000000u, RGB(0, 0, 0, 0f)),

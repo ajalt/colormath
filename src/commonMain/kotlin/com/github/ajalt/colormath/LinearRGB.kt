@@ -30,6 +30,8 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
         }
     }
 
+    constructor(r: Double, g: Double, b: Double, a: Double)
+            : this(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
 
     constructor(r: Double, g: Double, b: Double, a: Float = 1f)
             : this(r.toFloat(), g.toFloat(), b.toFloat(), a)

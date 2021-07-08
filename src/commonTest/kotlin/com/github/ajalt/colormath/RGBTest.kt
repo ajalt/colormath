@@ -6,10 +6,17 @@ import io.kotest.data.row
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class RGBTest {
+    @Test
+    fun roundtrip() {
+        RGB(0.01, 0.02, 0.03, 0.04).let { it.toRGB() shouldBeSameInstanceAs it }
+        RGB(0.01, 0.02, 0.03, 0.04f).let { it.toXYZ().toRGB().shouldEqualColor(it) }
+    }
+
     @Test
     @JsName("RGB_from_bytes")
     @Suppress("Deprecation")

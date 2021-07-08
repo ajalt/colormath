@@ -36,6 +36,12 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
      */
     constructor(h: Int, s: Int, l: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, l / 100f, a)
 
+    constructor (l: Double, a: Double, b: Double, alpha: Double)
+            : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
+
+    constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
+            : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
+
     override val alpha: Float get() = a
     override val model: ColorModel<HSL> get() = HSL
 
