@@ -3,10 +3,11 @@
 ## Unreleased
 
 ### Added
-- `RGBInt`: an inline class that stores `RGB` colors in a single Int. Create instances directly, or convert to it with `RGB.toRGBInt()`
-- `LinearRGB`: a linearization of the sRGB color space, more suitable for color manipulation.
 - `Oklab` and `Oklch`: perceptual color spaces for image processing
+- `JzAzBz` and `JzCzHz`: perceptually uniform space where euclidean distance predicts perceptual difference
+- `LinearRGB`: a linearization of the sRGB color space, more suitable for color manipulation.
 - `LCH`: the cylindrical representation of `LAB`
+- `RGBInt`: an inline class that stores `RGB` colors packed in a single Int. Create instances directly, or convert to it with `RGB.toRGBInt()`
 
 ### Changed
 
