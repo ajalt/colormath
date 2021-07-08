@@ -3,10 +3,17 @@ package com.github.ajalt.colormath
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.should
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class LinearRGBTest {
+    @Test
+    fun roundtrip() {
+        LinearRGB(0.01, 0.02, 0.03, 0.04).let { it.toLinearRGB() shouldBeSameInstanceAs it }
+        LinearRGB(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toLinearRGB().shouldEqualColor(it) }
+    }
+
     @Test
     @JsName("Linear_to_RGB")
     fun `Linear to RGB`() = forAll(

@@ -31,8 +31,11 @@ data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float =
 
     }
 
-    constructor(h: Double, w: Double, b: Double, alpha: Double = 1.0)
+    constructor(h: Double, w: Double, b: Double, alpha: Double)
             : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha.toFloat())
+
+    constructor(h: Double, w: Double, b: Double, alpha: Float = 1.0f)
+            : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha)
 
     override val alpha: Float get() = a
     override val model: ColorModel<HWB> get() = HWB

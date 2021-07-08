@@ -30,8 +30,11 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
         }
     }
 
-    constructor(l: Double, u: Double, v: Double, alpha: Double = 1.0)
+    constructor(l: Double, u: Double, v: Double, alpha: Double)
             : this(l.toFloat(), u.toFloat(), v.toFloat(), alpha.toFloat())
+
+    constructor(l: Double, u: Double, v: Double, alpha: Float = 1.0f)
+            : this(l.toFloat(), u.toFloat(), v.toFloat(), alpha)
 
     override val model: ColorModel<LUV> get() = LUV
 
@@ -61,7 +64,7 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
         return XYZ(x, y, z, alpha)
     }
 
-    override fun toHCL(): HCL = toPolarModel(u, v) { c, h -> HCL(h, c, l) }
+    override fun toHCL(): HCL = toPolarModel(u, v) { c, h -> HCL(h, c, l, alpha) }
     override fun toLUV(): LUV = this
     override fun toArray(): FloatArray = floatArrayOf(l, u, v, alpha)
 }

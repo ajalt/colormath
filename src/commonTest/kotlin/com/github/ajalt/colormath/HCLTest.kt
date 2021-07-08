@@ -2,11 +2,18 @@ package com.github.ajalt.colormath
 
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 
 class HCLTest {
+    @Test
+    fun roundtrip() {
+        HCL(0.01, 0.02, 0.03, 0.04).let { it.toHCL() shouldBeSameInstanceAs it }
+        HCL(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toHCL().shouldEqualColor(it) }
+    }
+
     @Test
     @JsName("HCL_to_LUV")
     fun `HCL to LUV`() = forAll(

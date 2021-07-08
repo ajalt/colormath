@@ -31,6 +31,9 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
         }
     }
 
+    constructor(x: Double, y: Double, z: Double, a: Double)
+            : this(x.toFloat(), y.toFloat(), z.toFloat(), a.toFloat())
+
     constructor(x: Double, y: Double, z: Double, a: Float = 1f)
             : this(x.toFloat(), y.toFloat(), z.toFloat(), a)
 

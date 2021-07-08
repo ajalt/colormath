@@ -4,10 +4,17 @@ import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class Ansi256Test {
+    @Test
+    fun roundtrip() {
+        Ansi256(30).let { it.toAnsi256() shouldBeSameInstanceAs it }
+        Ansi256(31).let { it.toRGB().toAnsi256().shouldEqualColor(it) }
+    }
+
     @Test
     @JsName("Ansi256_to_RGB")
     fun `Ansi256 to RGB`() = forAll(

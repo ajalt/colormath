@@ -71,15 +71,11 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         a = a
     )
 
-    /**
-     * Construct an RGB instance from Double values in the range `[0, 1]`.
-     */
-    constructor(r: Double, g: Double, b: Double, a: Double = 1.0) : this(
-        r = r.toFloat(),
-        g = g.toFloat(),
-        b = b.toFloat(),
-        a = a.toFloat()
-    )
+    constructor(r: Double, g: Double, b: Double, a: Double)
+            : this(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
+
+    constructor(r: Double, g: Double, b: Double, a: Float = 1.0f)
+            : this(r.toFloat(), g.toFloat(), b.toFloat(), a)
 
     override val alpha: Float get() = a
     override val model: ColorModel<RGB> get() = RGB

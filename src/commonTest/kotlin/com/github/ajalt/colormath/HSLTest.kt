@@ -4,10 +4,17 @@ import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class HSLTest {
+    @Test
+    fun roundtrip() {
+        HSL(0.01, 0.02, 0.03, 0.04).let { it.toHSL() shouldBeSameInstanceAs it }
+        HSL(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toHSL().shouldEqualColor(it) }
+    }
+
     @Test
     @JsName("HSL_to_RGB")
     fun `HSL to RGB`() = forAll(

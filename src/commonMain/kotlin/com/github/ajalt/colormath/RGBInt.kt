@@ -41,6 +41,10 @@ value class RGBInt(val argb: UInt) : Color {
     }
 
     constructor(r: UByte, g: UByte, b: UByte, a: UByte = 0xff.toUByte()) : this(
+        r.toInt(), g.toInt(), b.toInt(), a.toInt()
+    )
+
+    constructor(r: Int, g: Int, b: Int, a: Int = 0xff) : this(
         (a.toUInt() shl 24) or (r.toUInt() shl 16) or (g.toUInt() shl 8) or b.toUInt()
     )
 

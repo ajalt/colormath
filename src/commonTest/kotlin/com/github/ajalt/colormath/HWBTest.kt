@@ -3,10 +3,17 @@ package com.github.ajalt.colormath
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.should
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class HWBTest {
+    @Test
+    fun roundtrip() {
+        HWB(0.01, 0.02, 0.03, 0.04).let { it.toHWB() shouldBeSameInstanceAs it }
+        HWB(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toHWB().shouldEqualColor(it) }
+    }
+
     @Test
     @JsName("HWB_to_RGB")
     // https://www.w3.org/TR/css-color-4/#hwb-examples

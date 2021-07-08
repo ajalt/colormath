@@ -7,8 +7,7 @@ import kotlin.test.Test
 class JzCzHzTest {
     @Test
     fun roundtrip() {
-        val jch = JzCzHz(0.01, 0.01, 0.01, 0.01)
-        jch.toJzCzHz() shouldBeSameInstanceAs jch
-        jch.toRGB().toJzCzHz().shouldEqualColor(jch)
+        JzCzHz(0.01, 0.02, 0.03, 0.04).let { it.toJzCzHz() shouldBeSameInstanceAs it }
+        JzCzHz(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toJzCzHz().shouldEqualColor(it) }
     }
 }
