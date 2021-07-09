@@ -3,14 +3,25 @@ package com.github.ajalt.colormath.transform
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorModel
 
-fun <T : Color> ColorModel<T>.mix(color1: Color, color2: Color): Color =
-    mix(color1, .5f, color2, .5f)
+fun <T : Color> ColorModel<T>.mix(
+    color1: Color,
+    color2: Color,
+    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
+): Color = mix(color1, .5f, color2, .5f, hueAdjustment)
 
-fun <T : Color> ColorModel<T>.mix(color1: Color, amount1: Float, color2: Color): Color =
-    mix(color1, amount1, color2, 1f - amount1)
+fun <T : Color> ColorModel<T>.mix(
+    color1: Color,
+    amount1: Float,
+    color2: Color,
+    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
+): Color = mix(color1, amount1, color2, 1f - amount1, hueAdjustment)
 
-fun <T : Color> ColorModel<T>.mix(color1: Color, color2: Color, amount2: Float): Color =
-    mix(color1, 1f - amount2, color2, amount2)
+fun <T : Color> ColorModel<T>.mix(
+    color1: Color,
+    color2: Color,
+    amount2: Float,
+    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
+): Color = mix(color1, 1f - amount2, color2, amount2, hueAdjustment)
 
 /**
  * Mix [amount1] of [color1] and [amount2] of [color2] in this color space.
@@ -23,10 +34,17 @@ fun <T : Color> ColorModel<T>.mix(color1: Color, color2: Color, amount2: Float):
  *
  * @param amount1 The amount of [color1] to mix. A fraction in `[0, 1]`. If omitted, defaults to `1 - amount2`
  * @param amount2 The amount of [color2] to mix. A fraction in `[0, 1]`. If omitted, defaults to `1 - amount1`
+ * @param hueAdjustment An optional adjustment to the hue components of the colors, if there is one. Defaults to [HueAdjustments.shorter].
  */
-fun <T : Color> ColorModel<T>.mix(color1: Color, amount1: Float, color2: Color, amount2: Float): Color {
+fun <T : Color> ColorModel<T>.mix(
+    color1: Color,
+    amount1: Float,
+    color2: Color,
+    amount2: Float,
+    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
+): Color {
     val sum = amount1 + amount2
     require(sum != 0f) { "mix amounts cannot sum to 0" }
-    val c = convert(color1).interpolate(color2, amount2 / sum)
+    val c = convert(color1).interpolate(color2, amount2 / sum, true, hueAdjustment)
     return if (sum < 1f) c.map { _, comps -> comps.also { it[it.lastIndex] *= sum } } else c
 }
