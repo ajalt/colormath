@@ -1,11 +1,13 @@
 package com.github.ajalt.colormath.transform
 
+import com.github.ajalt.colormath.HSL
 import com.github.ajalt.colormath.LCH
 import com.github.ajalt.colormath.RGB
 import com.github.ajalt.colormath.shouldEqualColor
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.shouldBe
 import kotlin.jvm.JvmName
 import kotlin.test.Test
 
@@ -19,6 +21,25 @@ class TransformTest {
     ) { c1, c2, a, ex ->
         c1.interpolate(c2, a).shouldEqualColor(ex)
         c1.model.interpolator(c1, c2).interpolate(a).shouldEqualColor(ex)
+    }
+
+    @Test
+    @JvmName("interpolator_with_hue_adjustment")
+    fun `interpolator with hue_adjustment`() = forAll(
+        row(0.00, 60),
+        row(0.25, 230),
+        row(0.50, 40),
+        row(0.75, 200),
+        row(1.00, 0),
+    ) { amount, h ->
+        val lerp = HSL.interpolator {
+            hueAdjustment = HueAdjustments.increasing
+            stop(HSL(60, 50, 50))
+            stop(HSL(40, 50, 50))
+            stop(HSL(0, 50, 50))
+        }
+        lerp.interpolate(amount).h shouldBe h
+
     }
 
     @Test
@@ -95,7 +116,7 @@ class TransformTest {
         rgb.divideAlpha().shouldEqualColor(ex)
     }
 
-    // Test cases from https://www.w3.org/TR/css-color-5/#color-mix
+    // most test cases from https://www.w3.org/TR/css-color-5/#color-mix
     @Test
     fun mix() {
         // Specifying colors manually since the examples use D50
@@ -111,6 +132,7 @@ class TransformTest {
             row(LCH.mix(purple, .8f, plum, .8f), mixed),
             row(LCH.mix(purple, .3f, plum, .3f), LCH(51.51, 52.21, 325.8, 0.6)),
             row(LCH.mix(LCH(62.253, 54.011, 63.677), .4f, LCH(91.374, 31.406, 98.834)), LCH(79.7256, 40.448, 84.771)),
+            row(LCH.mix(LCH(50f, 50f, 60f), LCH(50f, 50f, 0f), HueAdjustments.longer), LCH(50f, 50f, 210f))
         ) { actual, ex ->
             actual.shouldEqualColor(ex, 0.1)
         }
