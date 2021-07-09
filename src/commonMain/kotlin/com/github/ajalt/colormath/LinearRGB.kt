@@ -13,7 +13,7 @@ import kotlin.math.pow
  * | [g]        | green       | `[0, 1]` |
  * | [b]        | blue        | `[0, 1]` |
  */
-data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
+data class LinearRGB(val r: Float, val g: Float, val b: Float, override val alpha: Float = 1f) : Color {
     companion object : ColorModel<LinearRGB> {
         override val name: String get() = "LinearRGB"
         override val components: List<ColorComponentInfo> = componentInfoList(
@@ -28,13 +28,12 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
         }
     }
 
-    constructor(r: Double, g: Double, b: Double, a: Double)
-            : this(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
+    constructor(r: Double, g: Double, b: Double, alpha: Double)
+            : this(r.toFloat(), g.toFloat(), b.toFloat(), alpha.toFloat())
 
-    constructor(r: Double, g: Double, b: Double, a: Float = 1f)
-            : this(r.toFloat(), g.toFloat(), b.toFloat(), a)
+    constructor(r: Double, g: Double, b: Double, alpha: Float = 1f)
+            : this(r.toFloat(), g.toFloat(), b.toFloat(), alpha)
 
-    override val alpha: Float get() = a
     override val model: ColorModel<LinearRGB> get() = LinearRGB
 
     // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
@@ -51,12 +50,12 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f
             l = 0.2104542553f * ll + 0.7936177850f * mm - 0.0040720468f * ss,
             a = 1.9779984951f * ll - 2.4285922050f * mm + 0.4505937099f * ss,
             b = 0.0259040371f * ll + 0.7827717662f * mm - 0.8086757660f * ss,
-            alpha = a
+            alpha = alpha
         )
     }
 
     override fun toXYZ(): XYZ = linearRGBToXYZ(r, g, b, alpha)
-    override fun toRGB(): RGB = RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), a)
+    override fun toRGB(): RGB = RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), alpha)
     override fun toLinearRGB(): LinearRGB = this
     override fun toArray(): FloatArray = floatArrayOf(r, g, b, alpha)
 }

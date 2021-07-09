@@ -104,7 +104,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         r = redInt.coerceIn(0, 255).toUByte(),
         g = greenInt.coerceIn(0, 255).toUByte(),
         b = blueInt.coerceIn(0, 255).toUByte(),
-        a = alphaInt.coerceIn(0, 255).toUByte()
+        alpha = alphaInt.coerceIn(0, 255).toUByte()
     )
 
     /**
@@ -160,7 +160,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
                 h = hue.toFloat(),
                 w = min.toFloat(),
                 b = (1.0 - max).toFloat(),
-                a = alpha
+                alpha = alpha
             )
         }
     }

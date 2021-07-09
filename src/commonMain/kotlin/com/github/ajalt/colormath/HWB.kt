@@ -15,7 +15,7 @@ import kotlin.math.roundToInt
  * | [w]        | whiteness    | `[0, 1]`   |
  * | [b]        | blackness    | `[0, 1]`   |
  */
-data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float = 1f) : Color, HueColor {
+data class HWB(override val h: Float, val w: Float, val b: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorModel<HWB> {
         override val name: String get() = "HWB"
         override val components: List<ColorComponentInfo> = componentInfoList(
@@ -37,7 +37,6 @@ data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float =
     constructor(h: Double, w: Double, b: Double, alpha: Float = 1.0f)
             : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha)
 
-    override val alpha: Float get() = a
     override val model: ColorModel<HWB> get() = HWB
 
     override fun toRGB(): RGB {
@@ -46,7 +45,7 @@ data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float =
         val h = this.h / 60f // Smith defines hue as normalized to [0, 6] for some reason
         val w = this.w
         val b = this.b
-        val a = this.a
+        val a = this.alpha
 
         // Smith just declares that w + b must be <= 1. We use the fast-exit from
         // https://www.w3.org/TR/css-color-4/#hwb-to-rgb rather than normalizing.
@@ -78,7 +77,7 @@ data class HWB(override val h: Float, val w: Float, val b: Float, val a: Float =
         val b = this.b / 100
         val s = 1 - w / (1 - b)
         val v = 1 - b
-        return HSV(h.roundToInt(), (s * 100).roundToInt(), (v * 100).roundToInt(), a)
+        return HSV(h.roundToInt(), (s * 100).roundToInt(), (v * 100).roundToInt(), alpha)
     }
 
     override fun toHWB(): HWB = this
