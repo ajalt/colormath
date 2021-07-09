@@ -9,7 +9,7 @@ import kotlin.math.pow
  *
  * [LUV] is calculated relative to the D65 standard illuminant.
  *
- * | Component  | Description  | Gamut         |
+ * | Component  | Description  | sRGB Range    |
  * | ---------- | ------------ | ------------- |
  * | [l]        | lightness    | `[0, 100]`    |
  * | [u]        |              | `[-100, 100]` |

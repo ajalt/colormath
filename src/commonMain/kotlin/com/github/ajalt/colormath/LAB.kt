@@ -11,7 +11,7 @@ import kotlin.math.pow
  *
  * [LAB] is calculated relative to the D65 standard illuminant.
  *
- * | Component  | Description | sRGB Gamut         |
+ * | Component  | Description | sRGB Range         |
  * | ---------- | ----------- | ------------------ |
  * | [l]        | lightness   | `[0, 100]`         |
  * | [a]        | green/red   | `[-86.1, 98.23]`   |

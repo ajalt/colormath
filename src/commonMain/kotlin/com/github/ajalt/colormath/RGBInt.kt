@@ -13,7 +13,7 @@ import kotlin.jvm.JvmInline
  *
  * You can destructure this class into [r], [g], [b], and [a] components: `val (r, g, b, a) = RGBInt(0xff112233u)`
  *
- * | Component  | Description | sRGB Gamut |
+ * | Component  | Description | sRGB Range |
  * | ---------- | ----------- | ---------- |
  * | [r]        | red         | `[0, 255]` |
  * | [g]        | green       | `[0, 255]` |

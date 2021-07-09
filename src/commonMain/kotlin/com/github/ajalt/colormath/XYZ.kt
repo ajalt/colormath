@@ -9,7 +9,7 @@ import kotlin.math.pow
  *
  * [XYZ] is calculated relative to the D65 standard illuminant.
  *
- * | Component  | sRGB Gamut  |
+ * | Component  | sRGB Range  |
  * | ---------- | ----------- |
  * | [x]        | `[0, 0.95]` |
  * | [y]        | `[0, 1]`    |

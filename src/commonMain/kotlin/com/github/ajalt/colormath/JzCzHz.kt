@@ -7,7 +7,7 @@ import com.github.ajalt.colormath.internal.withValidComps
 /**
  * The JzCzHz color model, the cylindrical representation of [JzAzBz].
  *
- * | Component  | Description  | sRGB Gamut   |
+ * | Component  | Description  | sRGB Range   |
  * | ---------- | ------------ | ------------ |
  * | [j]        | lightness    | `[0, 0.017]` |
  * | [c]        | chroma       | `[0, 0.025]` |

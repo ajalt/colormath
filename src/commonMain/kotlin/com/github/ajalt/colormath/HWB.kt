@@ -9,7 +9,7 @@ import kotlin.math.roundToInt
  *
  * This is a cylindrical representation of the sRGB space used in [RGB].
  *
- * | Component  | Description  | sRGB Gamut |
+ * | Component  | Description  | sRGB Range |
  * | ---------- | ------------ | ---------- |
  * | [h]        | hue, degrees | `[0, 360)` |
  * | [w]        | whiteness    | `[0, 1]`   |

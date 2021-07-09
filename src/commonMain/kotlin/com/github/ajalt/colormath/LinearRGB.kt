@@ -7,9 +7,7 @@ import kotlin.math.pow
 /**
  * Linear sRGB color space.
  *
- * This color space removes the nonlinearity present in [RGB].
- *
- * | Component  | Description | Gamut    |
+ * | Component  | Description | Range    |
  * | ---------- | ----------- | -------- |
  * | [r]        | red         | `[0, 1]` |
  * | [g]        | green       | `[0, 1]` |
