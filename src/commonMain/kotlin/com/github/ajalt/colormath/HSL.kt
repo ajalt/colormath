@@ -15,7 +15,7 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | [s]        | saturation   | `[0, 1]`   |
  * | [l]        | lightness    | `[0, 1]`   |
  */
-data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float = 1f) : Color, HueColor {
+data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorModel<HSL> {
         override val name: String get() = "HSL"
         override val components: List<ColorComponentInfo> = componentInfoList(
@@ -31,10 +31,10 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
     }
 
     /**
-     * Construct an HSL instance from `Int` values, with [h] in `[0, 360)`, and [s] and [l] as percentages in the range `[0,
-     * 100]`.
+     * Construct an HSL instance from `Int` values, with [h] in `[0, 360)`, and [s] and [l] as percentages in the range
+     * `[0, 100]`.
      */
-    constructor(h: Int, s: Int, l: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, l / 100f, a)
+    constructor(h: Int, s: Int, l: Int, alpha: Float = 1f) : this(h.toFloat(), s / 100f, l / 100f, alpha)
 
     constructor (l: Double, a: Double, b: Double, alpha: Double)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
@@ -42,7 +42,6 @@ data class HSL(override val h: Float, val s: Float, val l: Float, val a: Float =
     constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
-    override val alpha: Float get() = a
     override val model: ColorModel<HSL> get() = HSL
 
     override fun toRGB(): RGB {

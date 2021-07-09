@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
  * | [s]        | saturation   | `[0, 1]`   |
  * | [v]        | value        | `[0, 1]`   |
  */
-data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float = 1f) : Color, HueColor {
+data class HSV(override val h: Float, val s: Float, val v: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorModel<HSV> {
         override val name: String get() = "HSV"
         override val components: List<ColorComponentInfo> = componentInfoList(
@@ -44,7 +44,6 @@ data class HSV(override val h: Float, val s: Float, val v: Float, val a: Float =
     constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
-    override val alpha: Float get() = a
     override val model: ColorModel<HSV> get() = HSV
 
     override fun toRGB(): RGB {

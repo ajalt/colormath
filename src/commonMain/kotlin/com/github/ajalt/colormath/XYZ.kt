@@ -14,7 +14,7 @@ import kotlin.math.pow
  * | [y]        | `[0, 1]`    |
  * | [z]        | `[0, 1.09]` |
  */
-data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Color {
+data class XYZ(val x: Float, val y: Float, val z: Float, override val alpha: Float = 1f) : Color {
     companion object : ColorModel<XYZ> {
         override val name: String get() = "XYZ"
         override val components: List<ColorComponentInfo> = componentInfoList(
@@ -29,13 +29,12 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
         }
     }
 
-    constructor(x: Double, y: Double, z: Double, a: Double)
-            : this(x.toFloat(), y.toFloat(), z.toFloat(), a.toFloat())
+    constructor(x: Double, y: Double, z: Double, alpha: Double)
+            : this(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat())
 
-    constructor(x: Double, y: Double, z: Double, a: Float = 1f)
-            : this(x.toFloat(), y.toFloat(), z.toFloat(), a)
+    constructor(x: Double, y: Double, z: Double, alpha: Float = 1f)
+            : this(x.toFloat(), y.toFloat(), z.toFloat(), alpha)
 
-    override val alpha: Float get() = a
     override val model: ColorModel<XYZ> get() = XYZ
 
     // Matrix from http://www.brucelindbloom.com/Eqn_XYZ_to_RGB.html

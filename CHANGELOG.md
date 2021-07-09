@@ -18,8 +18,9 @@
 - `XYZ` channels are no longer multiplied by 100: their range is now `[-2, 2]` rather than `[-200, 200]`
 - The class name of the cylindrical representation of `LUV` is now `HCL`
 - Renamed `Color.fromCss` to `Color.parse`. The old name has been deprecated.
+- All `Color` constructors now use `alpha` as name of their final parameter.
 
-## Removed
+### Removed
 
 - Removed the previously deprecated `ConvertibleColor` typealias.
 - Removed the `CssColors` object. Use `Color.fromCss` instead. 
