@@ -1,7 +1,6 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.*
-import com.github.ajalt.colormath.internal.Illuminant.D65
 import kotlin.math.pow
 
 /**
@@ -45,7 +44,7 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
 
     override fun toXYZ(): XYZ {
         // http://www.brucelindbloom.com/Eqn_Luv_to_XYZ.html
-        if (l == 0f) return XYZ(0.0, 0.0, 0.0)
+        if (l == 0f) return XYZ(0.0f, 0.0f, 0.0f)
 
         val denominator0 = D65.x + 15 * D65.y + 3 * D65.z
         val u0 = 4 * D65.x / denominator0

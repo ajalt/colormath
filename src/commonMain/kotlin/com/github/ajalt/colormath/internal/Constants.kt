@@ -1,20 +1,9 @@
 package com.github.ajalt.colormath.internal
 
-/**
- * Reference XYZ illuminant tristimulus values.
- *
- * See http://www.brucelindbloom.com/index.html?Eqn_ChromAdapt.html
- */
-internal object Illuminant {
-    data class WhitePoint(val x: Float, val y: Float, val z: Float)
+internal class Illuminant(val x: Float, val y: Float, val z: Float)
 
-    /**
-     * CIE Standard Illuminant D65, using the standard 2° observer.
-     *
-     * `x`, `y`, and `z` are normalized for relative luminance (i.e. set `Y = 100`).
-     */
-    val D65 = WhitePoint(95.047f, 100.0f, 108.883f)
-}
+/** XYZ coordinates of the D65 standard illuminant */
+internal val D65 = Illuminant(.95047f, 1.000f, 1.08883f)
 
 // Constants defined in the CIE standard.
 // See http://www.brucelindbloom.com/index.html?LContinuity.html

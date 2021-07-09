@@ -1,7 +1,6 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.*
-import com.github.ajalt.colormath.internal.Illuminant.D65
 import kotlin.math.pow
 
 /**
@@ -57,7 +56,7 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
         val zr = fz.pow(3).let { if (it > CIE_E) it else (116 * fz - 16) / CIE_K }
         val xr = fx.pow(3).let { if (it > CIE_E) it else (116 * fx - 16) / CIE_K }
 
-        return XYZ(xr * D65.x / 100f, yr * D65.y / 100f, zr * D65.z / 100f, alpha)
+        return XYZ(xr * D65.x, yr * D65.y, zr * D65.z, alpha)
     }
 
     override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCH(l, c, h, alpha) }

@@ -1,7 +1,6 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.*
-import com.github.ajalt.colormath.internal.Illuminant.D65
 import kotlin.math.pow
 
 /**
@@ -19,10 +18,9 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
     companion object : ColorModel<XYZ> {
         override val name: String get() = "XYZ"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            // Note that the max values are the D65 illuminant
-            ColorComponentInfo("X", false, 0f, 0.95047f),
-            ColorComponentInfo("Y", false, 0f, 1.00000f),
-            ColorComponentInfo("Z", false, 0f, 1.08883f),
+            ColorComponentInfo("X", false, 0f, D65.x),
+            ColorComponentInfo("Y", false, 0f, D65.y),
+            ColorComponentInfo("Z", false, 0f, D65.z),
         )
 
         override fun convert(color: Color): XYZ = color.toXYZ()
@@ -55,9 +53,9 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
             else -> (t * CIE_K + 16) / 116
         }
 
-        val fx = f(100f * x / D65.x)
-        val fy = f(100f * y / D65.y)
-        val fz = f(100f * z / D65.z)
+        val fx = f(x / D65.x)
+        val fy = f(y / D65.y)
+        val fz = f(z / D65.z)
 
         val l = (116 * fy) - 16
         val a = 500 * (fx - fy)
@@ -68,9 +66,6 @@ data class XYZ(val x: Float, val y: Float, val z: Float, val a: Float = 1f) : Co
 
     // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
     override fun toLUV(): LUV {
-        val x = this.x * 100f
-        val y = this.y * 100f
-        val z = this.z * 100f
         val denominator = x + 15 * y + 3 * z
         val uPrime = if (denominator == 0f) 0f else (4 * x) / denominator
         val vPrime = if (denominator == 0f) 0f else (9 * y) / denominator

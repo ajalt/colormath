@@ -5,7 +5,7 @@ import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.math.pow
 
 /**
- * Linear sRGB color space.
+ * Linear-light sRGB color space.
  *
  * | Component  | Description | Range    |
  * | ---------- | ----------- | -------- |
