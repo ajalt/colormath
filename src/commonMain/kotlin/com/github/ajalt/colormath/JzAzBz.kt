@@ -8,7 +8,7 @@ import kotlin.math.pow
 /**
  *  The Jzazbz color space, a perceptually uniform space where euclidean distance predicts perceptual difference.
  *
- * | Component  | Description | sRGB Gamut        |
+ * | Component  | Description | sRGB Range        |
  * | ---------- | ----------- | ----------------- |
  * | [j]        | lightness   | `[0, 0.017]`      |
  * | [a]        | green/red   | `[-0.016, 0.017]` |

@@ -8,7 +8,7 @@ import kotlin.math.roundToInt
 /**
  * The sRGB color space.
  *
- * | Component  | Description | Gamut    |
+ * | Component  | Description | Range    |
  * | ---------- | ----------- | -------- |
  * | [r]        | red         | `[0, 1]` |
  * | [g]        | green       | `[0, 1]` |

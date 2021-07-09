@@ -7,7 +7,7 @@ import com.github.ajalt.colormath.internal.withValidComps
 /**
  * CIE LCh(uv) color model, the cylindrical representation of [LUV].
  *
- * | Component  | Description  | Gamut      |
+ * | Component  | Description  | sRGB Range |
  * | ---------- | ------------ | ---------- |
  * | [h]        | hue, degrees | `[0, 360)` |
  * | [c]        | chroma       | `[0, 180]` |

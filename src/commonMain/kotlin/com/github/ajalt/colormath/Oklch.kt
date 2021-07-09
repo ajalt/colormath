@@ -7,7 +7,7 @@ import com.github.ajalt.colormath.internal.withValidComps
 /**
  * Oklch color model, the cylindrical representation of [Oklab].
  *
- * | Component  | Description  | sRGB Gamut  |
+ * | Component  | Description  | sRGB Range  |
  * | ---------- | ------------ | ----------- |
  * | [l]        | lightness    | `[0, 1]`     |
  * | [c]        | chroma       | `[0, 0.33]` |

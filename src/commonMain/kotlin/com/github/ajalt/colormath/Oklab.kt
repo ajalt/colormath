@@ -7,7 +7,7 @@ import com.github.ajalt.colormath.internal.withValidComps
 /**
  * The Oklab color space.
  *
- * | Component  | Description | sRGB Gamut      |
+ * | Component  | Description | sRGB Range      |
  * | ---------- | ----------- | --------------- |
  * | [l]        | lightness   | `[0, 1]`        |
  * | [a]        | green/red   | `[-0.23, 0.28]` |

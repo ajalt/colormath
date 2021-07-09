@@ -7,7 +7,7 @@ import com.github.ajalt.colormath.internal.withValidComps
 /**
  * CIE LCh(ab) color model, the cylindrical representation of [LAB].
  *
- * | Component  | Description  | sRGB Gamut   |
+ * | Component  | Description  | sRGB Range   |
  * | ---------- | ------------ | ------------ |
  * | [l]        | lightness    | `[0, 100]`   |
  * | [c]        | chroma       | `[0, 133.8]` |
