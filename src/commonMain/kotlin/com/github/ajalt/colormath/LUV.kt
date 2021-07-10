@@ -18,9 +18,9 @@ data class LUV(val l: Float, val u: Float, val v: Float, override val alpha: Flo
     companion object : ColorModel<LUV> {
         override val name: String get() = "LUV"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("L", false, 0f, 100f),
-            ColorComponentInfo("U", false, -83.07753f, 175.01505f),
-            ColorComponentInfo("V", false, -134.103f, 107.39863f),
+            ColorComponentInfo("L", false),
+            ColorComponentInfo("U", false),
+            ColorComponentInfo("V", false),
         )
 
         override fun convert(color: Color): LUV = color.toLUV()

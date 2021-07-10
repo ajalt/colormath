@@ -24,9 +24,9 @@ value class RGBInt(val argb: UInt) : Color {
     companion object : ColorModel<RGBInt> {
         override val name: String get() = "RGBInt"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("R", false, 0f, 255f),
-            ColorComponentInfo("G", false, 0f, 255f),
-            ColorComponentInfo("B", false, 0f, 255f),
+            ColorComponentInfo("R", false),
+            ColorComponentInfo("G", false),
+            ColorComponentInfo("B", false),
         )
 
         override fun convert(color: Color): RGBInt = color.toRGB().toRGBInt()

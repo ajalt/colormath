@@ -20,7 +20,7 @@ data class Ansi256(val code: Int) : Color {
     companion object : ColorModel<Ansi256> {
         override val name: String get() = "Ansi256"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("code", false, 0f, 255f),
+            ColorComponentInfo("code", false),
         )
 
         override fun convert(color: Color): Ansi256 = color.toAnsi256()

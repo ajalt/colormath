@@ -17,9 +17,9 @@ data class Oklch(val l: Float, val c: Float, override val h: Float, override val
     companion object : ColorModel<Oklch> {
         override val name: String get() = "Oklch"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("L", false, 0f, 1f),
-            ColorComponentInfo("C", false, 0f, 0.32249096f),
-            ColorComponentInfo("H", true, 0f, 360f),
+            ColorComponentInfo("L", false),
+            ColorComponentInfo("C", false),
+            ColorComponentInfo("H", true),
         )
 
         override fun convert(color: Color): Oklch = color.toOklch()

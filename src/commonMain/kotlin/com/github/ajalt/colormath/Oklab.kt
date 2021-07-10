@@ -17,9 +17,9 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
     companion object : ColorModel<Oklab> {
         override val name: String get() = "Oklab"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("L", false, 0f, 100f),
-            ColorComponentInfo("A", false, -0.23388757f, 0.2762164f),
-            ColorComponentInfo("B", false, -0.31152815f, 0.19856976f),
+            ColorComponentInfo("L", false),
+            ColorComponentInfo("A", false),
+            ColorComponentInfo("B", false),
         )
 
         override fun convert(color: Color): Oklab = color.toOklab()

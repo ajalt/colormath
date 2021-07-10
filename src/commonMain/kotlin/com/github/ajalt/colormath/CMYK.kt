@@ -17,10 +17,10 @@ data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override
     companion object : ColorModel<CMYK> {
         override val name: String get() = "CMYK"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("C", false, 0f, 1f),
-            ColorComponentInfo("M", false, 0f, 1f),
-            ColorComponentInfo("Y", false, 0f, 1f),
-            ColorComponentInfo("K", false, 0f, 1f),
+            ColorComponentInfo("C", false),
+            ColorComponentInfo("M", false),
+            ColorComponentInfo("Y", false),
+            ColorComponentInfo("K", false),
         )
 
         override fun convert(color: Color): CMYK = color.toCMYK()

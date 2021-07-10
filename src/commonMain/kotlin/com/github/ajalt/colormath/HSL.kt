@@ -19,9 +19,9 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
     companion object : ColorModel<HSL> {
         override val name: String get() = "HSL"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("H", true, 0f, 360f),
-            ColorComponentInfo("S", false, 0f, 1f),
-            ColorComponentInfo("L", false, 0f, 1f),
+            ColorComponentInfo("H", true),
+            ColorComponentInfo("S", false),
+            ColorComponentInfo("L", false),
         )
 
         override fun convert(color: Color): HSL = color.toHSL()
