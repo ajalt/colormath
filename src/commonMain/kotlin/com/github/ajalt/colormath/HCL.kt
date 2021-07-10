@@ -17,9 +17,9 @@ data class HCL(override val h: Float, val c: Float, val l: Float, override val a
     companion object : ColorModel<HCL> {
         override val name: String get() = "HCL"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("H", true, 0f, 360f),
-            ColorComponentInfo("C", false, 0f, 179.04138f),
-            ColorComponentInfo("L", false, 0f, 100f),
+            ColorComponentInfo("H", true),
+            ColorComponentInfo("C", false),
+            ColorComponentInfo("L", false),
         )
 
         override fun convert(color: Color): HCL = color.toHCL()

@@ -21,4 +21,4 @@ internal inline fun <T : Color> Color.withValidComps(components: FloatArray, blo
     return block(components)
 }
 
-internal fun componentInfoList(vararg c: ColorComponentInfo) = listOf(*c, ColorComponentInfo("alpha", false, 0f, 1f))
+internal fun componentInfoList(vararg c: ColorComponentInfo) = listOf(*c, ColorComponentInfo("alpha", false))

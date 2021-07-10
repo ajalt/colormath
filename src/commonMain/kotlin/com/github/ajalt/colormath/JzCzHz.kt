@@ -17,9 +17,9 @@ data class JzCzHz(val j: Float, val c: Float, override val h: Float, override va
     companion object : ColorModel<JzCzHz> {
         override val name: String get() = "JzCzHz"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("J", false, 0f, 0.01758005f),
-            ColorComponentInfo("C", false, 0f, 0.024975063f),
-            ColorComponentInfo("H", true, 0f, 360f),
+            ColorComponentInfo("J", false),
+            ColorComponentInfo("C", false),
+            ColorComponentInfo("H", true),
         )
 
         override fun convert(color: Color): JzCzHz = color.toJzCzHz()

@@ -22,9 +22,9 @@ data class HSV(override val h: Float, val s: Float, val v: Float, override val a
     companion object : ColorModel<HSV> {
         override val name: String get() = "HSV"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("H", true, 0f, 360f),
-            ColorComponentInfo("S", false, 0f, 1f),
-            ColorComponentInfo("V", false, 0f, 1f),
+            ColorComponentInfo("H", true),
+            ColorComponentInfo("S", false),
+            ColorComponentInfo("V", false),
         )
 
         override fun convert(color: Color): HSV = color.toHSV()

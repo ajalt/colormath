@@ -19,9 +19,9 @@ data class HWB(override val h: Float, val w: Float, val b: Float, override val a
     companion object : ColorModel<HWB> {
         override val name: String get() = "HWB"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("H", true, 0f, 360f),
-            ColorComponentInfo("W", false, 0f, 1f),
-            ColorComponentInfo("B", false, 0f, 1f),
+            ColorComponentInfo("H", true),
+            ColorComponentInfo("W", false),
+            ColorComponentInfo("B", false),
         )
 
         override fun convert(color: Color): HWB = color.toHWB()

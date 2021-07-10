@@ -17,9 +17,9 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, override val alph
     companion object : ColorModel<LinearRGB> {
         override val name: String get() = "LinearRGB"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("R", false, 0f, 1f),
-            ColorComponentInfo("G", false, 0f, 1f),
-            ColorComponentInfo("B", false, 0f, 1f),
+            ColorComponentInfo("R", false),
+            ColorComponentInfo("G", false),
+            ColorComponentInfo("B", false),
         )
 
         override fun convert(color: Color): LinearRGB = color.toLinearRGB()

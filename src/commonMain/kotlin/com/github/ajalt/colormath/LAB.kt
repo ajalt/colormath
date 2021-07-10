@@ -20,9 +20,9 @@ data class LAB(val l: Float, val a: Float, val b: Float, override val alpha: Flo
     companion object : ColorModel<LAB> {
         override val name: String get() = "LAB"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("L", false, 0f, 100f),
-            ColorComponentInfo("A", false, -86.18272f, 98.23433f),
-            ColorComponentInfo("B", false, -107.86016f, 94.477974f),
+            ColorComponentInfo("L", false),
+            ColorComponentInfo("A", false),
+            ColorComponentInfo("B", false),
         )
 
         override fun convert(color: Color): LAB = color.toLAB()

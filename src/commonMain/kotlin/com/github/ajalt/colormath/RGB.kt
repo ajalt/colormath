@@ -18,9 +18,9 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     companion object : ColorModel<RGB> {
         override val name: String get() = "RGB"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("R", false, 0f, 1f),
-            ColorComponentInfo("G", false, 0f, 1f),
-            ColorComponentInfo("B", false, 0f, 1f),
+            ColorComponentInfo("R", false),
+            ColorComponentInfo("G", false),
+            ColorComponentInfo("B", false),
         )
 
         override fun convert(color: Color): RGB = color.toRGB()

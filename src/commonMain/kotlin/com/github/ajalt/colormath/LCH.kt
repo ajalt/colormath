@@ -17,9 +17,9 @@ data class LCH(val l: Float, val c: Float, override val h: Float, override val a
     companion object : ColorModel<LCH> {
         override val name: String get() = "LCH"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("L", false, 0f, 100f),
-            ColorComponentInfo("C", false, 0f, 133.80763f),
-            ColorComponentInfo("H", true, 0f, 360f),
+            ColorComponentInfo("L", false),
+            ColorComponentInfo("C", false),
+            ColorComponentInfo("H", true),
         )
 
         override fun convert(color: Color): LCH = color.toLCH()

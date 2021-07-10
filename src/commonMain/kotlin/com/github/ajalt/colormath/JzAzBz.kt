@@ -23,9 +23,9 @@ data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: 
     companion object : ColorModel<JzAzBz> {
         override val name: String get() = "JzAzBz"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("J", false, 0f, 0.01758005f),
-            ColorComponentInfo("A", false, -0.016247896f, 0.017214965f),
-            ColorComponentInfo("B", false, -0.02494799f, 0.020799631f),
+            ColorComponentInfo("J", false),
+            ColorComponentInfo("A", false),
+            ColorComponentInfo("B", false),
         )
 
         override fun convert(color: Color): JzAzBz = color.toJzAzBz()

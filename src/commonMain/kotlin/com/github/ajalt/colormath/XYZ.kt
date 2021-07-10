@@ -18,9 +18,9 @@ data class XYZ(val x: Float, val y: Float, val z: Float, override val alpha: Flo
     companion object : ColorModel<XYZ> {
         override val name: String get() = "XYZ"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("X", false, 0f, D65.x),
-            ColorComponentInfo("Y", false, 0f, D65.y),
-            ColorComponentInfo("Z", false, 0f, D65.z),
+            ColorComponentInfo("X", false),
+            ColorComponentInfo("Y", false),
+            ColorComponentInfo("Z", false),
         )
 
         override fun convert(color: Color): XYZ = color.toXYZ()
