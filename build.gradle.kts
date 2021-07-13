@@ -5,7 +5,7 @@ import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import java.io.ByteArrayOutputStream
 
 plugins {
-    kotlin("multiplatform") version "1.5.10"
+    kotlin("multiplatform") version "1.5.21"
     id("org.jetbrains.dokka") version "1.5.0"
     id("maven-publish")
     id("signing")

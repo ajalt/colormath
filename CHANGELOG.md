@@ -5,7 +5,7 @@
 ### Added
 - `Oklab` and `Oklch`: perceptual color spaces for image processing
 - `JzAzBz` and `JzCzHz`: perceptually uniform space where euclidean distance predicts perceptual difference
-- `LinearRGB`: a linearization of the sRGB color space, more suitable for color manipulation.
+- `LinearRGB`: a linear-light transformation of the `RGB` color space
 - `LCH`: the cylindrical representation of `LAB`
 - `RGBInt`: an inline class that stores `RGB` colors packed in a single Int. Create instances directly, or convert to it with `RGB.toRGBInt()`
 
@@ -19,6 +19,7 @@
 - The class name of the cylindrical representation of `LUV` is now `HCL`
 - Renamed `Color.fromCss` to `Color.parse`. The old name has been deprecated.
 - All `Color` constructors now use `alpha` as name of their final parameter.
+- Updated Kotlin to 1.5.21
 
 ### Removed
 
