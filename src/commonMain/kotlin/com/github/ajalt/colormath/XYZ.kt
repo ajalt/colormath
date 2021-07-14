@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.Illuminant.Companion.D65
 import com.github.ajalt.colormath.internal.*
 import kotlin.math.pow
 
