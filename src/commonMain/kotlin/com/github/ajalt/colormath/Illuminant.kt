@@ -1,20 +1,31 @@
 package com.github.ajalt.colormath
 
-/** A white point specified in CIE XYZ coordinates */
+/** A white point specified in XYZ tristimulus values */
 data class Illuminant(val x: Float, val y: Float, val z: Float) {
     companion object {
-        fun from_xyY(x: Double, y: Double) = Illuminant((x / y).toFloat(), 1f, ((1 - x - y) / y).toFloat())
-
         /** CIE 1931 2° Standard Illuminant A */
-        val A = from_xyY(0.44757, 0.40745)
+        val A = Illuminant(1.09850f, 1.00000f, 0.35585f)
+
         /** CIE 1931 2° Standard Illuminant B */
-        val B = from_xyY(0.34842, 0.35161)
+        val B = Illuminant(0.99072f, 1.00000f, 0.85223f)
+
         /** CIE 1931 2° Standard Illuminant C */
-        val C = from_xyY(0.31006, 0.31616)
+        val C = Illuminant(0.98074f, 1.00000f, 1.18232f)
+
         /** CIE 1931 2° Standard Illuminant D50 */
-        val D50 = from_xyY(0.34567, 0.35850)
+        val D50 = Illuminant(0.96422f, 1.00000f, 0.82521f)
+
+        /** CIE 1931 2° Standard Illuminant D55 */
+        val D55 = Illuminant(0.95682f, 1.00000f, 0.92149f)
+
         /** CIE 1931 2° Standard Illuminant D65 */
-        val D65 = from_xyY(0.31271, 0.32902)
+        val D65 = Illuminant(0.95047f, 1.00000f, 1.08883f)
+
+        /** CIE 1931 2° Standard Illuminant D75 */
+        val D75 = Illuminant(0.94972f, 1.00000f, 1.22638f)
+
+        /** CIE 1931 2° Standard Illuminant E */
+        val E = Illuminant(1.00000f, 1.00000f, 1.00000f)
     }
 }
 
