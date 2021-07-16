@@ -31,13 +31,10 @@ private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZC
         ColorComponentInfo("Z", false),
     )
 
+    override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ = XYZ(x, y, z, alpha, this)
     override fun convert(color: Color): XYZ = color.toXYZ()
     override fun create(components: FloatArray): XYZ = withValidComps(components) {
         invoke(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
-
-    override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ {
-        return XYZ(x, y, z, alpha, this)
     }
 
     override val matrixToSrgb: FloatArray = srgbToXyzMatrix(whitePoint).inverse().rowMajor
@@ -111,16 +108,17 @@ data class XYZ internal constructor(
     }
 
     // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
-    override fun toLUV(): LUV = toD65 {
+    override fun toLUV(): LUV {
+        val wp = model.whitePoint
         val denominator = x + 15 * y + 3 * z
         val uPrime = if (denominator == 0f) 0f else (4 * x) / denominator
         val vPrime = if (denominator == 0f) 0f else (9 * y) / denominator
 
-        val denominatorReference = model.whitePoint.x + 15 * model.whitePoint.y + 3 * model.whitePoint.z
-        val uPrimeReference = (4 * model.whitePoint.x) / denominatorReference
-        val vPrimeReference = (9 * model.whitePoint.y) / denominatorReference
+        val denominatorReference = wp.x + 15 * wp.y + 3 * wp.z
+        val uPrimeReference = (4 * wp.x) / denominatorReference
+        val vPrimeReference = (9 * wp.y) / denominatorReference
 
-        val yr = y / model.whitePoint.y
+        val yr = y / wp.y
         val l = when {
             yr > CIE_E -> 116 * cbrt(yr) - 16
             else -> CIE_K * yr
@@ -128,7 +126,7 @@ data class XYZ internal constructor(
         val u = 13 * l * (uPrime - uPrimeReference)
         val v = 13 * l * (vPrime - vPrimeReference)
 
-        return LUV(l.coerceIn(0f, 100f), u, v, alpha)
+        return LUV(wp)(l.coerceIn(0f, 100f), u, v, alpha)
     }
 
     // https://bottosson.github.io/posts/oklab/#converting-from-xyz-to-oklab

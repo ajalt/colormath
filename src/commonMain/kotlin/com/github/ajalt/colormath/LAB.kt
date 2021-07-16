@@ -1,5 +1,8 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.LAB.Companion.whitePoint
+import com.github.ajalt.colormath.LUV.Companion.whitePoint
+import com.github.ajalt.colormath.XYZ.Companion.whitePoint
 import com.github.ajalt.colormath.internal.*
 import kotlin.math.pow
 
@@ -24,13 +27,10 @@ private data class LABColorSpaceImpl(override val whitePoint: Illuminant) : LABC
         ColorComponentInfo("B", false),
     )
 
+    override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB = LAB(l, a, b, alpha, this)
     override fun convert(color: Color): LAB = color.toLAB()
     override fun create(components: FloatArray): LAB = withValidComps(components) {
         LAB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
-
-    override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB {
-        return LAB(l, a, b, alpha, this)
     }
 }
 
@@ -45,7 +45,7 @@ val LAB50: LABColorSpace = LABColorSpaceImpl(Illuminant.D50)
  *
  * The cylindrical representation of this space is [LCH].
  *
- * [LAB] is calculated relative to the D65 standard illuminant.
+ * [LAB] is calculated relative to a [given][model] [whitePoint], which defaults to [Illuminant.D65].
  *
  * | Component  | Description | sRGB D65 Range     |
  * | ---------- | ----------- | ------------------ |
