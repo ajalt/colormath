@@ -30,7 +30,7 @@ private data class LABColorSpaceImpl(override val whitePoint: Illuminant) : LABC
     override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB = LAB(l, a, b, alpha, this)
     override fun convert(color: Color): LAB = color.toLAB()
     override fun create(components: FloatArray): LAB = withValidComps(components) {
-        LAB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+        invoke(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }
 
@@ -91,7 +91,7 @@ data class LAB internal constructor(
         return xyzSpace(xr * wp.x, yr * wp.y, zr * wp.z, alpha)
     }
 
-    override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCH(l, c, h, alpha) }
+    override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCH(model.whitePoint)(l, c, h, alpha) }
     override fun toLAB(): LAB = this
 
     override fun toArray(): FloatArray = floatArrayOf(l, a, b, alpha)

@@ -5,6 +5,40 @@ import com.github.ajalt.colormath.internal.fromPolarModel
 import com.github.ajalt.colormath.internal.withValidComps
 
 /**
+ * The color space describing colors in the [LCH] model.
+ */
+interface LCHColorSpace : WhitePointColorSpace<LCH> {
+    operator fun invoke(l: Float, c: Float, h: Float, alpha: Float = 1f): LCH
+    operator fun invoke(l: Double, c: Double, h: Double, alpha: Double): LCH =
+        invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
+
+    operator fun invoke(l: Double, c: Double, h: Double, alpha: Float = 1f): LCH =
+        invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
+}
+
+private data class LCHColorSpaceImpl(override val whitePoint: Illuminant) : LCHColorSpace {
+    override val name: String get() = "LCH"
+    override val components: List<ColorComponentInfo> = componentInfoList(
+        ColorComponentInfo("L", false),
+        ColorComponentInfo("C", false),
+        ColorComponentInfo("H", true),
+    )
+
+    override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCH = LCH(l, c, h, alpha, this)
+    override fun convert(color: Color): LCH = color.toLCH()
+    override fun create(components: FloatArray): LCH = withValidComps(components) {
+        invoke(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+    }
+}
+
+/** An [LCH] color space calculated relative to [Illuminant.D65] */
+val LCH65: LCHColorSpace = LCHColorSpaceImpl(Illuminant.D65)
+
+/** An [LCH] color space calculated relative to [Illuminant.D50] */
+val LCH50: LCHColorSpace = LCHColorSpaceImpl(Illuminant.D50)
+
+
+/**
  * CIE LCh(ab) color model, the cylindrical representation of [LAB].
  *
  * | Component  | Description  | sRGB Range   |
@@ -13,32 +47,25 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | [c]        | chroma       | `[0, 133.8]` |
  * | [h]        | hue, degrees | `[0, 360)`   |
  */
-data class LCH(val l: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
-    companion object : ColorModel<LCH> {
-        override val name: String get() = "LCH"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("L", false),
-            ColorComponentInfo("C", false),
-            ColorComponentInfo("H", true),
-        )
-
-        override fun convert(color: Color): LCH = color.toLCH()
-        override fun create(components: FloatArray): LCH = withValidComps(components) {
-            LCH(it[0], it[1], it[2], it.getOrElse(3) { 1f })
+data class LCH internal constructor(
+    val l: Float,
+    val c: Float,
+    override val h: Float,
+    override val alpha: Float = 1f,
+    override val model: LCHColorSpace,
+) : HueColor {
+    companion object : LCHColorSpace by LCH65 {
+        /** Create a new `LCH` color space that will be calculated relative to the given [whitePoint] */
+        operator fun invoke(whitePoint: Illuminant): LCHColorSpace = when (whitePoint) {
+            Illuminant.D65 -> LCH65
+            Illuminant.D50 -> LCH50
+            else -> LCHColorSpaceImpl(whitePoint)
         }
     }
 
-    constructor(l: Double, c: Double, h: Double, alpha: Double)
-            : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
-
-    constructor(l: Double, c: Double, h: Double, alpha: Float = 1.0f)
-            : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
-
-    override val model: ColorModel<LCH> get() = LCH
-
     override fun toRGB(): RGB = toLAB().toRGB()
     override fun toXYZ(): XYZ = toLAB().toXYZ()
-    override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LAB(l, a, b, alpha) }
+    override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LAB(model.whitePoint)(l, a, b, alpha) }
     override fun toLCH(): LCH = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
 }
