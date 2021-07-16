@@ -5,7 +5,21 @@ import com.github.ajalt.colormath.internal.*
 import kotlin.math.pow
 
 
-interface XYZColorSpace : WhitePointColorModel<XYZ>
+interface XYZColorSpace : WhitePointColorModel<XYZ> {
+    operator fun invoke(x: Float, y: Float, z: Float, alpha: Float = 1f): XYZ
+    operator fun invoke(x: Double, y: Double, z: Double, alpha: Double) =
+        invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat())
+
+    operator fun invoke(x: Double, y: Double, z: Double, alpha: Float = 1f) =
+        invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha)
+
+    /**
+     * The transformation matrix from this color space to linear-light sRGB.
+     *
+     * The matrix is a 3x3 matrix stored in row-major order.
+     */
+    val matrixToSrgb: FloatArray
+}
 
 private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZColorSpace {
     override val name: String get() = "XYZ"
@@ -17,18 +31,21 @@ private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZC
 
     override fun convert(color: Color): XYZ = color.toXYZ()
     override fun create(components: FloatArray): XYZ = withValidComps(components) {
-        XYZ(it[0], it[1], it[2], it.getOrElse(3) { 1f }, this)
+        invoke(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 
+    override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ {
+        return XYZ(x, y, z, alpha, this)
+    }
 
-    val matrixToSrgb: Matrix = srgbToXyzMatrix(whitePoint).inverse()
+    override val matrixToSrgb: FloatArray = srgbToXyzMatrix(whitePoint).inverse().rowMajor
 }
 
 /** An [XYZ] color space calculated relative to [Illuminant.D65] */
-val XYZ65: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D65)
+object XYZ65 : XYZColorSpace by XYZColorSpaceImpl(Illuminant.D65)
 
 /** An [XYZ] color space calculated relative to [Illuminant.D50] */
-val XYZ50: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D50)
+object XYZ50 : XYZColorSpace by XYZColorSpaceImpl(Illuminant.D50)
 
 /**
  * The CIEXYZ color model
@@ -37,11 +54,11 @@ val XYZ50: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D50)
  *
  * | Component  | sRGB D65 Range |
  * | ---------- | -------------- |
- * | [x]        | `[0, 0.95]`    |
+ * | [x]        | `[0, 0.96]`    |
  * | [y]        | `[0, 1]`       |
  * | [z]        | `[0, 1.09]`    |
  */
-data class XYZ(
+data class XYZ internal constructor(
     val x: Float,
     val y: Float,
     val z: Float,
@@ -49,31 +66,23 @@ data class XYZ(
     override val model: XYZColorSpace = XYZ65,
 ) : Color {
     companion object : XYZColorSpace by XYZ65 {
-        /** Create a new `XYZ` color space with the given [whitePoint] */
+        /** Create a new `XYZ` color space that will be calculated relative to the given [whitePoint] */
         operator fun invoke(whitePoint: Illuminant): XYZColorSpace = XYZColorSpaceImpl(whitePoint)
     }
-
-    constructor(x: Double, y: Double, z: Double, alpha: Double, model: XYZColorSpace = XYZ65)
-            : this(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat(), model)
-
-    constructor(x: Double, y: Double, z: Double, alpha: Float = 1f, model: XYZColorSpace = XYZ65)
-            : this(x.toFloat(), y.toFloat(), z.toFloat(), alpha, model)
 
     fun adaptTo(space: XYZColorSpace): XYZ {
         if (space.whitePoint == model.whitePoint) return this
         val ws = CAT02_XYZ_TO_LMS.times(model.whitePoint.x, model.whitePoint.y, model.whitePoint.z)
         val wd = CAT02_XYZ_TO_LMS.times(space.whitePoint.x, space.whitePoint.y, space.whitePoint.z)
         val transform = CAT02_LMS_TO_XYZ * Matrix.diagonal(wd.l / ws.l, wd.m / ws.m, wd.s / ws.s) * CAT02_XYZ_TO_LMS
-        return transform.times(x, y, z) { xx, yy, zz -> XYZ(xx, yy, zz, alpha, space) }
+        return transform.times(x, y, z) { xx, yy, zz -> space(xx, yy, zz, alpha) }
     }
 
-    private val m: Matrix = (model as XYZColorSpaceImpl).matrixToSrgb
-
-    override fun toRGB(): RGB = m.times(x, y, z) { r, g, b ->
+    override fun toRGB(): RGB = Matrix(model.matrixToSrgb).times(x, y, z) { r, g, b ->
         RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), alpha)
     }
 
-    override fun toLinearRGB(): LinearRGB = m.times(x, y, z) { r, g, b ->
+    override fun toLinearRGB(): LinearRGB = Matrix(model.matrixToSrgb).times(x, y, z) { r, g, b ->
         LinearRGB(r, g, b, alpha)
     }
 
