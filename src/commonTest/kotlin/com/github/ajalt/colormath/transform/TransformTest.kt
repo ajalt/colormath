@@ -1,9 +1,6 @@
 package com.github.ajalt.colormath.transform
 
-import com.github.ajalt.colormath.HSL
-import com.github.ajalt.colormath.LCH
-import com.github.ajalt.colormath.RGB
-import com.github.ajalt.colormath.shouldEqualColor
+import com.github.ajalt.colormath.*
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.inspectors.forAll
@@ -119,20 +116,20 @@ class TransformTest {
     // most test cases from https://www.w3.org/TR/css-color-5/#color-mix
     @Test
     fun mix() {
-        // Specifying colors manually since the examples use D50
-        val purple = LCH(29.6920, 66.8302, 327.1094)
-        val plum = LCH(73.3321, 37.6076, 324.5817)
-        val mixed = LCH(51.51, 52.21, 325.8)
+        // Specifying colors manually since the W3 examples use the old bradford adaptation
+        val purple = LCH50(29.6920, 66.8302, 327.1094)
+        val plum = LCH50(73.3321, 37.6076, 324.5817)
+        val mixed = LCH50(51.51, 52.21, 325.8)
         forAll(
-            row(LCH.mix(purple, .5f, plum, .5f), mixed),
-            row(LCH.mix(purple, .5f, plum), mixed),
-            row(LCH.mix(purple, plum, .5f), mixed),
-            row(LCH.mix(purple, plum), mixed),
-            row(LCH.mix(plum, purple), mixed),
-            row(LCH.mix(purple, .8f, plum, .8f), mixed),
-            row(LCH.mix(purple, .3f, plum, .3f), LCH(51.51, 52.21, 325.8, 0.6)),
-            row(LCH.mix(LCH(62.253, 54.011, 63.677), .4f, LCH(91.374, 31.406, 98.834)), LCH(79.7256, 40.448, 84.771)),
-            row(LCH.mix(LCH(50f, 50f, 60f), LCH(50f, 50f, 0f), HueAdjustments.longer), LCH(50f, 50f, 210f))
+            row(LCH50.mix(purple, .5f, plum, .5f), mixed),
+            row(LCH50.mix(purple, .5f, plum), mixed),
+            row(LCH50.mix(purple, plum, .5f), mixed),
+            row(LCH50.mix(purple, plum), mixed),
+            row(LCH50.mix(plum, purple), mixed),
+            row(LCH50.mix(purple, .8f, plum, .8f), mixed),
+            row(LCH50.mix(purple, .3f, plum, .3f), LCH50(51.51, 52.21, 325.8, 0.6)),
+            row(LCH50.mix(LCH50(62.253, 54.011, 63.677), .4f, LCH50(91.374, 31.406, 98.834)), LCH50(79.7256, 40.448, 84.771)),
+            row(LCH50.mix(LCH50(50f, 50f, 60f), LCH50(50f, 50f, 0f), HueAdjustments.longer), LCH50(50f, 50f, 210f))
         ) { actual, ex ->
             actual.shouldEqualColor(ex, 0.1)
         }

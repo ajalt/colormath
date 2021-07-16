@@ -28,7 +28,7 @@ private data class LUVColorSpaceImpl(override val whitePoint: Illuminant) : LUVC
     override operator fun invoke(l: Float, u: Float, v: Float, alpha: Float): LUV = LUV(l, u, v, alpha, this)
     override fun convert(color: Color): LUV = color.toLUV()
     override fun create(components: FloatArray): LUV = withValidComps(components) {
-        LUV(it[0], it[1], it[2], it.getOrElse(3) { 1f }, this)
+        invoke(it[0], it[1], it[2], it.getOrElse(3) { 1f })
     }
 }
 
