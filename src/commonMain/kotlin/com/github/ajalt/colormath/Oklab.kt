@@ -5,7 +5,9 @@ import com.github.ajalt.colormath.internal.toPolarModel
 import com.github.ajalt.colormath.internal.withValidComps
 
 /**
- * The Oklab color space.
+ * The Oklab color space: a perceptual color space for image processing.
+ *
+ * This color space is always calculated relative to [Illuminant.D65].
  *
  * | Component  | Description | sRGB Range      |
  * | ---------- | ----------- | --------------- |
@@ -47,7 +49,8 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
             x = +1.2270138511 * l - 0.5577999807 * m + 0.2812561490 * s,
             y = -0.0405801784 * l + 1.1122568696 * m - 0.0716766787 * s,
             z = -0.0763812845 * l - 0.4214819784 * m + 1.5861632204 * s,
-            alpha = alpha
+            alpha = alpha,
+            model =XYZ65,
         )
     }
 

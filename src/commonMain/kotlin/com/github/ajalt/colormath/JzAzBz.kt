@@ -6,7 +6,9 @@ import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.math.pow
 
 /**
- *  The Jzazbz color space, a perceptually uniform space where euclidean distance predicts perceptual difference.
+ *  The JzAzBz color space: a perceptually uniform space where euclidean distance predicts perceptual difference.
+ *
+ *  This color space is always calculated relative to [Illuminant.D65].
  *
  * | Component  | Description | sRGB Range        |
  * | ---------- | ----------- | ----------------- |
@@ -66,7 +68,8 @@ data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: 
             x = +1.661373055774069e+00 * l - 9.145230923250668e-01 * m + 2.313620767186147e-01 * s,
             y = -3.250758740427037e-01 * l + 1.571847038366936e+00 * m - 2.182538318672940e-01 * s,
             z = -9.098281098284756e-02 * l - 3.127282905230740e-01 * m + 1.522766561305260e+00 * s,
-            alpha = alpha
+            alpha = alpha,
+            model = XYZ65,
         )
     }
 
