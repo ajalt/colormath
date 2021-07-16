@@ -4,13 +4,15 @@ import com.github.ajalt.colormath.XYZ.Companion.whitePoint
 import com.github.ajalt.colormath.internal.*
 import kotlin.math.pow
 
-
-interface XYZColorSpace : WhitePointColorModel<XYZ> {
+/**
+ * The color space describing colors in the [XYZ] model.
+ */
+interface XYZColorSpace : WhitePointColorSpace<XYZ> {
     operator fun invoke(x: Float, y: Float, z: Float, alpha: Float = 1f): XYZ
-    operator fun invoke(x: Double, y: Double, z: Double, alpha: Double) =
+    operator fun invoke(x: Double, y: Double, z: Double, alpha: Double): XYZ =
         invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat())
 
-    operator fun invoke(x: Double, y: Double, z: Double, alpha: Float = 1f) =
+    operator fun invoke(x: Double, y: Double, z: Double, alpha: Float = 1f): XYZ =
         invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha)
 
     /**
@@ -42,10 +44,10 @@ private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZC
 }
 
 /** An [XYZ] color space calculated relative to [Illuminant.D65] */
-object XYZ65 : XYZColorSpace by XYZColorSpaceImpl(Illuminant.D65)
+val XYZ65: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D65)
 
 /** An [XYZ] color space calculated relative to [Illuminant.D50] */
-object XYZ50 : XYZColorSpace by XYZColorSpaceImpl(Illuminant.D50)
+val XYZ50: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D50)
 
 /**
  * The CIEXYZ color model
@@ -63,11 +65,15 @@ data class XYZ internal constructor(
     val y: Float,
     val z: Float,
     override val alpha: Float = 1f,
-    override val model: XYZColorSpace = XYZ65,
+    override val model: XYZColorSpace,
 ) : Color {
     companion object : XYZColorSpace by XYZ65 {
         /** Create a new `XYZ` color space that will be calculated relative to the given [whitePoint] */
-        operator fun invoke(whitePoint: Illuminant): XYZColorSpace = XYZColorSpaceImpl(whitePoint)
+        operator fun invoke(whitePoint: Illuminant): XYZColorSpace = when (whitePoint) {
+            Illuminant.D65 -> XYZ65
+            Illuminant.D50 -> XYZ50
+            else -> XYZColorSpaceImpl(whitePoint)
+        }
     }
 
     fun adaptTo(space: XYZColorSpace): XYZ {
@@ -87,7 +93,7 @@ data class XYZ internal constructor(
     }
 
     // http://www.brucelindbloom.com/Eqn_XYZ_to_Lab.html
-    override fun toLAB(): LAB = toD65 {
+    override fun toLAB(): LAB {
         fun f(t: Float) = when {
             t > CIE_E -> cbrt(t)
             else -> (t * CIE_K + 16) / 116
@@ -101,7 +107,7 @@ data class XYZ internal constructor(
         val a = 500 * (fx - fy)
         val b = 200 * (fy - fz)
 
-        return LAB(l, a, b, alpha)
+        return LAB(model.whitePoint)(l, a, b, alpha)
     }
 
     // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html

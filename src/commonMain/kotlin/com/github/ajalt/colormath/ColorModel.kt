@@ -30,7 +30,8 @@ class ColorComponentInfo(
     val isPolar: Boolean,
 )
 
-/** A color model that is defined with a reference [whitePoint]. */
-interface WhitePointColorModel<T : Color> : ColorModel<T> {
+/** A color space that is defined with a reference [whitePoint]. */
+interface WhitePointColorSpace<T : Color> : ColorModel<T> {
+    /** The white point that colors in this space are calculated relative to. */
     val whitePoint: Illuminant
 }
