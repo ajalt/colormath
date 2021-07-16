@@ -1,61 +1,92 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.Illuminant.Companion.D65
+import com.github.ajalt.colormath.XYZ.Companion.whitePoint
 import com.github.ajalt.colormath.internal.*
 import kotlin.math.pow
 
-/**
- * The CIEXYZ color space.
- *
- * [XYZ] is calculated relative to the D65 standard illuminant.
- *
- * | Component  | sRGB Range  |
- * | ---------- | ----------- |
- * | [x]        | `[0, 0.95]` |
- * | [y]        | `[0, 1]`    |
- * | [z]        | `[0, 1.09]` |
- */
-data class XYZ(val x: Float, val y: Float, val z: Float, override val alpha: Float = 1f) : Color {
-    companion object : ColorModel<XYZ> {
-        override val name: String get() = "XYZ"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("X", false),
-            ColorComponentInfo("Y", false),
-            ColorComponentInfo("Z", false),
-        )
 
-        override fun convert(color: Color): XYZ = color.toXYZ()
-        override fun create(components: FloatArray): XYZ = withValidComps(components) {
-            XYZ(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-        }
+interface XYZColorSpace : WhitePointColorModel<XYZ>
+
+private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZColorSpace {
+    override val name: String get() = "XYZ"
+    override val components: List<ColorComponentInfo> = componentInfoList(
+        ColorComponentInfo("X", false),
+        ColorComponentInfo("Y", false),
+        ColorComponentInfo("Z", false),
+    )
+
+    override fun convert(color: Color): XYZ = color.toXYZ()
+    override fun create(components: FloatArray): XYZ = withValidComps(components) {
+        XYZ(it[0], it[1], it[2], it.getOrElse(3) { 1f }, this)
     }
 
-    constructor(x: Double, y: Double, z: Double, alpha: Double)
-            : this(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat())
 
-    constructor(x: Double, y: Double, z: Double, alpha: Float = 1f)
-            : this(x.toFloat(), y.toFloat(), z.toFloat(), alpha)
+    val matrixToSrgb: Matrix = srgbToXyzMatrix(whitePoint).inverse()
+}
 
-    override val model: ColorModel<XYZ> get() = XYZ
+/** An [XYZ] color space calculated relative to [Illuminant.D65] */
+val XYZ65: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D65)
 
-    // Matrix from http://www.brucelindbloom.com/Eqn_XYZ_to_RGB.html
-    private fun r() = 3.2404542f * x - 1.5371385f * y - 0.4985314f * z
-    private fun g() = -0.9692660f * x + 1.8760108f * y + 0.0415560f * z
-    private fun b() = 0.0556434f * x - 0.2040259f * y + 1.0572252f * z
+/** An [XYZ] color space calculated relative to [Illuminant.D50] */
+val XYZ50: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D50)
 
-    override fun toRGB(): RGB = RGB(linearToSRGB(r()), linearToSRGB(g()), linearToSRGB(b()), alpha)
-    override fun toLinearRGB(): LinearRGB = LinearRGB(r(), g(), b(), alpha)
+/**
+ * The CIEXYZ color model
+ *
+ * [XYZ] is calculated relative to a [given][model] [whitePoint], which defaults to [Illuminant.D65].
+ *
+ * | Component  | sRGB D65 Range |
+ * | ---------- | -------------- |
+ * | [x]        | `[0, 0.95]`    |
+ * | [y]        | `[0, 1]`       |
+ * | [z]        | `[0, 1.09]`    |
+ */
+data class XYZ(
+    val x: Float,
+    val y: Float,
+    val z: Float,
+    override val alpha: Float = 1f,
+    override val model: XYZColorSpace = XYZ65,
+) : Color {
+    companion object : XYZColorSpace by XYZ65 {
+        /** Create a new `XYZ` color space with the given [whitePoint] */
+        operator fun invoke(whitePoint: Illuminant): XYZColorSpace = XYZColorSpaceImpl(whitePoint)
+    }
+
+    constructor(x: Double, y: Double, z: Double, alpha: Double, model: XYZColorSpace = XYZ65)
+            : this(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat(), model)
+
+    constructor(x: Double, y: Double, z: Double, alpha: Float = 1f, model: XYZColorSpace = XYZ65)
+            : this(x.toFloat(), y.toFloat(), z.toFloat(), alpha, model)
+
+    fun adaptTo(space: XYZColorSpace): XYZ {
+        if (space.whitePoint == model.whitePoint) return this
+        val ws = CAT02_XYZ_TO_LMS.times(model.whitePoint.x, model.whitePoint.y, model.whitePoint.z)
+        val wd = CAT02_XYZ_TO_LMS.times(space.whitePoint.x, space.whitePoint.y, space.whitePoint.z)
+        val transform = CAT02_LMS_TO_XYZ * Matrix.diagonal(wd.l / ws.l, wd.m / ws.m, wd.s / ws.s) * CAT02_XYZ_TO_LMS
+        return transform.times(x, y, z) { xx, yy, zz -> XYZ(xx, yy, zz, alpha, space) }
+    }
+
+    private val m: Matrix = (model as XYZColorSpaceImpl).matrixToSrgb
+
+    override fun toRGB(): RGB = m.times(x, y, z) { r, g, b ->
+        RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), alpha)
+    }
+
+    override fun toLinearRGB(): LinearRGB = m.times(x, y, z) { r, g, b ->
+        LinearRGB(r, g, b, alpha)
+    }
 
     // http://www.brucelindbloom.com/Eqn_XYZ_to_Lab.html
-    override fun toLAB(): LAB {
+    override fun toLAB(): LAB = toD65 {
         fun f(t: Float) = when {
             t > CIE_E -> cbrt(t)
             else -> (t * CIE_K + 16) / 116
         }
 
-        val fx = f(x / D65.x)
-        val fy = f(y / D65.y)
-        val fz = f(z / D65.z)
+        val fx = f(x / model.whitePoint.x)
+        val fy = f(y / model.whitePoint.y)
+        val fz = f(z / model.whitePoint.z)
 
         val l = (116 * fy) - 16
         val a = 500 * (fx - fy)
@@ -65,16 +96,16 @@ data class XYZ(val x: Float, val y: Float, val z: Float, override val alpha: Flo
     }
 
     // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
-    override fun toLUV(): LUV {
+    override fun toLUV(): LUV = toD65 {
         val denominator = x + 15 * y + 3 * z
         val uPrime = if (denominator == 0f) 0f else (4 * x) / denominator
         val vPrime = if (denominator == 0f) 0f else (9 * y) / denominator
 
-        val denominatorReference = D65.x + 15 * D65.y + 3 * D65.z
-        val uPrimeReference = (4 * D65.x) / denominatorReference
-        val vPrimeReference = (9 * D65.y) / denominatorReference
+        val denominatorReference = model.whitePoint.x + 15 * model.whitePoint.y + 3 * model.whitePoint.z
+        val uPrimeReference = (4 * model.whitePoint.x) / denominatorReference
+        val vPrimeReference = (9 * model.whitePoint.y) / denominatorReference
 
-        val yr = y / D65.y
+        val yr = y / model.whitePoint.y
         val l = when {
             yr > CIE_E -> 116 * cbrt(yr) - 16
             else -> CIE_K * yr
@@ -86,7 +117,7 @@ data class XYZ(val x: Float, val y: Float, val z: Float, override val alpha: Flo
     }
 
     // https://bottosson.github.io/posts/oklab/#converting-from-xyz-to-oklab
-    override fun toOklab(): Oklab {
+    override fun toOklab(): Oklab = toD65 {
         val l = +0.8189330101 * x + 0.3618667424 * y - 0.1288597137 * z
         val m = +0.0329845436 * x + 0.9293118715 * y + 0.0361456387 * z
         val s = +0.0482003018 * x + 0.2643662691 * y + 0.6338517070 * z
@@ -103,7 +134,7 @@ data class XYZ(val x: Float, val y: Float, val z: Float, override val alpha: Flo
         )
     }
 
-    override fun toJzAzBz(): JzAzBz {
+    override fun toJzAzBz(): JzAzBz = toD65 {
         fun pq(x: Double): Double {
             val xx = (x * 1e-4).pow(0.1593017578125)
             return ((0.8359375 + 18.8515625 * xx) / (1 + 18.6875 * xx)).pow(134.034375)
@@ -119,6 +150,10 @@ data class XYZ(val x: Float, val y: Float, val z: Float, override val alpha: Flo
             b = 0.199076 * lp + 1.096799 * mp - 1.295875 * sp,
             alpha = alpha
         )
+    }
+
+    private inline fun <T : Color> toD65(block: XYZ.() -> T): T {
+        return if (model == XYZ65) this.block() else adaptTo(XYZ65).block()
     }
 
     override fun toXYZ(): XYZ = this

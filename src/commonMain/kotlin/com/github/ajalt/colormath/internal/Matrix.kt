@@ -72,13 +72,15 @@ internal fun Matrix.inverse(inPlace: Boolean = false): Matrix {
     return out
 }
 
-internal fun Matrix.times(v0: Float, v1: Float, v2: Float): Vector {
-    return Vector(
+internal inline fun <T> Matrix.times(v0: Float, v1: Float, v2: Float, block: (Float, Float, Float) -> T): T {
+    return block(
         get(0, 0) * v0 + get(1, 0) * v1 + get(2, 0) * v2,
         get(0, 1) * v0 + get(1, 1) * v1 + get(2, 1) * v2,
         get(0, 2) * v0 + get(1, 2) * v1 + get(2, 2) * v2,
     )
 }
+
+internal fun Matrix.times(v0: Float, v1: Float, v2: Float): Vector = times(v0, v1, v2, ::Vector)
 
 
 internal operator fun Matrix.times(other: Matrix): Matrix {
@@ -114,4 +116,8 @@ internal value class Vector(val values: FloatArray) {
     val l get() = values[0]
     val m get() = values[1]
     val s get() = values[2]
+
+    operator fun component1() = values[0]
+    operator fun component2() = values[1]
+    operator fun component3() = values[2]
 }

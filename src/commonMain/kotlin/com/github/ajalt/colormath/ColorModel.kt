@@ -29,3 +29,8 @@ class ColorComponentInfo(
     /** `true` if this component uses polar coordinates (e.g. a hue), and `false` if it's rectangular. */
     val isPolar: Boolean,
 )
+
+/** A color model that is defined with a reference [whitePoint]. */
+interface WhitePointColorModel<T : Color> : ColorModel<T> {
+    val whitePoint: Illuminant
+}
