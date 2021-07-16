@@ -21,14 +21,19 @@ fun convertTo(expected: Color) = object : Matcher<Color> {
     }
 }
 
-fun Color.shouldEqualColor(expected: Color, tolerance: Double = 0.0005) {
+fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4) {
     try {
         this::class shouldBe expected::class
         val l = toArray()
         val r = expected.toArray()
         l.size shouldBe r.size
         for (i in l.indices) {
-            withClue(model.components[i].name) {l[i] shouldBe (r[i] plusOrMinus tolerance.toFloat())}
+            withClue(model.components[i].name) { l[i] shouldBe (r[i] plusOrMinus tolerance.toFloat()) }
+        }
+        val wp = (this.model as? WhitePointColorSpace<*>)?.whitePoint
+        val wpEx = (expected.model as? WhitePointColorSpace<*>)?.whitePoint
+        if (wp != null && wpEx != null) {
+            wp shouldBe wpEx
         }
     } catch (e: AssertionError) {
         println("$this ${this.toRGB().toHex()}")
