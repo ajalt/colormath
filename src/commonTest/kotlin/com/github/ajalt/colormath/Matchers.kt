@@ -36,7 +36,8 @@ fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4) {
             wp shouldBe wpEx
         }
     } catch (e: AssertionError) {
-        println("$this ${this.toRGB().toHex()}")
+        println("┌ ex $expected ${expected.toRGB().toHex()}")
+        println("└ ac $this ${this.toRGB().toHex()}")
         throw e
     }
 }

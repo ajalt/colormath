@@ -41,11 +41,11 @@ val LCH50: LCHColorSpace = LCHColorSpaceImpl(Illuminant.D50)
 /**
  * CIE LCh(ab) color model, the cylindrical representation of [LAB].
  *
- * | Component  | Description  | sRGB Range   |
- * | ---------- | ------------ | ------------ |
- * | [l]        | lightness    | `[0, 100]`   |
- * | [c]        | chroma       | `[0, 133.8]` |
- * | [h]        | hue, degrees | `[0, 360)`   |
+ * | Component  | Description  | sRGB D65 Range |
+ * | ---------- | ------------ | -------------- |
+ * | [l]        | lightness    | `[0, 100]`     |
+ * | [c]        | chroma       | `[0, 133.8]`   |
+ * | [h]        | hue, degrees | `[0, 360)`     |
  */
 data class LCH internal constructor(
     val l: Float,
