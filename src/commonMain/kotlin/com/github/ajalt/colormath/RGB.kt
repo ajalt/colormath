@@ -100,12 +100,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
      *
      * All components will be clamped to `[0, 255]`.
      */
-    fun toRGBInt() = RGBInt(
-        r = redInt.coerceIn(0, 255).toUByte(),
-        g = greenInt.coerceIn(0, 255).toUByte(),
-        b = blueInt.coerceIn(0, 255).toUByte(),
-        alpha = alphaInt.coerceIn(0, 255).toUByte()
-    )
+    fun toRGBInt() = RGBInt(r, g, b, alpha)
 
     /**
      * Convert this color to an RGB hex string.
@@ -143,7 +138,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         }
     }
 
-    override fun toXYZ(): XYZ = linearRGBToXYZ(sRGBToLinear(r), sRGBToLinear(g), sRGBToLinear(b), alpha)
+    override fun toXYZ(): XYZ = linearSRGBToXYZ(sRGBToLinear(r), sRGBToLinear(g), sRGBToLinear(b), alpha)
 
     override fun toCMYK(): CMYK {
         val k = 1 - maxOf(r, b, g)

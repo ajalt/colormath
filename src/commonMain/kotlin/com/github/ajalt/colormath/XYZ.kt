@@ -75,9 +75,7 @@ data class XYZ internal constructor(
 
     fun adaptTo(space: XYZColorSpace): XYZ {
         if (space.whitePoint == model.whitePoint) return this
-        val ws = CAT02_XYZ_TO_LMS.times(model.whitePoint.x, model.whitePoint.y, model.whitePoint.z)
-        val wd = CAT02_XYZ_TO_LMS.times(space.whitePoint.x, space.whitePoint.y, space.whitePoint.z)
-        val transform = CAT02_LMS_TO_XYZ * Matrix.diagonal(wd.l / ws.l, wd.m / ws.m, wd.s / ws.s) * CAT02_XYZ_TO_LMS
+        val transform = Matrix(space.chromaticAdaptationMatrix(model.whitePoint))
         return transform.times(x, y, z) { xx, yy, zz -> space(xx, yy, zz, alpha) }
     }
 
@@ -171,4 +169,11 @@ data class XYZ internal constructor(
 
     override fun toXYZ(): XYZ = this
     override fun toArray(): FloatArray = floatArrayOf(x, y, z, alpha)
+}
+
+/** Create the transform matrix to adapt [whitePoint] to this color space */
+internal fun XYZColorSpace.chromaticAdaptationMatrix(whitePoint: Illuminant): FloatArray {
+    val src = CAT02_XYZ_TO_LMS.times(whitePoint.x, whitePoint.y, whitePoint.z)
+    val dst = CAT02_XYZ_TO_LMS.times(this.whitePoint.x, this.whitePoint.y, this.whitePoint.z)
+    return (CAT02_LMS_TO_XYZ * Matrix.diagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * CAT02_XYZ_TO_LMS).rowMajor
 }

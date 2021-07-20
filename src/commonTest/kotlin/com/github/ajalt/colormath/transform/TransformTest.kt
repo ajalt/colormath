@@ -128,10 +128,27 @@ class TransformTest {
             row(LCH50.mix(plum, purple), mixed),
             row(LCH50.mix(purple, .8f, plum, .8f), mixed),
             row(LCH50.mix(purple, .3f, plum, .3f), LCH50(51.51, 52.21, 325.8, 0.6)),
-            row(LCH50.mix(LCH50(62.253, 54.011, 63.677), .4f, LCH50(91.374, 31.406, 98.834)), LCH50(79.7256, 40.448, 84.771)),
+            row(LCH50.mix(LCH50(62.253, 54.011, 63.677), .4f, LCH50(91.374, 31.406, 98.834)),
+                LCH50(79.7256, 40.448, 84.771)),
             row(LCH50.mix(LCH50(50f, 50f, 60f), LCH50(50f, 50f, 0f), HueAdjustments.longer), LCH50(50f, 50f, 210f))
         ) { actual, ex ->
             actual.shouldEqualColor(ex, 0.1)
         }
     }
+
+    @Test
+    fun chromaticAdapter() = forAll(
+        row(RGB.createChromaticAdapter(RGB(209, 215, 212)).adapt(RGB(192, 202, 202)),
+            RGB(r = 0.9202273, g = 0.94016844, b = 0.9533126)),
+        row(RGB.createChromaticAdapter(RGB(209, 215, 212).toIll()).adapt(RGB(192, 202, 202)),
+            RGB(r = 0.9202273, g = 0.94016844, b = 0.9533126)),
+        row(RGBInt.createChromaticAdapter(RGBInt(200, 210, 220)).adapt(RGBInt(11, 222, 33)),
+            RGB(r = 0.29472744, g = 1.0578139, b = 0.073229484).toRGBInt()),
+        row(RGBInt.createChromaticAdapter(RGBInt(200, 210, 220).toIll()).adapt(RGBInt(11, 222, 33)),
+            RGB(r = 0.29472744, g = 1.0578139, b = 0.073229484).toRGBInt()),
+    ) { ac, ex ->
+        ac.shouldEqualColor(ex)
+    }
 }
+
+private fun Color.toIll() = toXYZ().let { Illuminant(it.x, it.y, it.z) }

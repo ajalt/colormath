@@ -4,6 +4,7 @@ import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.jvm.JvmInline
+import kotlin.math.roundToInt
 
 /**
  * A representation of [RGB] that packs color components into a single integer.
@@ -48,6 +49,16 @@ value class RGBInt(val argb: UInt) : Color {
         (alpha.toUInt() shl 24) or (r.toUInt() shl 16) or (g.toUInt() shl 8) or b.toUInt()
     )
 
+    /**
+     * Construct and [RGBInt] instance from Float value in the range `[0, 1]`
+     */
+    constructor(r: Float, g: Float, b: Float, alpha: Float = 1f) : this(
+        r = (r * 255).roundToInt().coerceIn(0, 255),
+        g = (g * 255).roundToInt().coerceIn(0, 255),
+        b = (b * 255).roundToInt().coerceIn(0, 255),
+        alpha = (alpha * 255).roundToInt().coerceIn(0, 255),
+    )
+
     override val alpha: Float get() = (a.toFloat() / 255f)
     override val model: ColorModel<RGBInt> get() = RGBInt
 
@@ -63,12 +74,19 @@ value class RGBInt(val argb: UInt) : Color {
     /** The [alpha] component scaled to `[0, 255]` */
     val a: UByte get() = (argb shr 24).toUByte()
 
-    override fun toRGB(): RGB = RGB(
-        r = r.toInt() / 255f,
-        g = g.toInt() / 255f,
-        b = b.toInt() / 255f,
-        a = a.toInt() / 255f,
-    )
+    /** The red component as a Float in the range `[0, 1]` */
+    val redFloat: Float get() = r.toInt() / 255f
+
+    /** The green component as a Float in the range `[0, 1]` */
+    val greenFloat: Float get() = g.toInt() / 255f
+
+    /** The blue component as a Float in the range `[0, 1]` */
+    val blueFloat: Float get() = b.toInt() / 255f
+
+    /** The alpha component as a Float in the range `[0, 1]` */
+    val alphaFloat: Float get() = a.toInt() / 255f
+
+    override fun toRGB(): RGB = RGB(redFloat, greenFloat, blueFloat, alphaFloat)
 
     /**
      * Convert this color to an RGB hex string.
