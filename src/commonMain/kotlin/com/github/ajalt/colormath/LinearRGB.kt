@@ -54,13 +54,13 @@ data class LinearRGB(val r: Float, val g: Float, val b: Float, override val alph
         )
     }
 
-    override fun toXYZ(): XYZ = linearRGBToXYZ(r, g, b, alpha)
+    override fun toXYZ(): XYZ = linearSRGBToXYZ(r, g, b, alpha)
     override fun toRGB(): RGB = RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), alpha)
     override fun toLinearRGB(): LinearRGB = this
     override fun toArray(): FloatArray = floatArrayOf(r, g, b, alpha)
 }
 
-internal fun linearRGBToXYZ(r: Float, g: Float, b: Float, alpha: Float): XYZ {
+internal fun linearSRGBToXYZ(r: Float, g: Float, b: Float, alpha: Float): XYZ {
     // http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
     val x = 0.4124564 * r + 0.3575761 * g + 0.1804375 * b
     val y = 0.2126729 * r + 0.7151522 * g + 0.0721750 * b
