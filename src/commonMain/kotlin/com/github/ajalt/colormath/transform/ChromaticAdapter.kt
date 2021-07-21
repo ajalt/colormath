@@ -1,7 +1,9 @@
 package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.*
-import com.github.ajalt.colormath.internal.*
+import com.github.ajalt.colormath.internal.Matrix
+import com.github.ajalt.colormath.internal.inverse
+import com.github.ajalt.colormath.internal.times
 
 /**
  * A `ChromaticAdapter` can be used to efficiently color balance multiple colors to the same white point.
@@ -36,31 +38,36 @@ fun RGBInt.Companion.createChromaticAdapter(referenceWhite: Illuminant): Chromat
     return RGBIntChromaticAdapter(xyzToSrgb.times(xyzTransform).times(srgbToXYZ))
 }
 
-private abstract class BaseRGBChromaticAdapter<T: Color>(
-    private val transform: Matrix
-) : ChromaticAdapter<T> {
-    protected val v = Vector(0f, 0f, 0f)
-    protected fun doAdapt(r: Float, g: Float, b: Float) {
-        v[0] = sRGBToLinear(r)
-        v[1] = sRGBToLinear(g)
-        v[2] = sRGBToLinear(b)
-        transform.multiplyInPlace(v)
-        v[0] = linearToSRGB(v[0])
-        v[1] = linearToSRGB(v[1])
-        v[2] = linearToSRGB(v[2])
-    }
-}
-private class SRGBChromaticAdapter(transform: Matrix) : BaseRGBChromaticAdapter<RGB>(transform) {
-    override fun adapt(color: RGB): RGB {
-        doAdapt(color.r, color.g, color.b)
-        return RGB(v[0], v[1], v[2], color.alpha)
+/** Apply this adaptation in-place to all `argb` ints in an array of [colors] */
+fun ChromaticAdapter<RGBInt>.adaptAll(colors: IntArray) {
+    for (i in colors.indices) {
+        colors[i] = adapt(RGBInt(colors[i].toUInt())).argb.toInt()
     }
 }
 
-private class RGBIntChromaticAdapter(transform: Matrix) : BaseRGBChromaticAdapter<RGBInt>(transform) {
+private class SRGBChromaticAdapter(private val transform: Matrix) : ChromaticAdapter<RGB> {
+    override fun adapt(color: RGB): RGB {
+        return doAdapt(transform, color.r, color.g, color.b) { r, g, b ->
+            RGB(r, g, b, color.alpha)
+        }
+    }
+}
+
+private class RGBIntChromaticAdapter(private val transform: Matrix) : ChromaticAdapter<RGBInt> {
     override fun adapt(color: RGBInt): RGBInt {
-        doAdapt(color.redFloat, color.greenFloat, color.blueFloat)
-        return RGBInt(v[0], v[1], v[2], color.alpha)
+        return doAdapt(transform, color.redFloat, color.greenFloat, color.blueFloat) { r, g, b ->
+            RGBInt(r, g, b, color.alpha)
+        }
+    }
+}
+
+private inline fun <T> doAdapt(transform: Matrix, r: Float, g: Float, b: Float, block: (Float, Float, Float) -> T): T {
+    return transform.times(
+        sRGBToLinear(r),
+        sRGBToLinear(g),
+        sRGBToLinear(b)
+    ) { rr, gg, bb ->
+        block(linearToSRGB(rr), linearToSRGB(gg), linearToSRGB(bb))
     }
 }
 

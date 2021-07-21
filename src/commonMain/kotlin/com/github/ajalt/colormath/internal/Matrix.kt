@@ -82,14 +82,6 @@ internal inline fun <T> Matrix.times(v0: Float, v1: Float, v2: Float, block: (Fl
 
 internal fun Matrix.times(v0: Float, v1: Float, v2: Float): Vector = times(v0, v1, v2, ::Vector)
 
-internal fun Matrix.multiplyInPlace(v: Vector) {
-    times(v[0], v[1], v[2]) { v0, v1, v2 ->
-        v[0] = v0
-        v[1] = v1
-        v[2] = v2
-    }
-}
-
 internal operator fun Matrix.times(other: Matrix): Matrix {
     fun f(x: Int, y: Int): Float {
         return this[0, y] * other[x, 0] + this[1, y] * other[x, 1] + this[2, y] * other[x, 2]
