@@ -3,16 +3,20 @@ package com.github.ajalt.colormath.benchmark
 import com.github.ajalt.colormath.LCH
 import com.github.ajalt.colormath.LinearRGB
 import com.github.ajalt.colormath.RGB
+import com.github.ajalt.colormath.RGBInt
+import com.github.ajalt.colormath.transform.createChromaticAdapter
 import com.github.ajalt.colormath.transform.interpolator
 import com.github.ajalt.colormath.transform.sequence
 import org.openjdk.jmh.annotations.*
 import java.util.concurrent.TimeUnit
 
+
 private val interpolator = RGB.interpolator(RGB("#000a"), RGB("#fffa"), premultiplyAlpha = false)
 private val interpolatorPrumult = RGB.interpolator(RGB("#000a"), RGB("#fffa"))
+private val adapter = RGBInt.createChromaticAdapter(RGBInt(200, 210, 220))
+private val rgbInt = RGBInt(11, 222, 33)
 
-
-@Warmup(iterations = 2, time = 1)
+@Warmup(iterations = 3, time = 1)
 @Measurement(iterations = 3, time = 1)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @BenchmarkMode(Mode.AverageTime)
@@ -41,14 +45,17 @@ open class ColorBenchmarks {
     }
 
     @Benchmark
-    @OperationsPerInvocation(10)
     open fun rgbToLch(): LCH {
         return RGB(0.3f, 0.4f, 0.6f).toLCH()
     }
 
     @Benchmark
-    @OperationsPerInvocation(10)
     open fun rgbToLinear(): LinearRGB {
         return RGB(0.3f, 0.4f, 0.6f).toLinearRGB()
+    }
+
+    @Benchmark
+    open fun chromaticAdapter(): Int {
+        return adapter.adapt(rgbInt).argb.toInt()
     }
 }
