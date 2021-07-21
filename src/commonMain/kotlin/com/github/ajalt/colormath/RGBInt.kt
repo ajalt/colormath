@@ -83,10 +83,7 @@ value class RGBInt(val argb: UInt) : Color {
     /** The blue component as a Float in the range `[0, 1]` */
     val blueFloat: Float get() = b.toInt() / 255f
 
-    /** The alpha component as a Float in the range `[0, 1]` */
-    val alphaFloat: Float get() = a.toInt() / 255f
-
-    override fun toRGB(): RGB = RGB(redFloat, greenFloat, blueFloat, alphaFloat)
+    override fun toRGB(): RGB = RGB(redFloat, greenFloat, blueFloat, alpha)
 
     /**
      * Convert this color to an RGB hex string.
