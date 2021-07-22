@@ -6,6 +6,8 @@ import com.github.ajalt.colormath.internal.withValidComps
 /**
  * A color in the CMYK (cyan, magenta, yellow, and key) color model.
  *
+ * Conversions to and from this model use the device-independent ("naive") formulas.
+ *
  * | Component  | Description | sRGB Range |
  * | ---------- | ----------- | ---------- |
  * | [c]        | cyan        | `[0, 1]`   |
