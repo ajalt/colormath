@@ -19,17 +19,10 @@ interface LUVColorSpace : WhitePointColorSpace<LUV> {
 
 private data class LUVColorSpaceImpl(override val whitePoint: Illuminant) : LUVColorSpace {
     override val name: String get() = "LUV"
-    override val components: List<ColorComponentInfo> = componentInfoList(
-        ColorComponentInfo("L", false),
-        ColorComponentInfo("U", false),
-        ColorComponentInfo("V", false),
-    )
-
+    override val components: List<ColorComponentInfo> = rectangularComponentInfo("LUV")
     override operator fun invoke(l: Float, u: Float, v: Float, alpha: Float): LUV = LUV(l, u, v, alpha, this)
     override fun convert(color: Color): LUV = color.toLUV()
-    override fun create(components: FloatArray): LUV = withValidComps(components) {
-        invoke(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
+    override fun create(components: FloatArray): LUV = doCreate(components, ::invoke)
 }
 
 /** An [LUV] color space calculated relative to [Illuminant.D65] */

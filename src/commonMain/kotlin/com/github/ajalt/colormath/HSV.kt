@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.normalizeDeg
-import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.polarComponentInfo
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -21,16 +21,9 @@ import kotlin.math.roundToInt
 data class HSV(override val h: Float, val s: Float, val v: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorModel<HSV> {
         override val name: String get() = "HSV"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("H", true),
-            ColorComponentInfo("S", false),
-            ColorComponentInfo("V", false),
-        )
-
+        override val components: List<ColorComponentInfo> = polarComponentInfo("HSV")
         override fun convert(color: Color): HSV = color.toHSV()
-        override fun create(components: FloatArray): HSV = withValidComps(components) {
-            HSV(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-        }
+        override fun create(components: FloatArray): HSV = doCreate(components, ::HSV)
     }
 
     /**

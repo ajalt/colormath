@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.doCreate
+import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import com.github.ajalt.colormath.internal.toPolarModel
-import com.github.ajalt.colormath.internal.withValidComps
 
 /**
  * The Oklab color space: a perceptual color space for image processing.
@@ -18,16 +18,9 @@ import com.github.ajalt.colormath.internal.withValidComps
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     companion object : ColorModel<Oklab> {
         override val name: String get() = "Oklab"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("L", false),
-            ColorComponentInfo("A", false),
-            ColorComponentInfo("B", false),
-        )
-
+        override val components: List<ColorComponentInfo> = rectangularComponentInfo("LAB")
         override fun convert(color: Color): Oklab = color.toOklab()
-        override fun create(components: FloatArray): Oklab = withValidComps(components) {
-            Oklab(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-        }
+        override fun create(components: FloatArray): Oklab = doCreate(components, ::Oklab)
     }
 
 

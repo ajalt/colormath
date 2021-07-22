@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RenderCondition.AUTO
-import com.github.ajalt.colormath.internal.componentInfoList
-import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.doCreate
+import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import kotlin.math.roundToInt
 
 /**
@@ -17,17 +17,9 @@ import kotlin.math.roundToInt
 data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
     companion object : ColorModel<RGB> {
         override val name: String get() = "RGB"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("R", false),
-            ColorComponentInfo("G", false),
-            ColorComponentInfo("B", false),
-        )
-
+        override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
         override fun convert(color: Color): RGB = color.toRGB()
-        override fun create(components: FloatArray): RGB = withValidComps(components) {
-            RGB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-        }
-
+        override fun create(components: FloatArray): RGB = doCreate(components, ::RGB)
 
         @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
         fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toRGB()

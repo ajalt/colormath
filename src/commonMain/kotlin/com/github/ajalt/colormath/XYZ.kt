@@ -25,18 +25,10 @@ interface XYZColorSpace : WhitePointColorSpace<XYZ> {
 
 private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZColorSpace {
     override val name: String get() = "XYZ"
-    override val components: List<ColorComponentInfo> = componentInfoList(
-        ColorComponentInfo("X", false),
-        ColorComponentInfo("Y", false),
-        ColorComponentInfo("Z", false),
-    )
-
+    override val components: List<ColorComponentInfo> = rectangularComponentInfo("XYZ")
     override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ = XYZ(x, y, z, alpha, this)
     override fun convert(color: Color): XYZ = color.toXYZ()
-    override fun create(components: FloatArray): XYZ = withValidComps(components) {
-        invoke(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
-
+    override fun create(components: FloatArray): XYZ = doCreate(components, ::invoke)
     override val matrixToSrgb: FloatArray = srgbToXyzMatrix(whitePoint).inverse().rowMajor
 }
 

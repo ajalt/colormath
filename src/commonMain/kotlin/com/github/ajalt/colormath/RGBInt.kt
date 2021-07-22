@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RenderCondition.AUTO
-import com.github.ajalt.colormath.internal.componentInfoList
-import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.doCreate
+import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import kotlin.jvm.JvmInline
 import kotlin.math.roundToInt
 
@@ -24,20 +24,10 @@ import kotlin.math.roundToInt
 value class RGBInt(val argb: UInt) : Color {
     companion object : ColorModel<RGBInt> {
         override val name: String get() = "RGBInt"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("R", false),
-            ColorComponentInfo("G", false),
-            ColorComponentInfo("B", false),
-        )
-
+        override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
         override fun convert(color: Color): RGBInt = color.toRGB().toRGBInt()
-        override fun create(components: FloatArray): RGBInt = withValidComps(components) {
-            RGBInt(
-                r = it[0].toInt().toUByte(),
-                g = it[1].toInt().toUByte(),
-                b = it[2].toInt().toUByte(),
-                alpha = it.getOrElse(3) { 255f }.toInt().toUByte()
-            )
+        override fun create(components: FloatArray): RGBInt = doCreate(components) { r, g, b, a ->
+            RGBInt(r.toInt(), g.toInt(), b.toInt(), a.toInt())
         }
     }
 
@@ -50,7 +40,7 @@ value class RGBInt(val argb: UInt) : Color {
     )
 
     /**
-     * Construct and [RGBInt] instance from Float value in the range `[0, 1]`
+     * Construct an [RGBInt] instance from Float value in the range `[0, 1]`
      */
     constructor(r: Float, g: Float, b: Float, alpha: Float = 1f) : this(
         r = (r * 255).roundToInt().coerceIn(0, 255),
