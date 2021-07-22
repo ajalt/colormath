@@ -149,6 +149,14 @@ class TransformTest {
     ) { ac, ex ->
         ac.shouldEqualColor(ex)
     }
+
+    @Test
+    fun adaptAll() {
+        val colors = intArrayOf(RGBInt(192, 202, 202).argb.toInt(), RGBInt(11, 222, 33).argb.toInt())
+        RGBInt.createChromaticAdapter(RGBInt(200, 210, 220)).adaptAll(colors)
+        RGBInt(colors[0].toUInt()).shouldEqualColor(RGB(0.96045226, 0.9623541, 0.9181748).toRGBInt())
+        RGBInt(colors[1].toUInt()).shouldEqualColor(RGB(0.29472744, 1.0578139, 0.073229484).toRGBInt())
+    }
 }
 
 private fun Color.toIll() = toXYZ().let { Illuminant(it.x, it.y, it.z) }
