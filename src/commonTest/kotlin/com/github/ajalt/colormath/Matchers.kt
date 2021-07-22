@@ -1,6 +1,9 @@
 package com.github.ajalt.colormath
 
-import io.kotest.assertions.*
+import io.kotest.assertions.Actual
+import io.kotest.assertions.Expected
+import io.kotest.assertions.failure
+import io.kotest.assertions.intellijFormatError
 import io.kotest.assertions.show.show
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
@@ -28,7 +31,7 @@ fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4) {
         val r = expected.toArray()
         l.size shouldBe r.size
         for (i in l.indices) {
-            withClue(model.components[i].name) { l[i] shouldBe (r[i] plusOrMinus tolerance.toFloat()) }
+            l[i] shouldBe (r[i] plusOrMinus tolerance.toFloat())
         }
         val wp = (this.model as? WhitePointColorSpace<*>)?.whitePoint
         val wpEx = (expected.model as? WhitePointColorSpace<*>)?.whitePoint
