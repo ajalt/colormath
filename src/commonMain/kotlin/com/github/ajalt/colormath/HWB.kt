@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
-import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.doCreate
+import com.github.ajalt.colormath.internal.polarComponentInfo
 import kotlin.math.roundToInt
 
 /**
@@ -18,17 +18,9 @@ import kotlin.math.roundToInt
 data class HWB(override val h: Float, val w: Float, val b: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorModel<HWB> {
         override val name: String get() = "HWB"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("H", true),
-            ColorComponentInfo("W", false),
-            ColorComponentInfo("B", false),
-        )
-
+        override val components: List<ColorComponentInfo> = polarComponentInfo("HWB")
         override fun convert(color: Color): HWB = color.toHWB()
-        override fun create(components: FloatArray): HWB = withValidComps(components) {
-            HWB(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-        }
-
+        override fun create(components: FloatArray): HWB = doCreate(components, ::HWB)
     }
 
     constructor(h: Double, w: Double, b: Double, alpha: Double)

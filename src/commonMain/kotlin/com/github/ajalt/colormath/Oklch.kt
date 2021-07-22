@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.polarComponentInfo
 
 /**
  * Oklch color model, the cylindrical representation of [Oklab].
@@ -16,16 +16,9 @@ import com.github.ajalt.colormath.internal.withValidComps
 data class Oklch(val l: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorModel<Oklch> {
         override val name: String get() = "Oklch"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("L", false),
-            ColorComponentInfo("C", false),
-            ColorComponentInfo("H", true),
-        )
-
+        override val components: List<ColorComponentInfo> = polarComponentInfo("LCH")
         override fun convert(color: Color): Oklch = color.toOklch()
-        override fun create(components: FloatArray): Oklch = withValidComps(components) {
-            Oklch(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-        }
+        override fun create(components: FloatArray): Oklch = doCreate(components, ::Oklch)
     }
 
     constructor(l: Double, c: Double, h: Double, alpha: Double)

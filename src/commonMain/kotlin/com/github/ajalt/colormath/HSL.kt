@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.normalizeDeg
-import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.polarComponentInfo
 
 /**
  * A color model represented with Hue, Saturation, and Lightness.
@@ -18,16 +18,9 @@ import com.github.ajalt.colormath.internal.withValidComps
 data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorModel<HSL> {
         override val name: String get() = "HSL"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("H", true),
-            ColorComponentInfo("S", false),
-            ColorComponentInfo("L", false),
-        )
-
+        override val components: List<ColorComponentInfo> = polarComponentInfo("HSL")
         override fun convert(color: Color): HSL = color.toHSL()
-        override fun create(components: FloatArray): HSL = withValidComps(components) {
-            HSL(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-        }
+        override fun create(components: FloatArray): HSL = doCreate(components, ::HSL)
     }
 
     /**

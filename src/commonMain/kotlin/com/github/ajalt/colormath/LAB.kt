@@ -21,17 +21,10 @@ interface LABColorSpace : WhitePointColorSpace<LAB> {
 
 private data class LABColorSpaceImpl(override val whitePoint: Illuminant) : LABColorSpace {
     override val name: String get() = "LAB"
-    override val components: List<ColorComponentInfo> = componentInfoList(
-        ColorComponentInfo("L", false),
-        ColorComponentInfo("A", false),
-        ColorComponentInfo("B", false),
-    )
-
+    override val components: List<ColorComponentInfo> = rectangularComponentInfo("LAB")
     override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB = LAB(l, a, b, alpha, this)
     override fun convert(color: Color): LAB = color.toLAB()
-    override fun create(components: FloatArray): LAB = withValidComps(components) {
-        invoke(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
+    override fun create(components: FloatArray): LAB = doCreate(components, ::invoke)
 }
 
 /** An [LAB] color space calculated relative to [Illuminant.D65] */

@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.polarComponentInfo
 
 /**
  * The JzCzHz color model, the cylindrical representation of [JzAzBz].
@@ -16,16 +16,9 @@ import com.github.ajalt.colormath.internal.withValidComps
 data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorModel<JzCzHz> {
         override val name: String get() = "JzCzHz"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("J", false),
-            ColorComponentInfo("C", false),
-            ColorComponentInfo("H", true),
-        )
-
+        override val components: List<ColorComponentInfo> = polarComponentInfo("JCH")
         override fun convert(color: Color): JzCzHz = color.toJzCzHz()
-        override fun create(components: FloatArray): JzCzHz = withValidComps(components) {
-            JzCzHz(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-        }
+        override fun create(components: FloatArray): JzCzHz = doCreate(components, ::JzCzHz)
     }
 
     constructor(l: Double, c: Double, h: Double, alpha: Double)

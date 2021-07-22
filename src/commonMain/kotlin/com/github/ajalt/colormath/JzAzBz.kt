@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.doCreate
+import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import com.github.ajalt.colormath.internal.toPolarModel
-import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.math.pow
 
 /**
@@ -24,16 +24,9 @@ import kotlin.math.pow
 data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     companion object : ColorModel<JzAzBz> {
         override val name: String get() = "JzAzBz"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("J", false),
-            ColorComponentInfo("A", false),
-            ColorComponentInfo("B", false),
-        )
-
+        override val components: List<ColorComponentInfo> = rectangularComponentInfo("JAB")
         override fun convert(color: Color): JzAzBz = color.toJzAzBz()
-        override fun create(components: FloatArray): JzAzBz = withValidComps(components) {
-            JzAzBz(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-        }
+        override fun create(components: FloatArray): JzAzBz = doCreate(components, ::JzAzBz)
 
         internal const val d0 = 1.6295499532821566e-11
     }

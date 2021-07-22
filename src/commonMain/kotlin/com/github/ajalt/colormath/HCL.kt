@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.polarComponentInfo
 
 
 /**
@@ -19,17 +19,10 @@ interface HCLColorSpace : WhitePointColorSpace<HCL> {
 
 private data class HCLColorSpaceImpl(override val whitePoint: Illuminant) : HCLColorSpace {
     override val name: String get() = "HCL"
-    override val components: List<ColorComponentInfo> = componentInfoList(
-        ColorComponentInfo("H", true),
-        ColorComponentInfo("C", false),
-        ColorComponentInfo("L", false),
-    )
-
+    override val components: List<ColorComponentInfo> = polarComponentInfo("HCL")
     override operator fun invoke(h: Float, c: Float, l: Float, alpha: Float): HCL = HCL(h, c, l, alpha, this)
     override fun convert(color: Color): HCL = color.toHCL()
-    override fun create(components: FloatArray): HCL = withValidComps(components) {
-        HCL(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
+    override fun create(components: FloatArray): HCL = doCreate(components, ::invoke)
 }
 
 /** An [LCH] color space calculated relative to [Illuminant.D65] */

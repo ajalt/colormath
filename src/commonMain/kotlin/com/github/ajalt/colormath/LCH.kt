@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.polarComponentInfo
 
 /**
  * The color space describing colors in the [LCH] model.
@@ -18,17 +18,10 @@ interface LCHColorSpace : WhitePointColorSpace<LCH> {
 
 private data class LCHColorSpaceImpl(override val whitePoint: Illuminant) : LCHColorSpace {
     override val name: String get() = "LCH"
-    override val components: List<ColorComponentInfo> = componentInfoList(
-        ColorComponentInfo("L", false),
-        ColorComponentInfo("C", false),
-        ColorComponentInfo("H", true),
-    )
-
+    override val components: List<ColorComponentInfo> = polarComponentInfo("LCH")
     override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCH = LCH(l, c, h, alpha, this)
     override fun convert(color: Color): LCH = color.toLCH()
-    override fun create(components: FloatArray): LCH = withValidComps(components) {
-        invoke(it[0], it[1], it[2], it.getOrElse(3) { 1f })
-    }
+    override fun create(components: FloatArray): LCH = doCreate(components, ::invoke)
 }
 
 /** An [LCH] color space calculated relative to [Illuminant.D65] */
