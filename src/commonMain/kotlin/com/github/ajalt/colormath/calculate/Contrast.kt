@@ -2,6 +2,8 @@ package com.github.ajalt.colormath.calculate
 
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.RGB
+import com.github.ajalt.colormath.RGBColorSpaces
+import com.github.ajalt.colormath.convertTo
 import kotlin.math.max
 import kotlin.math.min
 
@@ -12,7 +14,7 @@ import kotlin.math.min
  * @return The relative luminance of this color, which ranges from 0 to 1 for in-gamut sRGB colors
  */
 fun Color.wcagLuminance(): Float {
-    val (rs, gs, bs) = toLinearRGB()
+    val (rs, gs, bs) = convertTo(RGBColorSpaces.LINEAR_SRGB)
     return (0.2126 * rs + 0.7152 * gs + 0.0722 * bs).toFloat()
 }
 

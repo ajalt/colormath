@@ -39,9 +39,9 @@ data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: 
 
     override val model: ColorModel<JzAzBz> get() = JzAzBz
 
-    override fun toRGB(): RGB = when (j) {
+    override fun toSRGB(): RGB = when (j) {
         0f -> RGB(0f, 0f, 0f, alpha)
-        else -> toXYZ().toRGB()
+        else -> toXYZ().toSRGB()
     }
 
     // Combined matrix values from https://observablehq.com/@jrus/jzazbz, which seems to be the values that most

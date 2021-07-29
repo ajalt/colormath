@@ -29,9 +29,9 @@ data class JzCzHz(val j: Float, val c: Float, override val h: Float, override va
 
     override val model: ColorModel<JzCzHz> get() = JzCzHz
 
-    override fun toRGB(): RGB = when (j) {
+    override fun toSRGB(): RGB = when (j) {
         0f -> RGB(0f, 0f, 0f, alpha)
-        else -> toJzAzBz().toRGB()
+        else -> toJzAzBz().toSRGB()
     }
 
     override fun toXYZ(): XYZ = toJzAzBz().toXYZ()

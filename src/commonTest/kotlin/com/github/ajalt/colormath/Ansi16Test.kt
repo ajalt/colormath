@@ -12,7 +12,7 @@ class Ansi16Test {
     @Test
     fun roundtrip() {
         Ansi16(30).let { it.toAnsi16() shouldBeSameInstanceAs it }
-        Ansi16(31).let { it.toRGB().toAnsi16().shouldEqualColor(it) }
+        Ansi16(31).let { it.toSRGB().toAnsi16().shouldEqualColor(it) }
     }
 
     @Test

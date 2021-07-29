@@ -32,7 +32,14 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
 
     override val model: ColorModel<Oklab> get() = Oklab
 
-    override fun toRGB(): RGB = toLinearRGB().toRGB()
+    // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
+    override fun toSRGB(): RGB = calculateConeResponse { l, m, s ->
+        val r = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s
+        val g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s
+        val b = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s
+        val f = RGB.transferFunctions
+        return RGB(f.oetf(r.toFloat()), f.oetf(g.toFloat()), f.oetf(b.toFloat()), alpha)
+    }
 
     // https://bottosson.github.io/posts/oklab/#converting-from-xyz-to-oklab
     // Note that Ottosson doesn't provide values for M₂⁻¹, so they were calculated with `numpy.linalg.inv`
@@ -42,16 +49,6 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
             x = +1.2270138511 * l - 0.5577999807 * m + 0.2812561490 * s,
             y = -0.0405801784 * l + 1.1122568696 * m - 0.0716766787 * s,
             z = -0.0763812845 * l - 0.4214819784 * m + 1.5861632204 * s,
-            alpha = alpha
-        )
-    }
-
-    // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
-    override fun toLinearRGB(): LinearRGB = calculateConeResponse { l, m, s ->
-        return LinearRGB(
-            r = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
-            g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
-            b = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s,
             alpha = alpha
         )
     }

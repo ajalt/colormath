@@ -11,7 +11,7 @@ class XYZTest {
     @Test
     fun roundtrip() {
         XYZ(0.01, 0.02, 0.03, 0.04).let { it.toXYZ() shouldBeSameInstanceAs it }
-        XYZ(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toXYZ().shouldEqualColor(it) }
+        XYZ(0.01, 0.02, 0.03, 0.04f).let { it.toSRGB().toXYZ().shouldEqualColor(it) }
     }
 
     @Test
@@ -29,7 +29,7 @@ class XYZTest {
     @Test
     @JsName("XYZ_to_RGB_HDR")
     fun `XYZ to RGB_HDR`() {
-        XYZ(1.0, 1.0, 1.0).toRGB().shouldEqualColor(RGB(1.08516, 0.97692, 0.95881), 0.00005)
+        XYZ(1.0, 1.0, 1.0).toSRGB().shouldEqualColor(RGB(1.08516, 0.97692, 0.95881), 0.00005)
     }
 
     @Test

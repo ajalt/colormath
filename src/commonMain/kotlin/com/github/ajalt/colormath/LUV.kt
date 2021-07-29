@@ -58,9 +58,9 @@ data class LUV internal constructor(
         }
     }
 
-    override fun toRGB(): RGB = when (l) {
+    override fun toSRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
-        else -> toXYZ().toRGB()
+        else -> toXYZ().toSRGB()
     }
 
     override fun toXYZ(): XYZ {

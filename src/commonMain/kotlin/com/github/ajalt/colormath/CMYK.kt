@@ -39,7 +39,7 @@ data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override
 
     override val model: ColorModel<CMYK> get() = CMYK
 
-    override fun toRGB(): RGB {
+    override fun toSRGB(): RGB {
         val r = (1 - c) * (1 - k)
         val g = (1 - m) * (1 - k)
         val b = (1 - y) * (1 - k)

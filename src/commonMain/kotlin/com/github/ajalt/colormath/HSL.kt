@@ -37,12 +37,12 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
 
     override val model: ColorModel<HSL> get() = HSL
 
-    override fun toRGB(): RGB {
+    override fun toSRGB(): RGB {
         val h = this.h.normalizeDeg() / 360.0
         val s = this.s.toDouble()
         val l = this.l.toDouble()
         if (s < 1e-7) {
-            return RGB(l, l, l)
+            return RGB(l, l, l, alpha)
         }
 
         val t2 = when {

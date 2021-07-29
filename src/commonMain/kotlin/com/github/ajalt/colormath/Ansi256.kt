@@ -33,9 +33,9 @@ data class Ansi256(val code: Int) : Color {
     override val alpha: Float get() = 1f
     override val model: ColorModel<Ansi256> get() = Ansi256
 
-    override fun toRGB(): RGB {
+    override fun toSRGB(): RGB {
         // ansi16 colors
-        if (code < 16) return toAnsi16().toRGB()
+        if (code < 16) return toAnsi16().toSRGB()
 
         // grayscale
         if (code >= 232) {
@@ -57,7 +57,7 @@ data class Ansi256(val code: Int) : Color {
     override fun toAnsi16() = when {
         code < 8 -> Ansi16(code + 30)
         code < 16 -> Ansi16(code - 8 + 90)
-        else -> toRGB().toAnsi16()
+        else -> toSRGB().toAnsi16()
     }
 
     override fun toAnsi256() = this

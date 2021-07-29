@@ -10,7 +10,7 @@ class LABTest {
     @Test
     fun roundtrip() {
         LAB(0.01, 0.02, 0.03, 0.04).let { it.toLAB() shouldBeSameInstanceAs it }
-        LAB(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toLAB().shouldEqualColor(it) }
+        LAB(0.01, 0.02, 0.03, 0.04f).let { it.toSRGB().toLAB().shouldEqualColor(it) }
     }
 
     @Test

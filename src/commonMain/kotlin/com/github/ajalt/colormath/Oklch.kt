@@ -29,9 +29,9 @@ data class Oklch(val l: Float, val c: Float, override val h: Float, override val
 
     override val model: ColorModel<Oklch> get() = Oklch
 
-    override fun toRGB(): RGB = when (l) {
+    override fun toSRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
-        else -> toOklab().toRGB()
+        else -> toOklab().toSRGB()
     }
 
     override fun toXYZ(): XYZ = toOklab().toXYZ()

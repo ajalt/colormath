@@ -11,7 +11,7 @@ class HCLTest {
     @Test
     fun roundtrip() {
         HCL(0.01, 0.02, 0.03, 0.04).let { it.toHCL() shouldBeSameInstanceAs it }
-        HCL(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toHCL().shouldEqualColor(it) }
+        HCL(0.01, 0.02, 0.03, 0.04f).let { it.toSRGB().toHCL().shouldEqualColor(it) }
     }
 
     @Test

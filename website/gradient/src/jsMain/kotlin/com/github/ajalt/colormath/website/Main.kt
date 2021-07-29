@@ -110,7 +110,7 @@ private fun updateCanvas(canvas: HTMLCanvasElement, color1: Color, color2: Color
 }
 
 private fun Uint8ClampedArray.setColor(x: Int, y: Int, width: Int, color: Color) {
-    val rgb = color.toRGB()
+    val rgb = color.toSRGB()
     val i = (y * width + x) * 4
     with(asDynamic()) {
         this[i] = rgb.redInt

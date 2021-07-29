@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.RGBColorSpaces.LINEAR_SRGB
 import io.kotest.assertions.withClue
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
@@ -13,19 +14,9 @@ import kotlin.test.Test
 class RGBTest {
     @Test
     fun roundtrip() {
-        RGB(0.01, 0.02, 0.03, 0.04).let { it.toRGB() shouldBeSameInstanceAs it }
-        RGB(0.01, 0.02, 0.03, 0.04f).let { it.toXYZ().toRGB().shouldEqualColor(it) }
-    }
-
-    @Test
-    @JsName("RGB_from_bytes")
-    @Suppress("Deprecation")
-    fun `RGB from bytes`() = forAll(
-        row(RGB(Byte.MIN_VALUE, Byte.MIN_VALUE, Byte.MIN_VALUE), RGB(0, 0, 0)),
-        row(RGB(Byte.MAX_VALUE, Byte.MAX_VALUE, Byte.MAX_VALUE), RGB(255, 255, 255)),
-        row(RGB(0.toByte(), 0.toByte(), 0.toByte()), RGB(128, 128, 128))
-    ) { actual: RGB, expected: RGB ->
-        actual shouldBe expected
+        RGB(0.01, 0.02, 0.03, 0.04).let { it.toSRGB() shouldBeSameInstanceAs it }
+        RGB(0.01, 0.02, 0.03, 0.04f).let { it.toXYZ().toSRGB().shouldEqualColor(it) }
+        LINEAR_SRGB(0.01, 0.02, 0.03, 0.04).let { it.toSRGB().convertTo(it.model).shouldEqualColor(it) }
     }
 
     @Test
@@ -208,16 +199,30 @@ class RGBTest {
 
     @Test
     @JsName("RGB_to_Linear")
-    fun `RGB to Linear`() = forAll(
-        row(RGB(0, 0, 0), LinearRGB(0.0, 0.0, 0.0)),
-        row(RGB(8, 8, 8), LinearRGB(0.00242, 0.00242, 0.00242)),
-        row(RGB(16, 16, 16), LinearRGB(0.00518, 0.00518, 0.00518)),
-        row(RGB(32, 32, 32), LinearRGB(0.01444, 0.01444, 0.01444)),
-        row(RGB(64, 64, 64), LinearRGB(0.05126, 0.05126, 0.05126)),
-        row(RGB(128, 128, 128), LinearRGB(0.21586, 0.21586, 0.21586)),
-        row(RGB(255, 255, 255), LinearRGB(1.0, 1.0, 1.0)),
+    fun `sRGB to Linear`() = forAll(
+        row(RGB(0, 0, 0), LINEAR_SRGB(0.0, 0.0, 0.0)),
+        row(RGB(8, 8, 8), LINEAR_SRGB(0.00242, 0.00242, 0.00242)),
+        row(RGB(16, 16, 16), LINEAR_SRGB(0.00518, 0.00518, 0.00518)),
+        row(RGB(32, 32, 32), LINEAR_SRGB(0.01444, 0.01444, 0.01444)),
+        row(RGB(64, 64, 64), LINEAR_SRGB(0.05126, 0.05126, 0.05126)),
+        row(RGB(128, 128, 128), LINEAR_SRGB(0.21586, 0.21586, 0.21586)),
+        row(RGB(255, 255, 255), LINEAR_SRGB(1.0, 1.0, 1.0)),
     ) { rgb, linear ->
-        rgb.toLinearRGB().shouldEqualColor(linear, 0.00005)
+        rgb.convertTo(LINEAR_SRGB).shouldEqualColor(linear, 0.00005)
+    }
+
+    @Test
+    @JsName("Linear_to_RGB")
+    fun `Linear to sRGB`() = forAll(
+        row(LINEAR_SRGB(0.0, 0.0, 0.0), RGB(0, 0, 0)),
+        row(LINEAR_SRGB(0.00242, 0.00242, 0.00242), RGB(8, 8, 8)),
+        row(LINEAR_SRGB(0.00518, 0.00518, 0.00518), RGB(16, 16, 16)),
+        row(LINEAR_SRGB(0.01444, 0.01444, 0.01444), RGB(32, 32, 32)),
+        row(LINEAR_SRGB(0.05126, 0.05126, 0.05126), RGB(64, 64, 64)),
+        row(LINEAR_SRGB(0.21586, 0.21586, 0.21586), RGB(128, 128, 128)),
+        row(LINEAR_SRGB(1.0, 1.0, 1.0), RGB(255, 255, 255)),
+    ) { linear, rgb ->
+        linear should convertTo(rgb)
     }
 
     @Test

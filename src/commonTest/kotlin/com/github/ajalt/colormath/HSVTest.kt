@@ -12,7 +12,7 @@ class HSVTest {
     @Test
     fun roundtrip() {
         HSV(0.01, 0.02, 0.03, 0.04).let { it.toHSV() shouldBeSameInstanceAs it }
-        HSV(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toHSV().shouldEqualColor(it) }
+        HSV(0.01, 0.02, 0.03, 0.04f).let { it.toSRGB().toHSV().shouldEqualColor(it) }
     }
 
     @Test

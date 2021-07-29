@@ -14,13 +14,6 @@ interface XYZColorSpace : WhitePointColorSpace<XYZ> {
 
     operator fun invoke(x: Double, y: Double, z: Double, alpha: Float = 1f): XYZ =
         invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha)
-
-    /**
-     * The transformation matrix from this color space to linear-light sRGB.
-     *
-     * The matrix is a 3x3 matrix stored in row-major order.
-     */
-    val matrixToSrgb: FloatArray
 }
 
 private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZColorSpace {
@@ -29,7 +22,6 @@ private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZC
     override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ = XYZ(x, y, z, alpha, this)
     override fun convert(color: Color): XYZ = color.toXYZ()
     override fun create(components: FloatArray): XYZ = doCreate(components, ::invoke)
-    override val matrixToSrgb: FloatArray = srgbToXyzMatrix(whitePoint).inverse().rowMajor
 }
 
 /** An [XYZ] color space calculated relative to [Illuminant.D65] */
@@ -53,7 +45,7 @@ data class XYZ internal constructor(
     val x: Float,
     val y: Float,
     val z: Float,
-    override val alpha: Float = 1f,
+    override val alpha: Float,
     override val model: XYZColorSpace,
 ) : Color {
     companion object : XYZColorSpace by XYZ65 {
@@ -71,13 +63,18 @@ data class XYZ internal constructor(
         return transform.times(x, y, z) { xx, yy, zz -> space(xx, yy, zz, alpha) }
     }
 
-    override fun toRGB(): RGB = Matrix(model.matrixToSrgb).times(x, y, z) { r, g, b ->
-        RGB(linearToSRGB(r), linearToSRGB(g), linearToSRGB(b), alpha)
+    /**
+     * Convert this color to the [RGB] model with the given color [space].
+     */
+    fun toRGB(space: RGBColorSpace): RGB {
+        val (x,y,z) = adaptTo(XYZ(space.whitePoint))
+        val f = space.transferFunctions
+        return Matrix(space.matrixFromXyz).times(x, y, z) { r, g, b ->
+            space(f.oetf(r), f.oetf(g), f.oetf(b), alpha)
+        }
     }
 
-    override fun toLinearRGB(): LinearRGB = Matrix(model.matrixToSrgb).times(x, y, z) { r, g, b ->
-        LinearRGB(r, g, b, alpha)
-    }
+    override fun toSRGB(): RGB = toRGB(RGBColorSpaces.SRGB)
 
     // http://www.brucelindbloom.com/Eqn_XYZ_to_Lab.html
     override fun toLAB(): LAB {

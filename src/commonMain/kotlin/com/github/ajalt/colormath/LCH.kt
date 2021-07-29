@@ -56,7 +56,7 @@ data class LCH internal constructor(
         }
     }
 
-    override fun toRGB(): RGB = toLAB().toRGB()
+    override fun toSRGB(): RGB = toLAB().toSRGB()
     override fun toXYZ(): XYZ = toLAB().toXYZ()
     override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LAB(model.whitePoint)(l, a, b, alpha) }
     override fun toLCH(): LCH = this

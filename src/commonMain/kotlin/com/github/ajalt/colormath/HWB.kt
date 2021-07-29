@@ -31,7 +31,7 @@ data class HWB(override val h: Float, val w: Float, val b: Float, override val a
 
     override val model: ColorModel<HWB> get() = HWB
 
-    override fun toRGB(): RGB {
+    override fun toSRGB(): RGB {
         // Algorithm from Smith and Lyons, http://alvyray.com/Papers/CG/HWB_JGTv208.pdf, Appendix B
 
         val h = this.h / 60f // Smith defines hue as normalized to [0, 6] for some reason

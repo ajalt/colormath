@@ -12,7 +12,7 @@ class OklchTest {
     @Test
     fun roundtrip() {
         Oklch(0.01, 0.02, 0.03, 0.04).let { it.toOklch() shouldBeSameInstanceAs it }
-        Oklch(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toOklch().shouldEqualColor(it) }
+        Oklch(0.01, 0.02, 0.03, 0.04f).let { it.toSRGB().toOklch().shouldEqualColor(it) }
     }
 
     @Test
