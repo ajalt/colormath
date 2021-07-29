@@ -56,7 +56,7 @@ data class HCL(
         }
     }
 
-    override fun toRGB(): RGB = toLUV().toRGB()
+    override fun toSRGB(): RGB = toLUV().toSRGB()
     override fun toXYZ(): XYZ = toLUV().toXYZ()
     override fun toLUV(): LUV = fromPolarModel(c, h) { u, v -> LUV(model.whitePoint)(l, u, v, alpha) }
     override fun toHCL(): HCL = this

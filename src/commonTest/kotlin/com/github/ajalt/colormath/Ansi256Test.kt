@@ -12,7 +12,7 @@ class Ansi256Test {
     @Test
     fun roundtrip() {
         Ansi256(30).let { it.toAnsi256() shouldBeSameInstanceAs it }
-        Ansi256(31).let { it.toRGB().toAnsi256().shouldEqualColor(it) }
+        Ansi256(31).let { it.toSRGB().toAnsi256().shouldEqualColor(it) }
     }
 
     @Test

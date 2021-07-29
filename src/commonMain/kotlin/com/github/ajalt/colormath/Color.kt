@@ -20,26 +20,26 @@ interface Color {
     /** The model describing this color */
     val model: ColorModel<*>
 
-    /** Convert this color to Red-Green-Blue (using sRGB color space) */
-    fun toRGB(): RGB
+    /** Convert this color to [sRGB][RGBColorSpaces.SRGB] */
+    fun toSRGB(): RGB
 
-    /** Convert this color to Hue-Saturation-Luminosity */
-    fun toHSL(): HSL = toRGB().toHSL()
+    /** Convert this color to HSL */
+    fun toHSL(): HSL = toSRGB().toHSL()
 
-    /** Convert this color to Hue-Saturation-Value */
-    fun toHSV(): HSV = toRGB().toHSV()
+    /** Convert this color to HSV */
+    fun toHSV(): HSV = toSRGB().toHSV()
 
     /** Convert this color to a 16-color ANSI code */
-    fun toAnsi16(): Ansi16 = toRGB().toAnsi16()
+    fun toAnsi16(): Ansi16 = toSRGB().toAnsi16()
 
     /** Convert this color to a 256-color ANSI code */
-    fun toAnsi256(): Ansi256 = toRGB().toAnsi256()
+    fun toAnsi256(): Ansi256 = toSRGB().toAnsi256()
 
-    /** Convert this color to Cyan-Magenta-Yellow-Key */
-    fun toCMYK(): CMYK = toRGB().toCMYK()
+    /** Convert this color to device-independent CMYK */
+    fun toCMYK(): CMYK = toSRGB().toCMYK()
 
     /** Convert this color to CIE XYZ */
-    fun toXYZ(): XYZ = toRGB().toXYZ()
+    fun toXYZ(): XYZ = toSRGB().toXYZ()
 
     /** Convert this color to CIE LAB */
     fun toLAB(): LAB = toXYZ().toLAB()
@@ -54,10 +54,7 @@ interface Color {
     fun toHCL(): HCL = toLUV().toHCL()
 
     /** Convert this color to HWB */
-    fun toHWB(): HWB = toRGB().toHWB()
-
-    /** Convert this color to Linear sRGB */
-    fun toLinearRGB(): LinearRGB = toRGB().toLinearRGB()
+    fun toHWB(): HWB = toSRGB().toHWB()
 
     /** Convert this color to Oklab */
     fun toOklab(): Oklab = toXYZ().toOklab()
@@ -76,3 +73,8 @@ interface Color {
 
     companion object // enables extensions on the interface
 }
+
+/**
+ * Convert this color to a given [model].
+ */
+fun <T : Color> Color.convertTo(model: ColorModel<T>): T = model.convert(this)

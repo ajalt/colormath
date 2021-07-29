@@ -62,7 +62,7 @@ fun main() {
                 Input(InputType.Color, attrs = {
                     id("pickerInput")
                     onInput { color = RGB(it.value) }
-                    value(color.toRGB().toHex())
+                    value(color.toSRGB().toHex())
                 })
             }
             row(RGB, intScale = 255)
@@ -72,14 +72,14 @@ fun main() {
 
             Div(attrs = {
                 style {
-                    backgroundColor(color.toRGB().toHex())
+                    backgroundColor(color.toSRGB().toHex())
                     color(if (color.toHSL().l > 40) "black" else "white")
                     padding(25.px)
                     border(1.px, LineStyle.Solid, Color("#ced4da"))
                     borderRadius(.25.cssRem)
                 }
             }) {
-                Text(color.toRGB().toHex())
+                Text(color.toSRGB().toHex())
             }
         }
     }

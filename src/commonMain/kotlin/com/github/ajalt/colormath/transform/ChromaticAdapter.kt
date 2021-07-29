@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.*
+import com.github.ajalt.colormath.RGBColorSpaces.SRGB
 import com.github.ajalt.colormath.internal.Matrix
-import com.github.ajalt.colormath.internal.inverse
 import com.github.ajalt.colormath.internal.times
 
 /** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][Illuminant.D65] */
@@ -30,7 +30,7 @@ fun RGBInt.Companion.createChromaticAdapter(referenceWhite: Illuminant): Chromat
 }
 
 class ChromaticAdapterRGB internal constructor(private val transform: Matrix) {
-    /** Adapt a [color] to this white point */
+    /** Adapt an sRGB [color] to this white point */
     fun adapt(color: RGB): RGB {
         return doAdapt(transform, color.r, color.g, color.b) { r, g, b ->
             RGB(r, g, b, color.alpha)
@@ -39,7 +39,7 @@ class ChromaticAdapterRGB internal constructor(private val transform: Matrix) {
 }
 
 class ChromaticAdapterRGBInt internal constructor(private val transform: Matrix) {
-    /** Adapt a [color] to this white point */
+    /** Adapt an sRGB [color] to this white point */
     fun adapt(color: RGBInt): RGBInt {
         return doAdapt(transform, color.redFloat, color.greenFloat, color.blueFloat) { r, g, b ->
             RGBInt(r, g, b, color.alpha)
@@ -55,19 +55,11 @@ class ChromaticAdapterRGBInt internal constructor(private val transform: Matrix)
 }
 
 private inline fun <T> doAdapt(transform: Matrix, r: Float, g: Float, b: Float, block: (Float, Float, Float) -> T): T {
-    return transform.times(
-        sRGBToLinear(r),
-        sRGBToLinear(g),
-        sRGBToLinear(b)
-    ) { rr, gg, bb ->
-        block(linearToSRGB(rr), linearToSRGB(gg), linearToSRGB(bb))
+    val f = SRGB.transferFunctions
+    return transform.times(f.eotf(r), f.eotf(g), f.eotf(b)) { rr, gg, bb ->
+        block(f.oetf(rr), f.oetf(gg), f.oetf(bb))
     }
 }
 
-private val srgbToXYZ = Matrix(
-    0.4124564f, 0.3575761f, 0.1804375f,
-    0.2126729f, 0.7151522f, 0.0721750f,
-    0.0193339f, 0.1191920f, 0.9503041f,
-)
-
-private val xyzToSrgb = srgbToXYZ.inverse()
+private val xyzToSrgb = Matrix(SRGB.matrixFromXyz)
+private val srgbToXYZ = Matrix(SRGB.matrixToXyz)

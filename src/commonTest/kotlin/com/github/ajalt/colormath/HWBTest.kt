@@ -11,7 +11,7 @@ class HWBTest {
     @Test
     fun roundtrip() {
         HWB(0.01, 0.02, 0.03, 0.04).let { it.toHWB() shouldBeSameInstanceAs it }
-        HWB(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toHWB().shouldEqualColor(it) }
+        HWB(0.01, 0.02, 0.03, 0.04f).let { it.toSRGB().toHWB().shouldEqualColor(it) }
     }
 
     @Test
@@ -38,7 +38,7 @@ class HWBTest {
         row(HWB(90.0, .600, .200), RGB("#b3cc99")),
         row(HWB(90.0, .200, .600), RGB("#4c6633")),
     ) { hwb, rgb ->
-        hwb.toRGB().shouldEqualColor(rgb, 0.002)
+        hwb.toSRGB().shouldEqualColor(rgb, 0.002)
     }
 
     @Test
@@ -46,11 +46,11 @@ class HWBTest {
     // All hues convert to the same gray values
     fun `HWB to RGB gray`() {
         for (h in 0..3600) {
-            HWB(h / 10.0, .00, 1.0).toRGB() should convertTo(RGB("#000000"))
-            HWB(h / 10.0, .40, .60).toRGB() should convertTo(RGB("#666666"))
-            HWB(h / 10.0, .60, .40).toRGB() should convertTo(RGB("#999999"))
-            HWB(h / 10.0, 1.0, .00).toRGB() should convertTo(RGB("#ffffff"))
-            HWB(h / 10.0, 1.0, 1.0).toRGB() should convertTo(RGB("#808080"))
+            HWB(h / 10.0, .00, 1.0).toSRGB() should convertTo(RGB("#000000"))
+            HWB(h / 10.0, .40, .60).toSRGB() should convertTo(RGB("#666666"))
+            HWB(h / 10.0, .60, .40).toSRGB() should convertTo(RGB("#999999"))
+            HWB(h / 10.0, 1.0, .00).toSRGB() should convertTo(RGB("#ffffff"))
+            HWB(h / 10.0, 1.0, 1.0).toSRGB() should convertTo(RGB("#808080"))
         }
     }
 }

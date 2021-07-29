@@ -13,7 +13,7 @@ class RGBIntTest {
         row(RGBInt(128u, 128u, 128u, 128u)),
         row(RGBInt(1128.toUByte(), 128.toUByte(), 128.toUByte(), 128.toUByte())),
     ) {
-        it.toRGB().toRGBInt().shouldEqualColor(it)
+        it.toSRGB().toRGBInt().shouldEqualColor(it)
     }
 
     @Test
@@ -31,7 +31,7 @@ class RGBIntTest {
         row(0xffffffffu, RGB(255, 255, 255, 1f)),
         row(0x33aaaaaau, RGB(170, 170, 170, .2f)),
     ) { rgba, rgb ->
-        RGBInt(rgba).toRGB() shouldBe rgb
+        RGBInt(rgba).toSRGB() shouldBe rgb
     }
 
     @Test

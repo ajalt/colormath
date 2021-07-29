@@ -62,7 +62,7 @@ fun Color.toCssRgb(
     alphaPercent: Boolean = false,
     renderAlpha: RenderCondition = RenderCondition.AUTO,
 ): String {
-    val rgb = toRGB()
+    val rgb = toSRGB()
     val (r, g, b) = rgb.toRGBInt()
     val sep = if (commas) ", " else " "
     val args = listOf(r, g, b).joinToString(sep) {

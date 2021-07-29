@@ -39,7 +39,7 @@ data class HSV(override val h: Float, val s: Float, val v: Float, override val a
 
     override val model: ColorModel<HSV> get() = HSV
 
-    override fun toRGB(): RGB {
+    override fun toSRGB(): RGB {
         val h = h.normalizeDeg() / 60f
         val hi = floor(h) % 6
 

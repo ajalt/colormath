@@ -38,7 +38,7 @@ data class Ansi16(val code: Int) : Color {
     override val alpha: Float get() = 1f
     override val model: ColorModel<Ansi16> get() = Ansi16
 
-    override fun toRGB(): RGB {
+    override fun toSRGB(): RGB {
         // grayscale
         when (code) {
             30, 40 -> return RGB(0f, 0f, 0f)

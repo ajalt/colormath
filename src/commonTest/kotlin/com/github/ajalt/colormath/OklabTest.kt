@@ -11,7 +11,7 @@ class OklabTest {
     @Test
     fun roundtrip() {
         Oklab(0.1, 0.011, 0.012, 0.04).let { it.toOklab() shouldBeSameInstanceAs it }
-        Oklab(0.1, 0.011, 0.012, 0.04f).let { it.toRGB().toOklab().shouldEqualColor(it) }
+        Oklab(0.1, 0.011, 0.012, 0.04f).let { it.toSRGB().toOklab().shouldEqualColor(it) }
     }
 
     @Test

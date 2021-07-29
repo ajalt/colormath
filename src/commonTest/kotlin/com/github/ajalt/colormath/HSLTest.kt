@@ -12,7 +12,7 @@ class HSLTest {
     @Test
     fun roundtrip() {
         HSL(0.01, 0.02, 0.03, 0.04).let { it.toHSL() shouldBeSameInstanceAs it }
-        HSL(0.01, 0.02, 0.03, 0.04f).let { it.toRGB().toHSL().shouldEqualColor(it) }
+        HSL(0.01, 0.02, 0.03, 0.04f).let { it.toSRGB().toHSL().shouldEqualColor(it) }
     }
 
     @Test

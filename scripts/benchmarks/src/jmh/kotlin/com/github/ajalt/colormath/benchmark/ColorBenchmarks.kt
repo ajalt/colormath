@@ -1,9 +1,6 @@
 package com.github.ajalt.colormath.benchmark
 
-import com.github.ajalt.colormath.LCH
-import com.github.ajalt.colormath.LinearRGB
-import com.github.ajalt.colormath.RGB
-import com.github.ajalt.colormath.RGBInt
+import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.transform.createChromaticAdapter
 import com.github.ajalt.colormath.transform.interpolator
 import com.github.ajalt.colormath.transform.sequence
@@ -50,8 +47,8 @@ open class ColorBenchmarks {
     }
 
     @Benchmark
-    open fun rgbToLinear(): LinearRGB {
-        return RGB(0.3f, 0.4f, 0.6f).toLinearRGB()
+    open fun rgbToLinear(): RGB {
+        return RGB(0.3f, 0.4f, 0.6f).convertTo(RGBColorSpaces.LINEAR_SRGB)
     }
 
     @Benchmark

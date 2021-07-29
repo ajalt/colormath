@@ -5,7 +5,6 @@
 ### Added
 - `Oklab` and `Oklch`: perceptual color spaces for image processing
 - `JzAzBz` and `JzCzHz`: perceptually uniform space where euclidean distance predicts perceptual difference
-- `LinearRGB`: a linear-light transformation of the `RGB` color space
 - `LCH`: the cylindrical representation of `LAB`
 - `RGBInt`: an inline class that stores `RGB` colors packed in a single Int. Create instances directly, or convert to it with `RGB.toRGBInt()`
 

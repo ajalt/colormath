@@ -11,7 +11,7 @@ class LCHTest {
     @Test
     fun roundtrip() {
         LCH(0.1, 0.011, 0.015, 0.04).let { it.toLCH() shouldBeSameInstanceAs it }
-        LCH(0.1, 0.011, 0.015, 0.04f).let { it.toRGB().toLCH().shouldEqualColor(it, 0.001) }
+        LCH(0.1, 0.011, 0.015, 0.04f).let { it.toSRGB().toLCH().shouldEqualColor(it, 0.001) }
     }
 
     @Test

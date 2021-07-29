@@ -1,6 +1,5 @@
 package com.github.ajalt.colormath.internal
 
-import com.github.ajalt.colormath.Illuminant
 import kotlin.math.*
 
 internal fun Float.degToRad(): Float = (this * PI / 180f).toFloat()
@@ -14,7 +13,7 @@ internal fun Float.degToTurns(): Float = this / 360f
 // formula from https://www.w3.org/TR/css-color-4/#hue-interpolation
 internal fun Float.normalizeDeg(): Float = ((this % 360) + 360) % 360
 
-// Used for LAB <-> LCH, Oklab <-> Oklch, LUV -> HCL
+// Used for LAB <-> LCH, Oklab <-> Oklch, LUV <-> HCL, JAB <-> JCH
 // https://www.w3.org/TR/css-color-4/#lab-to-lch
 // https://bottosson.github.io/posts/oklab/#the-oklab-color-space
 // https://en.wikipedia.org/wiki/CIELUV#Cylindrical_representation_.28CIELCH.29
@@ -29,20 +28,4 @@ internal inline fun <T> fromPolarModel(c: Float, h: Float, block: (a: Float, b: 
     val a = c * cos(hDegrees)
     val b = c * sin(hDegrees)
     return block(a, b)
-}
-
-
-// http://www.brucelindbloom.com/Eqn_XYZ_to_RGB.html
-internal fun srgbToXyzMatrix(whitePoint: Illuminant): Matrix {
-    val s = Matrix(
-        sRGB_Xr, sRGB_Xg, sRGB_Xb,
-        1f, 1f, 1f,
-        sRGB_Zr, sRGB_Zg, sRGB_Zb,
-    ).inverse(inPlace = true).times(whitePoint.x, whitePoint.y, whitePoint.z)
-
-    return Matrix(
-        s.r * sRGB_Xr, s.g * sRGB_Xg, s.b * sRGB_Xb,
-        s.r * 1.0000f, s.g * 1.0000f, s.b * 1.0000f,
-        s.r * sRGB_Zr, s.g * sRGB_Zg, s.b * sRGB_Zb,
-    )
 }

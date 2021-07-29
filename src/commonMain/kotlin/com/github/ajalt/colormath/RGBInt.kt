@@ -12,6 +12,8 @@ import kotlin.math.roundToInt
  * This is an inline value class stores the color as a packed [argb] integer, such as those returned from
  * `android.graphics.Color.argb` or `java.awt.image.BufferedImage.getRGB`.
  *
+ * This color always uses the sRGB color space.
+ *
  * You can destructure this class into [r], [g], [b], and [a] components: `val (r, g, b, a) = RGBInt(0xaa112233u)`
  *
  * | Component  | Description | sRGB Range |
@@ -25,7 +27,7 @@ value class RGBInt(val argb: UInt) : Color {
     companion object : ColorModel<RGBInt> {
         override val name: String get() = "RGBInt"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
-        override fun convert(color: Color): RGBInt = color.toRGB().toRGBInt()
+        override fun convert(color: Color): RGBInt = color.toSRGB().toRGBInt()
         override fun create(components: FloatArray): RGBInt = doCreate(components) { r, g, b, a ->
             RGBInt(r.toInt(), g.toInt(), b.toInt(), a.toInt())
         }
@@ -73,7 +75,7 @@ value class RGBInt(val argb: UInt) : Color {
     /** The blue component as a Float in the range `[0, 1]` */
     val blueFloat: Float get() = b.toInt() / 255f
 
-    override fun toRGB(): RGB = RGB(redFloat, greenFloat, blueFloat, alpha)
+    override fun toSRGB(): RGB = RGB(redFloat, greenFloat, blueFloat, alpha)
 
     /**
      * Convert this color to an RGB hex string.

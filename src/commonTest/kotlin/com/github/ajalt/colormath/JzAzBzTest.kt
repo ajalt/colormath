@@ -10,7 +10,7 @@ class JzAzBzTest {
     @Test
     fun roundtrip() {
         JzAzBz(0.01, 0.011, 0.012, 0.04).let { it.toJzAzBz() shouldBeSameInstanceAs it }
-        JzAzBz(0.01, 0.011, 0.012, 0.04f).let { it.toRGB().toJzAzBz().shouldEqualColor(it) }
+        JzAzBz(0.01, 0.011, 0.012, 0.04f).let { it.toSRGB().toJzAzBz().shouldEqualColor(it) }
     }
 
     @Test

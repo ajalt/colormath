@@ -1,29 +1,33 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RenderCondition.AUTO
-import com.github.ajalt.colormath.internal.doCreate
-import com.github.ajalt.colormath.internal.rectangularComponentInfo
+import com.github.ajalt.colormath.internal.*
+import kotlin.math.pow
 import kotlin.math.roundToInt
 
-/**
- * The sRGB color space.
- *
- * | Component  | Description | Range    |
- * | ---------- | ----------- | -------- |
- * | [r]        | red         | `[0, 1]` |
- * | [g]        | green       | `[0, 1]` |
- * | [b]        | blue        | `[0, 1]` |
- */
-data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Color {
-    companion object : ColorModel<RGB> {
-        override val name: String get() = "RGB"
-        override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
-        override fun convert(color: Color): RGB = color.toRGB()
-        override fun create(components: FloatArray): RGB = doCreate(components, ::RGB)
 
-        @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
-        fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toRGB()
-    }
+interface RGBColorSpace : WhitePointColorSpace<RGB> {
+    operator fun invoke(r: Float, g: Float, b: Float, alpha: Float = 1f): RGB
+    operator fun invoke(r: Double, g: Double, b: Double, alpha: Double): RGB =
+        invoke(r.toFloat(), g.toFloat(), b.toFloat(), alpha.toFloat())
+
+    operator fun invoke(r: Double, g: Double, b: Double, alpha: Float = 1f): RGB =
+        invoke(r.toFloat(), g.toFloat(), b.toFloat(), alpha)
+
+    /**
+     * Construct an RGB instance from Int values in the range `[0, 255]`.
+     *
+     * @property r The red channel, a value typically in the range `[0, 255]`
+     * @property g The green channel, a value typically in the range `[0, 255]`
+     * @property b The blue channel, a value typically in the range `[0, 255]`
+     * @property alpha The alpha channel, a value in the range `[0f, 1f]`
+     */
+    operator fun invoke(r: Int, g: Int, b: Int, alpha: Float = 1f) = invoke(
+        r = (r / 255f),
+        g = (g / 255f),
+        b = (b / 255f),
+        alpha = alpha
+    )
 
     /**
      * Construct an RGB instance from a hex string with optional alpha channel.
@@ -35,42 +39,115 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
      * - `def`: A shorter version of the 6 digit form. Each digit is repeated, so `def` is equivalent to `ddeeff`
      * - `defa`: A shorter version of the 8 digit for.Each digit is repeated, so `defa` is equivalent to `ddeeffaa`
      */
-    constructor(hex: String) : this(
+    operator fun invoke(hex: String) = invoke(
         r = hex.validateHex().parseHex(0),
         g = hex.parseHex(1),
         b = hex.parseHex(2),
-        a = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) / 255f else 1f
+        alpha = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) / 255f else 1f
     )
 
-    @Deprecated("The Byte constructor is deprecated", ReplaceWith("RGB((r + 128), (g + 128), (b + 128))"))
-    constructor(r: Byte, g: Byte, b: Byte) : this(r + 128, g + 128, b + 128)
-
-    // A UByte constructor can't be declared since it clashes with the Byte constructor on JVM
-    //  constructor(r: UByte, g: UByte, b: UByte) : this(r.toInt(), g.toInt(), b.toInt())
+    val transferFunctions: TransferFunctions
 
     /**
-     * Construct an RGB instance from Int values in the range `[0, 255]`.
-     *
-     * @property r The red channel, a value typically in the range `[0, 255]`
-     * @property g The green channel, a value typically in the range `[0, 255]`
-     * @property b The blue channel, a value typically in the range `[0, 255]`
-     * @property a The alpha channel, a value in the range `[0f, 1f]`
+     * A 3×3 matrix stored in row-major order that transforms linear-light values in this space to [XYZ] tristimulus values.
      */
-    constructor(r: Int, g: Int, b: Int, a: Float = 1f) : this(
-        r = (r / 255f),
-        g = (g / 255f),
-        b = (b / 255f),
-        a = a
-    )
+    val matrixToXyz: FloatArray
 
-    constructor(r: Double, g: Double, b: Double, a: Double)
-            : this(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
+    /**
+     * A 3×3 matrix stored in row-major order that transforms [XYZ] tristimulus values to linear-light values in this space.
+     */
+    val matrixFromXyz: FloatArray
 
-    constructor(r: Double, g: Double, b: Double, a: Float = 1.0f)
-            : this(r.toFloat(), g.toFloat(), b.toFloat(), a)
+    interface TransferFunctions {
+        /**
+         * The Electro-Optical Transfer Function (EOTF / EOCF)
+         *
+         * This function decodes non-linear signal values into liner-light values.
+         */
+        fun eotf(x: Float): Float
 
-    override val alpha: Float get() = a
-    override val model: ColorModel<RGB> get() = RGB
+        /**
+         * The Opto-Electronic Transfer Function (OETF / OECF)
+         *
+         * This function encodes linear scene light into non-linear signal values.
+         */
+        fun oetf(x: Float): Float
+    }
+
+    /**
+     * A transfer function and its inverse as defined in [ICC.1:2004-10][https://www.color.org/icc1v42.pdf], table 47.
+     *
+     * ### OETF
+     * ```
+     * Y = (aX + b)ᵞ + e    (X >= d)
+     * Y = (cX + f)         (X <  d)
+     * ```
+     *
+     * ### EOTF
+     * ```
+     * Y = (x¹ᐟ ᵞ - b) / a    (X >= d × c)
+     * Y = (x / c)            (X < d × c)
+     * ```
+     */
+    data class StandardTransferFunctions(
+        private val a: Float,
+        private val b: Float,
+        private val c: Float,
+        private val d: Float,
+        private val e: Float,
+        private val f: Float,
+        private val gamma: Float,
+    ) : TransferFunctions {
+        override fun oetf(x: Float): Float =when {
+            x < d * c -> (x - f) / c
+            else -> ((x - e).pow(1f / gamma) - b) / a
+        }
+
+        override fun eotf(x: Float): Float = when {
+            x < d -> c * x + f
+            else -> (a * x + b).pow(gamma) + e
+        }
+    }
+}
+
+
+/**
+ * The RGB color model, using the [sRGB][SRGB] color space by default.
+ *
+ * There are several ways to construct sRGB instances. All of the following are equivalent:
+ *
+ * ```kotlin
+ * RGB(0.2, 0.4, 0.6)
+ * SRGB(0.2, 0.4, 0.6)
+ * RGB(51, 102, 153)
+ * RGB("#369")
+ * RGB("#336699")
+ * ```
+ *
+ * You also can construct instances of [other RGB color spaces][RGBColorSpaces]:
+ *
+ * ```kotlin
+ * import com.github.ajalt.colormath.RGBColorSpaces.LINEAR_SRGB
+ * LINEAR_SRGB(0.1, 0.2, 0.3)
+ * ```
+ *
+ * | Component  | Description | Range    |
+ * | ---------- | ----------- | -------- |
+ * | [r]        | red         | `[0, 1]` |
+ * | [g]        | green       | `[0, 1]` |
+ * | [b]        | blue        | `[0, 1]` |
+ */
+data class RGB internal constructor(
+    val r: Float,
+    val g: Float,
+    val b: Float,
+    override val alpha: Float,
+    override val model: RGBColorSpace,
+) : Color {
+    companion object : RGBColorSpace by RGBColorSpaces.SRGB {
+        @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
+        fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toSRGB()
+    }
 
     /** The red channel scaled to [0, 255]. */
     val redInt: Int get() = (r * 255).roundToInt()
@@ -82,17 +159,17 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     val blueInt: Int get() = (b * 255).roundToInt()
 
     /** The alpha channel scaled to [0, 255]. */
-    val alphaInt: Int get() = (a * 255).roundToInt()
+    val alphaInt: Int get() = (alpha * 255).roundToInt()
 
     @Deprecated("use toRGBInt instead", ReplaceWith("toRGBInt()"))
     fun toPackedInt(): Int = toRGBInt().argb.toInt()
 
     /**
-     * Return this color as a packed ARGB integer.
+     * Return this color as a packed `ARGB` integer.
      *
      * All components will be clamped to `[0, 255]`.
      */
-    fun toRGBInt() = RGBInt(r, g, b, alpha)
+    fun toRGBInt() = toSRGB { RGBInt(r, g, b, alpha) }
 
     /**
      * Convert this color to an RGB hex string.
@@ -108,8 +185,23 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         return toRGBInt().toHex(withNumberSign, renderAlpha)
     }
 
+    /**
+     * Convert this color to another RGB [color space][space].
+     *
+     * This conversion uses [CIEXYZ][XYZ] as the Profile Connection Space (PCS).
+     */
+    fun convertTo(space: RGBColorSpace): RGB {
+        val f = SRGB.transferFunctions
+        return when {
+            model == space -> this
+            model == SRGB && space == RGBColorSpaces.LINEAR_SRGB -> space(f.eotf(r), f.eotf(g), f.eotf(b), alpha)
+            model == RGBColorSpaces.LINEAR_SRGB && space == SRGB -> space(f.oetf(r), f.oetf(g), f.oetf(b), alpha)
+            else -> toXYZ().toRGB(space)
+        }
+    }
+
     override fun toHSL(): HSL {
-        return hueMinMaxDelta { h, min, max, delta ->
+        return srgbHueMinMaxDelta { h, min, max, delta ->
             val l = (min + max) / 2
             val s = when {
                 max == min -> 0.0
@@ -121,7 +213,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
     }
 
     override fun toHSV(): HSV {
-        return hueMinMaxDelta { h, _, max, delta ->
+        return srgbHueMinMaxDelta { h, _, max, delta ->
             val s = when (max) {
                 0.0 -> 0.0
                 else -> (delta / max)
@@ -130,9 +222,14 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         }
     }
 
-    override fun toXYZ(): XYZ = linearSRGBToXYZ(sRGBToLinear(r), sRGBToLinear(g), sRGBToLinear(b), alpha)
+    override fun toXYZ(): XYZ {
+        val f = model.transferFunctions
+        return Matrix(model.matrixToXyz).times(f.eotf(r), f.eotf(g), f.eotf(b)) { x, y, z ->
+            XYZ(model.whitePoint)(x, y, z, alpha)
+        }
+    }
 
-    override fun toCMYK(): CMYK {
+    override fun toCMYK(): CMYK = toSRGB {
         val k = 1 - maxOf(r, b, g)
         val c = if (k == 1f) 0f else (1 - r - k) / (1 - k)
         val m = if (k == 1f) 0f else (1 - g - k) / (1 - k)
@@ -142,7 +239,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
 
     override fun toHWB(): HWB {
         // https://www.w3.org/TR/css-color-4/#rgb-to-hwb
-        return hueMinMaxDelta { hue, min, max, _ ->
+        return srgbHueMinMaxDelta { hue, min, max, _ ->
             HWB(
                 h = hue.toFloat(),
                 w = min.toFloat(),
@@ -152,13 +249,29 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         }
     }
 
-    override fun toLinearRGB(): LinearRGB {
-        return LinearRGB(sRGBToLinear(r), sRGBToLinear(g), sRGBToLinear(b), a)
+    // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
+    override fun toOklab(): Oklab {
+        if (model != RGBColorSpaces.SRGB) return toXYZ().toOklab()
+        val r = model.transferFunctions.eotf(r)
+        val g = model.transferFunctions.eotf(g)
+        val b = model.transferFunctions.eotf(b)
+        val l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b
+        val m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b
+        val s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b
+
+        val ll = cbrt(l)
+        val mm = cbrt(m)
+        val ss = cbrt(s)
+
+        return Oklab(
+            l = 0.2104542553f * ll + 0.7936177850f * mm - 0.0040720468f * ss,
+            a = 1.9779984951f * ll - 2.4285922050f * mm + 0.4505937099f * ss,
+            b = 0.0259040371f * ll + 0.7827717662f * mm - 0.8086757660f * ss,
+            alpha = alpha
+        )
     }
 
-    override fun toOklab(): Oklab = toLinearRGB().toOklab()
-
-    override fun toAnsi16(): Ansi16 {
+    override fun toAnsi16(): Ansi16 = toSRGB {
         val value = (toHSV().v * 100).roundToInt()
         if (value == 30) return Ansi16(30)
         val v = value / 50
@@ -167,7 +280,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         return Ansi16(if (v == 2) ansi + 60 else ansi)
     }
 
-    override fun toAnsi256(): Ansi256 {
+    override fun toAnsi256(): Ansi256 = toSRGB {
         val ri = redInt
         val gi = greenInt
         val bi = blueInt
@@ -186,7 +299,7 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         return Ansi256(code)
     }
 
-    override fun toRGB() = this
+    override fun toSRGB() = convertTo(RGBColorSpaces.SRGB)
     override fun toArray(): FloatArray = floatArrayOf(r, g, b, alpha)
 
     /**
@@ -195,10 +308,12 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
      *
      * Min and max are scaled to [0, 1]
      */
-    private inline fun <T> hueMinMaxDelta(block: (hue: Double, min: Double, max: Double, delta: Double) -> T): T {
-        val r = this.r.toDouble()
-        val g = this.g.toDouble()
-        val b = this.b.toDouble()
+    private inline fun <T> srgbHueMinMaxDelta(
+        block: (hue: Double, min: Double, max: Double, delta: Double) -> T,
+    ): T = toSRGB {
+        val r = r.toDouble()
+        val g = g.toDouble()
+        val b = b.toDouble()
         val min = minOf(r, g, b)
         val max = maxOf(r, g, b)
         val delta = max - min
@@ -215,6 +330,10 @@ data class RGB(val r: Float, val g: Float, val b: Float, val a: Float = 1f) : Co
         if (h < 0) h += 360
 
         return block(h, min, max, delta)
+    }
+
+    private inline fun <T : Color> toSRGB(space: RGBColorSpace = RGBColorSpaces.SRGB, block: RGB.() -> T): T {
+        return if (model == space) this.block() else convertTo(space).block()
     }
 }
 

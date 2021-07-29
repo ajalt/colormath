@@ -13,10 +13,10 @@ import io.kotest.matchers.shouldBe
 fun convertTo(expected: Color) = object : Matcher<Color> {
     override fun test(value: Color): MatcherResult {
         return MatcherResult(
-            value.toRGB().toRGBInt().argb == expected.toRGB().toRGBInt().argb,
+            value.toSRGB().toRGBInt().argb == expected.toSRGB().toRGBInt().argb,
             {
-                val e = Expected("RGB(${expected.toRGB().toHex()})".show())
-                val a = Actual("RGB(${value.toRGB().toHex()})".show())
+                val e = Expected("RGB(${expected.toSRGB().toHex()})".show())
+                val a = Actual("RGB(${value.toSRGB().toHex()})".show())
                 failure(e, a).message ?: intellijFormatError(e, a)
             },
             { "${expected.show().value} should not equal ${value.show().value}" }
@@ -39,8 +39,8 @@ fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4) {
             wp shouldBe wpEx
         }
     } catch (e: AssertionError) {
-        println("┌ ex $expected ${expected.toRGB().toHex()}")
-        println("└ ac $this ${this.toRGB().toHex()}")
+        println("┌ ex $expected ${expected.toSRGB().toHex()}")
+        println("└ ac $this ${this.toSRGB().toHex()}")
         throw e
     }
 }
