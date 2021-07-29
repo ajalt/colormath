@@ -57,9 +57,28 @@ data class XYZ internal constructor(
         }
     }
 
+    /**
+     * Apply chromatic adaptation to adapt this color to the white point in the given [space].
+     *
+     * The Von Kries method is used with the CIECAT02 transformation matrix.
+     */
     fun adaptTo(space: XYZColorSpace): XYZ {
+        return adaptTo(space, CAT02_XYZ_TO_LMS, CAT02_LMS_TO_XYZ)
+
+    }
+
+    /**
+     * Apply chromatic adaptation to adapt this color to the white point in the given [space].
+     *
+     * The Von Kries method is used with the given [transformationMatrix].
+     */
+    fun adaptTo(space: XYZColorSpace, transformationMatrix: FloatArray): XYZ {
+        return adaptTo(space, Matrix(transformationMatrix), Matrix(transformationMatrix).inverse())
+    }
+
+    private fun adaptTo(space: XYZColorSpace, m: Matrix, mi: Matrix): XYZ {
         if (space.whitePoint == model.whitePoint) return this
-        val transform = Matrix(space.chromaticAdaptationMatrix(model.whitePoint))
+        val transform = Matrix(space.chromaticAdaptationMatrix(model.whitePoint, m, mi))
         return transform.times(x, y, z) { xx, yy, zz -> space(xx, yy, zz, alpha) }
     }
 
@@ -67,7 +86,7 @@ data class XYZ internal constructor(
      * Convert this color to the [RGB] model with the given color [space].
      */
     fun toRGB(space: RGBColorSpace): RGB {
-        val (x,y,z) = adaptTo(XYZ(space.whitePoint))
+        val (x, y, z) = adaptTo(XYZ(space.whitePoint))
         val f = space.transferFunctions
         return Matrix(space.matrixFromXyz).times(x, y, z) { r, g, b ->
             space(f.oetf(r), f.oetf(g), f.oetf(b), alpha)
@@ -161,8 +180,12 @@ data class XYZ internal constructor(
 }
 
 /** Create the transform matrix to adapt [whitePoint] to this color space */
-internal fun XYZColorSpace.chromaticAdaptationMatrix(whitePoint: Illuminant): FloatArray {
-    val src = CAT02_XYZ_TO_LMS.times(whitePoint.x, whitePoint.y, whitePoint.z)
-    val dst = CAT02_XYZ_TO_LMS.times(this.whitePoint.x, this.whitePoint.y, this.whitePoint.z)
-    return (CAT02_LMS_TO_XYZ * Matrix.diagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * CAT02_XYZ_TO_LMS).rowMajor
+internal fun XYZColorSpace.chromaticAdaptationMatrix(
+    whitePoint: Illuminant,
+    xyzToLms: Matrix = CAT02_XYZ_TO_LMS,
+    lmsToXyz: Matrix = CAT02_LMS_TO_XYZ,
+): FloatArray {
+    val src = xyzToLms.times(whitePoint.x, whitePoint.y, whitePoint.z)
+    val dst = xyzToLms.times(this.whitePoint.x, this.whitePoint.y, this.whitePoint.z)
+    return (lmsToXyz * Matrix.diagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * xyzToLms).rowMajor
 }
