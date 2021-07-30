@@ -18,7 +18,7 @@ object RGBColorSpaces {
     val LINEAR_SRGB: RGBColorSpace = RGBColorSpace(
         "Linear sRGB",
         Illuminant.D65,
-        LINEAR_TRANSFER_FUNCTION,
+        RGBColorSpace.LinearTransferFunctions,
         SRGB_R,
         SRGB_G,
         SRGB_B,
@@ -76,10 +76,6 @@ private data class RGBColorSpaceImpl(
 private val SRGB_R = Chromaticity.from_xy(0.640f, 0.330f)
 private val SRGB_G = Chromaticity.from_xy(0.300f, 0.600f)
 private val SRGB_B = Chromaticity.from_xy(0.150f, 0.060f)
-private val LINEAR_TRANSFER_FUNCTION = object : RGBColorSpace.TransferFunctions {
-    override fun eotf(x: Float): Float = x
-    override fun oetf(x: Float): Float = x
-}
 private val SRGB_TRANSFER_FUNCTIONS =
     RGBColorSpace.StandardTransferFunctions(1 / 1.055f, 0.055f / 1.055f, 1 / 12.92f, 0.04045f, 0f, 0f, 2.4f)
 
