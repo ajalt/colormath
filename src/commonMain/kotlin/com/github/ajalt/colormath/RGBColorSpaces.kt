@@ -1,10 +1,6 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.*
-import com.github.ajalt.colormath.internal.Matrix
-import com.github.ajalt.colormath.internal.doCreate
-import com.github.ajalt.colormath.internal.inverse
-import com.github.ajalt.colormath.internal.rectangularComponentInfo
 
 object RGBColorSpaces {
     /**
@@ -17,7 +13,7 @@ object RGBColorSpaces {
      */
     val LINEAR_SRGB: RGBColorSpace = RGBColorSpace(
         "Linear sRGB",
-        Illuminant.D65,
+        WhitePoint.D65,
         RGBColorSpace.LinearTransferFunctions,
         SRGB_R,
         SRGB_G,
@@ -31,7 +27,7 @@ object RGBColorSpaces {
  */
 fun RGBColorSpace(
     name: String,
-    whitePoint: Illuminant,
+    whitePoint: WhitePoint,
     transferFunctions: RGBColorSpace.TransferFunctions,
     r: Chromaticity,
     g: Chromaticity,
@@ -48,7 +44,7 @@ object SRGB : RGBColorSpace {
     override fun create(components: FloatArray): RGB = doCreate(components, ::invoke)
 
     override val name: String = "sRGB"
-    override val whitePoint: Illuminant = Illuminant.D65
+    override val whitePoint: WhitePoint = WhitePoint.D65
     override val transferFunctions: RGBColorSpace.TransferFunctions = SRGB_TRANSFER_FUNCTIONS
     override val matrixToXyz: FloatArray = rgbToXyzMatrix(whitePoint, SRGB_R, SRGB_G, SRGB_B).rowMajor
     override val matrixFromXyz: FloatArray = Matrix(matrixToXyz).inverse().rowMajor
@@ -57,7 +53,7 @@ object SRGB : RGBColorSpace {
 
 private data class RGBColorSpaceImpl(
     override val name: String,
-    override val whitePoint: Illuminant,
+    override val whitePoint: WhitePoint,
     override val transferFunctions: RGBColorSpace.TransferFunctions,
     private val r: Chromaticity,
     private val g: Chromaticity,
@@ -81,20 +77,20 @@ private val SRGB_TRANSFER_FUNCTIONS =
 
 
 // http://www.brucelindbloom.com/Eqn_RGB_XYZ_Matrix.html
-private fun rgbToXyzMatrix(whitePoint: Illuminant, r: Chromaticity, g: Chromaticity, b: Chromaticity): Matrix {
+private fun rgbToXyzMatrix(whitePoint: WhitePoint, r: Chromaticity, g: Chromaticity, b: Chromaticity): Matrix {
     val m = Matrix(
         r.x, g.x, b.x,
-        1f, 1f, 1f,
+        r.y, g.y, b.y,
         r.z, g.z, b.z,
     ).inverse(inPlace = true)
-    m.times(whitePoint.x, whitePoint.y, whitePoint.z) { Sr, Sg, Sb ->
+    m.times(whitePoint.chromaticity.x, whitePoint.chromaticity.y, whitePoint.chromaticity.z) { Sr, Sg, Sb ->
         m[0, 0] = Sr * r.x
         m[1, 0] = Sg * g.x
         m[2, 0] = Sb * b.x
 
-        m[0, 1] = Sr * 1f
-        m[1, 1] = Sg * 1f
-        m[2, 1] = Sb * 1f
+        m[0, 1] = Sr * r.y
+        m[1, 1] = Sg * g.y
+        m[2, 1] = Sb * b.y
 
         m[0, 2] = Sr * r.z
         m[1, 2] = Sg * g.z

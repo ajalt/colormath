@@ -16,7 +16,7 @@ interface XYZColorSpace : WhitePointColorSpace<XYZ> {
         invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha)
 }
 
-private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZColorSpace {
+private data class XYZColorSpaceImpl(override val whitePoint: WhitePoint) : XYZColorSpace {
     override val name: String get() = "XYZ"
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("XYZ")
     override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ = XYZ(x, y, z, alpha, this)
@@ -24,16 +24,16 @@ private data class XYZColorSpaceImpl(override val whitePoint: Illuminant) : XYZC
     override fun create(components: FloatArray): XYZ = doCreate(components, ::invoke)
 }
 
-/** An [XYZ] color space calculated relative to [Illuminant.D65] */
-val XYZ65: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D65)
+/** An [XYZ] color space calculated relative to [WhitePoint.D65] */
+val XYZ65: XYZColorSpace = XYZColorSpaceImpl(WhitePoint.D65)
 
-/** An [XYZ] color space calculated relative to [Illuminant.D50] */
-val XYZ50: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D50)
+/** An [XYZ] color space calculated relative to [WhitePoint.D50] */
+val XYZ50: XYZColorSpace = XYZColorSpaceImpl(WhitePoint.D50)
 
 /**
  * The CIEXYZ color model
  *
- * [XYZ] is calculated relative to a [given][model] [whitePoint], which defaults to [Illuminant.D65].
+ * [XYZ] is calculated relative to a [given][model] [whitePoint], which defaults to [WhitePoint.D65].
  *
  * | Component  | sRGB D65 Range |
  * | ---------- | -------------- |
@@ -50,9 +50,9 @@ data class XYZ internal constructor(
 ) : Color {
     companion object : XYZColorSpace by XYZ65 {
         /** Create a new `XYZ` color space that will be calculated relative to the given [whitePoint] */
-        operator fun invoke(whitePoint: Illuminant): XYZColorSpace = when (whitePoint) {
-            Illuminant.D65 -> XYZ65
-            Illuminant.D50 -> XYZ50
+        operator fun invoke(whitePoint: WhitePoint): XYZColorSpace = when (whitePoint) {
+            WhitePoint.D65 -> XYZ65
+            WhitePoint.D50 -> XYZ50
             else -> XYZColorSpaceImpl(whitePoint)
         }
     }
@@ -64,7 +64,6 @@ data class XYZ internal constructor(
      */
     fun adaptTo(space: XYZColorSpace): XYZ {
         return adaptTo(space, CAT02_XYZ_TO_LMS, CAT02_LMS_TO_XYZ)
-
     }
 
     /**
@@ -78,7 +77,7 @@ data class XYZ internal constructor(
 
     private fun adaptTo(space: XYZColorSpace, m: Matrix, mi: Matrix): XYZ {
         if (space.whitePoint == model.whitePoint) return this
-        val transform = Matrix(space.chromaticAdaptationMatrix(model.whitePoint, m, mi))
+        val transform = Matrix(space.chromaticAdaptationMatrix(model.whitePoint.chromaticity, m, mi))
         return transform.times(x, y, z) { xx, yy, zz -> space(xx, yy, zz, alpha) }
     }
 
@@ -102,9 +101,9 @@ data class XYZ internal constructor(
             else -> (t * CIE_K + 16) / 116
         }
 
-        val fx = f(x / model.whitePoint.x)
-        val fy = f(y / model.whitePoint.y)
-        val fz = f(z / model.whitePoint.z)
+        val fx = f(x / model.whitePoint.chromaticity.x)
+        val fy = f(y / model.whitePoint.chromaticity.y)
+        val fz = f(z / model.whitePoint.chromaticity.z)
 
         val l = (116 * fy) - 16
         val a = 500 * (fx - fy)
@@ -115,7 +114,7 @@ data class XYZ internal constructor(
 
     // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
     override fun toLUV(): LUV {
-        val wp = model.whitePoint
+        val wp = model.whitePoint.chromaticity
         val denominator = x + 15 * y + 3 * z
         val uPrime = if (denominator == 0f) 0f else (4 * x) / denominator
         val vPrime = if (denominator == 0f) 0f else (9 * y) / denominator
@@ -132,7 +131,7 @@ data class XYZ internal constructor(
         val u = 13 * l * (uPrime - uPrimeReference)
         val v = 13 * l * (vPrime - vPrimeReference)
 
-        return LUV(wp)(l.coerceIn(0f, 100f), u, v, alpha)
+        return LUV(model.whitePoint)(l.coerceIn(0f, 100f), u, v, alpha)
     }
 
     // https://bottosson.github.io/posts/oklab/#converting-from-xyz-to-oklab
@@ -181,11 +180,12 @@ data class XYZ internal constructor(
 
 /** Create the transform matrix to adapt [whitePoint] to this color space */
 internal fun XYZColorSpace.chromaticAdaptationMatrix(
-    whitePoint: Illuminant,
+    whitePoint: Chromaticity,
     xyzToLms: Matrix = CAT02_XYZ_TO_LMS,
     lmsToXyz: Matrix = CAT02_LMS_TO_XYZ,
 ): FloatArray {
     val src = xyzToLms.times(whitePoint.x, whitePoint.y, whitePoint.z)
-    val dst = xyzToLms.times(this.whitePoint.x, this.whitePoint.y, this.whitePoint.z)
+    val chromaticity = this.whitePoint.chromaticity
+    val dst = xyzToLms.times(chromaticity.x, chromaticity.y, chromaticity.z)
     return (lmsToXyz * Matrix.diagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * xyzToLms).rowMajor
 }

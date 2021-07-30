@@ -17,7 +17,7 @@ interface LUVColorSpace : WhitePointColorSpace<LUV> {
         invoke(l.toFloat(), u.toFloat(), v.toFloat(), alpha)
 }
 
-private data class LUVColorSpaceImpl(override val whitePoint: Illuminant) : LUVColorSpace {
+private data class LUVColorSpaceImpl(override val whitePoint: WhitePoint) : LUVColorSpace {
     override val name: String get() = "LUV"
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("LUV")
     override operator fun invoke(l: Float, u: Float, v: Float, alpha: Float): LUV = LUV(l, u, v, alpha, this)
@@ -25,16 +25,16 @@ private data class LUVColorSpaceImpl(override val whitePoint: Illuminant) : LUVC
     override fun create(components: FloatArray): LUV = doCreate(components, ::invoke)
 }
 
-/** An [LUV] color space calculated relative to [Illuminant.D65] */
-val LUV65: LUVColorSpace = LUVColorSpaceImpl(Illuminant.D65)
+/** An [LUV] color space calculated relative to [WhitePoint.D65] */
+val LUV65: LUVColorSpace = LUVColorSpaceImpl(WhitePoint.D65)
 
-/** An [LUV] color space calculated relative to [Illuminant.D50] */
-val LUV50: LUVColorSpace = LUVColorSpaceImpl(Illuminant.D50)
+/** An [LUV] color space calculated relative to [WhitePoint.D50] */
+val LUV50: LUVColorSpace = LUVColorSpaceImpl(WhitePoint.D50)
 
 /**
  * The CIE LUV color space, also referred to as `CIE 1976 L*u*v*`.
  *
- * [LUV] is calculated relative to a [given][model] [whitePoint], which defaults to [Illuminant.D65].
+ * [LUV] is calculated relative to a [given][model] [whitePoint], which defaults to [WhitePoint.D65].
  *
  * | Component  | Description  | sRGB D65 Range |
  * | ---------- | ------------ | -------------- |
@@ -51,9 +51,9 @@ data class LUV internal constructor(
 ) : Color {
     companion object : LUVColorSpace by LUV65 {
         /** Create a new `LUV` color space that will be calculated relative to the given [whitePoint] */
-        operator fun invoke(whitePoint: Illuminant): LUVColorSpace = when (whitePoint) {
-            Illuminant.D65 -> LUV65
-            Illuminant.D50 -> LUV50
+        operator fun invoke(whitePoint: WhitePoint): LUVColorSpace = when (whitePoint) {
+            WhitePoint.D65 -> LUV65
+            WhitePoint.D50 -> LUV50
             else -> LUVColorSpaceImpl(whitePoint)
         }
     }
@@ -64,11 +64,11 @@ data class LUV internal constructor(
     }
 
     override fun toXYZ(): XYZ {
-        val wp = model.whitePoint
-        val xyzSpace = XYZ(wp)
+        val xyzSpace = XYZ(model.whitePoint)
         // http://www.brucelindbloom.com/Eqn_Luv_to_XYZ.html
         if (l == 0f) return xyzSpace(0.0f, 0.0f, 0.0f)
 
+        val wp = model.whitePoint.chromaticity
         val denominator0 = wp.x + 15 * wp.y + 3 * wp.z
         val u0 = 4 * wp.x / denominator0
         val v0 = 9 * wp.y / denominator0

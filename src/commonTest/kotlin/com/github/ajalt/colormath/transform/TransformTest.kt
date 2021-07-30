@@ -140,11 +140,11 @@ class TransformTest {
     fun chromaticAdapter() = forAll(
         row(RGB.createChromaticAdapter(RGB(209, 215, 212)).adapt(RGB(192, 202, 202)),
             RGB(r = 0.9202273, g = 0.94016844, b = 0.9533126)),
-        row(RGB.createChromaticAdapter(RGB(209, 215, 212).toIll()).adapt(RGB(192, 202, 202)),
+        row(RGB.createChromaticAdapter(RGB(209, 215, 212).toChrom()).adapt(RGB(192, 202, 202)),
             RGB(r = 0.9202273, g = 0.94016844, b = 0.9533126)),
         row(RGBInt.createChromaticAdapter(RGBInt(200, 210, 220)).adapt(RGBInt(11, 222, 33)),
             RGB(r = 0.29472744, g = 1.0578139, b = 0.073229484).toRGBInt()),
-        row(RGBInt.createChromaticAdapter(RGBInt(200, 210, 220).toIll()).adapt(RGBInt(11, 222, 33)),
+        row(RGBInt.createChromaticAdapter(RGBInt(200, 210, 220).toChrom()).adapt(RGBInt(11, 222, 33)),
             RGB(r = 0.29472744, g = 1.0578139, b = 0.073229484).toRGBInt()),
     ) { ac, ex ->
         ac.shouldEqualColor(ex)
@@ -159,4 +159,4 @@ class TransformTest {
     }
 }
 
-private fun Color.toIll() = toXYZ().let { Illuminant(it.x, it.y, it.z) }
+private fun Color.toChrom() = toXYZ().let { Chromaticity(it.x, it.y, it.z) }

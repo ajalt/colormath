@@ -16,7 +16,7 @@ interface LCHColorSpace : WhitePointColorSpace<LCH> {
         invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 }
 
-private data class LCHColorSpaceImpl(override val whitePoint: Illuminant) : LCHColorSpace {
+private data class LCHColorSpaceImpl(override val whitePoint: WhitePoint) : LCHColorSpace {
     override val name: String get() = "LCH"
     override val components: List<ColorComponentInfo> = polarComponentInfo("LCH")
     override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCH = LCH(l, c, h, alpha, this)
@@ -24,11 +24,11 @@ private data class LCHColorSpaceImpl(override val whitePoint: Illuminant) : LCHC
     override fun create(components: FloatArray): LCH = doCreate(components, ::invoke)
 }
 
-/** An [LCH] color space calculated relative to [Illuminant.D65] */
-val LCH65: LCHColorSpace = LCHColorSpaceImpl(Illuminant.D65)
+/** An [LCH] color space calculated relative to [WhitePoint.D65] */
+val LCH65: LCHColorSpace = LCHColorSpaceImpl(WhitePoint.D65)
 
-/** An [LCH] color space calculated relative to [Illuminant.D50] */
-val LCH50: LCHColorSpace = LCHColorSpaceImpl(Illuminant.D50)
+/** An [LCH] color space calculated relative to [WhitePoint.D50] */
+val LCH50: LCHColorSpace = LCHColorSpaceImpl(WhitePoint.D50)
 
 
 /**
@@ -49,9 +49,9 @@ data class LCH internal constructor(
 ) : HueColor {
     companion object : LCHColorSpace by LCH65 {
         /** Create a new `LCH` color space that will be calculated relative to the given [whitePoint] */
-        operator fun invoke(whitePoint: Illuminant): LCHColorSpace = when (whitePoint) {
-            Illuminant.D65 -> LCH65
-            Illuminant.D50 -> LCH50
+        operator fun invoke(whitePoint: WhitePoint): LCHColorSpace = when (whitePoint) {
+            WhitePoint.D65 -> LCH65
+            WhitePoint.D50 -> LCH50
             else -> LCHColorSpaceImpl(whitePoint)
         }
     }
