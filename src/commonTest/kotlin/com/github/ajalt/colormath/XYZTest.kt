@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.CAT02_XYZ_TO_LMS
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.should
@@ -74,6 +75,7 @@ class XYZTest {
         row(XYZ(0.000, 1.000, 0.000), Oklab(0.922, -0.671, +0.263)),
         row(XYZ(0.000, 0.000, 1.000), Oklab(0.153, -1.415, -0.449)),
         row(XYZ(0.000, 0.000, 1.000).adaptTo(XYZ50), Oklab(0.153, -1.415, -0.449)),
+        row(XYZ(0.000, 0.000, 1.000).adaptTo(XYZ50, CAT02_XYZ_TO_LMS.rowMajor), Oklab(0.153, -1.415, -0.449)),
     ) { xyz, oklab ->
         xyz.toOklab().shouldEqualColor(oklab)
     }

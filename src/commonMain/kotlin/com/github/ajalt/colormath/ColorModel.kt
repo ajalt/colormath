@@ -33,5 +33,5 @@ class ColorComponentInfo(
 /** A color space that is defined with a reference [whitePoint]. */
 interface WhitePointColorSpace<T : Color> : ColorModel<T> {
     /** The white point that colors in this space are calculated relative to. */
-    val whitePoint: Illuminant
+    val whitePoint: WhitePoint
 }
