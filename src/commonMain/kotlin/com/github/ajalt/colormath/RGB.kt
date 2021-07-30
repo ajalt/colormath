@@ -108,6 +108,41 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
             else -> (a * x + b).pow(gamma) + e
         }
     }
+
+    /**
+     * A transfer function and its inverse defined with a pure gamma exponent.
+     *
+     * ### OETF
+     * ```
+     * Y = Xᵞ
+     * ```
+     *
+     * ### EOTF
+     * ```
+     * Y = X¹ᐟ ᵞ
+     * ```
+     */
+    data class GammaTransferFunctions(
+        private val gamma: Float
+    )
+
+    /**
+     * A set of identity functions that leave values unchanged.
+     *
+     * ### OETF
+     * ```
+     * Y = X
+     * ```
+     *
+     * ### EOTF
+     * ```
+     * Y = X
+     * ```
+     */
+    object LinearTransferFunctions : TransferFunctions {
+        override fun eotf(x: Float): Float = x
+        override fun oetf(x: Float): Float = x
+    }
 }
 
 
