@@ -20,5 +20,7 @@ class Chromaticity(val x: Float, val y: Float, val z: Float) {
         fun from_xy(x: Float, y: Float): Chromaticity {
             return Chromaticity(x / y, (1 - x - y) / y)
         }
+
+        fun from_xy(x: Double, y: Double): Chromaticity = from_xy(x.toFloat(), y.toFloat())
     }
 }
