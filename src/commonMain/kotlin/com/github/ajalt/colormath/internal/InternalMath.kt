@@ -29,3 +29,8 @@ internal inline fun <T> fromPolarModel(c: Float, h: Float, block: (a: Float, b: 
     val b = c * sin(hDegrees)
     return block(a, b)
 }
+
+/**
+ * return `sign(a) * |a|^p`, which avoids NaN when `this` is negative
+ */
+internal fun Float.spow(p: Float) = absoluteValue.pow(p).withSign(this)

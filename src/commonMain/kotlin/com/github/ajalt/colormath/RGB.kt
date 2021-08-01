@@ -1,9 +1,13 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RenderCondition.AUTO
-import com.github.ajalt.colormath.internal.*
+import com.github.ajalt.colormath.internal.Matrix
+import com.github.ajalt.colormath.internal.cbrt
+import com.github.ajalt.colormath.internal.spow
+import com.github.ajalt.colormath.internal.times
 import kotlin.math.pow
 import kotlin.math.roundToInt
+import kotlin.math.sign
 
 
 interface RGBColorSpace : WhitePointColorSpace<RGB> {
@@ -98,14 +102,17 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
         private val f: Float,
         private val gamma: Float,
     ) : TransferFunctions {
-        override fun oetf(x: Float): Float =when {
+        constructor(a: Double, b: Double, c: Double, d: Double, e: Double, f: Double, gamma: Double)
+                : this(a.toFloat(), b.toFloat(), c.toFloat(), d.toFloat(), e.toFloat(), f.toFloat(), gamma.toFloat())
+
+        override fun oetf(x: Float): Float = when {
             x < d * c -> (x - f) / c
-            else -> ((x - e).pow(1f / gamma) - b) / a
+            else -> ((x - e).spow(1f / gamma) - b) / a
         }
 
         override fun eotf(x: Float): Float = when {
             x < d -> c * x + f
-            else -> (a * x + b).pow(gamma) + e
+            else -> (a * x + b).spow(gamma) + e
         }
     }
 
@@ -123,8 +130,13 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
      * ```
      */
     data class GammaTransferFunctions(
-        private val gamma: Float
-    )
+        private val gamma: Float,
+    ) : TransferFunctions {
+        constructor(gamma: Double) : this(gamma.toFloat())
+
+        override fun eotf(x: Float): Float =  x.spow(gamma)
+        override fun oetf(x: Float): Float =  x.spow(1f / gamma)
+    }
 
     /**
      * A set of identity functions that leave values unchanged.
