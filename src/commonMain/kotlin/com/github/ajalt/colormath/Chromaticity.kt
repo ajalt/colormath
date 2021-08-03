@@ -7,7 +7,7 @@ package com.github.ajalt.colormath
  *
  * A [Chromaticity] can also be constructed from xyY coordinates with [from_xy].
  */
-class Chromaticity(val x: Float, val y: Float, val z: Float) {
+data class Chromaticity(val x: Float, val y: Float, val z: Float) {
     /**
      * Construct a chromaticity from XZ coordinates (i.e. CIEXYZ with `Y=1`).
      */

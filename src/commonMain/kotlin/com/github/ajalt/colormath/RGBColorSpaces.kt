@@ -1,12 +1,14 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.*
+import kotlin.math.log2
+import kotlin.math.pow
 
 object RGBColorSpaces {
     /**
      * sRGB color space
      *
-     * ### Specifications
+     * ### References
      * - [IEC 61966-2-1](https://webstore.iec.ch/publication/6169)
      */
     val SRGB: RGBColorSpace = com.github.ajalt.colormath.SRGB
@@ -14,7 +16,7 @@ object RGBColorSpaces {
     /**
      * Linear sRGB color space
      *
-     * ### Specifications
+     * ### References
      * - [IEC 61966-2-1](https://webstore.iec.ch/publication/6169)
      */
     val LINEAR_SRGB: RGBColorSpace = RGBColorSpace(
@@ -27,9 +29,56 @@ object RGBColorSpaces {
     )
 
     /**
+     * ACES2065-1, a digital color image encoding appropriate for both photographed and computer-generated images.
+     *
+     * ### References
+     * - [SMPTE ST 2065-1][https://ieeexplore.ieee.org/document/7289895]
+     * - [Academy TB-2014-004][https://github.com/ampas/aces-docs]
+     */
+    val ACES: RGBColorSpace = RGBColorSpace(
+        "ACES2065-1",
+        ACES_WHITE_POINT,
+        RGBColorSpace.LinearTransferFunctions,
+        ACES_AP0_R,
+        ACES_AP0_G,
+        ACES_AP0_B,
+    )
+
+    /**
+     * ACEScc, a logarithmic encoding of [ACES] data intended for use in color grading systems whose controls
+     * expect a log relationship to relative scene exposures for proper operation.
+     *
+     * ### References
+     * - [Academy S-2014-003][https://github.com/ampas/aces-docs]
+     */
+    val ACEScc: RGBColorSpace = RGBColorSpace(
+        "ACEScc",
+        ACES_WHITE_POINT,
+        ACESLogTransferFunctions,
+        ACES_AP1_R,
+        ACES_AP1_G,
+        ACES_AP1_B,
+    )
+
+    /**
+     * ACEScg, a working space for CGI render and compositing to be used in conjunction with the [ACES] system.
+     *
+     * ### References
+     * - [Academy S-2014-004][https://github.com/ampas/aces-docs]
+     */
+    val ACEScg: RGBColorSpace = RGBColorSpace(
+        "ACEScg",
+        ACES_WHITE_POINT,
+        RGBColorSpace.LinearTransferFunctions,
+        ACES_AP1_R,
+        ACES_AP1_G,
+        ACES_AP1_B,
+    )
+
+    /**
      * Adobe RGB 1998 color space
      *
-     * ### Specifications
+     * ### References
      * - [Adobe RGB (1998) Color Image Encoding](https://www.adobe.com/digitalimag/pdfs/AdobeRGB1998.pdf)
      */
     val ADOBE_RGB: RGBColorSpace = RGBColorSpace(
@@ -44,7 +93,7 @@ object RGBColorSpaces {
     /**
      * ITU-R Recommendation BT.2020 color space, also known as BT.2020 or REC.2020
      *
-     * ### Specifications
+     * ### References
      * - [ITU-R  BT.2020-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf)
      */
     val BT_2020: RGBColorSpace = RGBColorSpace(
@@ -67,7 +116,7 @@ object RGBColorSpaces {
     /**
      * DCI P3 color space
      *
-     * ### Specifications
+     * ### References
      * - [RP 431-2:2011](https://ieeexplore.ieee.org/document/7290729)
      * - [Digital Cinema System Specification - Version 1.1](https://www.dcimovies.com/archives/spec_v1_1/DCI_DCinema_System_Spec_v1_1.pdf)
      */
@@ -83,7 +132,7 @@ object RGBColorSpaces {
     /**
      * Display P3 color space
      *
-     * ### Specifications
+     * ### References
      * - [Apple](https://developer.apple.com/documentation/coregraphics/cgcolorspace/1408916-displayp3)
      * - [RP 431-2:2011](https://ieeexplore.ieee.org/document/7290729)
      * - [Digital Cinema System Specification - Version 1.1](https://www.dcimovies.com/archives/spec_v1_1/DCI_DCinema_System_Spec_v1_1.pdf)
@@ -100,7 +149,7 @@ object RGBColorSpaces {
     /**
      * ROMM RGB color space, also known as ProPhoto RGB
      *
-     * ### Specifications
+     * ### References
      * - [ANSI/I3A IT10.7666:2003](https://www.color.org/ROMMRGB.pdf)
      */
     val ROMM_RGB: RGBColorSpace = RGBColorSpace(
@@ -168,7 +217,41 @@ private val SRGB_TRANSFER_FUNCTIONS =
     RGBColorSpace.StandardTransferFunctions(1 / 1.055f, 0.055f / 1.055f, 1 / 12.92f, 0.04045f, 0f, 0f, 2.4f)
 
 
-// http://www.brucelindbloom.com/Eqn_RGB_XYZ_Matrix.html
+private val ACES_WHITE_POINT = WhitePoint("ACES", Chromaticity(0.95265f, 1.00883f))
+
+// values from [Academy TB-2014-004]
+private val ACES_AP0_R = Chromaticity.from_xy(0.73470, 0.26530)
+private val ACES_AP0_G = Chromaticity.from_xy(0.00000, 1.00000)
+private val ACES_AP0_B = Chromaticity.from_xy(0.00010, -0.0770)
+
+// values from [Academy S-2014-004]
+private val ACES_AP1_R = Chromaticity.from_xy(0.713, 0.293)
+private val ACES_AP1_G = Chromaticity.from_xy(0.165, 0.830)
+private val ACES_AP1_B = Chromaticity.from_xy(0.128, 0.044)
+
+// from [Academy S-2014-003]
+private object ACESLogTransferFunctions : RGBColorSpace.TransferFunctions {
+    private const val twoN15 = 1 / 32768f // == 2.pow(-15)
+    private const val twoN16 = 1 / 65536f // == 2.pow(-16)
+    private const val eotfC1 = (9.72f - 15) / 17.52f
+    private val eotfC2 = (log2(65504f) + 9.72f) / 17.52f
+    override fun eotf(x: Float): Float {
+        return when {
+            x <= eotfC1 -> (2f.pow(x * 17.52f - 9.72f)) * 2
+            x < eotfC2 -> 2f.pow(x * 18.52f - 9.72f)
+            else -> 65504f
+        }
+    }
+
+    override fun oetf(x: Float): Float {
+        return when {
+            x < twoN15 -> (log2(twoN16 + x.coerceAtLeast(0f) / 2) + 9.72f) / 17.52f
+            else -> (log2(x) + 9.72f) / 17.52f
+        }
+    }
+}
+
+// [SMPTE RP 177-1993](http://car.france3.mars.free.fr/Formation%20INA%20HD/HDTV/HDTV%20%202007%20v35/SMPTE%20normes%20et%20confs/rp177.pdf)
 private fun rgbToXyzMatrix(whitePoint: WhitePoint, r: Chromaticity, g: Chromaticity, b: Chromaticity): Matrix {
     val m = Matrix(
         r.x, g.x, b.x,
