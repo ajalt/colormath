@@ -37,18 +37,6 @@ class RGBColorSpacesTransferFunctionsTest {
     @Test
     fun ACEScc() = doTest(ACEScc, 0.413588402492442, -0.358447488584475, 0.554794520547945)
 
-    // extra tests from [Academy S-2014-003], Appendix C
-    @Test
-    fun ACEScc_extra() = forAll(
-        row(0.000000059605, -0.35828683, "oetf"),
-        row(0.0011854, -0.000023420209, "oetf"),
-        row(222.88, 0.4132216, "oetf"),
-        row(0.1792, 1.000007, "oetf"),
-        row(65504.0, 1.4679964, "oetf"),
-    ) { input, ex, func ->
-        doSingleTest(ACEScc, input, ex, func)
-    }
-
     private fun doTest(space: RGBColorSpace, mid: Double, zero: Double = 0.0, one: Double = 1.0) {
         forAll(
             row(0.0, zero, "oetf"),
@@ -70,9 +58,9 @@ class RGBColorSpacesTransferFunctionsTest {
         func: String,
     ) {
         val actual = when (func) {
-            "oetf" -> space.transferFunctions.oetf(input.toFloat())
-            else -> space.transferFunctions.eotf(input.toFloat())
+            "oetf" -> space.transferFunctions.oetf(input)
+            else -> space.transferFunctions.eotf(input)
         }
-        actual.toDouble() shouldBe (ex plusOrMinus 1e-7)
+        actual shouldBe (ex plusOrMinus 1e-7)
     }
 }
