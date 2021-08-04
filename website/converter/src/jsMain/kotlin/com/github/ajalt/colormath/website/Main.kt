@@ -1,5 +1,3 @@
-@file:NoLiveLiterals // work around some compose bug
-
 package com.github.ajalt.colormath.website
 
 import androidx.compose.runtime.*
@@ -72,8 +70,8 @@ fun main() {
 
             Div(attrs = {
                 style {
-                    backgroundColor(color.toSRGB().toHex())
-                    color(if (color.toHSL().l > 40) "black" else "white")
+                    backgroundColor(Color(color.toSRGB().toHex()))
+                    color(Color(if (color.toHSL().l > 40) "black" else "white"))
                     padding(25.px)
                     border(1.px, LineStyle.Solid, Color("#ced4da"))
                     borderRadius(.25.cssRem)
