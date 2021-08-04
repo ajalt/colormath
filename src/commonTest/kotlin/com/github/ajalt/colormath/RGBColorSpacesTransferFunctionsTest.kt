@@ -6,6 +6,7 @@ import com.github.ajalt.colormath.RGBColorSpaces.ACEScc
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScct
 import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
 import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
+import com.github.ajalt.colormath.RGBColorSpaces.BT_709
 import com.github.ajalt.colormath.RGBColorSpaces.DCI_P3
 import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
 import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
@@ -25,6 +26,17 @@ class RGBColorSpacesTransferFunctionsTest {
 
     @Test
     fun BT_2020() = doTest(BT_2020, 0.40884640249350368)
+
+    @Test
+    fun BT_709() = doTest(BT_709, 0.409007728864150)
+
+    @Test
+    fun BT_709_extra() = forAll(
+        row(0.015, 0.0675, "oetf"),
+        row(0.0675, 0.015, "eotf"),
+    ) { input, ex, func ->
+        doSingleTest(BT_709, input, ex, func)
+    }
 
     @Test
     fun DCI_P3() = doTest(DCI_P3, 0.5170902489415321)
