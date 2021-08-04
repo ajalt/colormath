@@ -209,17 +209,17 @@ private val SRGB_G = Chromaticity.from_xy(0.300f, 0.600f)
 private val SRGB_B = Chromaticity.from_xy(0.150f, 0.060f)
 
 private object SRGBTransferFunctions : RGBColorSpace.TransferFunctions {
-    override fun oetf(x: Float): Float {
+    override fun oetf(x: Double): Double {
         return when {
-            x <= 0.0031308 -> x * 12.92f
-            else -> 1.055f * x.spow(1 / 2.4f) - 0.055f
+            x <= 0.0031308 -> x * 12.92
+            else -> 1.055 * x.spow(1 / 2.4) - 0.055
         }
     }
 
-    override fun eotf(x: Float): Float {
+    override fun eotf(x: Double): Double {
         return when {
-            x <= 0.04045f -> x / 12.92f
-            else -> ((x + 0.055f) / 1.055f).spow(2.4f)
+            x <= 0.04045 -> x / 12.92
+            else -> ((x + 0.055) / 1.055).spow(2.4)
         }
     }
 }
@@ -238,22 +238,22 @@ private val ACES_AP1_B = Chromaticity.from_xy(0.128, 0.044)
 
 // from [Academy S-2014-003]
 private object ACESLogTransferFunctions : RGBColorSpace.TransferFunctions {
-    private const val twoN15 = 1f / 32768f // == 2.pow(-15)
-    private const val twoN16 = 1f / 65536f // == 2.pow(-16)
-    private const val eotfC1 = (9.72f - 15f) / 17.52f
-    private val eotfC2 = (log2(65504f) + 9.72f) / 17.52f
-    override fun eotf(x: Float): Float {
+    private const val twoN15 = 1 / 32768.0 // == 2.pow(-15)
+    private const val twoN16 = 1 / 65536.0 // == 2.pow(-16)
+    private const val eotfC1 = (9.72 - 15) / 17.52
+    private val eotfC2 = (log2(65504.0) + 9.72) / 17.52
+    override fun eotf(x: Double): Double {
         return when {
-            x <= eotfC1 -> (2f.pow(x * 17.52f - 9.72f)) * 2f
-            x < eotfC2 -> 2f.pow(x * 18.52f - 9.72f)
-            else -> 65504f
+            x <= eotfC1 -> (2.0.spow(x * 17.52 - 9.72) - twoN16) * 2.0
+            x < eotfC2 -> 2.0.pow(x * 17.52 - 9.72)
+            else -> 65504.0
         }
     }
 
-    override fun oetf(x: Float): Float {
+    override fun oetf(x: Double): Double {
         return when {
-            x < twoN15 -> (log2(twoN16 + x.coerceAtLeast(0f) / 2) + 9.72f) / 17.52f
-            else -> (log2(x) + 9.72f) / 17.52f
+            x < twoN15 -> (log2(twoN16 + x.coerceAtLeast(0.0) / 2) + 9.72) / 17.52
+            else -> (log2(x) + 9.72) / 17.52
         }
     }
 }
@@ -261,30 +261,30 @@ private object ACESLogTransferFunctions : RGBColorSpace.TransferFunctions {
 private object Bt2020TransferFunctions : RGBColorSpace.TransferFunctions {
     // The standard defines the constants with different precision for 10 and 12 bit systems.
     // We use the 12 bit constants.
-    private const val a = 1.0993f
-    private const val b = 0.0181f
-    private val eotfCutoff = a * b.pow(0.45f) - (a - 1) // == oetf(b)
-    override fun eotf(x: Float): Float = when {
+    private const val a = 1.0993
+    private const val b = 0.0181
+    private val eotfCutoff = a * b.pow(0.45) - (a - 1) // == oetf(b)
+    override fun eotf(x: Double): Double = when {
         x < eotfCutoff -> x / 4.5f
-        else -> ((x + (a - 1)) / a).spow(1f / 0.45f)
+        else -> ((x + (a - 1)) / a).spow(1 / 0.45)
     }
 
-    override fun oetf(x: Float): Float = when {
-        x < b -> 4.5f * x
-        else -> a * x.spow(0.45f) - (a - 1)
+    override fun oetf(x: Double): Double = when {
+        x < b -> 4.5 * x
+        else -> a * x.spow(0.45) - (a - 1)
     }
 }
 
 private object ROMMTransferFunctions : RGBColorSpace.TransferFunctions {
     private const val c = 0.001953
-    override fun eotf(x: Float): Float = when {
-        x < 16 * c -> x / 16f
-        else -> x.spow(1.8f)
+    override fun eotf(x: Double): Double = when {
+        x < 16 * c -> x / 16.0
+        else -> x.spow(1.8)
     }
 
-    override fun oetf(x: Float): Float = when {
-        x < c -> x * 16f
-        else -> x.spow(1f / 1.8f)
+    override fun oetf(x: Double): Double = when {
+        x < c -> x * 16.0
+        else -> x.spow(1.0 / 1.8)
     }
 }
 
