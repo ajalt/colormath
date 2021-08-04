@@ -117,10 +117,25 @@ object RGBColorSpaces {
     val BT_2020: RGBColorSpace = RGBColorSpace(
         "BT.2020",
         WhitePoint.D65,
-        Bt2020TransferFunctions,
+        BT2020TransferFunctions,
         Chromaticity.from_xy(0.708, 0.292),
         Chromaticity.from_xy(0.170, 0.797),
         Chromaticity.from_xy(0.131, 0.046),
+    )
+
+    /**
+     * ITU-R Recommendation BT.709, also known as BT.709 or REC.709
+     *
+     * ### References
+     * - [ITU-R BT.709-9](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.709-6-201506-I!!PDF-E.pdf)
+     */
+    val BT_709: RGBColorSpace = RGBColorSpace(
+        "BT.709",
+        WhitePoint.D65,
+        BT709TransferFunctions,
+        Chromaticity.from_xy(0.6400, 0.3300),
+        Chromaticity.from_xy(0.3000, 0.6000),
+        Chromaticity.from_xy(0.1500, 0.0600),
     )
 
     /**
@@ -295,7 +310,20 @@ private object ACEScctTransferFunctions : RGBColorSpace.TransferFunctions {
     }
 }
 
-private object Bt2020TransferFunctions : RGBColorSpace.TransferFunctions {
+private object BT709TransferFunctions : RGBColorSpace.TransferFunctions {
+    private val eotfC = 1.099 * 0.018.spow(0.45) - 0.099
+    override fun eotf(x: Double): Double = when {
+        x < eotfC -> x / 4.5f
+        else ->  ((x + 0.099) / 1.099).spow(1 / 0.45)
+    }
+
+    override fun oetf(x: Double): Double = when {
+        x < 0.018 -> 4.5 * x
+        else -> 1.099 * x.spow(0.45) - 0.099
+    }
+}
+
+private object BT2020TransferFunctions : RGBColorSpace.TransferFunctions {
     // The standard defines the constants with different precision for 10 and 12 bit systems.
     // We use the 12 bit constants.
     private const val a = 1.0993
