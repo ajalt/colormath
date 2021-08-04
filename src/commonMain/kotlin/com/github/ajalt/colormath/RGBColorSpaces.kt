@@ -54,7 +54,23 @@ object RGBColorSpaces {
     val ACEScc: RGBColorSpace = RGBColorSpace(
         "ACEScc",
         ACES_WHITE_POINT,
-        ACESLogTransferFunctions,
+        ACESccTransferFunctions,
+        ACES_AP1_R,
+        ACES_AP1_G,
+        ACES_AP1_B,
+    )
+
+    /**
+     * ACEScct, a quasi-logarithmic encoding of [ACES] data intended for use in color grading systems whose
+     * controls expect a log relationship to relative scene exposures for proper operation.
+     *
+     * ### References
+     * - [Academy S-2016-001][https://github.com/ampas/aces-docs]
+     */
+    val ACEScct: RGBColorSpace = RGBColorSpace(
+        "ACEScc",
+        ACES_WHITE_POINT,
+        ACEScctTransferFunctions,
         ACES_AP1_R,
         ACES_AP1_G,
         ACES_AP1_B,
@@ -237,7 +253,7 @@ private val ACES_AP1_G = Chromaticity.from_xy(0.165, 0.830)
 private val ACES_AP1_B = Chromaticity.from_xy(0.128, 0.044)
 
 // from [Academy S-2014-003]
-private object ACESLogTransferFunctions : RGBColorSpace.TransferFunctions {
+private object ACESccTransferFunctions : RGBColorSpace.TransferFunctions {
     private const val twoN15 = 1 / 32768.0 // == 2.pow(-15)
     private const val twoN16 = 1 / 65536.0 // == 2.pow(-16)
     private const val eotfC1 = (9.72 - 15) / 17.52
@@ -253,6 +269,27 @@ private object ACESLogTransferFunctions : RGBColorSpace.TransferFunctions {
     override fun oetf(x: Double): Double {
         return when {
             x < twoN15 -> (log2(twoN16 + x.coerceAtLeast(0.0) / 2) + 9.72) / 17.52
+            else -> (log2(x) + 9.72) / 17.52
+        }
+    }
+}
+
+// from [Academy S-2016-001]
+private object ACEScctTransferFunctions : RGBColorSpace.TransferFunctions {
+    private const val a = 10.5402377416545
+    private const val b = 0.0729055341958355
+    private val eotfC2 = (log2(65504.0) + 9.72) / 17.52
+    override fun eotf(x: Double): Double {
+        return when {
+            x <= 0.155251141552511 -> (x - b) / a
+            x < eotfC2 -> 2.0.pow(x * 17.52 - 9.72)
+            else -> 65504.0
+        }
+    }
+
+    override fun oetf(x: Double): Double {
+        return when {
+            x < 0.0078125 -> a * x + b
             else -> (log2(x) + 9.72) / 17.52
         }
     }
