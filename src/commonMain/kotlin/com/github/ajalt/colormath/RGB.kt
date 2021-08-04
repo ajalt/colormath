@@ -79,44 +79,6 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
     }
 
     /**
-     * A transfer function and its inverse as defined in [ICC.1:2004-10][https://www.color.org/icc1v42.pdf], table 47.
-     *
-     * ### OETF
-     * ```
-     * Y = (aX + b)ᵞ + e    (X >= d)
-     * Y = (cX + f)         (X <  d)
-     * ```
-     *
-     * ### EOTF
-     * ```
-     * Y = (x¹ᐟ ᵞ - b) / a    (X >= d × c)
-     * Y = (x / c)            (X < d × c)
-     * ```
-     */
-    data class StandardTransferFunctions(
-        private val a: Float,
-        private val b: Float,
-        private val c: Float,
-        private val d: Float,
-        private val e: Float,
-        private val f: Float,
-        private val gamma: Float,
-    ) : TransferFunctions {
-        constructor(a: Double, b: Double, c: Double, d: Double, e: Double, f: Double, gamma: Double)
-                : this(a.toFloat(), b.toFloat(), c.toFloat(), d.toFloat(), e.toFloat(), f.toFloat(), gamma.toFloat())
-
-        override fun oetf(x: Float): Float = when {
-            x < d * c -> (x - f) / c
-            else -> ((x - e).spow(1f / gamma) - b) / a
-        }
-
-        override fun eotf(x: Float): Float = when {
-            x < d -> c * x + f
-            else -> (a * x + b).spow(gamma) + e
-        }
-    }
-
-    /**
      * A transfer function and its inverse defined with a pure gamma exponent.
      *
      * ### OETF
