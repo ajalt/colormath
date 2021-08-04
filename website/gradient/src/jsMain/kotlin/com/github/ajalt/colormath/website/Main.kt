@@ -1,5 +1,3 @@
-@file:NoLiveLiterals // work around some compose bug
-
 package com.github.ajalt.colormath.website
 
 import androidx.compose.runtime.*
@@ -74,10 +72,10 @@ fun main() {
                             Div(attrs = { style { width(3.em) } }) { Text(fmt(value)) }
                             Div {
                                 RangeInput(value,
-                                    min = component.min,
-                                    max = component.max,
+                                    min = 0,
+                                    max = 1,
                                     step = 0.01,
-                                    attrsBuilder = {
+                                    attrs = {
                                         onInput {
                                             val array = color.toArray().apply { set(j, (it.value ?: 0).toFloat()) }
                                             val new = color.model.create(array)
