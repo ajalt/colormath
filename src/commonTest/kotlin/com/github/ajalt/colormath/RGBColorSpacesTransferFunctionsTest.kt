@@ -3,6 +3,7 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScc
+import com.github.ajalt.colormath.RGBColorSpaces.ACEScct
 import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
 import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
 import com.github.ajalt.colormath.RGBColorSpaces.DCI_P3
@@ -36,6 +37,9 @@ class RGBColorSpacesTransferFunctionsTest {
 
     @Test
     fun ACEScc() = doTest(ACEScc, 0.413588402492442, -0.358447488584475, 0.554794520547945)
+
+    @Test
+    fun ACEScct() = doTest(ACEScct, 0.413588402492442, 0.072905534195835495, 0.554794520547945)
 
     private fun doTest(space: RGBColorSpace, mid: Double, zero: Double = 0.0, one: Double = 1.0) {
         forAll(
