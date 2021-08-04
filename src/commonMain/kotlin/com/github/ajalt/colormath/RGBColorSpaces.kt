@@ -84,7 +84,7 @@ object RGBColorSpaces {
     val ADOBE_RGB: RGBColorSpace = RGBColorSpace(
         "Adobe RGB",
         WhitePoint.D65,
-        RGBColorSpace.GammaTransferFunctions(2f * 51f / 256f),
+        RGBColorSpace.GammaTransferFunctions(2.19921875),
         Chromaticity.from_xy(0.64, 0.33),
         Chromaticity.from_xy(0.21, 0.71),
         Chromaticity.from_xy(0.15, 0.06),
@@ -93,21 +93,15 @@ object RGBColorSpaces {
     /**
      * ITU-R Recommendation BT.2020 color space, also known as BT.2020 or REC.2020
      *
+     * The transfer functions in this implementation use the constants for 12-bit systems given in the standard.
+     *
      * ### References
-     * - [ITU-R  BT.2020-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf)
+     * - [ITU-R BT.2020-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf)
      */
     val BT_2020: RGBColorSpace = RGBColorSpace(
         "BT.2020",
         WhitePoint.D65,
-        RGBColorSpace.StandardTransferFunctions(
-            a = 1 / 1.0993,
-            b = 0.0993 / 1.0993,
-            c = 1 / 4.5,
-            d = 0.0181 / (1 / 4.5),
-            e = 0.0,
-            f = 0.0,
-            gamma = 1 / 0.45
-        ),
+        Bt2020TransferFunctions,
         Chromaticity.from_xy(0.708, 0.292),
         Chromaticity.from_xy(0.170, 0.797),
         Chromaticity.from_xy(0.131, 0.046),
@@ -140,7 +134,7 @@ object RGBColorSpaces {
     val DISPLAY_P3: RGBColorSpace = RGBColorSpace(
         "Display P3",
         WhitePoint.D65,
-        SRGB_TRANSFER_FUNCTIONS,
+        SRGBTransferFunctions,
         Chromaticity.from_xy(0.680, 0.320),
         Chromaticity.from_xy(0.265, 0.690),
         Chromaticity.from_xy(0.150, 0.060),
@@ -155,7 +149,7 @@ object RGBColorSpaces {
     val ROMM_RGB: RGBColorSpace = RGBColorSpace(
         "ROMM RGB",
         WhitePoint.D50,
-        RGBColorSpace.StandardTransferFunctions(1.0, 0.0, 1 / 16.0, 16 * 0.001953, 0.0, 0.0, 1.8),
+        ROMMTransferFunctions,
         Chromaticity.from_xy(0.7347, 0.2653),
         Chromaticity.from_xy(0.1596, 0.8404),
         Chromaticity.from_xy(0.0366, 0.0001),
@@ -186,7 +180,7 @@ object SRGB : RGBColorSpace {
 
     override val name: String = "sRGB"
     override val whitePoint: WhitePoint = WhitePoint.D65
-    override val transferFunctions: RGBColorSpace.TransferFunctions = SRGB_TRANSFER_FUNCTIONS
+    override val transferFunctions: RGBColorSpace.TransferFunctions = SRGBTransferFunctions
     override val matrixToXyz: FloatArray = rgbToXyzMatrix(whitePoint, SRGB_R, SRGB_G, SRGB_B).rowMajor
     override val matrixFromXyz: FloatArray = Matrix(matrixToXyz).inverse().rowMajor
     override fun toString(): String = name
@@ -213,9 +207,22 @@ private data class RGBColorSpaceImpl(
 private val SRGB_R = Chromaticity.from_xy(0.640f, 0.330f)
 private val SRGB_G = Chromaticity.from_xy(0.300f, 0.600f)
 private val SRGB_B = Chromaticity.from_xy(0.150f, 0.060f)
-private val SRGB_TRANSFER_FUNCTIONS =
-    RGBColorSpace.StandardTransferFunctions(1 / 1.055f, 0.055f / 1.055f, 1 / 12.92f, 0.04045f, 0f, 0f, 2.4f)
 
+private object SRGBTransferFunctions : RGBColorSpace.TransferFunctions {
+    override fun oetf(x: Float): Float {
+        return when {
+            x <= 0.0031308 -> x * 12.92f
+            else -> 1.055f * x.spow(1 / 2.4f) - 0.055f
+        }
+    }
+
+    override fun eotf(x: Float): Float {
+        return when {
+            x <= 0.04045f -> x / 12.92f
+            else -> ((x + 0.055f) / 1.055f).spow(2.4f)
+        }
+    }
+}
 
 private val ACES_WHITE_POINT = WhitePoint("ACES", Chromaticity(0.95265f, 1.00883f))
 
@@ -231,13 +238,13 @@ private val ACES_AP1_B = Chromaticity.from_xy(0.128, 0.044)
 
 // from [Academy S-2014-003]
 private object ACESLogTransferFunctions : RGBColorSpace.TransferFunctions {
-    private const val twoN15 = 1 / 32768f // == 2.pow(-15)
-    private const val twoN16 = 1 / 65536f // == 2.pow(-16)
-    private const val eotfC1 = (9.72f - 15) / 17.52f
+    private const val twoN15 = 1f / 32768f // == 2.pow(-15)
+    private const val twoN16 = 1f / 65536f // == 2.pow(-16)
+    private const val eotfC1 = (9.72f - 15f) / 17.52f
     private val eotfC2 = (log2(65504f) + 9.72f) / 17.52f
     override fun eotf(x: Float): Float {
         return when {
-            x <= eotfC1 -> (2f.pow(x * 17.52f - 9.72f)) * 2
+            x <= eotfC1 -> (2f.pow(x * 17.52f - 9.72f)) * 2f
             x < eotfC2 -> 2f.pow(x * 18.52f - 9.72f)
             else -> 65504f
         }
@@ -248,6 +255,36 @@ private object ACESLogTransferFunctions : RGBColorSpace.TransferFunctions {
             x < twoN15 -> (log2(twoN16 + x.coerceAtLeast(0f) / 2) + 9.72f) / 17.52f
             else -> (log2(x) + 9.72f) / 17.52f
         }
+    }
+}
+
+private object Bt2020TransferFunctions : RGBColorSpace.TransferFunctions {
+    // The standard defines the constants with different precision for 10 and 12 bit systems.
+    // We use the 12 bit constants.
+    private const val a = 1.0993f
+    private const val b = 0.0181f
+    private val eotfCutoff = a * b.pow(0.45f) - (a - 1) // == oetf(b)
+    override fun eotf(x: Float): Float = when {
+        x < eotfCutoff -> x / 4.5f
+        else -> ((x + (a - 1)) / a).spow(1f / 0.45f)
+    }
+
+    override fun oetf(x: Float): Float = when {
+        x < b -> 4.5f * x
+        else -> a * x.spow(0.45f) - (a - 1)
+    }
+}
+
+private object ROMMTransferFunctions : RGBColorSpace.TransferFunctions {
+    private const val c = 0.001953
+    override fun eotf(x: Float): Float = when {
+        x < 16 * c -> x / 16f
+        else -> x.spow(1.8f)
+    }
+
+    override fun oetf(x: Float): Float = when {
+        x < c -> x * 16f
+        else -> x.spow(1f / 1.8f)
     }
 }
 
