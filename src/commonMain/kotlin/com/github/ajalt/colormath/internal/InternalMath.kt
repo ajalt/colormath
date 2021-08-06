@@ -33,5 +33,5 @@ internal inline fun <T> fromPolarModel(c: Float, h: Float, block: (a: Float, b: 
 /**
  * return `sign(a) * |a|^p`, which avoids NaN when `this` is negative
  */
-internal fun Double.spow(p: Double) = absoluteValue.pow(p).withSign(this)
-internal fun Float.spow(p: Double) = toDouble().let { it.absoluteValue.pow(p).withSign(it) }
+internal fun Double.spow(p: Double): Double = absoluteValue.pow(p).withSign(this)
+internal fun Float.spow(p: Double): Double = toDouble().spow(p)

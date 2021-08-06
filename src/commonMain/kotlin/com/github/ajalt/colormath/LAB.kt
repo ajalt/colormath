@@ -19,6 +19,13 @@ interface LABColorSpace : WhitePointColorSpace<LAB> {
         invoke(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 }
 
+/** Create a new [LABColorSpace] that will be calculated relative to the given [whitePoint] */
+fun LABColorSpace(whitePoint: WhitePoint): LABColorSpace = when (whitePoint) {
+    Illuminant.D65 -> LAB65
+    Illuminant.D50 -> LAB50
+    else -> LABColorSpaceImpl(whitePoint)
+}
+
 private data class LABColorSpaceImpl(override val whitePoint: WhitePoint) : LABColorSpace {
     override val name: String get() = "LAB"
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("LAB")
@@ -27,10 +34,10 @@ private data class LABColorSpaceImpl(override val whitePoint: WhitePoint) : LABC
     override fun create(components: FloatArray): LAB = doCreate(components, ::invoke)
 }
 
-/** An [LAB] color space calculated relative to [WhitePoint.D65] */
+/** An [LAB] color space calculated relative to [Illuminant.D65] */
 val LAB65: LABColorSpace = LABColorSpaceImpl(Illuminant.D65)
 
-/** An [LAB] color space calculated relative to [WhitePoint.D50] */
+/** An [LAB] color space calculated relative to [Illuminant.D50] */
 val LAB50: LABColorSpace = LABColorSpaceImpl(Illuminant.D50)
 
 /**
@@ -38,7 +45,7 @@ val LAB50: LABColorSpace = LABColorSpaceImpl(Illuminant.D50)
  *
  * The cylindrical representation of this space is [LCH].
  *
- * [LAB] is calculated relative to a [given][model] [whitePoint], which defaults to [WhitePoint.D65].
+ * [LAB] is calculated relative to a [given][model] [whitePoint], which defaults to [Illuminant.D65].
  *
  * | Component  | Description | sRGB D65 Range     |
  * | ---------- | ----------- | ------------------ |
@@ -53,14 +60,7 @@ data class LAB internal constructor(
     override val alpha: Float = 1f,
     override val model: LABColorSpace,
 ) : Color {
-    companion object : LABColorSpace by LAB65 {
-        /** Create a new `LAB` color space that will be calculated relative to the given [whitePoint] */
-        operator fun invoke(whitePoint: WhitePoint): LABColorSpace = when (whitePoint) {
-            Illuminant.D65 -> LAB65
-            Illuminant.D50 -> LAB50
-            else -> LABColorSpaceImpl(whitePoint)
-        }
-    }
+    companion object : LABColorSpace by LAB65
 
     override fun toSRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
@@ -69,7 +69,7 @@ data class LAB internal constructor(
 
     override fun toXYZ(): XYZ {
         // http://www.brucelindbloom.com/Eqn_Lab_to_XYZ.html
-        val xyzSpace = XYZ(model.whitePoint)
+        val xyzSpace = XYZColorSpace(model.whitePoint)
         if (l == 0f) return xyzSpace(0.0, 0.0, 0.0)
 
         val fy = (l + 16) / 116f
@@ -84,7 +84,7 @@ data class LAB internal constructor(
         return xyzSpace(xr * wp.x, yr * wp.y, zr * wp.z, alpha)
     }
 
-    override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCH(model.whitePoint)(l, c, h, alpha) }
+    override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCHColorSpace(model.whitePoint)(l, c, h, alpha) }
     override fun toLAB(): LAB = this
 
     override fun toArray(): FloatArray = floatArrayOf(l, a, b, alpha)

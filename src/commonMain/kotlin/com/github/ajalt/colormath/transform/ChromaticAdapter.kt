@@ -5,27 +5,27 @@ import com.github.ajalt.colormath.RGBColorSpaces.SRGB
 import com.github.ajalt.colormath.internal.Matrix
 import com.github.ajalt.colormath.internal.times
 
-/** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][WhitePoint.D65] */
+/** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][Illuminant.D65] */
 fun RGB.Companion.createChromaticAdapter(referenceWhite: Color): ChromaticAdapterRGB {
     val (x, y, z) = referenceWhite.toXYZ()
     return createChromaticAdapter(Chromaticity(x, y, z))
 }
 
-/** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][WhitePoint.D65] */
+/** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][Illuminant.D65] */
 fun RGB.Companion.createChromaticAdapter(referenceWhite: Chromaticity): ChromaticAdapterRGB {
-    val xyzTransform = Matrix(XYZ(Illuminant.D65).chromaticAdaptationMatrix(referenceWhite))
+    val xyzTransform = Matrix(XYZ65.chromaticAdaptationMatrix(referenceWhite))
     return ChromaticAdapterRGB(xyzToSrgb.times(xyzTransform).times(srgbToXYZ))
 }
 
-/** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][WhitePoint.D65] */
+/** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][Illuminant.D65] */
 fun RGBInt.Companion.createChromaticAdapter(referenceWhite: Color): ChromaticAdapterRGBInt {
     val (x, y, z) = referenceWhite.toXYZ()
     return createChromaticAdapter(Chromaticity(x, y, z))
 }
 
-/** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][WhitePoint.D65] */
+/** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][Illuminant.D65] */
 fun RGBInt.Companion.createChromaticAdapter(referenceWhite: Chromaticity): ChromaticAdapterRGBInt {
-    val xyzTransform = Matrix(XYZ(Illuminant.D65).chromaticAdaptationMatrix(referenceWhite))
+    val xyzTransform = Matrix(XYZ65.chromaticAdaptationMatrix(referenceWhite))
     return ChromaticAdapterRGBInt(xyzToSrgb.times(xyzTransform).times(srgbToXYZ))
 }
 

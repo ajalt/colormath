@@ -16,6 +16,13 @@ interface LCHColorSpace : WhitePointColorSpace<LCH> {
         invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 }
 
+/** Create a new [LCHColorSpace] that will be calculated relative to the given [whitePoint] */
+fun LCHColorSpace(whitePoint: WhitePoint): LCHColorSpace = when (whitePoint) {
+    Illuminant.D65 -> LCH65
+    Illuminant.D50 -> LCH50
+    else -> LCHColorSpaceImpl(whitePoint)
+}
+
 private data class LCHColorSpaceImpl(override val whitePoint: WhitePoint) : LCHColorSpace {
     override val name: String get() = "LCH"
     override val components: List<ColorComponentInfo> = polarComponentInfo("LCH")
@@ -24,10 +31,10 @@ private data class LCHColorSpaceImpl(override val whitePoint: WhitePoint) : LCHC
     override fun create(components: FloatArray): LCH = doCreate(components, ::invoke)
 }
 
-/** An [LCH] color space calculated relative to [WhitePoint.D65] */
+/** An [LCH] color space calculated relative to [Illuminant.D65] */
 val LCH65: LCHColorSpace = LCHColorSpaceImpl(Illuminant.D65)
 
-/** An [LCH] color space calculated relative to [WhitePoint.D50] */
+/** An [LCH] color space calculated relative to [Illuminant.D50] */
 val LCH50: LCHColorSpace = LCHColorSpaceImpl(Illuminant.D50)
 
 
@@ -47,18 +54,11 @@ data class LCH internal constructor(
     override val alpha: Float = 1f,
     override val model: LCHColorSpace,
 ) : HueColor {
-    companion object : LCHColorSpace by LCH65 {
-        /** Create a new `LCH` color space that will be calculated relative to the given [whitePoint] */
-        operator fun invoke(whitePoint: WhitePoint): LCHColorSpace = when (whitePoint) {
-            Illuminant.D65 -> LCH65
-            Illuminant.D50 -> LCH50
-            else -> LCHColorSpaceImpl(whitePoint)
-        }
-    }
+    companion object : LCHColorSpace by LCH65
 
     override fun toSRGB(): RGB = toLAB().toSRGB()
     override fun toXYZ(): XYZ = toLAB().toXYZ()
-    override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LAB(model.whitePoint)(l, a, b, alpha) }
+    override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LABColorSpace(model.whitePoint)(l, a, b, alpha) }
     override fun toLCH(): LCH = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
 }
