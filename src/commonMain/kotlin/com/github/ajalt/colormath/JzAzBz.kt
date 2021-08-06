@@ -8,7 +8,7 @@ import kotlin.math.pow
 /**
  *  The JzAzBz color space: a perceptually uniform space where euclidean distance predicts perceptual difference.
  *
- *  This color space is always calculated relative to [WhitePoint.D65].
+ *  This color space is always calculated relative to [Illuminant.D65].
  *
  * | Component  | Description | sRGB Range        |
  * | ---------- | ----------- | ----------------- |

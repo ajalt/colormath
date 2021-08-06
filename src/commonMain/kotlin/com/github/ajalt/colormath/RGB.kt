@@ -230,7 +230,7 @@ data class RGB internal constructor(
     override fun toXYZ(): XYZ {
         val f = model.transferFunctions
         return Matrix(model.matrixToXyz).times(f.eotf(r), f.eotf(g), f.eotf(b)) { x, y, z ->
-            XYZ(model.whitePoint)(x, y, z, alpha)
+            XYZColorSpace(model.whitePoint)(x, y, z, alpha)
         }
     }
 

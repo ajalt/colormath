@@ -17,6 +17,13 @@ interface HCLColorSpace : WhitePointColorSpace<HCL> {
         invoke(h.toFloat(), c.toFloat(), l.toFloat(), alpha)
 }
 
+/** Create a new `HCL` color space that will be calculated relative to the given [whitePoint] */
+fun HCLColorSpace(whitePoint: WhitePoint): HCLColorSpace = when (whitePoint) {
+    Illuminant.D65 -> HCL65
+    Illuminant.D50 -> HCL50
+    else -> HCLColorSpaceImpl(whitePoint)
+}
+
 private data class HCLColorSpaceImpl(override val whitePoint: WhitePoint) : HCLColorSpace {
     override val name: String get() = "HCL"
     override val components: List<ColorComponentInfo> = polarComponentInfo("HCL")
@@ -25,10 +32,10 @@ private data class HCLColorSpaceImpl(override val whitePoint: WhitePoint) : HCLC
     override fun create(components: FloatArray): HCL = doCreate(components, ::invoke)
 }
 
-/** An [LCH] color space calculated relative to [WhitePoint.D65] */
+/** An [LCH] color space calculated relative to [Illuminant.D65] */
 val HCL65: HCLColorSpace = HCLColorSpaceImpl(Illuminant.D65)
 
-/** An [HCL] color space calculated relative to [WhitePoint.D50] */
+/** An [HCL] color space calculated relative to [Illuminant.D50] */
 val HCL50: HCLColorSpace = HCLColorSpaceImpl(Illuminant.D50)
 
 /**
@@ -47,14 +54,7 @@ data class HCL(
     override val alpha: Float = 1f,
     override val model: HCLColorSpace,
 ) : HueColor {
-    companion object : HCLColorSpace by HCL65 {
-        /** Create a new `HCL` color space that will be calculated relative to the given [whitePoint] */
-        operator fun invoke(whitePoint: WhitePoint): HCLColorSpace = when (whitePoint) {
-            Illuminant.D65 -> HCL65
-            Illuminant.D50 -> HCL50
-            else -> HCLColorSpaceImpl(whitePoint)
-        }
-    }
+    companion object : HCLColorSpace by HCL65
 
     override fun toSRGB(): RGB = toLUV().toSRGB()
     override fun toXYZ(): XYZ = toLUV().toXYZ()
