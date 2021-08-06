@@ -26,10 +26,10 @@ private data class LUVColorSpaceImpl(override val whitePoint: WhitePoint) : LUVC
 }
 
 /** An [LUV] color space calculated relative to [WhitePoint.D65] */
-val LUV65: LUVColorSpace = LUVColorSpaceImpl(WhitePoint.D65)
+val LUV65: LUVColorSpace = LUVColorSpaceImpl(Illuminant.D65)
 
 /** An [LUV] color space calculated relative to [WhitePoint.D50] */
-val LUV50: LUVColorSpace = LUVColorSpaceImpl(WhitePoint.D50)
+val LUV50: LUVColorSpace = LUVColorSpaceImpl(Illuminant.D50)
 
 /**
  * The CIE LUV color space, also referred to as `CIE 1976 L*u*v*`.
@@ -52,8 +52,8 @@ data class LUV internal constructor(
     companion object : LUVColorSpace by LUV65 {
         /** Create a new `LUV` color space that will be calculated relative to the given [whitePoint] */
         operator fun invoke(whitePoint: WhitePoint): LUVColorSpace = when (whitePoint) {
-            WhitePoint.D65 -> LUV65
-            WhitePoint.D50 -> LUV50
+            Illuminant.D65 -> LUV65
+            Illuminant.D50 -> LUV50
             else -> LUVColorSpaceImpl(whitePoint)
         }
     }

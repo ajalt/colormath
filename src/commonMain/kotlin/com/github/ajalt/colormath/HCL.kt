@@ -26,10 +26,10 @@ private data class HCLColorSpaceImpl(override val whitePoint: WhitePoint) : HCLC
 }
 
 /** An [LCH] color space calculated relative to [WhitePoint.D65] */
-val HCL65: HCLColorSpace = HCLColorSpaceImpl(WhitePoint.D65)
+val HCL65: HCLColorSpace = HCLColorSpaceImpl(Illuminant.D65)
 
 /** An [HCL] color space calculated relative to [WhitePoint.D50] */
-val HCL50: HCLColorSpace = HCLColorSpaceImpl(WhitePoint.D50)
+val HCL50: HCLColorSpace = HCLColorSpaceImpl(Illuminant.D50)
 
 /**
  * CIE LCh(uv) color model, the cylindrical representation of [LUV].
@@ -50,8 +50,8 @@ data class HCL(
     companion object : HCLColorSpace by HCL65 {
         /** Create a new `HCL` color space that will be calculated relative to the given [whitePoint] */
         operator fun invoke(whitePoint: WhitePoint): HCLColorSpace = when (whitePoint) {
-            WhitePoint.D65 -> HCL65
-            WhitePoint.D50 -> HCL50
+            Illuminant.D65 -> HCL65
+            Illuminant.D50 -> HCL50
             else -> HCLColorSpaceImpl(whitePoint)
         }
     }

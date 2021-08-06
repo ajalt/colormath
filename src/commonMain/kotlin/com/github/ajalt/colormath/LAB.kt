@@ -28,10 +28,10 @@ private data class LABColorSpaceImpl(override val whitePoint: WhitePoint) : LABC
 }
 
 /** An [LAB] color space calculated relative to [WhitePoint.D65] */
-val LAB65: LABColorSpace = LABColorSpaceImpl(WhitePoint.D65)
+val LAB65: LABColorSpace = LABColorSpaceImpl(Illuminant.D65)
 
 /** An [LAB] color space calculated relative to [WhitePoint.D50] */
-val LAB50: LABColorSpace = LABColorSpaceImpl(WhitePoint.D50)
+val LAB50: LABColorSpace = LABColorSpaceImpl(Illuminant.D50)
 
 /**
  * CIE LAB color space, also referred to as `CIE 1976 L*a*b*`.
@@ -56,8 +56,8 @@ data class LAB internal constructor(
     companion object : LABColorSpace by LAB65 {
         /** Create a new `LAB` color space that will be calculated relative to the given [whitePoint] */
         operator fun invoke(whitePoint: WhitePoint): LABColorSpace = when (whitePoint) {
-            WhitePoint.D65 -> LAB65
-            WhitePoint.D50 -> LAB50
+            Illuminant.D65 -> LAB65
+            Illuminant.D50 -> LAB50
             else -> LABColorSpaceImpl(whitePoint)
         }
     }

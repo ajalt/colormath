@@ -25,10 +25,10 @@ private data class XYZColorSpaceImpl(override val whitePoint: WhitePoint) : XYZC
 }
 
 /** An [XYZ] color space calculated relative to [WhitePoint.D65] */
-val XYZ65: XYZColorSpace = XYZColorSpaceImpl(WhitePoint.D65)
+val XYZ65: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D65)
 
 /** An [XYZ] color space calculated relative to [WhitePoint.D50] */
-val XYZ50: XYZColorSpace = XYZColorSpaceImpl(WhitePoint.D50)
+val XYZ50: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D50)
 
 /**
  * The CIEXYZ color model
@@ -51,8 +51,8 @@ data class XYZ internal constructor(
     companion object : XYZColorSpace by XYZ65 {
         /** Create a new `XYZ` color space that will be calculated relative to the given [whitePoint] */
         operator fun invoke(whitePoint: WhitePoint): XYZColorSpace = when (whitePoint) {
-            WhitePoint.D65 -> XYZ65
-            WhitePoint.D50 -> XYZ50
+            Illuminant.D65 -> XYZ65
+            Illuminant.D50 -> XYZ50
             else -> XYZColorSpaceImpl(whitePoint)
         }
     }

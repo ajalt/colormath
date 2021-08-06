@@ -21,7 +21,7 @@ object RGBColorSpaces {
      */
     val LINEAR_SRGB: RGBColorSpace = RGBColorSpace(
         "Linear sRGB",
-        WhitePoint.D65,
+        Illuminant.D65,
         RGBColorSpace.LinearTransferFunctions,
         SRGB_R,
         SRGB_G,
@@ -99,7 +99,7 @@ object RGBColorSpaces {
      */
     val ADOBE_RGB: RGBColorSpace = RGBColorSpace(
         "Adobe RGB",
-        WhitePoint.D65,
+        Illuminant.D65,
         RGBColorSpace.GammaTransferFunctions(2.19921875),
         Chromaticity.from_xy(0.64, 0.33),
         Chromaticity.from_xy(0.21, 0.71),
@@ -116,7 +116,7 @@ object RGBColorSpaces {
      */
     val BT_2020: RGBColorSpace = RGBColorSpace(
         "BT.2020",
-        WhitePoint.D65,
+        Illuminant.D65,
         BT2020TransferFunctions,
         Chromaticity.from_xy(0.708, 0.292),
         Chromaticity.from_xy(0.170, 0.797),
@@ -131,7 +131,7 @@ object RGBColorSpaces {
      */
     val BT_709: RGBColorSpace = RGBColorSpace(
         "BT.709",
-        WhitePoint.D65,
+        Illuminant.D65,
         BT709TransferFunctions,
         Chromaticity.from_xy(0.6400, 0.3300),
         Chromaticity.from_xy(0.3000, 0.6000),
@@ -164,7 +164,7 @@ object RGBColorSpaces {
      */
     val DISPLAY_P3: RGBColorSpace = RGBColorSpace(
         "Display P3",
-        WhitePoint.D65,
+        Illuminant.D65,
         SRGBTransferFunctions,
         Chromaticity.from_xy(0.680, 0.320),
         Chromaticity.from_xy(0.265, 0.690),
@@ -179,7 +179,7 @@ object RGBColorSpaces {
      */
     val ROMM_RGB: RGBColorSpace = RGBColorSpace(
         "ROMM RGB",
-        WhitePoint.D50,
+        Illuminant.D50,
         ROMMTransferFunctions,
         Chromaticity.from_xy(0.7347, 0.2653),
         Chromaticity.from_xy(0.1596, 0.8404),
@@ -210,7 +210,7 @@ object SRGB : RGBColorSpace {
     override fun create(components: FloatArray): RGB = doCreate(components, ::invoke)
 
     override val name: String = "sRGB"
-    override val whitePoint: WhitePoint = WhitePoint.D65
+    override val whitePoint: WhitePoint = Illuminant.D65
     override val transferFunctions: RGBColorSpace.TransferFunctions = SRGBTransferFunctions
     override val matrixToXyz: FloatArray = rgbToXyzMatrix(whitePoint, SRGB_R, SRGB_G, SRGB_B).rowMajor
     override val matrixFromXyz: FloatArray = Matrix(matrixToXyz).inverse().rowMajor
