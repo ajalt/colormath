@@ -13,7 +13,7 @@ fun RGB.Companion.createChromaticAdapter(referenceWhite: Color): ChromaticAdapte
 
 /** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][WhitePoint.D65] */
 fun RGB.Companion.createChromaticAdapter(referenceWhite: Chromaticity): ChromaticAdapterRGB {
-    val xyzTransform = Matrix(XYZ(WhitePoint.D65).chromaticAdaptationMatrix(referenceWhite))
+    val xyzTransform = Matrix(XYZ(Illuminant.D65).chromaticAdaptationMatrix(referenceWhite))
     return ChromaticAdapterRGB(xyzToSrgb.times(xyzTransform).times(srgbToXYZ))
 }
 
@@ -25,7 +25,7 @@ fun RGBInt.Companion.createChromaticAdapter(referenceWhite: Color): ChromaticAda
 
 /** Create a chromatic adapter that will adapt colors with a given [referenceWhite] to [D65][WhitePoint.D65] */
 fun RGBInt.Companion.createChromaticAdapter(referenceWhite: Chromaticity): ChromaticAdapterRGBInt {
-    val xyzTransform = Matrix(XYZ(WhitePoint.D65).chromaticAdaptationMatrix(referenceWhite))
+    val xyzTransform = Matrix(XYZ(Illuminant.D65).chromaticAdaptationMatrix(referenceWhite))
     return ChromaticAdapterRGBInt(xyzToSrgb.times(xyzTransform).times(srgbToXYZ))
 }
 

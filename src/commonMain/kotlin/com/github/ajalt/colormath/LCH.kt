@@ -25,10 +25,10 @@ private data class LCHColorSpaceImpl(override val whitePoint: WhitePoint) : LCHC
 }
 
 /** An [LCH] color space calculated relative to [WhitePoint.D65] */
-val LCH65: LCHColorSpace = LCHColorSpaceImpl(WhitePoint.D65)
+val LCH65: LCHColorSpace = LCHColorSpaceImpl(Illuminant.D65)
 
 /** An [LCH] color space calculated relative to [WhitePoint.D50] */
-val LCH50: LCHColorSpace = LCHColorSpaceImpl(WhitePoint.D50)
+val LCH50: LCHColorSpace = LCHColorSpaceImpl(Illuminant.D50)
 
 
 /**
@@ -50,8 +50,8 @@ data class LCH internal constructor(
     companion object : LCHColorSpace by LCH65 {
         /** Create a new `LCH` color space that will be calculated relative to the given [whitePoint] */
         operator fun invoke(whitePoint: WhitePoint): LCHColorSpace = when (whitePoint) {
-            WhitePoint.D65 -> LCH65
-            WhitePoint.D50 -> LCH50
+            Illuminant.D65 -> LCH65
+            Illuminant.D50 -> LCH50
             else -> LCHColorSpaceImpl(whitePoint)
         }
     }
