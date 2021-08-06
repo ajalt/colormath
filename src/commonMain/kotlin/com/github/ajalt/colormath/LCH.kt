@@ -29,6 +29,7 @@ private data class LCHColorSpaceImpl(override val whitePoint: WhitePoint) : LCHC
     override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCH = LCH(l, c, h, alpha, this)
     override fun convert(color: Color): LCH = color.toLCH()
     override fun create(components: FloatArray): LCH = doCreate(components, ::invoke)
+    override fun toString(): String = "LCHColorSpace($whitePoint)"
 }
 
 /** An [LCH] color space calculated relative to [Illuminant.D65] */

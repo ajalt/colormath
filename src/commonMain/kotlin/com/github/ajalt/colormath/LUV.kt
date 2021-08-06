@@ -30,6 +30,7 @@ private data class LUVColorSpaceImpl(override val whitePoint: WhitePoint) : LUVC
     override operator fun invoke(l: Float, u: Float, v: Float, alpha: Float): LUV = LUV(l, u, v, alpha, this)
     override fun convert(color: Color): LUV = color.toLUV()
     override fun create(components: FloatArray): LUV = doCreate(components, ::invoke)
+    override fun toString(): String = "LUVColorSpace($whitePoint)"
 }
 
 /** An [LUV] color space calculated relative to [Illuminant.D65] */

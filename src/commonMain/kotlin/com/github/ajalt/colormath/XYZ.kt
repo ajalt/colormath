@@ -29,6 +29,7 @@ private data class XYZColorSpaceImpl(override val whitePoint: WhitePoint) : XYZC
     override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ = XYZ(x, y, z, alpha, this)
     override fun convert(color: Color): XYZ = color.toXYZ()
     override fun create(components: FloatArray): XYZ = doCreate(components, ::invoke)
+    override fun toString(): String = "XYZColorSpace($whitePoint)"
 }
 
 /** An [XYZ] color space calculated relative to [Illuminant.D65] */
