@@ -5,9 +5,7 @@ import com.github.ajalt.colormath.internal.Matrix
 import com.github.ajalt.colormath.internal.cbrt
 import com.github.ajalt.colormath.internal.spow
 import com.github.ajalt.colormath.internal.times
-import kotlin.math.pow
 import kotlin.math.roundToInt
-import kotlin.math.sign
 
 
 interface RGBColorSpace : WhitePointColorSpace<RGB> {
@@ -68,14 +66,14 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
          *
          * This function decodes non-linear signal values into liner-light values.
          */
-        fun eotf(x: Double): Double
+        fun eotf(x: Float): Float
 
         /**
          * The Opto-Electronic Transfer Function (OETF / OECF)
          *
          * This function encodes linear scene light into non-linear signal values.
          */
-        fun oetf(x: Double): Double
+        fun oetf(x: Float): Float
     }
 
     /**
@@ -94,8 +92,8 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
     data class GammaTransferFunctions(
         private val gamma: Double,
     ) : TransferFunctions {
-        override fun eotf(x: Double): Double =  x.spow(gamma)
-        override fun oetf(x: Double): Double =  x.spow(1.0 / gamma)
+        override fun eotf(x: Float): Float =  x.spow(gamma).toFloat()
+        override fun oetf(x: Float): Float =  x.spow(1.0 / gamma).toFloat()
     }
 
     /**
@@ -112,8 +110,8 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
      * ```
      */
     object LinearTransferFunctions : TransferFunctions {
-        override fun eotf(x: Double): Double = x
-        override fun oetf(x: Double): Double = x
+        override fun eotf(x: Float): Float = x
+        override fun oetf(x: Float): Float = x
     }
 }
 
@@ -362,6 +360,3 @@ private fun String.parseHex(startIndex: Int): Int {
 }
 
 private val String.hexLength get() = if (startsWith("#")) length - 1 else length
-
-internal fun RGBColorSpace.TransferFunctions.eotf(x: Float): Float = eotf(x.toDouble()).toFloat()
-internal fun RGBColorSpace.TransferFunctions.oetf(x: Float): Float = oetf(x.toDouble()).toFloat()
