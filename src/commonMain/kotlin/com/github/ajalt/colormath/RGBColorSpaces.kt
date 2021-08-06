@@ -240,18 +240,18 @@ private val SRGB_G = Chromaticity.from_xy(0.300f, 0.600f)
 private val SRGB_B = Chromaticity.from_xy(0.150f, 0.060f)
 
 private object SRGBTransferFunctions : RGBColorSpace.TransferFunctions {
-    override fun oetf(x: Double): Double {
+    override fun oetf(x: Float): Float {
         return when {
             x <= 0.0031308 -> x * 12.92
             else -> 1.055 * x.spow(1 / 2.4) - 0.055
-        }
+        }.toFloat()
     }
 
-    override fun eotf(x: Double): Double {
+    override fun eotf(x: Float): Float {
         return when {
             x <= 0.04045 -> x / 12.92
             else -> ((x + 0.055) / 1.055).spow(2.4)
-        }
+        }.toFloat()
     }
 }
 
@@ -273,19 +273,19 @@ private object ACESccTransferFunctions : RGBColorSpace.TransferFunctions {
     private const val twoN16 = 1 / 65536.0 // == 2.pow(-16)
     private const val eotfC1 = (9.72 - 15) / 17.52
     private val eotfC2 = (log2(65504.0) + 9.72) / 17.52
-    override fun eotf(x: Double): Double {
+    override fun eotf(x: Float): Float {
         return when {
             x <= eotfC1 -> (2.0.spow(x * 17.52 - 9.72) - twoN16) * 2.0
             x < eotfC2 -> 2.0.pow(x * 17.52 - 9.72)
             else -> 65504.0
-        }
+        }.toFloat()
     }
 
-    override fun oetf(x: Double): Double {
+    override fun oetf(x: Float): Float {
         return when {
-            x < twoN15 -> (log2(twoN16 + x.coerceAtLeast(0.0) / 2) + 9.72) / 17.52
+            x < twoN15 -> (log2(twoN16 + x.coerceAtLeast(0f) / 2.0) + 9.72) / 17.52
             else -> (log2(x) + 9.72) / 17.52
-        }
+        }.toFloat()
     }
 }
 
@@ -294,33 +294,33 @@ private object ACEScctTransferFunctions : RGBColorSpace.TransferFunctions {
     private const val a = 10.5402377416545
     private const val b = 0.0729055341958355
     private val eotfC2 = (log2(65504.0) + 9.72) / 17.52
-    override fun eotf(x: Double): Double {
+    override fun eotf(x: Float): Float {
         return when {
             x <= 0.155251141552511 -> (x - b) / a
             x < eotfC2 -> 2.0.pow(x * 17.52 - 9.72)
             else -> 65504.0
-        }
+        }.toFloat()
     }
 
-    override fun oetf(x: Double): Double {
+    override fun oetf(x: Float): Float {
         return when {
             x < 0.0078125 -> a * x + b
             else -> (log2(x) + 9.72) / 17.52
-        }
+        }.toFloat()
     }
 }
 
 private object BT709TransferFunctions : RGBColorSpace.TransferFunctions {
     private val eotfC = 1.099 * 0.018.spow(0.45) - 0.099
-    override fun eotf(x: Double): Double = when {
+    override fun eotf(x: Float): Float = when {
         x < eotfC -> x / 4.5f
-        else ->  ((x + 0.099) / 1.099).spow(1 / 0.45)
-    }
+        else -> ((x + 0.099) / 1.099).spow(1 / 0.45)
+    }.toFloat()
 
-    override fun oetf(x: Double): Double = when {
+    override fun oetf(x: Float): Float = when {
         x < 0.018 -> 4.5 * x
         else -> 1.099 * x.spow(0.45) - 0.099
-    }
+    }.toFloat()
 }
 
 private object BT2020TransferFunctions : RGBColorSpace.TransferFunctions {
@@ -329,28 +329,28 @@ private object BT2020TransferFunctions : RGBColorSpace.TransferFunctions {
     private const val a = 1.0993
     private const val b = 0.0181
     private val eotfCutoff = a * b.pow(0.45) - (a - 1) // == oetf(b)
-    override fun eotf(x: Double): Double = when {
+    override fun eotf(x: Float): Float = when {
         x < eotfCutoff -> x / 4.5f
         else -> ((x + (a - 1)) / a).spow(1 / 0.45)
-    }
+    }.toFloat()
 
-    override fun oetf(x: Double): Double = when {
+    override fun oetf(x: Float): Float = when {
         x < b -> 4.5 * x
         else -> a * x.spow(0.45) - (a - 1)
-    }
+    }.toFloat()
 }
 
 private object ROMMTransferFunctions : RGBColorSpace.TransferFunctions {
     private const val c = 0.001953
-    override fun eotf(x: Double): Double = when {
+    override fun eotf(x: Float): Float = when {
         x < 16 * c -> x / 16.0
         else -> x.spow(1.8)
-    }
+    }.toFloat()
 
-    override fun oetf(x: Double): Double = when {
+    override fun oetf(x: Float): Float = when {
         x < c -> x * 16.0
         else -> x.spow(1.0 / 1.8)
-    }
+    }.toFloat()
 }
 
 // [SMPTE RP 177-1993](http://car.france3.mars.free.fr/Formation%20INA%20HD/HDTV/HDTV%20%202007%20v35/SMPTE%20normes%20et%20confs/rp177.pdf)

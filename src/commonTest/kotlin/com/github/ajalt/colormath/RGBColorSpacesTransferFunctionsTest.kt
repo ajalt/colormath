@@ -76,9 +76,9 @@ class RGBColorSpacesTransferFunctionsTest {
         func: String,
     ) {
         val actual = when (func) {
-            "oetf" -> space.transferFunctions.oetf(input)
-            else -> space.transferFunctions.eotf(input)
+            "oetf" -> space.transferFunctions.oetf(input.toFloat())
+            else -> space.transferFunctions.eotf(input.toFloat())
         }
-        actual shouldBe (ex plusOrMinus 1e-7)
+        actual.toDouble() shouldBe (ex plusOrMinus 1e-6)
     }
 }
