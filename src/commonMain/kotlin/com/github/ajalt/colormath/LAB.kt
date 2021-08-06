@@ -32,6 +32,7 @@ private data class LABColorSpaceImpl(override val whitePoint: WhitePoint) : LABC
     override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB = LAB(l, a, b, alpha, this)
     override fun convert(color: Color): LAB = color.toLAB()
     override fun create(components: FloatArray): LAB = doCreate(components, ::invoke)
+    override fun toString(): String = "LABColorSpace($whitePoint)"
 }
 
 /** An [LAB] color space calculated relative to [Illuminant.D65] */

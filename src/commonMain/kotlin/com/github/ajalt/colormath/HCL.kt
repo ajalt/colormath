@@ -30,6 +30,7 @@ private data class HCLColorSpaceImpl(override val whitePoint: WhitePoint) : HCLC
     override operator fun invoke(h: Float, c: Float, l: Float, alpha: Float): HCL = HCL(h, c, l, alpha, this)
     override fun convert(color: Color): HCL = color.toHCL()
     override fun create(components: FloatArray): HCL = doCreate(components, ::invoke)
+    override fun toString(): String = "HCLColorSpace($whitePoint)"
 }
 
 /** An [LCH] color space calculated relative to [Illuminant.D65] */
