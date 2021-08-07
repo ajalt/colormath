@@ -17,7 +17,6 @@ import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import kotlin.test.Test
 
-// Test values from https://github.com/colour-science/
 class RGBColorSpacesConversionTest {
     @Test
     fun ACESTest() = doTest(
@@ -129,13 +128,24 @@ class RGBColorSpacesConversionTest {
         row(ROMM_RGB(1.0, 1.0, 1.0), SRGB(0.9998422622267643, 1.0000807809600885, 0.9999055602023273)),
     )
 
+    @Test
+    fun unchanged() = doTest(
+        row(SRGB(0.25, 0.5, 0.75), SRGB(0.25, 0.5, 0.75)),
+    )
+
+    @Test
+    fun RGBToRGBConverter() {
+        val actual = SRGB.converterTo(DCI_P3).convert(SRGB(0.25, 0.5, 0.75))
+        actual.shouldEqualColor(DCI_P3(0.3630869292770936, 0.5469812989512097, 0.7630916001628543))
+    }
+
     private fun doTest(vararg rows: Row2<RGB, RGB>) = forAll(*rows) { l, r ->
         l.convertTo(r.model).shouldEqualColor(r)
         r.convertTo(l.model).shouldEqualColor(l)
     }
 }
 
-/* Test cases generated with the following script:
+/* Test values generated with github.com/colour-science/ using the following script:
 
 import colour
 
