@@ -78,7 +78,7 @@ data class XYZ internal constructor(
 
     private fun adaptTo(space: XYZColorSpace, m: Matrix, mi: Matrix): XYZ {
         if (space.whitePoint == model.whitePoint) return this
-        val transform = Matrix(space.chromaticAdaptationMatrix(model.whitePoint.chromaticity, m, mi))
+        val transform = space.chromaticAdaptationMatrix(model.whitePoint.chromaticity, m, mi)
         return transform.times(x, y, z) { xx, yy, zz -> space(xx, yy, zz, alpha) }
     }
 
@@ -184,9 +184,9 @@ internal fun XYZColorSpace.chromaticAdaptationMatrix(
     whitePoint: Chromaticity,
     xyzToLms: Matrix = CAT02_XYZ_TO_LMS,
     lmsToXyz: Matrix = CAT02_LMS_TO_XYZ,
-): FloatArray {
+): Matrix {
     val src = xyzToLms.times(whitePoint.x, whitePoint.y, whitePoint.z)
     val chromaticity = this.whitePoint.chromaticity
     val dst = xyzToLms.times(chromaticity.x, chromaticity.y, chromaticity.z)
-    return (lmsToXyz * Matrix.diagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * xyzToLms).rowMajor
+    return lmsToXyz * Matrix.diagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * xyzToLms
 }
