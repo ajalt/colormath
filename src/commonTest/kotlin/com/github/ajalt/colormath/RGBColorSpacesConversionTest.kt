@@ -76,11 +76,11 @@ class RGBColorSpacesConversionTest {
     @Test
     fun BT_2020Test() = doTest(
         row(SRGB(0, 0, 0), BT_2020(0.0, 0.0, 0.0)),
-        row(SRGB(0.18, 0.18, 0.18), BT_2020(0.11809807473673356, 0.11808629512232435, 0.11808401533880347)),
-        row(SRGB(0.25, 0.5, 0.75), BT_2020(0.33221747697021786, 0.44113226114871273, 0.696492175647668)),
-        row(SRGB(1.0, 1.0, 1.0), BT_2020(1.0000446517981623, 0.9999850182789227, 0.9999734770255566)),
-        row(BT_2020(0.18, 0.18, 0.18), SRGB(0.24143797011426288, 0.2414695762402541, 0.24146652396559737)),
-        row(BT_2020(0.25, 0.5, 0.75), SRGB(-0.8248515955056995, 0.5653962291736505, 0.7994680159017613)),
+        row(SRGB(0.18, 0.18, 0.18), BT_2020(0.11785733717751706, 0.1178455543475625, 0.11784327394171673)),
+        row(SRGB(0.25, 0.5, 0.75), BT_2020(0.3320351887473708, 0.44097970398615094, 0.6964093254681359)),
+        row(SRGB(1.0, 1.0, 1.0), BT_2020(1.0000446639870062, 0.999985014189281, 0.9999734697854361)),
+        row(BT_2020(0.18, 0.18, 0.18), SRGB(0.24165811664875764, 0.2416897462467052, 0.24168669170530882)),
+        row(BT_2020(0.25, 0.5, 0.75), SRGB(-0.8237584120894074, 0.5655213474120463, 0.7995256016338627)),
         row(BT_2020(1.0, 1.0, 1.0), SRGB(0.9999311065266016, 1.0000435829595367, 1.0000327208574926)),
     )
 
@@ -140,8 +140,8 @@ class RGBColorSpacesConversionTest {
     }
 
     private fun doTest(vararg rows: Row2<RGB, RGB>) = forAll(*rows) { l, r ->
-        l.convertTo(r.model).shouldEqualColor(r)
-        r.convertTo(l.model).shouldEqualColor(l)
+        l.convertTo(r.model).shouldEqualColor(r, 1e-3)
+        r.convertTo(l.model).shouldEqualColor(l, 1e-3)
     }
 }
 
@@ -162,7 +162,7 @@ names_to_spaces = [
 def convert(input, output, c):
     i = colour.RGB_COLOURSPACES[input]
     o = colour.RGB_COLOURSPACES[output]
-    return RGB_to_RGB(c, i, o, apply_cctf_decoding=True, apply_cctf_encoding=True)
+    return RGB_to_RGB(c, i, o, apply_cctf_decoding=True, apply_cctf_encoding=True, is_12_bits_system=True)
 
 def main():
     for (name, space) in names_to_spaces:

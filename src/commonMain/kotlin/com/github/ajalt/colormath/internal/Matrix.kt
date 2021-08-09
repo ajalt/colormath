@@ -43,15 +43,15 @@ internal value class Matrix(val rowMajor: FloatArray) {
 }
 
 internal fun Matrix.inverse(inPlace: Boolean = false): Matrix {
-    val a = get(0, 0)
-    val b = get(1, 0)
-    val c = get(2, 0)
-    val d = get(0, 1)
-    val e = get(1, 1)
-    val f = get(2, 1)
-    val g = get(0, 2)
-    val h = get(1, 2)
-    val i = get(2, 2)
+    val a = get(0, 0).toDouble()
+    val b = get(1, 0).toDouble()
+    val c = get(2, 0).toDouble()
+    val d = get(0, 1).toDouble()
+    val e = get(1, 1).toDouble()
+    val f = get(2, 1).toDouble()
+    val g = get(0, 2).toDouble()
+    val h = get(1, 2).toDouble()
+    val i = get(2, 2).toDouble()
 
     val A = e * i - h * f
     val B = h * c - b * i
