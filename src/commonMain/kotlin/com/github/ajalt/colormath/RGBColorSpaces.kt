@@ -147,7 +147,7 @@ object RGBColorSpaces {
      */
     val DCI_P3: RGBColorSpace = RGBColorSpace(
         "DCI P3",
-        WhitePoint("DCI P3", Chromaticity(0.314f, 0.351f)),
+        WhitePoint("DCI P3", Chromaticity.from_xy(0.314f, 0.351f)),
         RGBColorSpace.GammaTransferFunctions(2.6),
         Chromaticity.from_xy(0.680, 0.320),
         Chromaticity.from_xy(0.265, 0.690),
