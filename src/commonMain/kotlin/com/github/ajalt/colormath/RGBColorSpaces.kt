@@ -68,7 +68,7 @@ object RGBColorSpaces {
      * - [Academy S-2016-001][https://github.com/ampas/aces-docs]
      */
     val ACEScct: RGBColorSpace = RGBColorSpace(
-        "ACEScc",
+        "ACEScct",
         ACES_WHITE_POINT,
         ACEScctTransferFunctions,
         ACES_AP1_R,
