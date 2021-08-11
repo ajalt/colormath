@@ -101,9 +101,9 @@ object RGBColorSpaces {
         "Adobe RGB",
         Illuminant.D65,
         RGBColorSpace.GammaTransferFunctions(2.19921875),
-        Chromaticity(0.64, 0.33),
-        Chromaticity(0.21, 0.71),
-        Chromaticity(0.15, 0.06),
+        xyY(0.64, 0.33),
+        xyY(0.21, 0.71),
+        xyY(0.15, 0.06),
     )
 
     /**
@@ -118,9 +118,9 @@ object RGBColorSpaces {
         "BT.2020",
         Illuminant.D65,
         BT2020TransferFunctions,
-        Chromaticity(0.708, 0.292),
-        Chromaticity(0.170, 0.797),
-        Chromaticity(0.131, 0.046),
+        xyY(0.708, 0.292),
+        xyY(0.170, 0.797),
+        xyY(0.131, 0.046),
     )
 
     /**
@@ -133,9 +133,9 @@ object RGBColorSpaces {
         "BT.709",
         Illuminant.D65,
         BT709TransferFunctions,
-        Chromaticity(0.6400, 0.3300),
-        Chromaticity(0.3000, 0.6000),
-        Chromaticity(0.1500, 0.0600),
+        xyY(0.6400, 0.3300),
+        xyY(0.3000, 0.6000),
+        xyY(0.1500, 0.0600),
     )
 
     /**
@@ -147,11 +147,11 @@ object RGBColorSpaces {
      */
     val DCI_P3: RGBColorSpace = RGBColorSpace(
         "DCI P3",
-        WhitePoint("DCI P3", Chromaticity(0.314, 0.351)),
+        WhitePoint("DCI P3", xyY(0.314, 0.351)),
         RGBColorSpace.GammaTransferFunctions(2.6),
-        Chromaticity(0.680, 0.320),
-        Chromaticity(0.265, 0.690),
-        Chromaticity(0.150, 0.060),
+        xyY(0.680, 0.320),
+        xyY(0.265, 0.690),
+        xyY(0.150, 0.060),
     )
 
     /**
@@ -166,9 +166,9 @@ object RGBColorSpaces {
         "Display P3",
         Illuminant.D65,
         SRGBTransferFunctions,
-        Chromaticity(0.680, 0.320),
-        Chromaticity(0.265, 0.690),
-        Chromaticity(0.150, 0.060),
+        xyY(0.680, 0.320),
+        xyY(0.265, 0.690),
+        xyY(0.150, 0.060),
     )
 
     /**
@@ -181,9 +181,9 @@ object RGBColorSpaces {
         "ROMM RGB",
         Illuminant.D50,
         ROMMTransferFunctions,
-        Chromaticity(0.7347, 0.2653),
-        Chromaticity(0.1596, 0.8404),
-        Chromaticity(0.0366, 0.0001),
+        xyY(0.7347, 0.2653),
+        xyY(0.1596, 0.8404),
+        xyY(0.0366, 0.0001),
     )
 }
 
@@ -195,9 +195,9 @@ fun RGBColorSpace(
     name: String,
     whitePoint: WhitePoint,
     transferFunctions: RGBColorSpace.TransferFunctions,
-    r: Chromaticity,
-    g: Chromaticity,
-    b: Chromaticity,
+    r: xyY,
+    g: xyY,
+    b: xyY,
 ): RGBColorSpace = RGBColorSpaceImpl(name, whitePoint, transferFunctions, r, g, b)
 
 /**
@@ -221,9 +221,9 @@ private data class RGBColorSpaceImpl(
     override val name: String,
     override val whitePoint: WhitePoint,
     override val transferFunctions: RGBColorSpace.TransferFunctions,
-    private val r: Chromaticity,
-    private val g: Chromaticity,
-    private val b: Chromaticity,
+    private val r: xyY,
+    private val g: xyY,
+    private val b: xyY,
 ) : RGBColorSpace {
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
     override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB = RGB(r, g, b, alpha, this)
@@ -235,9 +235,9 @@ private data class RGBColorSpaceImpl(
     override fun toString(): String = name
 }
 
-private val SRGB_R = Chromaticity(0.6400, 0.3300)
-private val SRGB_G = Chromaticity(0.3000, 0.6000)
-private val SRGB_B = Chromaticity(0.1500, 0.0600)
+private val SRGB_R = xyY(0.6400, 0.3300)
+private val SRGB_G = xyY(0.3000, 0.6000)
+private val SRGB_B = xyY(0.1500, 0.0600)
 
 private object SRGBTransferFunctions : RGBColorSpace.TransferFunctions {
     override fun oetf(x: Float): Float {
@@ -255,17 +255,17 @@ private object SRGBTransferFunctions : RGBColorSpace.TransferFunctions {
     }
 }
 
-private val ACES_WHITE_POINT = WhitePoint("ACES", Chromaticity(0.32168, 0.33767))
+private val ACES_WHITE_POINT = WhitePoint("ACES", xyY(0.32168, 0.33767))
 
 // values from [Academy TB-2014-004]
-private val ACES_AP0_R = Chromaticity(0.73470, 0.26530)
-private val ACES_AP0_G = Chromaticity(0.00000, 1.00000)
-private val ACES_AP0_B = Chromaticity(0.00010, -0.0770)
+private val ACES_AP0_R = xyY(0.73470, 0.26530)
+private val ACES_AP0_G = xyY(0.00000, 1.00000)
+private val ACES_AP0_B = xyY(0.00010, -0.0770)
 
 // values from [Academy S-2014-004]
-private val ACES_AP1_R = Chromaticity(0.713, 0.293)
-private val ACES_AP1_G = Chromaticity(0.165, 0.830)
-private val ACES_AP1_B = Chromaticity(0.128, 0.044)
+private val ACES_AP1_R = xyY(0.713, 0.293)
+private val ACES_AP1_G = xyY(0.165, 0.830)
+private val ACES_AP1_B = xyY(0.128, 0.044)
 
 // from [Academy S-2014-003]
 private object ACESccTransferFunctions : RGBColorSpace.TransferFunctions {
@@ -354,7 +354,7 @@ private object ROMMTransferFunctions : RGBColorSpace.TransferFunctions {
 }
 
 // [SMPTE RP 177-1993](http://car.france3.mars.free.fr/Formation%20INA%20HD/HDTV/HDTV%20%202007%20v35/SMPTE%20normes%20et%20confs/rp177.pdf)
-private fun rgbToXyzMatrix(whitePoint: WhitePoint, r: Chromaticity, g: Chromaticity, b: Chromaticity): Matrix {
+private fun rgbToXyzMatrix(whitePoint: WhitePoint, r: xyY, g: xyY, b: xyY): Matrix {
     val primaries = Matrix(
         r.x, g.x, b.x,
         r.y, g.y, b.y,

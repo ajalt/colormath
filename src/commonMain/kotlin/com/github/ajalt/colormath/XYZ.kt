@@ -171,6 +171,20 @@ data class XYZ internal constructor(
         )
     }
 
+    /**
+     * Convert this color to `xyY` [xyY] coordinates.
+     *
+     * If [x], [y], and [z] are all 0, the resulting coordinates will use the [x][xyY.x] and
+     * [y][xyY.y] values from this space's [whitePoint].
+     */
+    fun toChromaticity(): xyY {
+        if (x == 0f && y == 0f && z == 0f) {
+            return xyY(model.whitePoint.chromaticity.x, model.whitePoint.chromaticity.y, 0f)
+        }
+        val sum = x + y + z
+        return xyY(x / sum, y / sum, y)
+    }
+
     private inline fun <T : Color> toD65(block: XYZ.() -> T): T {
         return if (model == XYZ65) this.block() else adaptTo(XYZ65).block()
     }
@@ -181,7 +195,7 @@ data class XYZ internal constructor(
 
 /** Create the transform matrix to adapt [srcWp] to this color space */
 internal fun XYZColorSpace.chromaticAdaptationMatrix(
-    srcWp: Chromaticity,
+    srcWp: xyY,
     xyzToLms: Matrix = CAT02_XYZ_TO_LMS,
     lmsToXyz: Matrix = CAT02_LMS_TO_XYZ,
 ): Matrix {
