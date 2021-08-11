@@ -2,25 +2,26 @@
 
 package com.github.ajalt.colormath
 
+import kotlin.jvm.JvmName
+
 /**
- * A color represented in XYZ coordinates.
+ * The chromaticity coordinates of a color, represented in `xy` or `xyY`.
  *
- * A [Chromaticity] can also be constructed from xyY coordinates with [from_xy].
+ * [x], [y], and [z] and relative values. [X], [Y], and [Z] are absolute.
  */
-data class Chromaticity(val x: Float, val y: Float, val z: Float) {
-    /**
-     * Construct a chromaticity from XZ coordinates (i.e. CIEXYZ with `Y=1`).
-     */
-    constructor(x: Float, z: Float) : this(x, 1f, z)
+data class Chromaticity(
+    val x: Float,
+    val y: Float,
+    @get:JvmName("getAbsoluteY")
+    val Y: Float=1f,
+) {
+    constructor(x: Double, y: Double, Y: Double = 1.0) : this(x.toFloat(), y.toFloat(), Y.toFloat())
 
-    companion object {
-        /**
-         * Create a [Chromaticity] from relative xy coordinates (i.e. xyY with `Y=1`)
-         */
-        fun from_xy(x: Float, y: Float): Chromaticity {
-            return Chromaticity(x / y, (1 - x - y) / y)
-        }
+    val z: Float get() = 1 - x - y
 
-        fun from_xy(x: Double, y: Double): Chromaticity = from_xy(x.toFloat(), y.toFloat())
-    }
+    @get:JvmName("getAbsoluteX")
+    val X: Float get() = x * Y / y
+
+    @get:JvmName("getAbsoluteZ")
+    val Z: Float get() = (1 - x - y) * Y / y
 }

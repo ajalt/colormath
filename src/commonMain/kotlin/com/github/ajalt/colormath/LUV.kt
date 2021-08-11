@@ -77,9 +77,9 @@ data class LUV internal constructor(
         if (l == 0f) return xyzSpace(0.0f, 0.0f, 0.0f)
 
         val wp = model.whitePoint.chromaticity
-        val denominator0 = wp.x + 15 * wp.y + 3 * wp.z
-        val u0 = 4 * wp.x / denominator0
-        val v0 = 9 * wp.y / denominator0
+        val denominator0 = wp.X + 15 * wp.Y + 3 * wp.Z
+        val u0 = 4 * wp.X / denominator0
+        val v0 = 9 * wp.Y / denominator0
 
         val y = if (l > CIE_E_times_K) ((l + 16) / 116f).pow(3) else l / CIE_K
 

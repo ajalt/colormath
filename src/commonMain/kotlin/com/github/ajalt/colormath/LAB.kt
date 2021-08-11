@@ -82,7 +82,7 @@ data class LAB internal constructor(
         val xr = fx.pow(3).let { if (it > CIE_E) it else (116 * fx - 16) / CIE_K }
 
         val wp = model.whitePoint.chromaticity
-        return xyzSpace(xr * wp.x, yr * wp.y, zr * wp.z, alpha)
+        return xyzSpace(xr * wp.X, yr * wp.Y, zr * wp.Z, alpha)
     }
 
     override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCHColorSpace(model.whitePoint)(l, c, h, alpha) }

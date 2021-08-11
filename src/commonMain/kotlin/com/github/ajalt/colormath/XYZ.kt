@@ -102,9 +102,9 @@ data class XYZ internal constructor(
             else -> (t * CIE_K + 16) / 116
         }
 
-        val fx = f(x / model.whitePoint.chromaticity.x)
-        val fy = f(y / model.whitePoint.chromaticity.y)
-        val fz = f(z / model.whitePoint.chromaticity.z)
+        val fx = f(x / model.whitePoint.chromaticity.X)
+        val fy = f(y / model.whitePoint.chromaticity.Y)
+        val fz = f(z / model.whitePoint.chromaticity.Z)
 
         val l = (116 * fy) - 16
         val a = 500 * (fx - fy)
@@ -120,11 +120,11 @@ data class XYZ internal constructor(
         val uPrime = if (denominator == 0f) 0f else (4 * x) / denominator
         val vPrime = if (denominator == 0f) 0f else (9 * y) / denominator
 
-        val denominatorReference = wp.x + 15 * wp.y + 3 * wp.z
-        val uPrimeReference = (4 * wp.x) / denominatorReference
-        val vPrimeReference = (9 * wp.y) / denominatorReference
+        val denominatorReference = wp.X + 15 * wp.Y + 3 * wp.Z
+        val uPrimeReference = (4 * wp.X) / denominatorReference
+        val vPrimeReference = (9 * wp.Y) / denominatorReference
 
-        val yr = y / wp.y
+        val yr = y / wp.Y
         val l = when {
             yr > CIE_E -> 116 * cbrt(yr) - 16
             else -> CIE_K * yr
@@ -179,14 +179,14 @@ data class XYZ internal constructor(
     override fun toArray(): FloatArray = floatArrayOf(x, y, z, alpha)
 }
 
-/** Create the transform matrix to adapt [whitePoint] to this color space */
+/** Create the transform matrix to adapt [srcWp] to this color space */
 internal fun XYZColorSpace.chromaticAdaptationMatrix(
-    whitePoint: Chromaticity,
+    srcWp: Chromaticity,
     xyzToLms: Matrix = CAT02_XYZ_TO_LMS,
     lmsToXyz: Matrix = CAT02_LMS_TO_XYZ,
 ): Matrix {
-    val src = xyzToLms.times(whitePoint.x, whitePoint.y, whitePoint.z)
-    val chromaticity = this.whitePoint.chromaticity
-    val dst = xyzToLms.times(chromaticity.x, chromaticity.y, chromaticity.z)
+    val dstWp = this.whitePoint.chromaticity
+    val src = xyzToLms.times(srcWp.X, srcWp.Y, srcWp.Z)
+    val dst = xyzToLms.times(dstWp.X, dstWp.Y, dstWp.Z)
     return lmsToXyz.timesDiagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * xyzToLms
 }
