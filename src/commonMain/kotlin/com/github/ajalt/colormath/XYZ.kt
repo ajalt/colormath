@@ -188,5 +188,5 @@ internal fun XYZColorSpace.chromaticAdaptationMatrix(
     val src = xyzToLms.times(whitePoint.x, whitePoint.y, whitePoint.z)
     val chromaticity = this.whitePoint.chromaticity
     val dst = xyzToLms.times(chromaticity.x, chromaticity.y, chromaticity.z)
-    return lmsToXyz * Matrix.diagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * xyzToLms
+    return lmsToXyz.timesDiagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * xyzToLms
 }
