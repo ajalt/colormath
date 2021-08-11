@@ -140,12 +140,12 @@ class RGBColorSpacesConversionTest {
     }
 
     private fun doTest(vararg rows: Row2<RGB, RGB>) = forAll(*rows) { l, r ->
-        l.convertTo(r.model).shouldEqualColor(r, 1e-3)
-        r.convertTo(l.model).shouldEqualColor(l, 1e-3)
+        l.convertTo(r.model).shouldEqualColor(r, 1e-5)
+        r.convertTo(l.model).shouldEqualColor(l, 1e-5)
     }
 }
 
-/* Test values generated with github.com/colour-science/ using the following script:
+/* Test values generated with github.com/colour-science using the following script:
 
 import colour
 
