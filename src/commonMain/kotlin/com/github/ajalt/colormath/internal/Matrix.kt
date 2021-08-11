@@ -94,6 +94,14 @@ internal operator fun Matrix.times(other: Matrix): Matrix {
     )
 }
 
+internal fun Matrix.timesDiagonal(v0: Float, v1: Float, v2: Float): Matrix {
+    return Matrix(
+        get(0, 0) * v0, get(1, 0) * v1, get(2, 0) * v2,
+        get(0, 1) * v0, get(1, 1) * v1, get(2, 1) * v2,
+        get(0, 2) * v0, get(1, 2) * v1, get(2, 2) * v2,
+    )
+}
+
 @JvmInline
 internal value class Vector(val values: FloatArray) {
     constructor(v0: Float, v1: Float, v2: Float) : this(floatArrayOf(v0, v1, v2))
