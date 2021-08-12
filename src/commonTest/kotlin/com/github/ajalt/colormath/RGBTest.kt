@@ -72,30 +72,20 @@ class RGBTest {
     @JsName("RGB_to_XYZ")
     fun `RGB to XYZ`() = forAll(
         row(RGB(0, 0, 0), XYZ(0.0, 0.0, 0.0)),
-        row(RGB(255, 255, 255), XYZ(0.950470, 1.000000, 1.088830)),
-        row(RGB(255, 0, 0), XYZ(0.412456, 0.212673, 0.019334)),
-        row(RGB(0, 255, 0), XYZ(0.357576, 0.715152, 0.119192)),
-        row(RGB(0, 0, 255), XYZ(0.180437, 0.072175, 0.950304)),
-        row(RGB(255, 255, 0), XYZ(0.770033, 0.927825, 0.138526)),
-        row(RGB(0, 255, 255), XYZ(0.538014, 0.787327, 1.069496)),
-        row(RGB(255, 0, 255), XYZ(0.592894, 0.284848, 0.969638)),
-        row(RGB(92, 191, 84), XYZ(0.246435, 0.401751, 0.148417)),
+        row(RGB(0.18, 0.18, 0.18), XYZ(0.02586359849087219, 0.02721178095138136, 0.029635200957081886)),
+        row(RGB(0.25, 0.5, 0.75), XYZ(0.19182369250207165, 0.20161580125891987, 0.523169600334586)),
+        row(RGB(1.0, 1.0, 1.0), XYZ(0.9504559270516716, 1.0, 1.0890577507598784)),
     ) { rgb, xyz ->
-        rgb.toXYZ().shouldEqualColor(xyz, 0.000005)
+        rgb.toXYZ().shouldEqualColor(xyz, 1e-5)
     }
 
     @Test
     @JsName("RGB_to_LAB")
     fun `RGB to LAB`() = forAll(
         row(RGB(0, 0, 0), LAB(0.0, 0.0, 0.0)),
-        row(RGB(255, 0, 0), LAB(53.2408, 80.0925, 67.2032)),
-        row(RGB(255, 255, 0), LAB(97.1393, -21.5537, 94.4780)),
-        row(RGB(0, 255, 0), LAB(87.7347, -86.1827, 83.1793)),
-        row(RGB(0, 255, 255), LAB(91.1132, -48.0875, -14.1312)),
-        row(RGB(0, 0, 255), LAB(32.2970, 79.1875, -107.8602)),
-        row(RGB(255, 0, 255), LAB(60.3242, 98.2343, -60.8249)),
-        row(RGB(255, 255, 255), LAB(100.000, 0.0000, 0.0000)),
-        row(RGB(92, 191, 84), LAB(69.5940, -50.1108, 44.6468)),
+        row(RGB(0.18, 0.18, 0.18), LAB(18.890750509238096, 0.0, 0.0)),
+        row(RGB(0.25, 0.5, 0.75), LAB(52.01940750271743, 0.10031215009875805, -39.361980025811775)),
+        row(RGB(1.0, 1.0, 1.0), LAB(100.0, 0.0, 0.0)),
     ) { rgb, lab ->
         rgb.toLAB().shouldEqualColor(lab)
     }
@@ -104,40 +94,11 @@ class RGBTest {
     @JsName("RGB_to_LUV")
     fun `RGB to LUV`() = forAll(
         row(RGB(0, 0, 0), LUV(0.0, 0.0, 0.0)),
-        row(RGB(255, 255, 255), LUV(100.0, 0.0, 0.0)),
-        row(RGB(255, 0, 0), LUV(53.2408, 175.0151, 37.7564)),
-        row(RGB(0, 255, 0), LUV(87.7347, -83.0776, 107.3985)),
-        row(RGB(0, 0, 255), LUV(32.2970, -9.4054, -130.3423)),
-        row(RGB(255, 255, 0), LUV(97.1393, 7.7056, 106.7866)),
-        row(RGB(0, 255, 255), LUV(91.1132, -70.4773, -15.2042)),
-        row(RGB(255, 0, 255), LUV(60.3242, 84.0714, -108.6834)),
-        row(RGB(92, 191, 84), LUV(69.5940, -46.2383, 63.2284))
+        row(RGB(0.18, 0.18, 0.18), LUV(18.890750509238096, 0.0, 0.0)),
+        row(RGB(0.25, 0.5, 0.75), LUV(52.01940750271743, -25.356016242736214, -60.288197056444794)),
+        row(RGB(1.0, 1.0, 1.0), LUV(100.0, 0.0, 0.0)),
     ) { rgb, luv ->
         rgb.toLUV().shouldEqualColor(luv)
-    }
-
-    @Test
-    @JsName("RGB_to_LCH")
-    fun `RGB to LCH`() = forAll(
-        row(RGB(0, 0, 0), HCL(0.0, 0.0, 0.0)),
-        row(RGB(255, 0, 0), HCL(12.1740, 179.0414, 53.2408)),
-        row(RGB(0, 255, 0), HCL(127.7236, 135.7804, 87.7347)),
-        row(RGB(0, 0, 255), HCL(265.8727, 130.6812, 32.2970)),
-        row(RGB(255, 255, 0), HCL(85.8727, 107.0643, 97.1393)),
-        row(RGB(0, 255, 255), HCL(192.1740, 72.0987, 91.1132)),
-        row(RGB(255, 0, 255), HCL(307.7236, 137.4048, 60.3242)),
-        row(RGB(92, 191, 84), HCL(126.1776, 78.3314, 69.5940)),
-    ) { rgb, lch ->
-        rgb.toHCL().shouldEqualColor(lch)
-    }
-
-    @Test
-    @JsName("RGB_white_to_LCH")
-    fun `RGB white to LCH`() {
-        // With white, any hue can be used, so only test L and C
-        val lch = RGB(255, 255, 255).toHCL()
-        lch.l shouldBe (100f plusOrMinus 0.0005f)
-        lch.c shouldBe (0f plusOrMinus 0.0005f)
     }
 
     @Test
@@ -157,7 +118,7 @@ class RGBTest {
     }
 
     @Test
-    @JsName("RGB_TO_HWB")
+    @JsName("RGB_to_HWB")
     // https://www.w3.org/TR/css-color-4/#hwb-examples
     fun `RGB to HWB`() = forAll(
         row(RGB("#996666"), HWB(0.0, .4, .4)),
@@ -183,18 +144,14 @@ class RGBTest {
     }
 
     @Test
-    @JsName("RGB_TO_HWB_gray")
-    // https://www.w3.org/TR/css-color-4/#hwb-examples
+    @JsName("RGB_to_HWB_gray")
     fun `RGB to HWB gray`() = forAll(
-        row(RGB("#000000"), 0f, 1f),
-        row(RGB("#666666"), .4f, .6f),
-        row(RGB("#999999"), .6f, .4f),
-        row(RGB("#ffffff"), 1f, 0f),
-    ) { rgb, ew, eb ->
-        // hue is arbitrary for grays
-        val (_, w, b) = rgb.toHWB()
-        withClue("w") { w shouldBe (ew plusOrMinus 0.0005f) }
-        withClue("b") { b shouldBe (eb plusOrMinus 0.0005f) }
+        row(RGB("#000000"), HWB(0f, 0f, 1f)),
+        row(RGB("#666666"), HWB(0f, .4f, .6f)),
+        row(RGB("#999999"), HWB(0f, .6f, .4f)),
+        row(RGB("#ffffff"), HWB(0f, 1f, 0f)),
+    ) { rgb, ex ->
+        rgb.toHWB().shouldEqualColor(ex, ignorePolar = true)
     }
 
     @Test
