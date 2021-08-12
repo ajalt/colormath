@@ -259,7 +259,7 @@ class Ansi256Test {
         row(254, RGB(228, 228, 228)),
         row(255, RGB(238, 238, 238))
     ) { ansi, rgb ->
-        Ansi256(ansi) should convertTo(rgb)
+        Ansi256(ansi).toSRGB().shouldEqualColor(rgb)
     }
 
     @Test

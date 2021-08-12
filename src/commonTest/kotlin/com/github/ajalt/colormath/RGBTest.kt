@@ -22,23 +22,23 @@ class RGBTest {
     @Test
     @JsName("RGB_to_HSV")
     fun `RGB to HSV`() = forAll(
-        row(RGB(0, 0, 0), HSV(0, 0, 0)),
-        row(RGB(140, 200, 100), HSV(96f, .5f, .784f)),
-        row(RGB(96, 127, 83), HSV(102f, .346f, .498f)),
-        row(RGB(255, 255, 255), HSV(0, 0, 100))
+        row(RGB(0.0, 0.0, 0.0), HSV(0.0, 0.0, 0.0)),
+        row(RGB(0.18, 0.18, 0.18), HSV(0.0, 0.0, 0.18)),
+        row(RGB(0.25, 0.5, 0.75), HSV(0.58333333 * 360, 0.66666667, 0.75)),
+        row(RGB(1.0, 1.0, 1.0), HSV(0.0, 0.0, 1.0)),
     ) { rgb, hsv ->
-        rgb.toHSV() should convertTo(hsv)
+        rgb.toHSV().shouldEqualColor(hsv)
     }
 
     @Test
     @JsName("RGB_to_HSL")
     fun `RGB to HSL`() = forAll(
-        row(RGB(0, 0, 0), HSL(0, 0, 0)),
-        row(RGB(140, 200, 100), HSL(96f, .476f, .588f)),
-        row(RGB(96, 127, 83), HSL(102, 21, 41)),
-        row(RGB(255, 255, 255), HSL(0, 0, 100))
+        row(RGB(0.0, 0.0, 0.0), HSL(0.0, 0.0, 0.0)),
+        row(RGB(0.18, 0.18, 0.18), HSL(0.0, 0.0, 0.18)),
+        row(RGB(0.25, 0.5, 0.75), HSL(0.58333333 * 360, 0.5, 0.5)),
+        row(RGB(1.0, 1.0, 1.0), HSL(0.0, 0.0, 1.0)),
     ) { rgb, hsl ->
-        rgb.toHSL() should convertTo(hsl)
+        rgb.toHSL().shouldEqualColor(hsl)
     }
 
     @Test
@@ -166,20 +166,6 @@ class RGBTest {
         row(RGB(255, 255, 255), LINEAR_SRGB(1.0, 1.0, 1.0)),
     ) { rgb, linear ->
         rgb.convertTo(LINEAR_SRGB).shouldEqualColor(linear, 0.00005)
-    }
-
-    @Test
-    @JsName("Linear_to_RGB")
-    fun `Linear to sRGB`() = forAll(
-        row(LINEAR_SRGB(0.0, 0.0, 0.0), RGB(0, 0, 0)),
-        row(LINEAR_SRGB(0.00242, 0.00242, 0.00242), RGB(8, 8, 8)),
-        row(LINEAR_SRGB(0.00518, 0.00518, 0.00518), RGB(16, 16, 16)),
-        row(LINEAR_SRGB(0.01444, 0.01444, 0.01444), RGB(32, 32, 32)),
-        row(LINEAR_SRGB(0.05126, 0.05126, 0.05126), RGB(64, 64, 64)),
-        row(LINEAR_SRGB(0.21586, 0.21586, 0.21586), RGB(128, 128, 128)),
-        row(LINEAR_SRGB(1.0, 1.0, 1.0), RGB(255, 255, 255)),
-    ) { linear, rgb ->
-        linear should convertTo(rgb)
     }
 
     @Test

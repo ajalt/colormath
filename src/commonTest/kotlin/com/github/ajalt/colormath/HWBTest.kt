@@ -46,11 +46,11 @@ class HWBTest {
     // All hues convert to the same gray values
     fun `HWB to RGB gray`() {
         for (h in 0..3600) {
-            HWB(h / 10.0, .00, 1.0).toSRGB() should convertTo(RGB("#000000"))
-            HWB(h / 10.0, .40, .60).toSRGB() should convertTo(RGB("#666666"))
-            HWB(h / 10.0, .60, .40).toSRGB() should convertTo(RGB("#999999"))
-            HWB(h / 10.0, 1.0, .00).toSRGB() should convertTo(RGB("#ffffff"))
-            HWB(h / 10.0, 1.0, 1.0).toSRGB() should convertTo(RGB("#808080"))
+            HWB(h / 10.0, .00, 1.0).toSRGB().shouldEqualColor(RGB("#000000"), 5e-3)
+            HWB(h / 10.0, .40, .60).toSRGB().shouldEqualColor(RGB("#666666"), 5e-3)
+            HWB(h / 10.0, .60, .40).toSRGB().shouldEqualColor(RGB("#999999"), 5e-3)
+            HWB(h / 10.0, 1.0, .00).toSRGB().shouldEqualColor(RGB("#ffffff"), 5e-3)
+            HWB(h / 10.0, 1.0, 1.0).toSRGB().shouldEqualColor(RGB("#808080"), 5e-3)
         }
     }
 }

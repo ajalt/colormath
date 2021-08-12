@@ -25,17 +25,14 @@ class OklabTest {
         oklab.toXYZ().shouldEqualColor(xyz, 0.002)
     }
 
-    // Ottosson only provides test cases for XYZ <-> Oklab. These RGB cases are taken from
-    // https://github.com/Evercoder/culori/blob/master/test/oklab.test.js, which is the
-    // only project I can find that actually has RGB test cases.
     @Test
     @JsName("Oklab_to_RGB")
     fun `Oklab to RGB`() = forAll(
-        row(Oklab(1.0000, 0.0000, 0.0000), RGB("#fff")),
-        row(Oklab(0.1776, 0.0000, 0.0000), RGB("#111")),
-        row(Oklab(0.0000, 0.0000, 0.0000), RGB("#000")),
-        row(Oklab(0.6279, 0.2249, 0.1258), RGB("#f00")),
+        row(Oklab(0.0, 0.0, 0.0), RGB(0.0, 0.0, 0.0)),
+        row(Oklab(0.18, 0.0, 0.0), RGB(0.06871424, 0.0686901, 0.06865118)),
+        row(Oklab(0.75, 0.25, 0.125), RGB(1.21849051, 0.2253556, 0.24573586)),
+        row(Oklab(1.0, 0.0, 0.0), RGB(1.00018611, 0.99998017, 0.99964828)),
     ) { oklab, rgb ->
-        oklab should convertTo(rgb)
+        oklab.toSRGB().shouldEqualColor(rgb)
     }
 }

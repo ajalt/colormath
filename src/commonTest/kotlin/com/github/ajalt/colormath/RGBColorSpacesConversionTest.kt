@@ -11,6 +11,7 @@ import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
 import com.github.ajalt.colormath.RGBColorSpaces.BT_709
 import com.github.ajalt.colormath.RGBColorSpaces.DCI_P3
 import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
+import com.github.ajalt.colormath.RGBColorSpaces.LINEAR_SRGB
 import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import io.kotest.data.Row2
 import io.kotest.data.blocking.forAll
@@ -136,6 +137,18 @@ class RGBColorSpacesConversionTest {
         row(ROMM_RGB(0.18, 0.18, 0.18), SRGB(0.23654583, 0.23654583, 0.23654583)),
         row(ROMM_RGB(0.25, 0.5, 0.75), SRGB(-2.86956015, 0.61325653, 0.82261984)),
         row(ROMM_RGB(1.0, 1.0, 1.0), SRGB(1.0, 1.0, 1.0)),
+    )
+
+    @Test
+    fun LINEAR_SRGBTest() = doTest(
+        row(SRGB(0.0, 0.0, 0.0), LINEAR_SRGB(0.0, 0.0, 0.0)),
+        row(SRGB(0.18, 0.18, 0.18), LINEAR_SRGB(0.02721178, 0.02721178, 0.02721178)),
+        row(SRGB(0.25, 0.5, 0.75), LINEAR_SRGB(0.05087609, 0.21404114, 0.52252155)),
+        row(SRGB(1.0, 1.0, 1.0), LINEAR_SRGB(1.0, 1.0, 1.0)),
+        row(LINEAR_SRGB(0.0, 0.0, 0.0), SRGB(0.0, 0.0, 0.0)),
+        row(LINEAR_SRGB(0.18, 0.18, 0.18), SRGB(0.46135613, 0.46135613, 0.46135613)),
+        row(LINEAR_SRGB(0.25, 0.5, 0.75), SRGB(0.53709873, 0.73535698, 0.88082502)),
+        row(LINEAR_SRGB(1.0, 1.0, 1.0), SRGB(1.0, 1.0, 1.0)),
     )
 
     @Test
