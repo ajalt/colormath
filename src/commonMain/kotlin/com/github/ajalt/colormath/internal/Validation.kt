@@ -23,15 +23,10 @@ internal inline fun <T : Color> ColorModel<T>.doCreate(
 }
 
 internal fun componentInfoList(vararg c: ColorComponentInfo) = listOf(*c, ColorComponentInfo("alpha", false))
-internal fun rectangularComponentInfo(name: String) = listOf(
-    ColorComponentInfo(name[0].toString(), false),
-    ColorComponentInfo(name[1].toString(), false),
-    ColorComponentInfo(name[2].toString(), false),
-    ColorComponentInfo("alpha", false),
-)
-internal fun polarComponentInfo(name: String) = listOf(
-    ColorComponentInfo(name[0].toString(), name[0] == 'H'),
-    ColorComponentInfo(name[1].toString(), name[1] == 'H'),
-    ColorComponentInfo(name[2].toString(), name[2] == 'H'),
-    ColorComponentInfo("alpha", false),
-)
+internal fun rectangularComponentInfo(name: String) = name.map {
+    ColorComponentInfo(it.toString(), false)
+} + ColorComponentInfo("alpha", false)
+
+internal fun polarComponentInfo(name: String) = name.map {
+    ColorComponentInfo(it.toString(), it == 'H')
+} + ColorComponentInfo("alpha", false)

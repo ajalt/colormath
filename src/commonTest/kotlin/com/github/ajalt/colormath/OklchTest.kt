@@ -17,13 +17,12 @@ class OklchTest {
 
     @Test
     @JsName("Oklch_to_RGB")
-    // https://github.com/Evercoder/culori/blob/master/test/oklch.test.js
     fun `Oklch to RGB`() = forAll(
-        row(Oklch(1.0000, 0.0000, 00.0000), RGB("#fff")),
-        row(Oklch(0.1776, 0.0000, 00.0000), RGB("#111")),
-        row(Oklch(0.0000, 0.0000, 00.0000), RGB("#000")),
-        row(Oklch(0.6279, 0.2576, 29.2210), RGB("#f00")),
-    ) { lch, rgb ->
-        lch should convertTo(rgb)
+        row(Oklab(0.0, 0.0, 0.0), Oklch(0.0, 0.0, 0.0)),
+        row(Oklab(0.18, 0.18, 0.18), Oklch(0.18, 0.25455844, 45.0)),
+        row(Oklab(0.25, 0.5, 0.75), Oklch(0.25, 0.90138782, 56.30993247)),
+        row(Oklab(1.0, 1.0, 1.0), Oklch(1.0, 1.41421356, 45.0)),
+    ) { lch, oklch ->
+        lch.toOklch().shouldEqualColor(oklch)
     }
 }

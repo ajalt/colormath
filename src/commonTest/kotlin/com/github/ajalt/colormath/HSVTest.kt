@@ -18,32 +18,22 @@ class HSVTest {
     @Test
     @JsName("HSV_to_RGB")
     fun `HSV to RGB`() = forAll(
-        row(HSV(0, 0, 0), RGB(0, 0, 0)),
-        row(HSV(180, 0, 0), RGB(0, 0, 0)),
-        row(HSV(96, 50, 78), RGB(139, 199, 99)),
-        row(HSV(289, 85, 87), RGB(187, 33, 222)),
-        row(HSV(0, 0, 100), RGB(255, 255, 255))
+        row(HSV(0.0, 0.0, 0.0), RGB(0.0, 0.0, 0.0)),
+        row(HSV(0.18 * 360, 0.18, 0.18), RGB(0.177408, 0.18, 0.1476)),
+        row(HSV(0.25* 360, 0.5, 0.75), RGB(0.5625, 0.75, 0.375)),
+        row(HSV(1.0* 360, 1.0, 1.0), RGB(1.0, 0.0, 0.0)),
     ) { hsv, rgb ->
-        hsv should convertTo(rgb)
+        hsv.toSRGB().shouldEqualColor(rgb)
     }
 
     @Test
     @JsName("HSV_to_HSL")
     fun `HSV to HSL`() = forAll(
-        row(HSV(0, 0, 0), HSL(0, 0, 0)),
-        row(HSV(96, 50, 78), HSL(96, 47, 59)),
-        row(HSV(289, 85, 87), HSL(289, 74, 50)),
-        row(HSV(0, 0, 100), HSL(0, 0, 100))
+        row(HSV(0.0, 0.0, 0.0), HSL(0.0, 0.0, 0.0)),
+        row(HSV(0.18, 0.18, 0.18), HSL(0.18, 0.0989011, 0.1638)),
+        row(HSV(0.25, 0.5, 0.75), HSL(0.25, 0.42857143, 0.5625)),
+        row(HSV(1.0, 1.0, 1.0), HSL(1.0, 1.0, 0.5)),
     ) { hsv, hsl ->
-        hsv.toHSL().shouldEqualColor(hsl, 0.005)
-    }
-
-    @Test
-    @JsName("HSV_indirect_conversions")
-    fun `HSV indirect conversions`() = forAll(
-        row(HSV(240, 100, 100).toAnsi16(), Ansi16(94)),
-        row(HSV(240, 100, 100).toAnsi256(), Ansi256(21))
-    ) { actual, expected ->
-        actual shouldBe expected
+        hsv.toHSL().shouldEqualColor(hsl)
     }
 }

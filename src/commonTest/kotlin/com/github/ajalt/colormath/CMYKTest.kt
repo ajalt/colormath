@@ -10,16 +10,11 @@ class CMYKTest {
     @Test
     @JsName("CMYK_to_RGB")
     fun `CMYK to RGB`() = forAll(
-        row(CMYK(0, 0, 0, 0), RGB(255, 255, 255)),
-        row(CMYK(0, 0, 0, 100), RGB(0, 0, 0)),
-        row(CMYK(0, 100, 100, 0), RGB(255, 0, 0)),
-        row(CMYK(100, 0, 100, 0), RGB(0, 255, 0)),
-        row(CMYK(100, 100, 0, 0), RGB(0, 0, 255)),
-        row(CMYK(0, 0, 100, 0), RGB(255, 255, 0)),
-        row(CMYK(100, 0, 0, 0), RGB(0, 255, 255)),
-        row(CMYK(0, 100, 0, 0), RGB(255, 0, 255)),
-        row(CMYK(30, 0, 50, 22), RGB(139, 199, 99))
+        row(CMYK(0, 0, 0, 0), RGB(1.0, 1.0, 1.0)),
+        row(CMYK(0.18, 0.18, 0.18, 0.18), RGB(0.6724, 0.6724, 0.6724)),
+        row(CMYK(0.25, 0.5, 0.75, 0.95), RGB(0.0375, 0.025, 0.0125)),
+        row(CMYK(1.0, 1.0, 1.0, 1.0), RGB(0.0, 0.0, 0.0)),
     ) { cmyk, rgb ->
-        cmyk should convertTo(rgb)
+        cmyk.toSRGB().shouldEqualColor(rgb)
     }
 }

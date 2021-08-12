@@ -1,28 +1,7 @@
 package com.github.ajalt.colormath
 
-import io.kotest.assertions.Actual
-import io.kotest.assertions.Expected
-import io.kotest.assertions.failure
-import io.kotest.assertions.intellijFormatError
-import io.kotest.assertions.show.show
-import io.kotest.matchers.Matcher
-import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
-
-fun convertTo(expected: Color) = object : Matcher<Color> {
-    override fun test(value: Color): MatcherResult {
-        return MatcherResult(
-            value.toSRGB().toRGBInt().argb == expected.toSRGB().toRGBInt().argb,
-            {
-                val e = Expected("RGB(${expected.toSRGB().toHex()})".show())
-                val a = Actual("RGB(${value.toSRGB().toHex()})".show())
-                failure(e, a).message ?: intellijFormatError(e, a)
-            },
-            { "${expected.show().value} should not equal ${value.show().value}" }
-        )
-    }
-}
 
 fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4, ignorePolar: Boolean = false) {
     try {

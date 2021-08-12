@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.componentInfoList
+import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import com.github.ajalt.colormath.internal.withValidComps
 
 /**
@@ -18,18 +19,15 @@ import com.github.ajalt.colormath.internal.withValidComps
 data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override val alpha: Float = 1f) : Color {
     companion object : ColorModel<CMYK> {
         override val name: String get() = "CMYK"
-        override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("C", false),
-            ColorComponentInfo("M", false),
-            ColorComponentInfo("Y", false),
-            ColorComponentInfo("K", false),
-        )
-
+        override val components: List<ColorComponentInfo> = rectangularComponentInfo("CMYK")
         override fun convert(color: Color): CMYK = color.toCMYK()
         override fun create(components: FloatArray): CMYK = withValidComps(components) {
             CMYK(it[0], it[1], it[2], it[3], it.getOrElse(4) { 1f })
         }
     }
+
+    constructor (c: Double, m: Double, y: Double, k: Double, alpha: Double = 1.0)
+            : this(c.toFloat(), m.toFloat(), y.toFloat(), k.toFloat(), alpha.toFloat())
 
     /**
      * Construct a CMYK instance from Int values, with the the color channels as percentages in the range `[0, 100]`.

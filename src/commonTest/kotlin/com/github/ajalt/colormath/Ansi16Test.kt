@@ -35,8 +35,8 @@ class Ansi16Test {
         row(96, RGB(0, 255, 255)),
         row(97, RGB(255, 255, 255))
     ) { ansi, rgb ->
-        Ansi16(ansi) should convertTo(rgb)
-        Ansi16(ansi + 10) should convertTo(rgb)
+        Ansi16(ansi).toSRGB().shouldEqualColor(rgb, 5e-3)
+        Ansi16(ansi + 10).toSRGB().shouldEqualColor(rgb, 5e-3)
     }
 
     @Test
@@ -59,6 +59,6 @@ class Ansi16Test {
         row(96, 14),
         row(97, 15)
     ) { ansi16, ansi256 ->
-        Ansi16(ansi16).toAnsi256() shouldBe Ansi256(ansi256)
+        Ansi16(ansi16).toAnsi256().shouldEqualColor(Ansi256(ansi256))
     }
 }
