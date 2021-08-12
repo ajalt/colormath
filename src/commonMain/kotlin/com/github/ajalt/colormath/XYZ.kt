@@ -27,7 +27,7 @@ private data class XYZColorSpaceImpl(override val whitePoint: WhitePoint) : XYZC
     override val name: String get() = "XYZ"
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("XYZ")
     override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ = XYZ(x, y, z, alpha, this)
-    override fun convert(color: Color): XYZ = color.toXYZ()
+    override fun convert(color: Color): XYZ = color.toXYZ().adaptTo(this)
     override fun create(components: FloatArray): XYZ = doCreate(components, ::invoke)
     override fun toString(): String = "XYZColorSpace($whitePoint)"
 }
