@@ -21,25 +21,21 @@ class RGBTest {
 
     @Test
     @JsName("RGB_to_HSV")
-    fun `RGB to HSV`() = forAll(
-        row(RGB(0.0, 0.0, 0.0), HSV(0.0, 0.0, 0.0)),
-        row(RGB(0.18, 0.18, 0.18), HSV(0.0, 0.0, 0.18)),
-        row(RGB(0.25, 0.5, 0.75), HSV(0.58333333 * 360, 0.66666667, 0.75)),
-        row(RGB(1.0, 1.0, 1.0), HSV(0.0, 0.0, 1.0)),
-    ) { rgb, hsv ->
-        rgb.toHSV().shouldEqualColor(hsv)
-    }
+    fun `RGB to HSV`() =testColorConversions(
+        RGB(0.00, 0.00, 0.00) to HSV(0.0, 0.0, 0.0),
+        RGB(0.18, 0.18, 0.18) to HSV(0.0, 0.0, 0.18),
+        RGB(0.40, 0.50, 0.60) to HSV(210.0, 0.33333333, 0.6),
+        RGB(1.00, 1.00, 1.00) to HSV(0.0, 0.0, 1.0),
+    )
 
     @Test
     @JsName("RGB_to_HSL")
-    fun `RGB to HSL`() = forAll(
-        row(RGB(0.0, 0.0, 0.0), HSL(0.0, 0.0, 0.0)),
-        row(RGB(0.18, 0.18, 0.18), HSL(0.0, 0.0, 0.18)),
-        row(RGB(0.25, 0.5, 0.75), HSL(0.58333333 * 360, 0.5, 0.5)),
-        row(RGB(1.0, 1.0, 1.0), HSL(0.0, 0.0, 1.0)),
-    ) { rgb, hsl ->
-        rgb.toHSL().shouldEqualColor(hsl)
-    }
+    fun `RGB to HSL`() =  testColorConversions(
+        RGB(0.00, 0.00, 0.00) to HSL(0.0, 0.0, 0.0),
+        RGB(0.18, 0.18, 0.18) to HSL(0.0, 0.0, 0.18),
+        RGB(0.40, 0.50, 0.60) to HSL(210.0, 0.2, 0.5),
+        RGB(1.00, 1.00, 1.00) to HSL(0.0, 0.0, 1.0),
+    )
 
     @Test
     @JsName("RGB_to_Hex")
@@ -70,158 +66,111 @@ class RGBTest {
 
     @Test
     @JsName("RGB_to_XYZ")
-    fun `RGB to XYZ`() = forAll(
-        row(RGB(0, 0, 0), XYZ(0.0, 0.0, 0.0)),
-        row(RGB(0.18, 0.18, 0.18), XYZ(0.02586359849087219, 0.02721178095138136, 0.029635200957081886)),
-        row(RGB(0.25, 0.5, 0.75), XYZ(0.19182369250207165, 0.20161580125891987, 0.523169600334586)),
-        row(RGB(1.0, 1.0, 1.0), XYZ(0.9504559270516716, 1.0, 1.0890577507598784)),
-    ) { rgb, xyz ->
-        rgb.toXYZ().shouldEqualColor(xyz, 1e-5)
-    }
+    fun `RGB to XYZ`() = testColorConversions(
+        RGB(0.00, 0.00, 0.00) to XYZ(0.0, 0.0, 0.0),
+        RGB(0.18, 0.18, 0.18) to XYZ(0.0258636, 0.02721178, 0.0296352),
+        RGB(0.40, 0.50, 0.60) to XYZ(0.18882301, 0.20432514, 0.33086999),
+        RGB(1.00, 1.00, 1.00) to XYZ(0.95045593, 1.0, 1.08905775),
+    )
 
     @Test
     @JsName("RGB_to_LAB")
-    fun `RGB to LAB`() = forAll(
-        row(RGB(0, 0, 0), LAB(0.0, 0.0, 0.0)),
-        row(RGB(0.18, 0.18, 0.18), LAB(18.890750509238096, 0.0, 0.0)),
-        row(RGB(0.25, 0.5, 0.75), LAB(52.01940750271743, 0.10031215009875805, -39.361980025811775)),
-        row(RGB(1.0, 1.0, 1.0), LAB(100.0, 0.0, 0.0)),
-    ) { rgb, lab ->
-        rgb.toLAB().shouldEqualColor(lab)
-    }
+    fun `RGB to LAB`() =  testColorConversions(
+        RGB(0.00, 0.00, 0.00) to LAB(0.0, 0.0, 0.0),
+        RGB(0.18, 0.18, 0.18) to LAB(18.89075051, 0.0, 0.0),
+        RGB(0.40, 0.50, 0.60) to LAB(52.32273694, -2.74447861, -16.6536267),
+        RGB(1.00, 1.00, 1.00) to LAB(100.0, 0.0, 0.0),
+    )
 
     @Test
     @JsName("RGB_to_LUV")
-    fun `RGB to LUV`() = forAll(
-        row(RGB(0, 0, 0), LUV(0.0, 0.0, 0.0)),
-        row(RGB(0.18, 0.18, 0.18), LUV(18.890750509238096, 0.0, 0.0)),
-        row(RGB(0.25, 0.5, 0.75), LUV(52.01940750271743, -25.356016242736214, -60.288197056444794)),
-        row(RGB(1.0, 1.0, 1.0), LUV(100.0, 0.0, 0.0)),
-    ) { rgb, luv ->
-        rgb.toLUV().shouldEqualColor(luv)
-    }
+    fun `RGB to LUV`() = testColorConversions(
+        RGB(0.00, 0.00, 0.00) to LUV(0.0, 0.0, 0.0),
+        RGB(0.18, 0.18, 0.18) to LUV(18.89075051, 0.0, 0.0),
+        RGB(0.40, 0.50, 0.60) to LUV(52.32273694, -13.5765706, -23.98061646),
+        RGB(1.00, 1.00, 1.00) to LUV(100.0, 0.0, 0.0),
+    )
 
     @Test
     @JsName("RGB_to_CMYK")
-    fun `RGB to CMYK`() = forAll(
-        row(RGB(0, 0, 0), CMYK(0, 0, 0, 100)),
-        row(RGB(255, 255, 255), CMYK(0, 0, 0, 0)),
-        row(RGB(255, 0, 0), CMYK(0, 100, 100, 0)),
-        row(RGB(0, 255, 0), CMYK(100, 0, 100, 0)),
-        row(RGB(0, 0, 255), CMYK(100, 100, 0, 0)),
-        row(RGB(255, 255, 0), CMYK(0, 0, 100, 0)),
-        row(RGB(0, 255, 255), CMYK(100, 0, 0, 0)),
-        row(RGB(255, 0, 255), CMYK(0, 100, 0, 0)),
-        row(RGB(140, 200, 100), CMYK(30, 0, 50, 22))
-    ) { rgb, cmyk ->
-        rgb.toCMYK().shouldEqualColor(cmyk, 0.005)
-    }
+    fun `RGB to CMYK`() = testColorConversions(
+        RGB(0.00, 0.00, 0.00) to CMYK(0.0, 0.0, 0.0, 1.0),
+        RGB(0.18, 0.18, 0.18) to CMYK(0.0, 0.0, 0.0, 0.82),
+        RGB(0.40, 0.50, 0.60) to CMYK(0.33333333, 0.16666667, 0.0, 0.4),
+        RGB(1.00, 1.00, 1.00) to CMYK(0.0, 0.0, 0.0, 0.0),
+    )
 
     @Test
     @JsName("RGB_to_HWB")
     // https://www.w3.org/TR/css-color-4/#hwb-examples
-    fun `RGB to HWB`() = forAll(
-        row(RGB("#996666"), HWB(0.0, .4, .4)),
-        row(RGB("#998066"), HWB(30.0, .4, .4)),
-        row(RGB("#999966"), HWB(60.0, .4, .4)),
-        row(RGB("#809966"), HWB(90.0, .4, .4)),
-        row(RGB("#669966"), HWB(120.0, .4, .4)),
-        row(RGB("#66997f"), HWB(150.0, .4, .4)),
-        row(RGB("#669999"), HWB(180.0, .4, .4)),
-        row(RGB("#667f99"), HWB(210.0, .4, .4)),
-        row(RGB("#666699"), HWB(240.0, .4, .4)),
-        row(RGB("#7f6699"), HWB(270.0, .4, .4)),
-        row(RGB("#996699"), HWB(300.0, .4, .4)),
-        row(RGB("#996680"), HWB(330.0, .4, .4)),
-        row(RGB("#80ff00"), HWB(90.0, .0, .0)),
-        row(RGB("#b3cc99"), HWB(90.0, .6, .2)),
-        row(RGB("#4c6633"), HWB(90.0, .2, .6)),
-    ) { rgb, hwb ->
-        // the tolerances here are really wide, due to the imprecision of the integer RGB.
-        // The w3 spec doesn't have any rgb -> hwb test cases, so this is as precise as we can
-        // get by flipping the hwb -> rgb examples.
-        rgb.toHWB().shouldEqualColor(hwb, 0.6)
-    }
+    fun `RGB to HWB`() = testColorConversions(
+        RGB("#996666") to HWB(0.0, .4, .4),
+        RGB("#998066") to HWB(30.0, .4, .4),
+        RGB("#999966") to HWB(60.0, .4, .4),
+        RGB("#809966") to HWB(90.0, .4, .4),
+        RGB("#669966") to HWB(120.0, .4, .4),
+        RGB("#66997f") to HWB(150.0, .4, .4),
+        RGB("#669999") to HWB(180.0, .4, .4),
+        RGB("#667f99") to HWB(210.0, .4, .4),
+        RGB("#666699") to HWB(240.0, .4, .4),
+        RGB("#7f6699") to HWB(270.0, .4, .4),
+        RGB("#996699") to HWB(300.0, .4, .4),
+        RGB("#996680") to HWB(330.0, .4, .4),
+        RGB("#80ff00") to HWB(90.0, .0, .0),
+        RGB("#b3cc99") to HWB(90.0, .6, .2),
+        RGB("#4c6633") to HWB(90.0, .2, .6),
+        // the tolerances here are really wide, due to the imprecision of the integer RGB. The w3
+        // spec doesn't have any rgb -> hwb test cases, so this is as precise as we can get by
+        // flipping the hwb -> rgb examples.
+        tolerance = 0.6
+    )
 
     @Test
     @JsName("RGB_to_HWB_gray")
-    fun `RGB to HWB gray`() = forAll(
-        row(RGB("#000000"), HWB(0f, 0f, 1f)),
-        row(RGB("#666666"), HWB(0f, .4f, .6f)),
-        row(RGB("#999999"), HWB(0f, .6f, .4f)),
-        row(RGB("#ffffff"), HWB(0f, 1f, 0f)),
-    ) { rgb, ex ->
-        rgb.toHWB().shouldEqualColor(ex, ignorePolar = true)
-    }
-
-    @Test
-    @JsName("RGB_to_Linear")
-    fun `sRGB to Linear`() = forAll(
-        row(RGB(0, 0, 0), LINEAR_SRGB(0.0, 0.0, 0.0)),
-        row(RGB(8, 8, 8), LINEAR_SRGB(0.00242, 0.00242, 0.00242)),
-        row(RGB(16, 16, 16), LINEAR_SRGB(0.00518, 0.00518, 0.00518)),
-        row(RGB(32, 32, 32), LINEAR_SRGB(0.01444, 0.01444, 0.01444)),
-        row(RGB(64, 64, 64), LINEAR_SRGB(0.05126, 0.05126, 0.05126)),
-        row(RGB(128, 128, 128), LINEAR_SRGB(0.21586, 0.21586, 0.21586)),
-        row(RGB(255, 255, 255), LINEAR_SRGB(1.0, 1.0, 1.0)),
-    ) { rgb, linear ->
-        rgb.convertTo(LINEAR_SRGB).shouldEqualColor(linear, 0.00005)
-    }
+    fun `RGB to HWB gray`() = testColorConversions(
+        RGB("#000000") to HWB(0f, 0f, 1f),
+        RGB("#666666") to HWB(0f, .4f, .6f),
+        RGB("#999999") to HWB(0f, .6f, .4f),
+        RGB("#ffffff") to HWB(0f, 1f, 0f),
+        ignorePolar = true
+    )
 
     @Test
     @JsName("RGB_to_Oklab")
-    fun `RGB to Oklab`() = forAll(
-        row(RGB("#fff"), Oklab(1.0000, 0.0000, 0.0000)),
-        row(RGB("#111"), Oklab(0.1776, 0.0000, 0.0000)),
-        row(RGB("#000"), Oklab(0.0000, 0.0000, 0.0000)),
-        row(RGB("#f00"), Oklab(0.6279, 0.2249, 0.1258)),
-    ) { rgb, oklab ->
-        rgb.toOklab().shouldEqualColor(oklab)
-    }
-
-    @Test
-    @JsName("RGB_to_Oklch")
-    fun `RGB to Oklch`() = forAll(
-        row(RGB("#fff"), Oklch(1.0000, 0.0000, 00.0000)),
-        row(RGB("#111"), Oklch(0.1776, 0.0000, 00.0000)),
-        row(RGB("#000"), Oklch(0.0000, 0.0000, 00.0000)),
-        row(RGB("#f00"), Oklch(0.6279, 0.2576, 29.2210)),
-    ) { rgb, oklch ->
-        rgb.toOklch().shouldEqualColor(oklch, 0.1)
-    }
+    fun `RGB to Oklab`() = testColorConversions(
+        RGB(0.00, 0.00, 0.00) to Oklab(0.0, 0.0, 0.0),
+        RGB(0.18, 0.18, 0.18) to Oklab(0.30078197, -0.00000654, -0.00003704),
+        RGB(0.40, 0.50, 0.60) to Oklab(0.58774836, -0.01788409, -0.04586991),
+        RGB(1.00, 1.00, 1.00) to Oklab(0.9999988, -0.00002176, -0.00012316),
+    )
 
     @Test
     @JsName("RGB_to_Ansi16")
-    fun `RGB to Ansi16`() = forAll(
-        row(RGB(0, 0, 0), 30),
-        row(RGB(128, 0, 0), 31),
-        row(RGB(0, 128, 0), 32),
-        row(RGB(128, 128, 0), 33),
-        row(RGB(0, 0, 128), 34),
-        row(RGB(128, 0, 128), 35),
-        row(RGB(0, 128, 128), 36),
-        row(RGB(170, 170, 170), 37),
-        row(RGB(255, 0, 0), 91),
-        row(RGB(0, 255, 0), 92),
-        row(RGB(255, 255, 0), 93),
-        row(RGB(0, 0, 255), 94),
-        row(RGB(255, 0, 255), 95),
-        row(RGB(0, 255, 255), 96),
-        row(RGB(255, 255, 255), 97)
-    ) { rgb, ansi ->
-        rgb.toAnsi16() shouldBe Ansi16(ansi)
-    }
+    fun `RGB to Ansi16`() = testColorConversions(
+        RGBInt(0, 0, 0) to Ansi16(30),
+        RGBInt(128, 0, 0) to Ansi16(31),
+        RGBInt(0, 128, 0) to Ansi16(32),
+        RGBInt(128, 128, 0) to Ansi16(33),
+        RGBInt(0, 0, 128) to Ansi16(34),
+        RGBInt(128, 0, 128) to Ansi16(35),
+        RGBInt(0, 128, 128) to Ansi16(36),
+        RGBInt(192, 192, 192) to Ansi16(37),
+        RGBInt(255, 0, 0) to Ansi16(91),
+        RGBInt(0, 255, 0) to Ansi16(92),
+        RGBInt(255, 255, 0) to Ansi16(93),
+        RGBInt(0, 0, 255) to Ansi16(94),
+        RGBInt(255, 0, 255) to Ansi16(95),
+        RGBInt(0, 255, 255) to Ansi16(96),
+        RGBInt(255, 255, 255) to Ansi16(97),
+    )
 
     @Test
     @JsName("RGB_to_Ansi256")
-    fun `RGB to Ansi256`() = forAll(
-        row(RGB(0, 0, 0), 16),
-        row(RGB(51, 102, 0), 64),
-        row(RGB(92, 191, 84), 114),
-        row(RGB(255, 255, 255), 231),
-        row(RGB(100, 100, 100), 241),
-        row(RGB(238, 238, 238), 254)
-    ) { rgb, ansi ->
-        rgb.toAnsi256() shouldBe Ansi256(ansi)
-    }
+    fun `RGB to Ansi256`() = testColorConversions(
+        RGBInt(0, 0, 0) to Ansi256(16),
+        RGBInt(51, 102, 0) to Ansi256(64),
+        RGBInt(102, 204, 102) to Ansi256(114),
+        RGBInt(255, 255, 255) to Ansi256(231),
+        RGBInt(98, 98, 98) to Ansi256(241),
+    )
 }
