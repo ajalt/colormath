@@ -207,10 +207,10 @@ data class RGB internal constructor(
 
     override fun toHSL(): HSL {
         return srgbHueMinMaxDelta { h, min, max, delta ->
-            val l = (min + max) / 2
+            val l = (min + max) / 2.0
             val s = when {
                 max == min -> 0.0
-                l <= .5 -> delta / (max + min)
+                l <= 0.5 -> delta / (max + min)
                 else -> delta / (2 - max - min)
             }
             HSL(h.toFloat(), s.toFloat(), l.toFloat(), alpha)

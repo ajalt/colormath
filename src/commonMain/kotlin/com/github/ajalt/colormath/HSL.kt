@@ -38,34 +38,30 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
     override val model: ColorModel<HSL> get() = HSL
 
     override fun toSRGB(): RGB {
+        if (s < 1e-7) return RGB(l, l, l, alpha)
+
         val h = this.h.normalizeDeg() / 360.0
         val s = this.s.toDouble()
         val l = this.l.toDouble()
-        if (s < 1e-7) {
-            return RGB(l, l, l, alpha)
-        }
 
-        val t2 = when {
+        val vj = when {
             l < 0.5 -> l * (1 + s)
             else -> l + s - l * s
         }
 
-        val t1 = 2 * l - t2
+        val vi = 2 * l - vj
 
-        fun t(i: Int): Float {
-            var t3: Double = h + 1.0 / 3.0 * -(i - 1.0)
-            if (t3 < 0) t3 += 1.0
-            if (t3 > 1) t3 -= 1.0
-
+        fun t(vhn: Double): Float {
+            val vh = if (vhn < 0) vhn + 1 else if (vhn > 1) vhn - 1 else vhn
             return when {
-                6 * t3 < 1 -> t1 + (t2 - t1) * 6 * t3
-                2 * t3 < 1 -> t2
-                3 * t3 < 2 -> t1 + (t2 - t1) * (2.0 / 3.0 - t3) * 6
-                else -> t1
+                6 * vh < 1 -> vi + (vj - vi) * 6 * vh
+                2 * vh < 1 -> vj
+                3 * vh < 2 -> vi + (vj - vi) * (2.0 / 3.0 - vh) * 6
+                else -> vi
             }.toFloat()
         }
 
-        return RGB(t(0), t(1), t(2), alpha)
+        return RGB(t(h + (1.0 / 3.0)), t(h), t(h - (1.0 / 3.0)), alpha)
     }
 
     override fun toHSV(): HSV {
