@@ -16,7 +16,7 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | [k]        | key / black | `[0, 1]`   |
  */
 data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override val alpha: Float = 1f) : Color {
-    companion object : ColorModel<CMYK> {
+    companion object : ColorSpace<CMYK> {
         override val name: String get() = "CMYK"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("CMYK")
         override fun convert(color: Color): CMYK = color.toCMYK()
@@ -34,7 +34,7 @@ data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override
     constructor(c: Int, m: Int, y: Int, k: Int, alpha: Float = 1f)
             : this(c / 100f, m / 100f, y / 100f, k / 100f, alpha)
 
-    override val model: ColorModel<CMYK> get() = CMYK
+    override val space: ColorSpace<CMYK> get() = CMYK
 
     override fun toSRGB(): RGB {
         val r = (1 - c) * (1 - k)

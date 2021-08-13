@@ -16,7 +16,7 @@ import com.github.ajalt.colormath.internal.toPolarModel
  * | [b]        | blue/yellow | `[-0.31, 0.20]` |
  */
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
-    companion object : ColorModel<Oklab> {
+    companion object : ColorSpace<Oklab> {
         override val name: String get() = "Oklab"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("LAB")
         override fun convert(color: Color): Oklab = color.toOklab()
@@ -30,7 +30,7 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
     constructor (l: Double, a: Double, b: Double, alpha: Float)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
-    override val model: ColorModel<Oklab> get() = Oklab
+    override val space: ColorSpace<Oklab> get() = Oklab
 
     // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
     override fun toSRGB(): RGB = calculateConeResponse { l, m, s ->

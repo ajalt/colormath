@@ -53,13 +53,13 @@ data class HCL(
     val c: Float,
     val l: Float,
     override val alpha: Float = 1f,
-    override val model: HCLColorSpace,
+    override val space: HCLColorSpace,
 ) : HueColor {
     companion object : HCLColorSpace by HCL65
 
     override fun toSRGB(): RGB = toLUV().toSRGB()
     override fun toXYZ(): XYZ = toLUV().toXYZ()
-    override fun toLUV(): LUV = fromPolarModel(c, h) { u, v -> LUV(model.whitePoint)(l, u, v, alpha) }
+    override fun toLUV(): LUV = fromPolarModel(c, h) { u, v -> LUV(space.whitePoint)(l, u, v, alpha) }
     override fun toHCL(): HCL = this
     override fun toArray(): FloatArray = floatArrayOf(h, c, l, alpha)
 }

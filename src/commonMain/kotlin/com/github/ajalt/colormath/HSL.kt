@@ -16,7 +16,7 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * | [l]        | lightness    | `[0, 1]`   |
  */
 data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = 1f) : Color, HueColor {
-    companion object : ColorModel<HSL> {
+    companion object : ColorSpace<HSL> {
         override val name: String get() = "HSL"
         override val components: List<ColorComponentInfo> = polarComponentInfo("HSL")
         override fun convert(color: Color): HSL = color.toHSL()
@@ -35,7 +35,7 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
     constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
-    override val model: ColorModel<HSL> get() = HSL
+    override val space: ColorSpace<HSL> get() = HSL
 
     override fun toSRGB(): RGB {
         if (s < 1e-7) return RGB(l, l, l, alpha)

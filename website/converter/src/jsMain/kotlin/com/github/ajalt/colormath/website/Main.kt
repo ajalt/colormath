@@ -15,7 +15,7 @@ fun main() {
 
     @Composable
     fun row(
-        model: ColorModel<*>,
+        space: ColorSpace<*>,
         intScale: Int? = null,
     ) {
         P {
@@ -24,8 +24,8 @@ fun main() {
                     display(DisplayStyle.InlineBlock)
                     property("min-width", 5.em)
                 }
-            }) { Text(model.name) }
-            for (i in 0 until model.components.lastIndex) {
+            }) { Text(space.name) }
+            for (i in 0 until space.components.lastIndex) {
                 Input(InputType.Number, attrs = {
                     style {
                         property("max-width", 20.percent)
@@ -38,11 +38,11 @@ fun main() {
                     attr("step", if (intScale == null) "0.1" else "1")
 
                     onInput {
-                        val a = model.convert(color).toArray()
+                        val a = space.convert(color).toArray()
                         a[i] = (it.value ?: 0).toFloat() / (intScale ?: 1)
-                        color = model.create(a)
+                        color = space.create(a)
                     }
-                    value(fmt(model.convert(color).toArray()[i] * (intScale ?: 1)))
+                    value(fmt(space.convert(color).toArray()[i] * (intScale ?: 1)))
                 })
             }
         }

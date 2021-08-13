@@ -147,7 +147,7 @@ data class RGB internal constructor(
     val g: Float,
     val b: Float,
     override val alpha: Float,
-    override val model: RGBColorSpace,
+    override val space: RGBColorSpace,
 ) : Color {
     companion object : RGBColorSpace by RGBColorSpaces.SRGB {
         @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
@@ -198,9 +198,9 @@ data class RGB internal constructor(
     fun convertTo(space: RGBColorSpace): RGB {
         val f = SRGB.transferFunctions
         return when {
-            model == space -> this
-            model == SRGB && space == RGBColorSpaces.LINEAR_SRGB -> space(f.eotf(r), f.eotf(g), f.eotf(b), alpha)
-            model == RGBColorSpaces.LINEAR_SRGB && space == SRGB -> space(f.oetf(r), f.oetf(g), f.oetf(b), alpha)
+            this.space == space -> this
+            this.space == SRGB && space == RGBColorSpaces.LINEAR_SRGB -> space(f.eotf(r), f.eotf(g), f.eotf(b), alpha)
+            this.space == RGBColorSpaces.LINEAR_SRGB && space == SRGB -> space(f.oetf(r), f.oetf(g), f.oetf(b), alpha)
             else -> toXYZ().toRGB(space)
         }
     }
@@ -228,9 +228,9 @@ data class RGB internal constructor(
     }
 
     override fun toXYZ(): XYZ {
-        val f = model.transferFunctions
-        return Matrix(model.matrixToXyz).times(f.eotf(r), f.eotf(g), f.eotf(b)) { x, y, z ->
-            XYZColorSpace(model.whitePoint)(x, y, z, alpha)
+        val f = space.transferFunctions
+        return Matrix(space.matrixToXyz).times(f.eotf(r), f.eotf(g), f.eotf(b)) { x, y, z ->
+            XYZColorSpace(space.whitePoint)(x, y, z, alpha)
         }
     }
 
@@ -256,10 +256,10 @@ data class RGB internal constructor(
 
     // https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab
     override fun toOklab(): Oklab {
-        if (model != RGBColorSpaces.SRGB) return toXYZ().toOklab()
-        val r = model.transferFunctions.eotf(r)
-        val g = model.transferFunctions.eotf(g)
-        val b = model.transferFunctions.eotf(b)
+        if (space != RGBColorSpaces.SRGB) return toXYZ().toOklab()
+        val r = space.transferFunctions.eotf(r)
+        val g = space.transferFunctions.eotf(g)
+        val b = space.transferFunctions.eotf(b)
         val l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b
         val m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b
         val s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b
@@ -338,7 +338,7 @@ data class RGB internal constructor(
     }
 
     private inline fun <T : Color> toSRGB(space: RGBColorSpace = RGBColorSpaces.SRGB, block: RGB.() -> T): T {
-        return if (model == space) this.block() else convertTo(space).block()
+        return if (this.space == space) this.block() else convertTo(space).block()
     }
 }
 

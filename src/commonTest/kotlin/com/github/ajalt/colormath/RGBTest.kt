@@ -13,7 +13,7 @@ class RGBTest {
     fun roundtrip() {
         RGB(0.01, 0.02, 0.03, 0.04).let { it.toSRGB() shouldBeSameInstanceAs it }
         RGB(0.01, 0.02, 0.03, 0.04f).let { it.toXYZ().toSRGB().shouldEqualColor(it) }
-        LINEAR_SRGB(0.01, 0.02, 0.03, 0.04).let { it.toSRGB().convertTo(it.model).shouldEqualColor(it) }
+        LINEAR_SRGB(0.01, 0.02, 0.03, 0.04).let { it.toSRGB().convertTo(it.space).shouldEqualColor(it) }
     }
 
     @Test

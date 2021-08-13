@@ -24,7 +24,7 @@ import kotlin.math.roundToInt
  */
 @JvmInline
 value class RGBInt(val argb: UInt) : Color {
-    companion object : ColorModel<RGBInt> {
+    companion object : ColorSpace<RGBInt> {
         override val name: String get() = "RGBInt"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
         override fun convert(color: Color): RGBInt = color.toSRGB().toRGBInt()
@@ -52,7 +52,7 @@ value class RGBInt(val argb: UInt) : Color {
     )
 
     override val alpha: Float get() = (a.toFloat() / 255f)
-    override val model: ColorModel<RGBInt> get() = RGBInt
+    override val space: ColorSpace<RGBInt> get() = RGBInt
 
     /** The red component, in the range `[0, 255]` */
     val r: UByte get() = (argb shr 16).toUByte()

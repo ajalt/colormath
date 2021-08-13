@@ -1,22 +1,22 @@
 package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.Color
-import com.github.ajalt.colormath.ColorModel
+import com.github.ajalt.colormath.ColorSpace
 
-fun <T : Color> ColorModel<T>.mix(
+fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
     color2: Color,
     hueAdjustment: HueAdjustment = HueAdjustments.shorter,
 ): Color = mix(color1, .5f, color2, .5f, hueAdjustment)
 
-fun <T : Color> ColorModel<T>.mix(
+fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
     amount1: Float,
     color2: Color,
     hueAdjustment: HueAdjustment = HueAdjustments.shorter,
 ): Color = mix(color1, amount1, color2, 1f - amount1, hueAdjustment)
 
-fun <T : Color> ColorModel<T>.mix(
+fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
     color2: Color,
     amount2: Float,
@@ -36,7 +36,7 @@ fun <T : Color> ColorModel<T>.mix(
  * @param amount2 The amount of [color2] to mix. A fraction in `[0, 1]`. If omitted, defaults to `1 - amount1`
  * @param hueAdjustment An optional adjustment to the hue components of the colors, if there is one. Defaults to [HueAdjustments.shorter].
  */
-fun <T : Color> ColorModel<T>.mix(
+fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
     amount1: Float,
     color2: Color,

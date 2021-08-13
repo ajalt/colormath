@@ -22,7 +22,7 @@ import kotlin.math.pow
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
 data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
-    companion object : ColorModel<JzAzBz> {
+    companion object : ColorSpace<JzAzBz> {
         override val name: String get() = "JzAzBz"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("JAB")
         override fun convert(color: Color): JzAzBz = color.toJzAzBz()
@@ -37,7 +37,7 @@ data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: 
     constructor (j: Double, a: Double, b: Double, alpha: Float = 1f)
             : this(j.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
-    override val model: ColorModel<JzAzBz> get() = JzAzBz
+    override val space: ColorSpace<JzAzBz> get() = JzAzBz
 
     override fun toSRGB(): RGB = when (j) {
         0f -> RGB(0f, 0f, 0f, alpha)

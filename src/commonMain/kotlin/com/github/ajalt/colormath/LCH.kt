@@ -53,13 +53,13 @@ data class LCH internal constructor(
     val c: Float,
     override val h: Float,
     override val alpha: Float = 1f,
-    override val model: LCHColorSpace,
+    override val space: LCHColorSpace,
 ) : HueColor {
     companion object : LCHColorSpace by LCH65
 
     override fun toSRGB(): RGB = toLAB().toSRGB()
     override fun toXYZ(): XYZ = toLAB().toXYZ()
-    override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LABColorSpace(model.whitePoint)(l, a, b, alpha) }
+    override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LABColorSpace(space.whitePoint)(l, a, b, alpha) }
     override fun toLCH(): LCH = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
 }
