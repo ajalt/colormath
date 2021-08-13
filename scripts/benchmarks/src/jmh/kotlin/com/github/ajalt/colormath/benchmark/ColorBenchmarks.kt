@@ -42,8 +42,8 @@ open class ColorBenchmarks {
     }
 
     @Benchmark
-    open fun rgbToLch(): LCH {
-        return RGB(0.3f, 0.4f, 0.6f).toLCH()
+    open fun rgbToLch(): LCHab {
+        return RGB(0.3f, 0.4f, 0.6f).toLCHab()
     }
 
     @Benchmark
