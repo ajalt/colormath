@@ -43,11 +43,11 @@ val XYZ50: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D50)
  *
  * [XYZ] is calculated relative to a [given][space] [whitePoint], which defaults to [Illuminant.D65].
  *
- * | Component  | sRGB D65 Range |
- * | ---------- | -------------- |
- * | [x]        | `[0, 0.96]`    |
- * | [y]        | `[0, 1]`       |
- * | [z]        | `[0, 1.09]`    |
+ * | Component  | Range    |
+ * | ---------- | -------- |
+ * | [x]        | `[0, 1]` |
+ * | [y]        | `[0, 1]` |
+ * | [z]        | `[0, 1]` |
  */
 data class XYZ internal constructor(
     val x: Float,

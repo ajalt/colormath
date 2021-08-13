@@ -10,11 +10,11 @@ import kotlin.math.pow
  *
  *  This color space is always calculated relative to [Illuminant.D65].
  *
- * | Component  | Description | sRGB Range        |
- * | ---------- | ----------- | ----------------- |
- * | [j]        | lightness   | `[0, 0.017]`      |
- * | [a]        | green/red   | `[-0.016, 0.017]` |
- * | [b]        | blue/yellow | `[-0.025, 0.021]` |
+ * | Component  | Description | sRGB Range |
+ * | ---------- | ----------- | ---------- |
+ * | [j]        | lightness   | `[0, 1]`   |
+ * | [a]        | green/red   | `[-1, 1]`  |
+ * | [b]        | blue/yellow | `[-1, 1]`  |
  *
  * #### Reference
  *

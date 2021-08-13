@@ -44,11 +44,11 @@ val LUV50: LUVColorSpace = LUVColorSpaceImpl(Illuminant.D50)
  *
  * [LUV] is calculated relative to a [given][space] [whitePoint], which defaults to [Illuminant.D65].
  *
- * | Component  | Description  | sRGB D65 Range |
- * | ---------- | ------------ | -------------- |
- * | [l]        | lightness    | `[0, 100]`     |
- * | [u]        |              | `[-100, 100]`  |
- * | [v]        |              | `[-100, 100]`  |
+ * | Component  | Description  | Range         |
+ * | ---------- | ------------ | ------------- |
+ * | [l]        | lightness    | `[0, 100]`    |
+ * | [u]        |              | `[-100, 100]` |
+ * | [v]        |              | `[-100, 100]` |
  */
 data class LUV internal constructor(
     val l: Float,

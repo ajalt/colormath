@@ -7,11 +7,11 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
 /**
  * The JzCzHz color model, the cylindrical representation of [JzAzBz].
  *
- * | Component  | Description  | sRGB Range   |
- * | ---------- | ------------ | ------------ |
- * | [j]        | lightness    | `[0, 0.017]` |
- * | [c]        | chroma       | `[0, 0.025]` |
- * | [h]        | hue, degrees | `[0, 360)`   |
+ * | Component  | Description  | Range      |
+ * | ---------- | ------------ | -----------|
+ * | [j]        | lightness    | `[0, 1]`   |
+ * | [c]        | chroma       | `[-1, 1]`  |
+ * | [h]        | hue, degrees | `[0, 360)` |
  */
 data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorSpace<JzCzHz> {

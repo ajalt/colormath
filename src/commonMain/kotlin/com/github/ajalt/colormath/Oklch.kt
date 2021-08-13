@@ -7,11 +7,11 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
 /**
  * Oklch color model, the cylindrical representation of [Oklab].
  *
- * | Component  | Description  | sRGB Range  |
- * | ---------- | ------------ | ----------- |
- * | [l]        | lightness    | `[0, 1]`     |
- * | [c]        | chroma       | `[0, 0.33]` |
- * | [h]        | hue, degrees | `[0, 360)`  |
+ * | Component  | Description  | Range      |
+ * | ---------- | ------------ | ---------- |
+ * | [l]        | lightness    | `[0, 1]`   |
+ * | [c]        | chroma       | `[0, 1]`   |
+ * | [h]        | hue, degrees | `[0, 360)` |
  */
 data class Oklch(val l: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorSpace<Oklch> {

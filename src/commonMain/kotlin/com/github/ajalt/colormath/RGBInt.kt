@@ -16,7 +16,7 @@ import kotlin.math.roundToInt
  *
  * You can destructure this class into [r], [g], [b], and [a] components: `val (r, g, b, a) = RGBInt(0xaa112233u)`
  *
- * | Component  | Description | sRGB Range |
+ * | Component  | Description | Range      |
  * | ---------- | ----------- | ---------- |
  * | [r]        | red         | `[0, 255]` |
  * | [g]        | green       | `[0, 255]` |

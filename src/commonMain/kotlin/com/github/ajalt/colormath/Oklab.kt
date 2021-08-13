@@ -9,11 +9,11 @@ import com.github.ajalt.colormath.internal.toPolarModel
  *
  * This color space is always calculated relative to [Illuminant.D65].
  *
- * | Component  | Description | sRGB Range      |
- * | ---------- | ----------- | --------------- |
- * | [l]        | lightness   | `[0, 1]`        |
- * | [a]        | green/red   | `[-0.23, 0.28]` |
- * | [b]        | blue/yellow | `[-0.31, 0.20]` |
+ * | Component  | Description | Range     |
+ * | ---------- | ----------- | --------- |
+ * | [l]        | lightness   | `[0, 1]`  |
+ * | [a]        | green/red   | `[-1, 1]` |
+ * | [b]        | blue/yellow | `[-1, 1]` |
  */
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     companion object : ColorSpace<Oklab> {

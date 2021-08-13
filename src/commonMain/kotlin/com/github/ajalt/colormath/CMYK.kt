@@ -8,12 +8,12 @@ import com.github.ajalt.colormath.internal.withValidComps
  *
  * Conversions to and from this model use the device-independent ("naive") formulas.
  *
- * | Component  | Description | sRGB Range |
- * | ---------- | ----------- | ---------- |
- * | [c]        | cyan        | `[0, 1]`   |
- * | [m]        | magenta     | `[0, 1]`   |
- * | [y]        | yellow      | `[0, 1]`   |
- * | [k]        | key / black | `[0, 1]`   |
+ * | Component  | Description | Range    |
+ * | ---------- | ----------- | -------- |
+ * | [c]        | cyan        | `[0, 1]` |
+ * | [m]        | magenta     | `[0, 1]` |
+ * | [y]        | yellow      | `[0, 1]` |
+ * | [k]        | key / black | `[0, 1]` |
  */
 data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override val alpha: Float = 1f) : Color {
     companion object : ColorSpace<CMYK> {

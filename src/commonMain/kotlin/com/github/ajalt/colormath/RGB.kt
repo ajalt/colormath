@@ -136,11 +136,11 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
  * LINEAR_SRGB(0.1, 0.2, 0.3)
  * ```
  *
- * | Component  | Description |
- * | ---------- | ----------- |
- * | [r]        | red         |
- * | [g]        | green       |
- * | [b]        | blue        |
+ * | Component  | Description | Range    |
+ * | ---------- | ----------- | -------- |
+ * | [r]        | red         | `[0, 1]` |
+ * | [g]        | green       | `[0, 1]` |
+ * | [b]        | blue        | `[0, 1]` |
  */
 data class RGB internal constructor(
     val r: Float,
