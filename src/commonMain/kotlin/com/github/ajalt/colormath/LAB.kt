@@ -44,7 +44,7 @@ val LAB50: LABColorSpace = LABColorSpaceImpl(Illuminant.D50)
 /**
  * CIE LAB color space, also referred to as `CIE 1976 L*a*b*`.
  *
- * The cylindrical representation of this space is [LCH].
+ * The cylindrical representation of this space is [LCHab].
  *
  * [LAB] is calculated relative to a [given][space] [whitePoint], which defaults to [Illuminant.D65].
  *
@@ -85,7 +85,7 @@ data class LAB internal constructor(
         return xyzSpace(xr * wp.X, yr * wp.Y, zr * wp.Z, alpha)
     }
 
-    override fun toLCH(): LCH = toPolarModel(a, b) { c, h -> LCHColorSpace(space.whitePoint)(l, c, h, alpha) }
+    override fun toLCHab(): LCHab = toPolarModel(a, b) { c, h -> LCHabColorSpace(space.whitePoint)(l, c, h, alpha) }
     override fun toLAB(): LAB = this
 
     override fun toArray(): FloatArray = floatArrayOf(l, a, b, alpha)

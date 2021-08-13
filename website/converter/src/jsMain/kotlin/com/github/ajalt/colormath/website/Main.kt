@@ -64,7 +64,7 @@ fun main() {
                 })
             }
             row(RGB, intScale = 255)
-            listOf(HSL, HSV, HWB, LAB, LCH, LUV, HCL, XYZ, Oklab, Oklch, CMYK).forEach { row(it) }
+            listOf(HSL, HSV, HWB, LAB, LCHab, LUV, HCL, XYZ, Oklab, Oklch, CMYK).forEach { row(it) }
             row(Ansi16, intScale = 1)
             row(Ansi256, intScale = 1)
 

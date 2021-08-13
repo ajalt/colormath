@@ -117,20 +117,20 @@ class TransformTest {
     @Test
     fun mix() {
         // Specifying colors manually since the W3 examples use the old bradford adaptation
-        val purple = LCH50(29.6920, 66.8302, 327.1094)
-        val plum = LCH50(73.3321, 37.6076, 324.5817)
-        val mixed = LCH50(51.51, 52.21, 325.8)
+        val purple = LCHab50(29.6920, 66.8302, 327.1094)
+        val plum = LCHab50(73.3321, 37.6076, 324.5817)
+        val mixed = LCHab50(51.51, 52.21, 325.8)
         forAll(
-            row(LCH50.mix(purple, .5f, plum, .5f), mixed),
-            row(LCH50.mix(purple, .5f, plum), mixed),
-            row(LCH50.mix(purple, plum, .5f), mixed),
-            row(LCH50.mix(purple, plum), mixed),
-            row(LCH50.mix(plum, purple), mixed),
-            row(LCH50.mix(purple, .8f, plum, .8f), mixed),
-            row(LCH50.mix(purple, .3f, plum, .3f), LCH50(51.51, 52.21, 325.8, 0.6)),
-            row(LCH50.mix(LCH50(62.253, 54.011, 63.677), .4f, LCH50(91.374, 31.406, 98.834)),
-                LCH50(79.7256, 40.448, 84.771)),
-            row(LCH50.mix(LCH50(50f, 50f, 60f), LCH50(50f, 50f, 0f), HueAdjustments.longer), LCH50(50f, 50f, 210f))
+            row(LCHab50.mix(purple, .5f, plum, .5f), mixed),
+            row(LCHab50.mix(purple, .5f, plum), mixed),
+            row(LCHab50.mix(purple, plum, .5f), mixed),
+            row(LCHab50.mix(purple, plum), mixed),
+            row(LCHab50.mix(plum, purple), mixed),
+            row(LCHab50.mix(purple, .8f, plum, .8f), mixed),
+            row(LCHab50.mix(purple, .3f, plum, .3f), LCHab50(51.51, 52.21, 325.8, 0.6)),
+            row(LCHab50.mix(LCHab50(62.253, 54.011, 63.677), .4f, LCHab50(91.374, 31.406, 98.834)),
+                LCHab50(79.7256, 40.448, 84.771)),
+            row(LCHab50.mix(LCHab50(50f, 50f, 60f), LCHab50(50f, 50f, 0f), HueAdjustments.longer), LCHab50(50f, 50f, 210f))
         ) { actual, ex ->
             actual.shouldEqualColor(ex, 0.1)
         }

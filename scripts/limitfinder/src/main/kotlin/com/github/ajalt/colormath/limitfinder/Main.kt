@@ -6,7 +6,7 @@ fun main() {
     val models = listOf(
         HCL,
         LAB,
-        LCH,
+        LCHab,
         LUV,
         Oklab,
         Oklch,
