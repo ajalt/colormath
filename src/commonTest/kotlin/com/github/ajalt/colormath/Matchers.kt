@@ -18,6 +18,17 @@ fun <T : Color, U : Color> testColorConversions(
     }
 }
 
+fun <T : Color> roundtripTest(vararg colors: T, intermediate: ColorSpace<*> = SRGB) {
+    val rows = colors.flatMap { listOf(row(it, "self"), row(it, "intermediate"), row(it, "array")) }
+    forAll(*rows.toTypedArray()) { it, case ->
+        when (case) {
+            "self" -> it.space.convert(it).shouldEqualColor(it)
+            "intermediate" -> it.space.convert(intermediate.convert(it)).shouldEqualColor(it)
+            "array" -> it.space.create(it.toArray()).shouldEqualColor(it)
+        }
+    }
+}
+
 fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4, ignorePolar: Boolean = false) {
     try {
         this::class shouldBe expected::class

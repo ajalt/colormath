@@ -1,15 +1,14 @@
 package com.github.ajalt.colormath
 
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class JzAzBzTest {
     @Test
-    fun roundtrip() {
-        JzAzBz(0.01, 0.011, 0.012, 0.04).let { it.toJzAzBz() shouldBeSameInstanceAs it }
-        JzAzBz(0.01, 0.011, 0.012, 0.04f).let { it.toSRGB().toJzAzBz().shouldEqualColor(it) }
-    }
+    fun roundtrip() = roundtripTest(
+        JzAzBz(0.01, 0.011, 0.012, 0.04),
+        JzAzBz(0.01, 0.011, 0.012, 0.04f),
+    )
 
     @Test
     @JsName("JzAzBz_to_XYZ")

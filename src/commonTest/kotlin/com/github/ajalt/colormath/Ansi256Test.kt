@@ -1,15 +1,11 @@
 package com.github.ajalt.colormath
 
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class Ansi256Test {
     @Test
-    fun roundtrip() {
-        Ansi256(30).let { it.toAnsi256() shouldBeSameInstanceAs it }
-        Ansi256(31).let { it.toSRGB().toAnsi256().shouldEqualColor(it) }
-    }
+    fun roundtrip() = roundtripTest(Ansi256(30))
 
     @Test
     @JsName("Ansi256_to_RGB")

@@ -2,16 +2,15 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.CAT02_LMS_TO_XYZ
 import com.github.ajalt.colormath.internal.CAT02_XYZ_TO_LMS
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class XYZTest {
     @Test
-    fun roundtrip() {
-        XYZ(0.01, 0.02, 0.03, 0.04).let { it.toXYZ() shouldBeSameInstanceAs it }
-        XYZ(0.01, 0.02, 0.03, 0.04f).let { it.toSRGB().toXYZ().shouldEqualColor(it) }
-    }
+    fun roundtrip() = roundtripTest(
+        XYZ(0.01, 0.02, 0.03, 0.04),
+        XYZ(0.01, 0.02, 0.03, 0.04f),
+    )
 
     @Test
     @JsName("XYZ_to_RGB")
@@ -51,7 +50,9 @@ class XYZTest {
         XYZ(1.00, 1.00, 1.00) to Oklab(1.00324405, 0.02673522, 0.0147436),
         XYZ(0.18, 0.18, 0.18).adaptTo(XYZ50) to Oklab(0.56645328, 0.01509528, 0.00832456),
         XYZ(0.18, 0.18, 0.18).adaptTo(XYZ50, CAT02_XYZ_TO_LMS.rowMajor) to Oklab(0.56645328, 0.01509528, 0.00832456),
-        XYZ(0.18, 0.18, 0.18).adaptTo(XYZ50, CAT02_XYZ_TO_LMS.rowMajor, CAT02_LMS_TO_XYZ.rowMajor) to Oklab(0.56645328, 0.01509528, 0.00832456),
+        XYZ(0.18, 0.18, 0.18).adaptTo(XYZ50, CAT02_XYZ_TO_LMS.rowMajor, CAT02_LMS_TO_XYZ.rowMajor) to Oklab(0.56645328,
+            0.01509528,
+            0.00832456),
     )
 
     @Test

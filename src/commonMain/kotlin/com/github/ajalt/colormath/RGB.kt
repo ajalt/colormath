@@ -3,8 +3,8 @@ package com.github.ajalt.colormath
 import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.internal.Matrix
 import com.github.ajalt.colormath.internal.cbrt
-import com.github.ajalt.colormath.internal.spow
 import com.github.ajalt.colormath.internal.dot
+import com.github.ajalt.colormath.internal.spow
 import kotlin.math.roundToInt
 
 
@@ -236,9 +236,10 @@ data class RGB internal constructor(
 
     override fun toCMYK(): CMYK = toSRGB {
         val k = 1 - maxOf(r, b, g)
-        val c = if (k == 1f) 0f else (1 - r - k) / (1 - k)
-        val m = if (k == 1f) 0f else (1 - g - k) / (1 - k)
-        val y = if (k == 1f) 0f else (1 - b - k) / (1 - k)
+        if (k == 1f) return CMYK(0f, 0f, 0f, k, alpha)
+        val c = (1 - r - k) / (1 - k)
+        val m = (1 - g - k) / (1 - k)
+        val y = (1 - b - k) / (1 - k)
         return CMYK(c, m, y, k, alpha)
     }
 

@@ -1,15 +1,14 @@
 package com.github.ajalt.colormath
 
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class HSLTest {
     @Test
-    fun roundtrip() {
-        HSL(0.01, 0.02, 0.03, 0.04).let { it.toHSL() shouldBeSameInstanceAs it }
-        HSL(0.01, 0.02, 0.03, 0.04f).let { it.toSRGB().toHSL().shouldEqualColor(it) }
-    }
+    fun roundtrip() = roundtripTest(
+        HSL(0.01, 0.02, 0.03, 0.04),
+        HSL(0.01, 0.02, 0.03, 0.04f),
+    )
 
     @Test
     @JsName("HSL_to_RGB")

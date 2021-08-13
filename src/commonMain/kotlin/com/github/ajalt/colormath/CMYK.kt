@@ -29,7 +29,7 @@ data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override
             : this(c.toFloat(), m.toFloat(), y.toFloat(), k.toFloat(), alpha.toFloat())
 
     /**
-     * Construct a CMYK instance from Int values, with the the color channels as percentages in the range `[0, 100]`.
+     * Construct a CMYK instance from Int values, with the color channels as percentages in the range `[0, 100]`.
      */
     constructor(c: Int, m: Int, y: Int, k: Int, alpha: Float = 1f)
             : this(c / 100f, m / 100f, y / 100f, k / 100f, alpha)
