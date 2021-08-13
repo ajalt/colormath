@@ -19,7 +19,7 @@ fun main() {
     var colors by mutableStateOf(listOf(RGB(0.0, 0.0, 0.5), Color.parse("aliceblue")))
 
     @Composable
-    fun row(model: ColorModel<*>) {
+    fun row(space: ColorSpace<*>) {
         Div(attrs = {
             style {
                 display(DisplayStyle.Flex)
@@ -33,7 +33,7 @@ fun main() {
                 style {
                     width(5.em)
                 }
-            }) { Text(model.name) }
+            }) { Text(space.name) }
             Canvas(attrs = {
                 this.attr("width", "600")
                 this.attr("height", "50")
@@ -42,7 +42,7 @@ fun main() {
                     borderRadius(4.px)
                 }
             }) {
-                DomSideEffect(colors) { updateCanvas(it, model.convert(colors[0]), model.convert(colors[1])) }
+                DomSideEffect(colors) { updateCanvas(it, space.convert(colors[0]), space.convert(colors[1])) }
             }
         }
     }
@@ -59,8 +59,8 @@ fun main() {
         }) {
             for ((i, color) in colors.withIndex()) {
                 Div {
-                    for (j in 0 until color.model.components.lastIndex) {
-                        val component = color.model.components[j]
+                    for (j in 0 until color.space.components.lastIndex) {
+                        val component = color.space.components[j]
                         val value = color.toArray()[j]
                         Div(attrs = {
                             style {
@@ -78,7 +78,7 @@ fun main() {
                                     attrs = {
                                         onInput {
                                             val array = color.toArray().apply { set(j, (it.value ?: 0).toFloat()) }
-                                            val new = color.model.create(array)
+                                            val new = color.space.create(array)
                                             colors = if (i == 0) listOf(new, colors[1]) else listOf(colors[0], new)
                                         }
                                     })
@@ -94,7 +94,7 @@ fun main() {
 }
 
 private fun updateCanvas(canvas: HTMLCanvasElement, color1: Color, color2: Color) {
-    val lerp = color1.model.interpolator(color1, color2)
+    val lerp = color1.space.interpolator(color1, color2)
     canvas.edit2dImageData {
         // draw the first row
         for (x in 0 until width) {

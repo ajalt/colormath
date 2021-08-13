@@ -16,7 +16,7 @@ import kotlin.math.roundToInt
  * | [b]        | blackness    | `[0, 1]`   |
  */
 data class HWB(override val h: Float, val w: Float, val b: Float, override val alpha: Float = 1f) : Color, HueColor {
-    companion object : ColorModel<HWB> {
+    companion object : ColorSpace<HWB> {
         override val name: String get() = "HWB"
         override val components: List<ColorComponentInfo> = polarComponentInfo("HWB")
         override fun convert(color: Color): HWB = color.toHWB()
@@ -29,7 +29,7 @@ data class HWB(override val h: Float, val w: Float, val b: Float, override val a
     constructor(h: Double, w: Double, b: Double, alpha: Float = 1.0f)
             : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha)
 
-    override val model: ColorModel<HWB> get() = HWB
+    override val space: ColorSpace<HWB> get() = HWB
 
     override fun toSRGB(): RGB {
         // Algorithm from Smith and Lyons, http://alvyray.com/Papers/CG/HWB_JGTv208.pdf, Appendix B

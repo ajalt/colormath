@@ -2,10 +2,10 @@ package com.github.ajalt.colormath.internal
 
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
-import com.github.ajalt.colormath.ColorModel
+import com.github.ajalt.colormath.ColorSpace
 
 
-internal inline fun <T : Color> ColorModel<T>.withValidComps(components: FloatArray, block: (FloatArray) -> T): T {
+internal inline fun <T : Color> ColorSpace<T>.withValidComps(components: FloatArray, block: (FloatArray) -> T): T {
     val size = this.components.size
     require(components.size in (size - 1)..size) {
         "Invalid component array length: ${components.size}, expected ${size - 1} or $size"
@@ -13,7 +13,7 @@ internal inline fun <T : Color> ColorModel<T>.withValidComps(components: FloatAr
     return block(components)
 }
 
-internal inline fun <T : Color> ColorModel<T>.doCreate(
+internal inline fun <T : Color> ColorSpace<T>.doCreate(
     components: FloatArray,
     init: (Float, Float, Float, Float) -> T,
 ): T {

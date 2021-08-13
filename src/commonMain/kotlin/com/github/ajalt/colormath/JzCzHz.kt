@@ -14,7 +14,7 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * | [h]        | hue, degrees | `[0, 360)`   |
  */
 data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
-    companion object : ColorModel<JzCzHz> {
+    companion object : ColorSpace<JzCzHz> {
         override val name: String get() = "JzCzHz"
         override val components: List<ColorComponentInfo> = polarComponentInfo("JCH")
         override fun convert(color: Color): JzCzHz = color.toJzCzHz()
@@ -27,7 +27,7 @@ data class JzCzHz(val j: Float, val c: Float, override val h: Float, override va
     constructor(l: Double, c: Double, h: Double, alpha: Float = 1.0f)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 
-    override val model: ColorModel<JzCzHz> get() = JzCzHz
+    override val space: ColorSpace<JzCzHz> get() = JzCzHz
 
     override fun toSRGB(): RGB = when (j) {
         0f -> RGB(0f, 0f, 0f, alpha)

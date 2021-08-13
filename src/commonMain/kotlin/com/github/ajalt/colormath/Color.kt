@@ -7,8 +7,7 @@ package com.github.ajalt.colormath
  * correct format.
  *
  * Note that there is not a direct conversion between every pair of representations. In those cases,
- * the values may be converted through one or more intermediate representations. This may cause a
- * loss of precision.
+ * the values may be converted through one or more intermediate representations.
  *
  * All colors have an [alpha] value, which is the opacity of the color as a fraction between 0 and 1.
  * If a model doesn't support an alpha channel, the value 1 (fully opaque) is used.
@@ -17,8 +16,8 @@ interface Color {
     /** The opacity of this color, in the range `[0, 1]` */
     val alpha: Float
 
-    /** The model describing this color */
-    val model: ColorModel<*>
+    /** The color space describing this color */
+    val space: ColorSpace<*>
 
     /** Convert this color to [sRGB][RGBColorSpaces.SRGB] */
     fun toSRGB(): RGB
@@ -75,6 +74,6 @@ interface Color {
 }
 
 /**
- * Convert this color to a given [model].
+ * Convert this color to a given [space].
  */
-fun <T : Color> Color.convertTo(model: ColorModel<T>): T = model.convert(this)
+fun <T : Color> Color.convertTo(space: ColorSpace<T>): T = space.convert(this)

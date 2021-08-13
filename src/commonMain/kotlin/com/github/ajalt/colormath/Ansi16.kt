@@ -23,7 +23,7 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | white  | 37         | 47         | 97        | 107       |
  */
 data class Ansi16(val code: Int) : Color {
-    companion object : ColorModel<Ansi16> {
+    companion object : ColorSpace<Ansi16> {
         override val name: String get() = "Ansi16"
         override val components: List<ColorComponentInfo> = componentInfoList(
             ColorComponentInfo("code", false),
@@ -36,7 +36,7 @@ data class Ansi16(val code: Int) : Color {
     }
 
     override val alpha: Float get() = 1f
-    override val model: ColorModel<Ansi16> get() = Ansi16
+    override val space: ColorSpace<Ansi16> get() = Ansi16
 
     override fun toSRGB(): RGB {
         // grayscale

@@ -17,7 +17,7 @@ class TransformTest {
         row(RGB(0, 0, 0), RGB(254, 254, 254).toXYZ(), 1f, RGB(254, 254, 254)),
     ) { c1, c2, a, ex ->
         c1.interpolate(c2, a).shouldEqualColor(ex)
-        c1.model.interpolator(c1, c2).interpolate(a).shouldEqualColor(ex)
+        c1.space.interpolator(c1, c2).interpolate(a).shouldEqualColor(ex)
     }
 
     @Test

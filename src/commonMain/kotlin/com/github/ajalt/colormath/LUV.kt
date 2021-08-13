@@ -42,7 +42,7 @@ val LUV50: LUVColorSpace = LUVColorSpaceImpl(Illuminant.D50)
 /**
  * The CIE LUV color space, also referred to as `CIE 1976 L*u*v*`.
  *
- * [LUV] is calculated relative to a [given][model] [whitePoint], which defaults to [Illuminant.D65].
+ * [LUV] is calculated relative to a [given][space] [whitePoint], which defaults to [Illuminant.D65].
  *
  * | Component  | Description  | sRGB D65 Range |
  * | ---------- | ------------ | -------------- |
@@ -55,7 +55,7 @@ data class LUV internal constructor(
     val u: Float,
     val v: Float,
     override val alpha: Float = 1f,
-    override val model: LUVColorSpace,
+    override val space: LUVColorSpace,
 ) : Color {
     companion object : LUVColorSpace by LUV65 {
         /** Create a new `LUV` color space that will be calculated relative to the given [whitePoint] */
@@ -72,11 +72,11 @@ data class LUV internal constructor(
     }
 
     override fun toXYZ(): XYZ {
-        val xyzSpace = XYZColorSpace(model.whitePoint)
+        val xyzSpace = XYZColorSpace(space.whitePoint)
         // http://www.brucelindbloom.com/Eqn_Luv_to_XYZ.html
         if (l == 0f) return xyzSpace(0.0f, 0.0f, 0.0f)
 
-        val wp = model.whitePoint.chromaticity
+        val wp = space.whitePoint.chromaticity
         val denominator0 = wp.X + 15 * wp.Y + 3 * wp.Z
         val u0 = 4 * wp.X / denominator0
         val v0 = 9 * wp.Y / denominator0

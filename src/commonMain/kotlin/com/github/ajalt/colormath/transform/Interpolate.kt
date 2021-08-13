@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.Color
-import com.github.ajalt.colormath.ColorModel
+import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.internal.normalizeDeg
 import kotlin.math.truncate
 
@@ -10,18 +10,18 @@ fun <T : Color> T.interpolate(
     amount: Float,
     premultiplyAlpha: Boolean = true,
     hueAdjustment: HueAdjustment = HueAdjustments.shorter,
-): T = map { model, components ->
-    val lmult = mult(model, premultiplyAlpha, components)
-    val rmult = mult(model, premultiplyAlpha, model.convert(other).toArray())
-    adjHue(model, lmult, rmult, hueAdjustment)
-    interpolateComponents(lmult, rmult, FloatArray(components.size), amount, premultiplyAlpha, model)
+): T = map { space, components ->
+    val lmult = mult(space, premultiplyAlpha, components)
+    val rmult = mult(space, premultiplyAlpha, space.convert(other).toArray())
+    adjHue(space, lmult, rmult, hueAdjustment)
+    interpolateComponents(lmult, rmult, FloatArray(components.size), amount, premultiplyAlpha, space)
 }
 
-fun <T : Color> ColorModel<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
+fun <T : Color> ColorSpace<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
     return InterpolatorBuilderImpl(this).apply(builder).build()
 }
 
-fun <T : Color> ColorModel<T>.interpolator(vararg stops: Color, premultiplyAlpha: Boolean = true): Interpolator<T> {
+fun <T : Color> ColorSpace<T>.interpolator(vararg stops: Color, premultiplyAlpha: Boolean = true): Interpolator<T> {
     require(stops.size > 1) { "interpolators require at least two stops" }
     val positioned = stops.mapIndexed { i, it -> convert(it).toArray() to (i.toFloat() / stops.lastIndex) }
     return InterpolatorImpl(this, positioned, premultiplyAlpha)
@@ -56,14 +56,14 @@ fun <T : Color> Interpolator<T>.sequence(length: Int): Sequence<T> {
 //region: implementations
 
 private class InterpolatorImpl<T : Color>(
-    private val model: ColorModel<T>,
+    private val space: ColorSpace<T>,
     private val stops: List<Pair<FloatArray, Float>>,
     private val premultiplyAlpha: Boolean,
 ) : Interpolator<T> {
-    private val out = FloatArray(model.components.size)
+    private val out = FloatArray(space.components.size)
 
     override fun interpolate(position: Float): T {
-        return model.create(lerpComponents(position))
+        return space.create(lerpComponents(position))
     }
 
     private fun lerpComponents(pos: Float): FloatArray {
@@ -77,18 +77,18 @@ private class InterpolatorImpl<T : Color>(
 
         val (lc, lp) = stops[start]
         val (rc, rp) = stops[end]
-        return interpolateComponents(lc, rc, out, (pos - lp) / (rp - lp), premultiplyAlpha, model)
+        return interpolateComponents(lc, rc, out, (pos - lp) / (rp - lp), premultiplyAlpha, space)
     }
 
     private fun normHue(components: FloatArray): FloatArray {
-        if (model.components.none { it.isPolar }) return components
+        if (space.components.none { it.isPolar }) return components
         return FloatArray(components.size) { i ->
-            if (model.components[i].isPolar) components[i].normalizeDeg() else components[i]
+            if (space.components[i].isPolar) components[i].normalizeDeg() else components[i]
         }
     }
 }
 
-private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T>) : InterpolatorBuilder {
+private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T>) : InterpolatorBuilder {
     override var premultiplyAlpha: Boolean = true
     override var hueAdjustment: HueAdjustment = HueAdjustments.shorter
 
@@ -130,7 +130,7 @@ private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T
 
         val out = bakeComponents()
         adjustHues(out)
-        return InterpolatorImpl(model, out, premultiplyAlpha)
+        return InterpolatorImpl(space, out, premultiplyAlpha)
     }
 
     // step 1
@@ -191,14 +191,14 @@ private class InterpolatorBuilderImpl<T : Color>(private val model: ColorModel<T
     private fun bakeComponents(): List<Pair<FloatArray, Float>> {
         // precondition: all entries have colors and positions
         return entries.map { (c, p) ->
-            mult(model, premultiplyAlpha, model.convert(c!!).toArray()) to p!!
+            mult(space, premultiplyAlpha, space.convert(c!!).toArray()) to p!!
         }
     }
 
     private fun adjustHues(entries: List<Pair<FloatArray, Float>>) {
-        if (model.components.none { it.isPolar }) return
+        if (space.components.none { it.isPolar }) return
         for (j in 0 until entries.lastIndex) {
-            adjHue(model, entries[j].first, entries[j + 1].first, hueAdjustment)
+            adjHue(space, entries[j].first, entries[j + 1].first, hueAdjustment)
         }
     }
 }
@@ -209,33 +209,33 @@ private fun interpolateComponents(
     out: FloatArray,
     amount: Float,
     divideAlpha: Boolean,
-    model: ColorModel<*>,
+    space: ColorSpace<*>,
 ): FloatArray {
     for (i in out.indices) {
         out[i] = lerp(l[i], r[i], amount)
-        if (model.components[i].isPolar) out[i] = out[i].normalizeDeg()
+        if (space.components[i].isPolar) out[i] = out[i].normalizeDeg()
     }
-    return div(model, divideAlpha, out)
+    return div(space, divideAlpha, out)
 }
 
-private fun mult(model: ColorModel<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
-    if (premultiplyAlpha) multiplyAlphaInPlace(model, components)
+private fun mult(space: ColorSpace<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
+    if (premultiplyAlpha) multiplyAlphaInPlace(space, components)
     return components
 }
 
-private fun div(model: ColorModel<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
-    if (premultiplyAlpha) divideAlphaInPlace(model, components)
+private fun div(space: ColorSpace<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
+    if (premultiplyAlpha) divideAlphaInPlace(space, components)
     return components
 }
 
 private fun adjHue(
-    model: ColorModel<*>,
+    space: ColorSpace<*>,
     lcomp: FloatArray,
     rcomp: FloatArray,
     hueAdjustment: HueAdjustment,
 ) {
-    for (i in model.components.indices) {
-        if (!model.components[i].isPolar) continue
+    for (i in space.components.indices) {
+        if (!space.components[i].isPolar) continue
         val l = lcomp[i]
         val r = rcomp[i]
         val (ll, rr) = hueAdjustment(l.normalizeDeg(), r.normalizeDeg())
