@@ -88,7 +88,7 @@ data class XYZ internal constructor(
     private fun adaptToM(space: XYZColorSpace, m: Matrix, mi: Matrix): XYZ {
         if (space.whitePoint == this.space.whitePoint) return this
         val transform = space.chromaticAdaptationMatrix(this.space.whitePoint.chromaticity, m, mi)
-        return transform.times(x, y, z) { xx, yy, zz -> space(xx, yy, zz, alpha) }
+        return transform.dot(x, y, z) { xx, yy, zz -> space(xx, yy, zz, alpha) }
     }
 
     /**
@@ -97,7 +97,7 @@ data class XYZ internal constructor(
     fun toRGB(space: RGBColorSpace): RGB {
         val (x, y, z) = adaptTo(XYZColorSpace(space.whitePoint))
         val f = space.transferFunctions
-        return Matrix(space.matrixFromXyz).times(x, y, z) { r, g, b ->
+        return Matrix(space.matrixFromXyz).dot(x, y, z) { r, g, b ->
             space(f.oetf(r), f.oetf(g), f.oetf(b), alpha)
         }
     }
@@ -209,7 +209,7 @@ internal fun XYZColorSpace.chromaticAdaptationMatrix(
     lmsToXyz: Matrix = CAT02_LMS_TO_XYZ,
 ): Matrix {
     val dstWp = this.whitePoint.chromaticity
-    val src = xyzToLms.times(srcWp.X, srcWp.Y, srcWp.Z)
-    val dst = xyzToLms.times(dstWp.X, dstWp.Y, dstWp.Z)
-    return lmsToXyz.timesDiagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s) * xyzToLms
+    val src = xyzToLms.dot(srcWp.X, srcWp.Y, srcWp.Z)
+    val dst = xyzToLms.dot(dstWp.X, dstWp.Y, dstWp.Z)
+    return lmsToXyz.dotDiagonal(dst.l / src.l, dst.m / src.m, dst.s / src.s).dot(xyzToLms)
 }

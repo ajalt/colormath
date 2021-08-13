@@ -361,7 +361,7 @@ private fun rgbToXyzMatrix(whitePoint: WhitePoint, r: xyY, g: xyY, b: xyY): Matr
         r.z, g.z, b.z,
     )
     val wp = whitePoint.chromaticity
-    return primaries.inverse().times(wp.X, wp.Y, wp.Z) { x, y, z ->
-        primaries.timesDiagonal(x, y, z)
+    return primaries.inverse().dot(wp.X, wp.Y, wp.Z) { x, y, z ->
+        primaries.dotDiagonal(x, y, z)
     }
 }

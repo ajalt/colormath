@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.Matrix
-import com.github.ajalt.colormath.internal.times
+import com.github.ajalt.colormath.internal.dot
 
 
 /**
@@ -30,7 +30,7 @@ private class RGBToRGBConverterImpl(
         require(rgb.space === src) { "invalid rgb space: ${rgb.space}, expected $src" }
         val fsrc = src.transferFunctions
         val fdst = dst.transferFunctions
-        return transform.times(fsrc.eotf(rgb.r), fsrc.eotf(rgb.g), fsrc.eotf(rgb.b)) { rr, gg, bb ->
+        return transform.dot(fsrc.eotf(rgb.r), fsrc.eotf(rgb.g), fsrc.eotf(rgb.b)) { rr, gg, bb ->
             dst(fdst.oetf(rr), fdst.oetf(gg), fdst.oetf(bb))
         }
     }
@@ -38,9 +38,9 @@ private class RGBToRGBConverterImpl(
 
 internal fun rgbToRgbMatrix(src: RGBColorSpace, dst: RGBColorSpace): Matrix {
     return if (src.whitePoint == dst.whitePoint) {
-        Matrix(dst.matrixFromXyz).times(Matrix(src.matrixToXyz))
+        Matrix(dst.matrixFromXyz).dot(Matrix(src.matrixToXyz))
     } else {
         val adaptation = XYZColorSpace(dst.whitePoint).chromaticAdaptationMatrix(src.whitePoint.chromaticity)
-        Matrix(dst.matrixFromXyz).times(adaptation).times(Matrix(src.matrixToXyz))
+        Matrix(dst.matrixFromXyz).dot(adaptation).dot(Matrix(src.matrixToXyz))
     }
 }
