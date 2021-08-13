@@ -94,7 +94,7 @@ data class LUV internal constructor(
         return xyzSpace(x, y, z, alpha)
     }
 
-    override fun toHCL(): HCL = toPolarModel(u, v) { c, h -> HCL(h, c, l, alpha) }
+    override fun toLCHuv(): LCHuv = toPolarModel(u, v) { c, h -> LCHuv(l, c, h, alpha) }
     override fun toLUV(): LUV = this
     override fun toArray(): FloatArray = floatArrayOf(l, u, v, alpha)
 }

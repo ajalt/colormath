@@ -50,7 +50,7 @@ interface Color {
     fun toLUV(): LUV = toXYZ().toLUV()
 
     /** Convert this color to CIE LCh(uv) */
-    fun toHCL(): HCL = toLUV().toHCL()
+    fun toLCHuv(): LCHuv = toLUV().toLCHuv()
 
     /** Convert this color to HWB */
     fun toHWB(): HWB = toSRGB().toHWB()
