@@ -7,10 +7,15 @@ import io.kotest.matchers.shouldBe
 
 fun <T : Color, U : Color> testColorConversions(
     vararg rows: Pair<T, U>,
-    tolerance: Double = 5e-4,
+    tolerance: Double = 5e-5,
     ignorePolar: Boolean = false,
-) = forAll(*(rows.map { row(it.first, it.second) } + rows.map { row(it.second, it.first) }).toTypedArray()) { l, r ->
-    r.model.convert(l).shouldEqualColor(r, tolerance, ignorePolar)
+    testInverse: Boolean = true,
+) {
+    val pairs = rows.map { row(it.first, it.second) }
+    val inverse = if (testInverse) rows.map { row(it.second, it.first) } else emptyList()
+    forAll(*(pairs + inverse).toTypedArray()) { l, r ->
+        r.model.convert(l).shouldEqualColor(r, tolerance, ignorePolar)
+    }
 }
 
 fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4, ignorePolar: Boolean = false) {

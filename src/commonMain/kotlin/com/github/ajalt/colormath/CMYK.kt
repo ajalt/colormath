@@ -1,6 +1,5 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import com.github.ajalt.colormath.internal.withValidComps
 

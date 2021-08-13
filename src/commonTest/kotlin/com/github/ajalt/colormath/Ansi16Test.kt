@@ -1,9 +1,5 @@
 package com.github.ajalt.colormath
 
-import io.kotest.data.blocking.forAll
-import io.kotest.data.row
-import io.kotest.matchers.should
-import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
@@ -17,48 +13,46 @@ class Ansi16Test {
 
     @Test
     @JsName("Ansi16_to_RGB")
-    fun `Ansi16 to RGB`() = forAll(
-        row(30, RGB(0, 0, 0)),
-        row(31, RGB(128, 0, 0)),
-        row(32, RGB(0, 128, 0)),
-        row(33, RGB(128, 128, 0)),
-        row(34, RGB(0, 0, 128)),
-        row(35, RGB(128, 0, 128)),
-        row(36, RGB(0, 128, 128)),
-        row(37, RGB(192, 192, 192)),
-        row(90, RGB(128, 128, 128)),
-        row(91, RGB(255, 0, 0)),
-        row(92, RGB(0, 255, 0)),
-        row(93, RGB(255, 255, 0)),
-        row(94, RGB(0, 0, 255)),
-        row(95, RGB(255, 0, 255)),
-        row(96, RGB(0, 255, 255)),
-        row(97, RGB(255, 255, 255))
-    ) { ansi, rgb ->
-        Ansi16(ansi).toSRGB().shouldEqualColor(rgb, 5e-3)
-        Ansi16(ansi + 10).toSRGB().shouldEqualColor(rgb, 5e-3)
+    fun `Ansi16 to RGB`() = listOf(
+        Ansi16(30) to RGBInt(0, 0, 0),
+        Ansi16(31) to RGBInt(128, 0, 0),
+        Ansi16(32) to RGBInt(0, 128, 0),
+        Ansi16(33) to RGBInt(128, 128, 0),
+        Ansi16(34) to RGBInt(0, 0, 128),
+        Ansi16(35) to RGBInt(128, 0, 128),
+        Ansi16(36) to RGBInt(0, 128, 128),
+        Ansi16(37) to RGBInt(192, 192, 192),
+        Ansi16(90) to RGBInt(128, 128, 128),
+        Ansi16(91) to RGBInt(255, 0, 0),
+        Ansi16(92) to RGBInt(0, 255, 0),
+        Ansi16(93) to RGBInt(255, 255, 0),
+        Ansi16(94) to RGBInt(0, 0, 255),
+        Ansi16(95) to RGBInt(255, 0, 255),
+        Ansi16(96) to RGBInt(0, 255, 255),
+        Ansi16(97) to RGBInt(255, 255, 255),
+    ).let {
+        val tests = it + it.map { (l, r) -> Ansi16(l.code + 10) to r }
+        testColorConversions(*tests.toTypedArray(), testInverse = false)
     }
 
     @Test
     @JsName("Ansi16_to_Ansi256")
-    fun `Ansi16 to Ansi256`() = forAll(
-        row(30, 0),
-        row(31, 1),
-        row(32, 2),
-        row(33, 3),
-        row(34, 4),
-        row(35, 5),
-        row(36, 6),
-        row(37, 7),
-        row(90, 8),
-        row(91, 9),
-        row(92, 10),
-        row(93, 11),
-        row(94, 12),
-        row(95, 13),
-        row(96, 14),
-        row(97, 15)
-    ) { ansi16, ansi256 ->
-        Ansi16(ansi16).toAnsi256().shouldEqualColor(Ansi256(ansi256))
-    }
+    fun `Ansi16 to Ansi256`() = testColorConversions(
+        Ansi16(30) to Ansi256(0),
+        Ansi16(31) to Ansi256(1),
+        Ansi16(32) to Ansi256(2),
+        Ansi16(33) to Ansi256(3),
+        Ansi16(34) to Ansi256(4),
+        Ansi16(35) to Ansi256(5),
+        Ansi16(36) to Ansi256(6),
+        Ansi16(37) to Ansi256(7),
+        Ansi16(90) to Ansi256(8),
+        Ansi16(91) to Ansi256(9),
+        Ansi16(92) to Ansi256(10),
+        Ansi16(93) to Ansi256(11),
+        Ansi16(94) to Ansi256(12),
+        Ansi16(95) to Ansi256(13),
+        Ansi16(96) to Ansi256(14),
+        Ansi16(97) to Ansi256(15),
+    )
 }

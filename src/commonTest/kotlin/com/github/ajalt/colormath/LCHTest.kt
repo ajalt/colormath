@@ -1,7 +1,5 @@
 package com.github.ajalt.colormath
 
-import io.kotest.data.blocking.forAll
-import io.kotest.data.row
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
@@ -16,13 +14,10 @@ class LCHTest {
 
     @Test
     @JsName("LCH_to_LAB")
-    fun `LCH to LAB`() = forAll(
-        row(LCH(0.0, 0.0, 0.0), LAB(0.0, 0.0, 0.0)),
-        row(LCH(100.0, 0.0, 0.0), LAB(100.0, 0.0, 0.0)),
-        row(LCH(53.2408, 104.5518, 39.9990), LAB(53.2408, 80.0925, 67.2032)),
-        row(LCH(42.3746, 0.0000, 180.0000), LAB(42.3746, 0.0, 0.0)),
-        row(LCH50(53.2408, 104.5518, 39.9990), LAB50(53.2408, 80.0925, 67.2032)),
-    ) { lch, lab ->
-        lch.toLAB().shouldEqualColor(lab)
-    }
+    fun `LCH to LAB`() = testColorConversions(
+        LCH(0.00, 0.00, 0.00) to LAB(0.0, 0.0, 0.0),
+        LCH(18.00, 18.00, 64.80) to LAB(18.0, 7.66402725, 16.28688694),
+        LCH(40.00, 50.00, 216.00) to LAB(40.0, -40.45084972, -29.38926261),
+        LCH(100.00, 100.00, 0.00) to LAB(100.0, 100.0, -0.0),
+    )
 }

@@ -92,8 +92,8 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
     data class GammaTransferFunctions(
         private val gamma: Double,
     ) : TransferFunctions {
-        override fun eotf(x: Float): Float =  x.spow(gamma).toFloat()
-        override fun oetf(x: Float): Float =  x.spow(1.0 / gamma).toFloat()
+        override fun eotf(x: Float): Float = x.spow(gamma).toFloat()
+        override fun oetf(x: Float): Float = x.spow(1.0 / gamma).toFloat()
     }
 
     /**
