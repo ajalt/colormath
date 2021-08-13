@@ -12,7 +12,7 @@ import kotlin.math.roundToInt
  *
  * This is a cylindrical representation of the sRGB space used in [RGB].
  *
- * | Component  | Description  | sRGB Range |
+ * | Component  | Description  | Range      |
  * | ---------- | ------------ | ---------- |
  * | [h]        | hue, degrees | `[0, 360)` |
  * | [s]        | saturation   | `[0, 1]`   |

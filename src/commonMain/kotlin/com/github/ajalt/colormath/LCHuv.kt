@@ -42,11 +42,11 @@ val LCHuv50: LCHuvColorSpace = LCHuvColorSpaceImpl(Illuminant.D50)
 /**
  * CIE LCh(uv) color model, a.k.a. `HCL`, the cylindrical representation of [LUV].
  *
- * | Component  | Description  | sRGB D65 Range |
- * | ---------- | ------------ | -------------- |
- * | [l]        | lightness    | `[0, 100]`     |
- * | [c]        | chroma       | `[0, 180]`     |
- * | [h]        | hue, degrees | `[0, 360)`     |
+ * | Component  | Description  | Range      |
+ * | ---------- | ------------ | ---------- |
+ * | [l]        | lightness    | `[0, 100]` |
+ * | [c]        | chroma       | `[0, 100]` |
+ * | [h]        | hue, degrees | `[0, 360)` |
  */
 data class LCHuv(
     val l: Float,

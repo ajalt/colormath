@@ -48,11 +48,11 @@ val LAB50: LABColorSpace = LABColorSpaceImpl(Illuminant.D50)
  *
  * [LAB] is calculated relative to a [given][space] [whitePoint], which defaults to [Illuminant.D65].
  *
- * | Component  | Description | sRGB D65 Range     |
- * | ---------- | ----------- | ------------------ |
- * | [l]        | lightness   | `[0, 100]`         |
- * | [a]        | green/red   | `[-86.1, 98.23]`   |
- * | [b]        | blue/yellow | `[-107.86, 94.48]` |
+ * | Component  | Description | Range         |
+ * | ---------- | ----------- | ------------- |
+ * | [l]        | lightness   | `[0, 100]`    |
+ * | [a]        | green/red   | `[-100, 100]` |
+ * | [b]        | blue/yellow | `[-100, 100]` |
  */
 data class LAB internal constructor(
     val l: Float,
