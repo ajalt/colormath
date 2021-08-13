@@ -159,4 +159,4 @@ class TransformTest {
     }
 }
 
-private fun Color.toChrom(): xyY = toXYZ().toChromaticity()
+private fun Color.toChrom(): xyY = toXYZ().toCIExyY()
