@@ -1,20 +1,18 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.RGBColorSpaces.LINEAR_SRGB
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class RGBTest {
     @Test
-    fun roundtrip() {
-        RGB(0.01, 0.02, 0.03, 0.04).let { it.toSRGB() shouldBeSameInstanceAs it }
-        RGB(0.01, 0.02, 0.03, 0.04f).let { it.toXYZ().toSRGB().shouldEqualColor(it) }
-        LINEAR_SRGB(0.01, 0.02, 0.03, 0.04).let { it.toSRGB().convertTo(it.space).shouldEqualColor(it) }
-    }
+    fun roundtrip() = roundtripTest(
+        RGB(0.01, 0.02, 0.03, 0.04),
+        RGB(0.01, 0.02, 0.03, 0.04f),
+        intermediate = XYZ
+    )
 
     @Test
     @JsName("RGB_to_HSV")

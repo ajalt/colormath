@@ -1,15 +1,14 @@
 package com.github.ajalt.colormath
 
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 class OklabTest {
     @Test
-    fun roundtrip() {
-        Oklab(0.1, 0.011, 0.012, 0.04).let { it.toOklab() shouldBeSameInstanceAs it }
-        Oklab(0.1, 0.011, 0.012, 0.04f).let { it.toSRGB().toOklab().shouldEqualColor(it) }
-    }
+    fun roundtrip() = roundtripTest(
+        Oklab(0.1, 0.011, 0.012, 0.04),
+        Oklab(0.1, 0.011, 0.012, 0.04f),
+    )
 
     @Test
     @JsName("Oklab_to_XYZ")

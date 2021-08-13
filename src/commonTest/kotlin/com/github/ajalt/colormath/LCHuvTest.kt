@@ -1,16 +1,16 @@
 package com.github.ajalt.colormath
 
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
 
 class LCHuvTest {
     @Test
-    fun roundtrip() {
-        LCHuv(0.03, 0.02, 0.01, 0.04).let { it.toLCHuv() shouldBeSameInstanceAs it }
-        LCHuv(0.03, 0.02, 0.01, 0.04f).let { it.toSRGB().toLCHuv().shouldEqualColor(it) }
-    }
+    fun roundtrip() = roundtripTest(
+        LCHuv(0.01, 0.02, 0.03, 0.04),
+        LCHuv(0.01, 0.02, 0.03, 0.04f),
+        intermediate = LUV,
+    )
 
     @Test
     @JsName("LCHuv_to_LUV")
