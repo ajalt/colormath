@@ -4,7 +4,7 @@ import com.github.ajalt.colormath.*
 
 fun main() {
     val models = listOf(
-        HCL,
+        LCHuv,
         LAB,
         LCHab,
         LUV,
