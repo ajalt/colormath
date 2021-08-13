@@ -14,14 +14,6 @@ internal value class Matrix(val rowMajor: FloatArray) {
         v02, v12, v22,
     ))
 
-    companion object {
-        fun diagonal(v00: Float, v11: Float, v22: Float) = Matrix(
-            v00, 0f, 0f,
-            0f, v11, 0f,
-            0f, 0f, v22,
-        )
-    }
-
     fun copy() = Matrix(rowMajor.copyOf())
 
     operator fun get(x: Int, y: Int): Float = rowMajor[y * 3 + x]
@@ -72,7 +64,7 @@ internal fun Matrix.inverse(inPlace: Boolean = false): Matrix {
     return out
 }
 
-internal inline fun <T> Matrix.times(v0: Float, v1: Float, v2: Float, block: (Float, Float, Float) -> T): T {
+internal inline fun <T> Matrix.dot(v0: Float, v1: Float, v2: Float, block: (Float, Float, Float) -> T): T {
     return block(
         get(0, 0) * v0 + get(1, 0) * v1 + get(2, 0) * v2,
         get(0, 1) * v0 + get(1, 1) * v1 + get(2, 1) * v2,
@@ -80,9 +72,9 @@ internal inline fun <T> Matrix.times(v0: Float, v1: Float, v2: Float, block: (Fl
     )
 }
 
-internal fun Matrix.times(v0: Float, v1: Float, v2: Float): Vector = times(v0, v1, v2, ::Vector)
+internal fun Matrix.dot(v0: Float, v1: Float, v2: Float): Vector = dot(v0, v1, v2, ::Vector)
 
-internal operator fun Matrix.times(other: Matrix): Matrix {
+internal fun Matrix.dot(other: Matrix): Matrix {
     fun f(x: Int, y: Int): Float {
         return this[0, y] * other[x, 0] + this[1, y] * other[x, 1] + this[2, y] * other[x, 2]
     }
@@ -94,7 +86,8 @@ internal operator fun Matrix.times(other: Matrix): Matrix {
     )
 }
 
-internal fun Matrix.timesDiagonal(v0: Float, v1: Float, v2: Float): Matrix {
+/** Return the dot product of this matrix with a diagonal matrix, with the three arguments as the diagonal */
+internal fun Matrix.dotDiagonal(v0: Float, v1: Float, v2: Float): Matrix {
     return Matrix(
         get(0, 0) * v0, get(1, 0) * v1, get(2, 0) * v2,
         get(0, 1) * v0, get(1, 1) * v1, get(2, 1) * v2,

@@ -18,7 +18,7 @@ class MatrixTest {
             3f, 5f, 6f,
             -4f, -3f, -1f,
         )
-        (l * r).rowMajor shouldBe Matrix(
+        (l.dot(r)).rowMajor shouldBe Matrix(
             -25f, 5f, 28f,
             -25f, -22f, -18f,
             5f, 23f, 38f,
@@ -52,6 +52,6 @@ class MatrixTest {
             4f, 5f, 6f,
             7f, 8f, 9f,
         )
-        l.times(10f, 20f, 30f).values shouldBe floatArrayOf(140f, 320f, 500f)
+        l.dot(10f, 20f, 30f).values shouldBe floatArrayOf(140f, 320f, 500f)
     }
 }

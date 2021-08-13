@@ -4,7 +4,7 @@ import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.internal.Matrix
 import com.github.ajalt.colormath.internal.cbrt
 import com.github.ajalt.colormath.internal.spow
-import com.github.ajalt.colormath.internal.times
+import com.github.ajalt.colormath.internal.dot
 import kotlin.math.roundToInt
 
 
@@ -229,7 +229,7 @@ data class RGB internal constructor(
 
     override fun toXYZ(): XYZ {
         val f = space.transferFunctions
-        return Matrix(space.matrixToXyz).times(f.eotf(r), f.eotf(g), f.eotf(b)) { x, y, z ->
+        return Matrix(space.matrixToXyz).dot(f.eotf(r), f.eotf(g), f.eotf(b)) { x, y, z ->
             XYZColorSpace(space.whitePoint)(x, y, z, alpha)
         }
     }

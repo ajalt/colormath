@@ -3,7 +3,7 @@ package com.github.ajalt.colormath.transform
 import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.RGBColorSpaces.SRGB
 import com.github.ajalt.colormath.internal.Matrix
-import com.github.ajalt.colormath.internal.times
+import com.github.ajalt.colormath.internal.dot
 
 /**
  * Create a chromatic adapter that will adapt colors from a given [sourceWhite] to this color space's
@@ -19,7 +19,7 @@ fun RGBColorSpace.createChromaticAdapter(sourceWhite: Color): ChromaticAdapterRG
  */
 fun RGBColorSpace.createChromaticAdapter(sourceWhite: xyY): ChromaticAdapterRGB {
     val xyzTransform = XYZColorSpace(whitePoint).chromaticAdaptationMatrix(sourceWhite)
-    return ChromaticAdapterRGB(this, xyzToSrgb.times(xyzTransform).times(srgbToXYZ))
+    return ChromaticAdapterRGB(this, xyzToSrgb.dot(xyzTransform).dot(srgbToXYZ))
 }
 
 /** Create a chromatic adapter that will adapt [RGBInt] colors from a given [sourceWhite] to [D65][Illuminant.D65] */
@@ -30,7 +30,7 @@ fun RGBInt.Companion.createChromaticAdapter(sourceWhite: Color): ChromaticAdapte
 /** Create a chromatic adapter that will adapt [RGBInt] colors from a given [sourceWhite] to [D65][Illuminant.D65] */
 fun RGBInt.Companion.createChromaticAdapter(sourceWhite: xyY): ChromaticAdapterRGBInt {
     val xyzTransform = XYZ65.chromaticAdaptationMatrix(sourceWhite)
-    return ChromaticAdapterRGBInt(xyzToSrgb.times(xyzTransform).times(srgbToXYZ))
+    return ChromaticAdapterRGBInt(xyzToSrgb.dot(xyzTransform).dot(srgbToXYZ))
 }
 
 class ChromaticAdapterRGB internal constructor(private val space: RGBColorSpace, private val transform: Matrix) {
@@ -60,7 +60,7 @@ class ChromaticAdapterRGBInt internal constructor(private val transform: Matrix)
 
 private inline fun <T> doAdapt(transform: Matrix, r: Float, g: Float, b: Float, block: (Float, Float, Float) -> T): T {
     val f = SRGB.transferFunctions
-    return transform.times(f.eotf(r), f.eotf(g), f.eotf(b)) { rr, gg, bb ->
+    return transform.dot(f.eotf(r), f.eotf(g), f.eotf(b)) { rr, gg, bb ->
         block(f.oetf(rr), f.oetf(gg), f.oetf(bb))
     }
 }
