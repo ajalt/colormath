@@ -6,30 +6,30 @@ import com.github.ajalt.colormath.internal.Matrix
 import com.github.ajalt.colormath.internal.times
 
 /**
- * Create a chromatic adapter that will adapt colors from a given [referenceWhite] to this color space's
- * [white point][RGBColorSpace.whitePoint]
+ * Create a chromatic adapter that will adapt colors from a given [sourceWhite] to this color space's
+ * [reference white][RGBColorSpace.whitePoint]
  */
-fun RGBColorSpace.createChromaticAdapter(referenceWhite: Color): ChromaticAdapterRGB {
-    return createChromaticAdapter(referenceWhite.toXYZ().toChromaticity())
+fun RGBColorSpace.createChromaticAdapter(sourceWhite: Color): ChromaticAdapterRGB {
+    return createChromaticAdapter(sourceWhite.toXYZ().toCIExyY())
 }
 
 /**
- * Create a chromatic adapter that will adapt colors from a given [referenceWhite] to this color space's
- * [white point][RGBColorSpace.whitePoint]
+ * Create a chromatic adapter that will adapt colors from a given [sourceWhite] to this color space's
+ * [reference white][RGBColorSpace.whitePoint]
  */
-fun RGBColorSpace.createChromaticAdapter(referenceWhite: xyY): ChromaticAdapterRGB {
-    val xyzTransform = XYZColorSpace(whitePoint).chromaticAdaptationMatrix(referenceWhite)
+fun RGBColorSpace.createChromaticAdapter(sourceWhite: xyY): ChromaticAdapterRGB {
+    val xyzTransform = XYZColorSpace(whitePoint).chromaticAdaptationMatrix(sourceWhite)
     return ChromaticAdapterRGB(this, xyzToSrgb.times(xyzTransform).times(srgbToXYZ))
 }
 
-/** Create a chromatic adapter that will adapt colors from a given [referenceWhite] to [D65][Illuminant.D65] */
-fun RGBInt.Companion.createChromaticAdapter(referenceWhite: Color): ChromaticAdapterRGBInt {
-    return createChromaticAdapter(referenceWhite.toXYZ().toChromaticity())
+/** Create a chromatic adapter that will adapt [RGBInt] colors from a given [sourceWhite] to [D65][Illuminant.D65] */
+fun RGBInt.Companion.createChromaticAdapter(sourceWhite: Color): ChromaticAdapterRGBInt {
+    return createChromaticAdapter(sourceWhite.toXYZ().toCIExyY())
 }
 
-/** Create a chromatic adapter that will adapt colors from a given [referenceWhite] to [D65][Illuminant.D65] */
-fun RGBInt.Companion.createChromaticAdapter(referenceWhite: xyY): ChromaticAdapterRGBInt {
-    val xyzTransform = XYZ65.chromaticAdaptationMatrix(referenceWhite)
+/** Create a chromatic adapter that will adapt [RGBInt] colors from a given [sourceWhite] to [D65][Illuminant.D65] */
+fun RGBInt.Companion.createChromaticAdapter(sourceWhite: xyY): ChromaticAdapterRGBInt {
+    val xyzTransform = XYZ65.chromaticAdaptationMatrix(sourceWhite)
     return ChromaticAdapterRGBInt(xyzToSrgb.times(xyzTransform).times(srgbToXYZ))
 }
 

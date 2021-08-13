@@ -64,7 +64,7 @@ data class XYZ internal constructor(
      * The Von Kries method is used with the CIECAT02 transformation matrix.
      */
     fun adaptTo(space: XYZColorSpace): XYZ {
-        return adaptTo(space, CAT02_XYZ_TO_LMS, CAT02_LMS_TO_XYZ)
+        return adaptToM(space, CAT02_XYZ_TO_LMS, CAT02_LMS_TO_XYZ)
     }
 
     /**
@@ -73,10 +73,19 @@ data class XYZ internal constructor(
      * The Von Kries method is used with the given [transformationMatrix].
      */
     fun adaptTo(space: XYZColorSpace, transformationMatrix: FloatArray): XYZ {
-        return adaptTo(space, Matrix(transformationMatrix), Matrix(transformationMatrix).inverse())
+        return adaptToM(space, Matrix(transformationMatrix), Matrix(transformationMatrix).inverse())
     }
 
-    private fun adaptTo(space: XYZColorSpace, m: Matrix, mi: Matrix): XYZ {
+    /**
+     * Apply chromatic adaptation to adapt this color to the white point in the given [space].
+     *
+     * The Von Kries method is used with the given [transformationMatrix] and its [inverseTransformationMatrix].
+     */
+    fun adaptTo(space: XYZColorSpace, transformationMatrix: FloatArray, inverseTransformationMatrix: FloatArray): XYZ {
+        return adaptToM(space, Matrix(transformationMatrix), Matrix(inverseTransformationMatrix))
+    }
+
+    private fun adaptToM(space: XYZColorSpace, m: Matrix, mi: Matrix): XYZ {
         if (space.whitePoint == this.space.whitePoint) return this
         val transform = space.chromaticAdaptationMatrix(this.space.whitePoint.chromaticity, m, mi)
         return transform.times(x, y, z) { xx, yy, zz -> space(xx, yy, zz, alpha) }
@@ -177,7 +186,7 @@ data class XYZ internal constructor(
      * If [x], [y], and [z] are all 0, the resulting coordinates will use the [x][xyY.x] and
      * [y][xyY.y] values from this space's [whitePoint].
      */
-    fun toChromaticity(): xyY {
+    fun toCIExyY(): xyY {
         if (x == 0f && y == 0f && z == 0f) {
             return xyY(space.whitePoint.chromaticity.x, space.whitePoint.chromaticity.y, 0f)
         }
