@@ -1,11 +1,8 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RGBColorSpaces.LINEAR_SRGB
-import io.kotest.assertions.withClue
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
-import io.kotest.matchers.floats.plusOrMinus
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
@@ -21,7 +18,7 @@ class RGBTest {
 
     @Test
     @JsName("RGB_to_HSV")
-    fun `RGB to HSV`() =testColorConversions(
+    fun `RGB to HSV`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to HSV(0.0, 0.0, 0.0),
         RGB(0.18, 0.18, 0.18) to HSV(0.0, 0.0, 0.18),
         RGB(0.40, 0.50, 0.60) to HSV(210.0, 0.33333333, 0.6),
@@ -30,7 +27,7 @@ class RGBTest {
 
     @Test
     @JsName("RGB_to_HSL")
-    fun `RGB to HSL`() =  testColorConversions(
+    fun `RGB to HSL`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to HSL(0.0, 0.0, 0.0),
         RGB(0.18, 0.18, 0.18) to HSL(0.0, 0.0, 0.18),
         RGB(0.40, 0.50, 0.60) to HSL(210.0, 0.2, 0.5),
@@ -75,7 +72,7 @@ class RGBTest {
 
     @Test
     @JsName("RGB_to_LAB")
-    fun `RGB to LAB`() =  testColorConversions(
+    fun `RGB to LAB`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to LAB(0.0, 0.0, 0.0),
         RGB(0.18, 0.18, 0.18) to LAB(18.89075051, 0.0, 0.0),
         RGB(0.40, 0.50, 0.60) to LAB(52.32273694, -2.74447861, -16.6536267),
@@ -142,6 +139,7 @@ class RGBTest {
         RGB(0.18, 0.18, 0.18) to Oklab(0.30078197, -0.00000654, -0.00003704),
         RGB(0.40, 0.50, 0.60) to Oklab(0.58774836, -0.01788409, -0.04586991),
         RGB(1.00, 1.00, 1.00) to Oklab(0.9999988, -0.00002176, -0.00012316),
+        tolerance = 5e-4
     )
 
     @Test

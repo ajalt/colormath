@@ -2,7 +2,6 @@ package com.github.ajalt.colormath
 
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
-import io.kotest.matchers.should
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test

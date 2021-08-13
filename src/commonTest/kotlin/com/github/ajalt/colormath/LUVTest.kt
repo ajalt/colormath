@@ -1,7 +1,5 @@
 package com.github.ajalt.colormath
 
-import io.kotest.data.blocking.forAll
-import io.kotest.data.row
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
@@ -15,30 +13,20 @@ class LUVTest {
 
     @Test
     @JsName("LUV_to_XYZ")
-    fun `LUV to XYZ`() = forAll(
-        row(LUV(000.0, 000.0, 000.0), XYZ(0.0, 0.0, 0.0)),
-        row(LUV(000.0, 100.0, 100.0), XYZ(0.0, 0.0, 0.0)),
-        row(LUV(000.0, 000.0, 100.0), XYZ(0.0, 0.0, 0.0)),
-        row(LUV(000.0, 100.0, 000.0), XYZ(0.0, 0.0, 0.0)),
-        row(LUV(100.0, 000.0, 000.0), XYZ(0.950470, 1.000000, 1.088830)),
-        row(LUV(100.0, 100.0, 100.0), XYZ(1.133803, 1.000000, 0.124034)),
-        row(LUV(075.0, 075.0, 075.0), XYZ(0.547378, 0.482781, 0.059881)),
-        row(LUV(050.0, 050.0, 050.0), XYZ(0.208831, 0.184187, 0.022845)),
-        row(LUV(41.5279, 96.8363, 17.7521), XYZ(0.206539, 0.121972, 0.051346)),
-        row(LUV(55.1164, -37.5931, 44.1377), XYZ(0.142225, 0.230428, 0.104916)),
-        row(LUV(29.8057, -10.9632, -65.0675), XYZ(0.078188, 0.061572, 0.280960)),
-        row(LUV50(25.0, -10.0, 10.0), XYZ50(0.034158, 0.044155, 0.023147)),
-    ) { luv, xyz ->
-        luv.toXYZ().shouldEqualColor(xyz)
-    }
+    fun `LUV to XYZ`() = testColorConversions(
+        LUV(0.00, 0.00, 0.00) to XYZ(0.0, 0.0, 0.0),
+        LUV(18.00, 18.00, 18.00) to XYZ(0.02854945, 0.02518041, 0.00312744),
+        LUV(40.00, 50.00, 60.00) to XYZ(0.12749789, 0.11250974, -0.02679452),
+        LUV(100.00, 100.00, 100.00) to XYZ(1.13379604, 1.0, 0.12420117),
+        tolerance = 5e-4,
+    )
 
     @Test
     @JsName("LUV_to_HCL")
-    fun `LUV to HCL`() = forAll(
-        row(LUV(100.0, 100.0, 100.0), HCL(45.0, 141.421, 100.0)),
-        row(LUV(075.0, 075.0, 075.0), HCL(45.0, 106.066, 075.0)),
-        row(LUV(050.0, 050.0, 050.0), HCL(45.0, 70.7107, 050.0)),
-    ) { luv, lch ->
-        luv.toHCL().shouldEqualColor(lch)
-    }
+    fun `LUV to HCL`() = testColorConversions(
+        LUV(0.00, 0.00, 0.00) to HCL(0.0, 0.0, 0.0),
+        LUV(18.00, 18.00, 18.00) to HCL(45.0, 25.45584412, 18.0),
+        LUV(40.00, 50.00, 60.00) to HCL(50.19442891, 78.10249676, 40.0),
+        LUV(100.00, 100.00, 100.00) to HCL(45.0, 141.42135624, 100.0),
+    )
 }
