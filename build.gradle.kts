@@ -42,10 +42,7 @@ kotlin {
 
     ios()
     tvos()
-
-    // kotest doesn't publish watchosX64 yet, so we can't use the `watchos()` shortcut
-    watchosArm32()
-    watchosArm64()
+    watchos()
 
     sourceSets {
         val commonMain by getting
@@ -53,32 +50,15 @@ kotlin {
         val nativeMain by creating {
             dependsOn(commonMain)
         }
-        val macosX64Main by getting {
-            dependsOn(nativeMain)
-        }
-        val linuxX64Main by getting {
-            dependsOn(nativeMain)
-        }
-        val mingwX64Main by getting {
-            dependsOn(nativeMain)
-        }
-        val iosMain by getting {
-            dependsOn(nativeMain)
-        }
-        val tvosMain by getting {
-            dependsOn(nativeMain)
-        }
-        val watchosArm32Main by getting {
-            dependsOn(nativeMain)
-        }
-        val watchosArm64Main by getting {
-            dependsOn(nativeMain)
+
+        listOf("macosX64", "linuxX64", "mingwX64", "ios", "tvos", "watchos").forEach { target ->
+            getByName(target + "Main").dependsOn(nativeMain)
         }
 
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("io.kotest:kotest-assertions-core:4.5.0")
+                implementation("io.kotest:kotest-assertions-core:4.6.1")
             }
         }
     }
