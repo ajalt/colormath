@@ -51,8 +51,8 @@ val LAB50: LABColorSpace = LABColorSpaceImpl(Illuminant.D50)
  * | Component  | Description | Range         |
  * | ---------- | ----------- | ------------- |
  * | [l]        | lightness   | `[0, 100]`    |
- * | [a]        | green/red   | `[-100, 100]` |
- * | [b]        | blue/yellow | `[-100, 100]` |
+ * | [a]        | green-red   | `[-100, 100]` |
+ * | [b]        | blue-yellow | `[-100, 100]` |
  */
 data class LAB internal constructor(
     val l: Float,

@@ -12,8 +12,8 @@ import com.github.ajalt.colormath.internal.toPolarModel
  * | Component  | Description | Range     |
  * | ---------- | ----------- | --------- |
  * | [l]        | lightness   | `[0, 1]`  |
- * | [a]        | green/red   | `[-1, 1]` |
- * | [b]        | blue/yellow | `[-1, 1]` |
+ * | [a]        | green-red   | `[-1, 1]` |
+ * | [b]        | blue-yellow | `[-1, 1]` |
  */
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     companion object : ColorSpace<Oklab> {

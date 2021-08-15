@@ -67,6 +67,9 @@ interface Color {
     /** Convert this color to JzCzHz */
     fun toJzCzHz(): JzCzHz = toJzAzBz().toJzCzHz()
 
+    /** Convert this color to ICtCp */
+    fun toICtCp(): ICtCp = convertTo(RGBColorSpaces.BT_2020).toICtCp()
+
     /** Create a [FloatArray] containing all components of this color, with the [alpha] as the last component */
     fun toArray(): FloatArray
 

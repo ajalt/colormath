@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import com.github.ajalt.colormath.internal.toPolarModel
@@ -10,11 +11,11 @@ import kotlin.math.pow
  *
  *  This color space is always calculated relative to [Illuminant.D65].
  *
- * | Component  | Description | sRGB Range |
+ * | Component  | Description | Range      |
  * | ---------- | ----------- | ---------- |
  * | [j]        | lightness   | `[0, 1]`   |
- * | [a]        | green/red   | `[-1, 1]`  |
- * | [b]        | blue/yellow | `[-1, 1]`  |
+ * | [a]        | green-red   | `[-1, 1]`  |
+ * | [b]        | blue-yellow | `[-1, 1]`  |
  *
  * #### Reference
  *
@@ -24,7 +25,7 @@ import kotlin.math.pow
 data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     companion object : ColorSpace<JzAzBz> {
         override val name: String get() = "JzAzBz"
-        override val components: List<ColorComponentInfo> = rectangularComponentInfo("JAB")
+        override val components: List<ColorComponentInfo> = rectangularComponentInfo("Jz", "Az", "Bz")
         override fun convert(color: Color): JzAzBz = color.toJzAzBz()
         override fun create(components: FloatArray): JzAzBz = doCreate(components, ::JzAzBz)
 

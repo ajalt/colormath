@@ -121,3 +121,11 @@ internal value class Vector(val values: FloatArray) {
     operator fun component2() = values[1]
     operator fun component3() = values[2]
 }
+
+internal fun Matrix.scalarDiv(x: Float, inPlace: Boolean = false): Matrix {
+    val out = (if (inPlace) this else copy()).rowMajor
+    for (i in out.indices) {
+        out[i] /= x
+    }
+    return Matrix(out)
+}

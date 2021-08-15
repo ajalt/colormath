@@ -23,9 +23,13 @@ internal inline fun <T : Color> ColorSpace<T>.doCreate(
 }
 
 internal fun componentInfoList(vararg c: ColorComponentInfo) = listOf(*c, ColorComponentInfo("alpha", false))
-internal fun rectangularComponentInfo(name: String) = name.map {
-    ColorComponentInfo(it.toString(), false)
-} + ColorComponentInfo("alpha", false)
+internal fun rectangularComponentInfo(vararg names: String): List<ColorComponentInfo> {
+    return (names.asList() + "alpha").map { ColorComponentInfo(it, false) }
+}
+
+internal fun rectangularComponentInfo(name: String): List<ColorComponentInfo> {
+    return rectangularComponentInfo(*name.map { it.toString() }.toTypedArray())
+}
 
 internal fun polarComponentInfo(name: String) = name.map {
     ColorComponentInfo(it.toString(), it == 'H')
