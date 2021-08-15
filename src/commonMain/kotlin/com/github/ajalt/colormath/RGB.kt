@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
 import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.internal.Matrix
 import com.github.ajalt.colormath.internal.cbrt
@@ -60,6 +61,9 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
      */
     val matrixFromXyz: FloatArray
 
+    /**
+     * Color Component Transfer Functions (CCTFs) for encoding and decoding components of [RGB] color spaces.
+     */
     interface TransferFunctions {
         /**
          * The Electro-Optical Transfer Function (EOTF / EOCF)
@@ -276,6 +280,8 @@ data class RGB internal constructor(
             alpha = alpha
         )
     }
+
+    override fun toICtCp(): ICtCp = convertBT2020ToICtCp(convertTo(BT_2020))
 
     override fun toAnsi16(): Ansi16 = toSRGB {
         val value = (toHSV().v * 100).roundToInt()

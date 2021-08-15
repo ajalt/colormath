@@ -48,7 +48,7 @@ val LCHuv50: LCHuvColorSpace = LCHuvColorSpaceImpl(Illuminant.D50)
  * | [c]        | chroma       | `[0, 100]` |
  * | [h]        | hue, degrees | `[0, 360)` |
  */
-data class LCHuv(
+data class LCHuv internal constructor(
     val l: Float,
     val c: Float,
     override val h: Float,
