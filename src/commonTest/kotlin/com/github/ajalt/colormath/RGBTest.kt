@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
@@ -13,6 +14,12 @@ class RGBTest {
         RGB(0.01, 0.02, 0.03, 0.04f),
         intermediate = XYZ
     )
+
+    @Test
+    fun clamp() {
+        RGB(1, 2, 3).clamp() shouldBe RGB(1, 2, 3)
+        ROMM_RGB(.5, -1.0, 1.1, 3.0).clamp() shouldBe ROMM_RGB(.5, 0.0, 1.0, 1.0)
+    }
 
     @Test
     @JsName("RGB_to_HSV")
