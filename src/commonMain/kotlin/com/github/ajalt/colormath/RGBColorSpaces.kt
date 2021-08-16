@@ -94,6 +94,8 @@ object RGBColorSpaces {
     /**
      * Adobe RGB 1998 color space
      *
+     * The CSS Color Module 4 calls this space `a98-rgb`.
+     *
      * ### References
      * - [Adobe RGB (1998) Color Image Encoding](https://www.adobe.com/digitalimag/pdfs/AdobeRGB1998.pdf)
      */
@@ -110,6 +112,8 @@ object RGBColorSpaces {
      * ITU-R Recommendation BT.2020 color space, also known as BT.2020 or REC.2020
      *
      * The transfer functions in this implementation use the constants for 12-bit systems given in the standard.
+     *
+     * The CSS Color Module 4 calls this space `rec2020`.
      *
      * ### References
      * - [ITU-R BT.2020-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf)
@@ -150,6 +154,8 @@ object RGBColorSpaces {
     /**
      * Display P3 color space
      *
+     * The CSS Color Module 4 calls this space `display-p3`.
+     *
      * ### References
      * - [Apple](https://developer.apple.com/documentation/coregraphics/cgcolorspace/1408916-displayp3)
      * - [RP 431-2:2011](https://ieeexplore.ieee.org/document/7290729)
@@ -166,6 +172,8 @@ object RGBColorSpaces {
 
     /**
      * ROMM RGB color space, also known as ProPhoto RGB
+     *
+     * The CSS Color Module 4 calls this space `prophoto-rgb`.
      *
      * ### References
      * - [ANSI/I3A IT10.7666:2003](https://www.color.org/ROMMRGB.pdf)
