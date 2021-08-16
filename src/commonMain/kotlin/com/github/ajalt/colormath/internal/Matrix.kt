@@ -1,3 +1,5 @@
+@file:Suppress("LocalVariableName")
+
 package com.github.ajalt.colormath.internal
 
 import kotlin.jvm.JvmInline
