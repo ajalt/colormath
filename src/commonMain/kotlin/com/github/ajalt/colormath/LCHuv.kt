@@ -19,8 +19,8 @@ interface LCHuvColorSpace : WhitePointColorSpace<LCHuv> {
 
 /** Create a new [LCHuvColorSpace] that will be calculated relative to the given [whitePoint] */
 fun LCHuvColorSpace(whitePoint: WhitePoint): LCHuvColorSpace = when (whitePoint) {
-    Illuminant.D65 -> LCHuv65
-    Illuminant.D50 -> LCHuv50
+    Illuminant.D65 -> LCHuvColorSpaces.LCHuv65
+    Illuminant.D50 -> LCHuvColorSpaces.LCHuv50
     else -> LCHuvColorSpaceImpl(whitePoint)
 }
 
@@ -33,11 +33,13 @@ private data class LCHuvColorSpaceImpl(override val whitePoint: WhitePoint) : LC
     override fun toString(): String = "HCLColorSpace($whitePoint)"
 }
 
-/** An [LCHuv] color space calculated relative to [Illuminant.D65] */
-val LCHuv65: LCHuvColorSpace = LCHuvColorSpaceImpl(Illuminant.D65)
+object LCHuvColorSpaces {
+    /** An [LCHuv] color space calculated relative to [Illuminant.D65] */
+    val LCHuv65: LCHuvColorSpace = LCHuvColorSpaceImpl(Illuminant.D65)
 
-/** An [LCHuv] color space calculated relative to [Illuminant.D50] */
-val LCHuv50: LCHuvColorSpace = LCHuvColorSpaceImpl(Illuminant.D50)
+    /** An [LCHuv] color space calculated relative to [Illuminant.D50] */
+    val LCHuv50: LCHuvColorSpace = LCHuvColorSpaceImpl(Illuminant.D50)
+}
 
 /**
  * CIE LCh(uv) color model, a.k.a. `HCL`, the cylindrical representation of [LUV].
@@ -55,7 +57,7 @@ data class LCHuv internal constructor(
     override val alpha: Float = 1f,
     override val space: LCHuvColorSpace,
 ) : HueColor {
-    companion object : LCHuvColorSpace by LCHuv65
+    companion object : LCHuvColorSpace by LCHuvColorSpaces.LCHuv65
 
     override fun toSRGB(): RGB = toLUV().toSRGB()
     override fun toXYZ(): XYZ = toLUV().toXYZ()

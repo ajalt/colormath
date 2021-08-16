@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.*
+import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.inspectors.forAll
