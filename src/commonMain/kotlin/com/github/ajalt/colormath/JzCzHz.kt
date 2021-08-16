@@ -3,6 +3,8 @@ package com.github.ajalt.colormath
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
 import com.github.ajalt.colormath.internal.polarComponentInfo
+import kotlin.math.cos
+import kotlin.math.sqrt
 
 /**
  * The JzCzHz color model, the cylindrical representation of [JzAzBz].
@@ -12,6 +14,10 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * | [j]        | lightness    | `[0, 1]`   |
  * | [c]        | chroma       | `[-1, 1]`  |
  * | [h]        | hue, degrees | `[0, 360)` |
+ *
+ * #### Reference
+ * M. Safdar, G. Cui, Y. Kim, and M. Luo, "Perceptually uniform color space for image signals including high dynamic
+ * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
 data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorSpace<JzCzHz> {
@@ -28,6 +34,17 @@ data class JzCzHz(val j: Float, val c: Float, override val h: Float, override va
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 
     override val space: ColorSpace<JzCzHz> get() = JzCzHz
+
+    /**
+     * Calculate the color difference ΔEz between this color and [other].
+     */
+    fun differenceFrom(other: Color): Float {
+        val o = other.toJzCzHz()
+        val dj = o.j - j
+        val dc = o.c - c
+        val dH2 = 2 * c * o.c * (1 - cos(o.h - h)) // this is (ΔHz)²
+        return sqrt(dj * dj + dc * dc + dH2)
+    }
 
     override fun toSRGB(): RGB = when (j) {
         0f -> RGB(0f, 0f, 0f, alpha)

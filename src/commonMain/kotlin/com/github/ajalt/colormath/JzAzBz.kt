@@ -10,14 +10,16 @@ import kotlin.math.pow
  *
  *  This color space is always calculated relative to [Illuminant.D65].
  *
- * | Component  | Description | Range      |
- * | ---------- | ----------- | ---------- |
- * | [j]        | lightness   | `[0, 1]`   |
- * | [a]        | green-red   | `[-1, 1]`  |
- * | [b]        | blue-yellow | `[-1, 1]`  |
+ *  The JzAzBz color difference ΔEz between two colors can be calculated with
+ *  [`color1.toJzCzHz().differenceFrom(color2)`][JzCzHz.differenceFrom]
+ *
+ * | Component | Description | Range     |
+ * | --------- | ----------- | --------- |
+ * | [j]       | lightness   | `[0, 1]`  |
+ * | [a]       | green-red   | `[-1, 1]` |
+ * | [b]       | blue-yellow | `[-1, 1]` |
  *
  * #### Reference
- *
  * M. Safdar, G. Cui, Y. Kim, and M. Luo, "Perceptually uniform color space for image signals including high dynamic
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
