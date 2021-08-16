@@ -46,6 +46,7 @@ class MatrixTest {
     }
 
     @Test
+    @JsName("matrix_times_vec")
     fun `matrix times vec`() {
         val l = Matrix(
             1f, 2f, 3f,

@@ -6,7 +6,7 @@ import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
-import kotlin.jvm.JvmName
+import kotlin.js.JsName
 import kotlin.test.Test
 
 class TransformTest {
@@ -22,7 +22,7 @@ class TransformTest {
     }
 
     @Test
-    @JvmName("interpolator_with_hue_adjustment")
+    @JsName("interpolator_with_hue_adjustment")
     fun `interpolator with hue_adjustment`() = forAll(
         row(0.00, 60),
         row(0.25, 230),
@@ -41,7 +41,7 @@ class TransformTest {
     }
 
     @Test
-    @JvmName("interpolator_with_hint")
+    @JsName("interpolator_with_hint")
     fun `interpolator with hint`() = forAll(
         row(0.00, RGB("#000")),
         row(0.25, RGB("#400")),
@@ -60,7 +60,7 @@ class TransformTest {
     }
 
     @Test
-    @JvmName("interpolator_explicit_positions")
+    @JsName("interpolator_explicit_positions")
     fun `interpolator with explicit positions`() = forAll(
         row(0.00, RGB("#111")),
         row(0.15, RGB("#222")),
@@ -78,7 +78,7 @@ class TransformTest {
     }
 
     @Test
-    @JvmName("interpolator_sequence")
+    @JsName("interpolator_sequence")
     fun `interpolator sequence`() {
         RGB.interpolator(RGB("#000"), RGB("#888")).sequence(9)
             .toList().zip(listOf(
@@ -131,7 +131,8 @@ class TransformTest {
             row(LCHab50.mix(purple, .3f, plum, .3f), LCHab50(51.51, 52.21, 325.8, 0.6)),
             row(LCHab50.mix(LCHab50(62.253, 54.011, 63.677), .4f, LCHab50(91.374, 31.406, 98.834)),
                 LCHab50(79.7256, 40.448, 84.771)),
-            row(LCHab50.mix(LCHab50(50f, 50f, 60f), LCHab50(50f, 50f, 0f), HueAdjustments.longer), LCHab50(50f, 50f, 210f))
+            row(LCHab50.mix(LCHab50(50f, 50f, 60f), LCHab50(50f, 50f, 0f), HueAdjustments.longer),
+                LCHab50(50f, 50f, 210f))
         ) { actual, ex ->
             actual.shouldEqualColor(ex, 0.1)
         }
