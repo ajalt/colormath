@@ -60,9 +60,10 @@ data class LAB internal constructor(
     val l: Float,
     val a: Float,
     val b: Float,
-    override val alpha: Float = 1f,
+    override val alpha: Float,
     override val space: LABColorSpace,
 ) : Color {
+    /** Default constructors for the [LAB] color model: the [LAB65][LABColorSpaces.LAB65] space. */
     companion object : LABColorSpace by LABColorSpaces.LAB65
 
     override fun toSRGB(): RGB = when (l) {

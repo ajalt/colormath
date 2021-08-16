@@ -54,9 +54,10 @@ data class LCHuv internal constructor(
     val l: Float,
     val c: Float,
     override val h: Float,
-    override val alpha: Float = 1f,
+    override val alpha: Float,
     override val space: LCHuvColorSpace,
 ) : HueColor {
+    /** Default constructors for the [LCHuv] color model: the [LCHLCHuv65ab65][LCHuvColorSpaces.LCHuv65] space. */
     companion object : LCHuvColorSpace by LCHuvColorSpaces.LCHuv65
 
     override fun toSRGB(): RGB = toLUV().toSRGB()
