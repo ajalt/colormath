@@ -20,8 +20,8 @@ interface LCHabColorSpace : WhitePointColorSpace<LCHab> {
 
 /** Create a new [LCHabColorSpace] that will be calculated relative to the given [whitePoint] */
 fun LCHabColorSpace(whitePoint: WhitePoint): LCHabColorSpace = when (whitePoint) {
-    Illuminant.D65 -> LCHab65
-    Illuminant.D50 -> LCHab50
+    Illuminant.D65 -> LCHabColorSpaces.LCHab65
+    Illuminant.D50 -> LCHabColorSpaces.LCHab50
     else -> LCHabColorSpaceImpl(whitePoint)
 }
 
@@ -34,12 +34,13 @@ private data class LCHabColorSpaceImpl(override val whitePoint: WhitePoint) : LC
     override fun toString(): String = "LCHabColorSpace($whitePoint)"
 }
 
-/** An [LCHab] color space calculated relative to [Illuminant.D65] */
-val LCHab65: LCHabColorSpace = LCHabColorSpaceImpl(Illuminant.D65)
+object LCHabColorSpaces {
+    /** An [LCHab] color space calculated relative to [Illuminant.D65] */
+    val LCHab65: LCHabColorSpace = LCHabColorSpaceImpl(Illuminant.D65)
 
-/** An [LCHab] color space calculated relative to [Illuminant.D50] */
-val LCHab50: LCHabColorSpace = LCHabColorSpaceImpl(Illuminant.D50)
-
+    /** An [LCHab] color space calculated relative to [Illuminant.D50] */
+    val LCHab50: LCHabColorSpace = LCHabColorSpaceImpl(Illuminant.D50)
+}
 
 /**
  * `CIE LCh(ab)` color model, a.k.a. `LCH`, the cylindrical representation of [LAB].
@@ -57,7 +58,7 @@ data class LCHab internal constructor(
     override val alpha: Float = 1f,
     override val space: LCHabColorSpace,
 ) : HueColor {
-    companion object : LCHabColorSpace by LCHab65
+    companion object : LCHabColorSpace by LCHabColorSpaces.LCHab65
 
     override fun toSRGB(): RGB = toLAB().toSRGB()
     override fun toXYZ(): XYZ = toLAB().toXYZ()

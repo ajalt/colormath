@@ -1,5 +1,7 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.LABColorSpaces.LAB50
+import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
 import kotlin.js.JsName
 import kotlin.test.Test
 

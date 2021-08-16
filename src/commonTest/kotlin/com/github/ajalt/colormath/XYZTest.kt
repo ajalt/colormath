@@ -1,5 +1,8 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.LABColorSpaces.LAB50
+import com.github.ajalt.colormath.LUVColorSpaces.LUV50
+import com.github.ajalt.colormath.XYZColorSpaces.XYZ50
 import com.github.ajalt.colormath.internal.CAT02_LMS_TO_XYZ
 import com.github.ajalt.colormath.internal.CAT02_XYZ_TO_LMS
 import kotlin.js.JsName

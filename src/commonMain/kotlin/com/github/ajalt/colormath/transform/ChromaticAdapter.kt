@@ -2,6 +2,7 @@ package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.RGBColorSpaces.SRGB
+import com.github.ajalt.colormath.XYZColorSpaces.XYZ65
 import com.github.ajalt.colormath.internal.Matrix
 import com.github.ajalt.colormath.internal.dot
 

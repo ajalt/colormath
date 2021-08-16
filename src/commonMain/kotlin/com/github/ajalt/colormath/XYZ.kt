@@ -18,8 +18,8 @@ interface XYZColorSpace : WhitePointColorSpace<XYZ> {
 
 /** Create a new [XYZColorSpace] that will be calculated relative to the given [whitePoint] */
 fun XYZColorSpace(whitePoint: WhitePoint): XYZColorSpace = when (whitePoint) {
-    Illuminant.D65 -> XYZ65
-    Illuminant.D50 -> XYZ50
+    Illuminant.D65 -> XYZColorSpaces.XYZ65
+    Illuminant.D50 -> XYZColorSpaces.XYZ50
     else -> XYZColorSpaceImpl(whitePoint)
 }
 
@@ -32,11 +32,13 @@ private data class XYZColorSpaceImpl(override val whitePoint: WhitePoint) : XYZC
     override fun toString(): String = "XYZColorSpace($whitePoint)"
 }
 
-/** An [XYZ] color space calculated relative to [Illuminant.D65] */
-val XYZ65: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D65)
+object XYZColorSpaces {
+    /** An [XYZ] color space calculated relative to [Illuminant.D65] */
+    val XYZ65: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D65)
 
-/** An [XYZ] color space calculated relative to [Illuminant.D50] */
-val XYZ50: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D50)
+    /** An [XYZ] color space calculated relative to [Illuminant.D50] */
+    val XYZ50: XYZColorSpace = XYZColorSpaceImpl(Illuminant.D50)
+}
 
 /**
  * The CIEXYZ color model
@@ -56,7 +58,7 @@ data class XYZ internal constructor(
     override val alpha: Float,
     override val space: XYZColorSpace,
 ) : Color {
-    companion object : XYZColorSpace by XYZ65
+    companion object : XYZColorSpace by XYZColorSpaces.XYZ65
 
     /**
      * Apply chromatic adaptation to adapt this color to the white point in the given [space].
@@ -195,7 +197,7 @@ data class XYZ internal constructor(
     }
 
     private inline fun <T : Color> toD65(block: XYZ.() -> T): T {
-        return if (space == XYZ65) this.block() else adaptTo(XYZ65).block()
+        return if (space == XYZColorSpaces.XYZ65) this.block() else adaptTo(XYZColorSpaces.XYZ65).block()
     }
 
     override fun toXYZ(): XYZ = this
