@@ -209,6 +209,18 @@ data class RGB internal constructor(
         }
     }
 
+    /**
+     * Return a copy of this color with all component values in the range `[0, 1]`.
+     *
+     * No gamut mapping is performed: out-of-gamut values are truncated.
+     */
+    fun clamp(): RGB = copy(
+        r = r.coerceIn(0f, 1f),
+        g = g.coerceIn(0f, 1f),
+        b = b.coerceIn(0f, 1f),
+        alpha = alpha.coerceIn(0f, 1f)
+    )
+
     override fun toHSL(): HSL {
         return srgbHueMinMaxDelta { h, min, max, delta ->
             val l = (min + max) / 2.0
