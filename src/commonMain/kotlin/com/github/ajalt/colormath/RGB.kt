@@ -153,10 +153,8 @@ data class RGB internal constructor(
     override val alpha: Float,
     override val space: RGBColorSpace,
 ) : Color {
-    companion object : RGBColorSpace by RGBColorSpaces.SRGB {
-        @Deprecated("Use RGBInt instead", ReplaceWith("RGBInt(argb.toUInt())"))
-        fun fromInt(argb: Int): RGB = RGBInt(argb.toUInt()).toSRGB()
-    }
+    /** Default constructors for the [RGB] color model: the [SRGB] space. */
+    companion object : RGBColorSpace by RGBColorSpaces.SRGB
 
     /** The red channel scaled to [0, 255]. */
     val redInt: Int get() = (r * 255).roundToInt()

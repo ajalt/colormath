@@ -55,9 +55,10 @@ data class LCHab internal constructor(
     val l: Float,
     val c: Float,
     override val h: Float,
-    override val alpha: Float = 1f,
+    override val alpha: Float,
     override val space: LCHabColorSpace,
 ) : HueColor {
+    /** Default constructors for the [LCHab] color model: the [LCHab65][LCHabColorSpaces.LCHab65] space. */
     companion object : LCHabColorSpace by LCHabColorSpaces.LCHab65
 
     override fun toSRGB(): RGB = toLAB().toSRGB()

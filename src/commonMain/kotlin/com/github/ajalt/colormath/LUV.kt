@@ -56,9 +56,10 @@ data class LUV internal constructor(
     val l: Float,
     val u: Float,
     val v: Float,
-    override val alpha: Float = 1f,
+    override val alpha: Float,
     override val space: LUVColorSpace,
 ) : Color {
+    /** Default constructors for the [LUV] color model: the [LCHab65][LCHabColorSpaces.LCHab65] space. */
     companion object : LUVColorSpace by LUVColorSpaces.LUV65 {
         /** Create a new `LUV` color space that will be calculated relative to the given [whitePoint] */
         operator fun invoke(whitePoint: WhitePoint): LUVColorSpace = when (whitePoint) {
