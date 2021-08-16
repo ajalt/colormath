@@ -39,7 +39,7 @@ data class ICtCp(
 
     /** Convert this color to [BT.2020 RGB][RGBColorSpaces.BT_2020] */
     fun toBT2020(): RGB {
-        val f = PQ_NONLINEARITY
+        val f = PqNonlinearity
         return MATRIX_ICTCP_ICTCP_to_LMS.dot(i, ct, cp) { l, m, s ->
             MATRIX_ICTCP_LMS_to_RGB.dot(f.eotf(l), f.eotf(m), f.eotf(s)) { r, g, b ->
                 BT_2020(r, g, b, alpha)
@@ -54,7 +54,7 @@ data class ICtCp(
 }
 
 internal fun convertBT2020ToICtCp(rgb: RGB): ICtCp {
-    val f = PQ_NONLINEARITY
+    val f = PqNonlinearity
     return MATRIX_ICTCP_RGB_TO_LMS.dot(rgb.r, rgb.g, rgb.b) { l, m, s ->
         MATRIX_ICTCP_LMS_TO_ICTCP.dot(f.oetf(l), f.oetf(m), f.oetf(s)) { i, ct, cp ->
             ICtCp(i, ct, cp, rgb.alpha)
@@ -63,7 +63,7 @@ internal fun convertBT2020ToICtCp(rgb: RGB): ICtCp {
 }
 
 /** The SMPTE ST 2084 EOTF as defined in the ICtCp whitepaper cited above */
-private object PQ_NONLINEARITY : RGBColorSpace.TransferFunctions {
+private object PqNonlinearity : RGBColorSpace.TransferFunctions {
     private const val m1 = 2610.0 / 16384.0
     private const val m2 = 2523.0 / 4096.0 * 128.0
     private const val c1 = 3424.0 / 4096.0

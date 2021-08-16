@@ -25,12 +25,12 @@ fun LCHuvColorSpace(whitePoint: WhitePoint): LCHuvColorSpace = when (whitePoint)
 }
 
 private data class LCHuvColorSpaceImpl(override val whitePoint: WhitePoint) : LCHuvColorSpace {
-    override val name: String get() = "LCJ"
+    override val name: String get() = "LCHuv"
     override val components: List<ColorComponentInfo> = polarComponentInfo("LCH")
     override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHuv = LCHuv(l, c, h, alpha, this)
     override fun convert(color: Color): LCHuv = color.toLCHuv()
     override fun create(components: FloatArray): LCHuv = doCreate(components, ::invoke)
-    override fun toString(): String = "HCLColorSpace($whitePoint)"
+    override fun toString(): String = "LCHuvColorSpace($whitePoint)"
 }
 
 object LCHuvColorSpaces {

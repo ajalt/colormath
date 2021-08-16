@@ -118,7 +118,7 @@ object RGBColorSpaces {
      * ### References
      * - [ITU-R BT.2020-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf)
      */
-    val BT_2020: RGBColorSpace = BT_2020_SPACE
+    val BT_2020: RGBColorSpace = BT2020Space
 
     /**
      * ITU-R Recommendation BT.709, also known as BT.709 or REC.709
@@ -218,7 +218,7 @@ object SRGB : RGBColorSpace {
     override fun toString(): String = name
 }
 
-private object BT_2020_SPACE : RGBColorSpace {
+private object BT2020Space : RGBColorSpace {
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
     override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB = RGB(r, g, b, alpha, this)
     override fun convert(color: Color): RGB = when (color) {
