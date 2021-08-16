@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -8,8 +9,14 @@ class RGBIntTest {
     fun roundtrip() = roundtripTest(
         RGBInt(128, 128, 128, 128),
         RGBInt(128u, 128u, 128u, 128u),
-        RGBInt(1128.toUByte(), 128.toUByte(), 128.toUByte(), 128.toUByte()),
+        RGBInt(128.toUByte(), 128.toUByte(), 128.toUByte(), 128.toUByte()),
     )
+
+    @Test
+    fun rgba() {
+        RGBInt(1, 2, 3, 4).toRGBA() shouldBe 0x01020304u
+        RGBInt.fromRGBA(0x01020304u).argb shouldBe 0x04010203u
+    }
 
     @Test
     @JsName("RGBInt_to_RGB")

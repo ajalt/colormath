@@ -31,6 +31,9 @@ value class RGBInt(val argb: UInt) : Color {
         override fun create(components: FloatArray): RGBInt = doCreate(components) { r, g, b, a ->
             RGBInt(r.toInt(), g.toInt(), b.toInt(), a.toInt())
         }
+
+        /** Create an [RGBInt] from an integer packed in RGBA order */
+        fun fromRGBA(rgba: UInt): RGBInt = RGBInt((rgba shr 8) or (rgba shl 24))
     }
 
     constructor(r: UByte, g: UByte, b: UByte, alpha: UByte = 0xff.toUByte()) : this(
@@ -74,6 +77,9 @@ value class RGBInt(val argb: UInt) : Color {
 
     /** The blue component as a Float in the range `[0, 1]` */
     val blueFloat: Float get() = b.toInt() / 255f
+
+    /** Convert this color to an integer packed in RGBA order. */
+    fun toRGBA(): UInt = (argb shl 8) or (argb shr 24)
 
     override fun toSRGB(): RGB = RGB(redFloat, greenFloat, blueFloat, alpha)
 
