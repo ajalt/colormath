@@ -1,5 +1,10 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
+import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
+import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
+import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
+import com.github.ajalt.colormath.XYZColorSpaces.XYZ50
 import com.github.ajalt.colormath.internal.gradToDeg
 import com.github.ajalt.colormath.internal.normalizeDeg
 import com.github.ajalt.colormath.internal.radToDeg
@@ -31,6 +36,7 @@ fun Color.Companion.parse(color: String): Color {
                 ?: PATTERNS.LAB.matchEntire(color)?.let { lab(it) }
                 ?: PATTERNS.LCH.matchEntire(color)?.let { lch(it) }
                 ?: PATTERNS.HWB.matchEntire(color)?.let { hwb(it) }
+                ?: PATTERNS.COLOR.matchEntire(color)?.let { color(it) }
                 ?: throw IllegalArgumentException("Invalid color: $color")
         }
     }
@@ -40,20 +46,44 @@ fun Color.Companion.parse(color: String): Color {
 private object PATTERNS {
     private const val NUMBER = """[+-]?(?:\d+|\d*\.\d+)(?:[eE][+-]?\d+)?"""
     private const val PERCENT = "$NUMBER%"
-    private const val ALPHA = "$NUMBER%?"
+    private const val NUMBER_OR_PERCENT = "$NUMBER%?"
+    private const val SLASH_ALPHA = """\s*(?:/\s*($NUMBER_OR_PERCENT))?\s*"""
+    private const val COMMA_ALPHA = """(?:\s*,\s*($NUMBER_OR_PERCENT))?\s*"""
     private const val HUE = "$NUMBER(?:deg|grad|rad|turn)?"
 
-    val RGB_1 = Regex("""rgba?\(($PERCENT)\s+($PERCENT)\s+($PERCENT)\s*(?:/\s*($ALPHA))?\s*\)""")
-    val RGB_2 = Regex("""rgba?\(($PERCENT)\s*,\s*($PERCENT)\s*,\s*($PERCENT)(?:\s*,\s*($ALPHA))?\s*\)""")
-    val RGB_3 = Regex("""rgba?\(($NUMBER)\s+($NUMBER)\s+($NUMBER)\s*(?:/\s*($ALPHA)\s*)?\)""")
-    val RGB_4 = Regex("""rgba?\(($NUMBER)\s*,\s*($NUMBER)\s*,\s*($NUMBER)(?:\s*,\s*($ALPHA))?\s*\)""")
+    val RGB_1 = Regex("""rgba?\(($PERCENT)\s+($PERCENT)\s+($PERCENT)$SLASH_ALPHA\)""")
+    val RGB_2 = Regex("""rgba?\(($PERCENT)\s*,\s*($PERCENT)\s*,\s*($PERCENT)$COMMA_ALPHA\)""")
+    val RGB_3 = Regex("""rgba?\(($NUMBER)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
+    val RGB_4 = Regex("""rgba?\(($NUMBER)\s*,\s*($NUMBER)\s*,\s*($NUMBER)$COMMA_ALPHA\)""")
 
-    val HSL_1 = Regex("""hsla?\(($HUE)\s+($PERCENT)\s+($PERCENT)\s*(?:/\s*($ALPHA))?\s*\)""")
-    val HSL_2 = Regex("""hsla?\(($HUE)\s*,\s*($PERCENT)\s*,\s*($PERCENT)(?:\s*,\s*($ALPHA))?\s*\)""")
+    val HSL_1 = Regex("""hsla?\(($HUE)\s+($PERCENT)\s+($PERCENT)$SLASH_ALPHA\)""")
+    val HSL_2 = Regex("""hsla?\(($HUE)\s*,\s*($PERCENT)\s*,\s*($PERCENT)$COMMA_ALPHA\)""")
 
-    val LAB = Regex("""lab\(($PERCENT)\s+($NUMBER)\s+($NUMBER)\s*(?:/\s*($ALPHA))?\s*\)""")
-    val LCH = Regex("""lch\(($PERCENT)\s+($NUMBER)\s+($HUE)\s*(?:/\s*($ALPHA))?\s*\)""")
-    val HWB = Regex("""hwb\(($HUE)\s+($PERCENT)\s+($PERCENT)\s*(?:/\s*($ALPHA))?\s*\)""")
+    val LAB = Regex("""lab\(($PERCENT)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
+    val LCH = Regex("""lch\(($PERCENT)\s+($NUMBER)\s+($HUE)$SLASH_ALPHA\)""")
+    val HWB = Regex("""hwb\(($HUE)\s+($PERCENT)\s+($PERCENT)$SLASH_ALPHA\)""")
+
+    val COLOR = Regex("""color\(([\w\-]+)\s+($NUMBER_OR_PERCENT(?:\s+$NUMBER_OR_PERCENT)*)$SLASH_ALPHA\)""")
+}
+
+private fun color(match: MatchResult): Color {
+    val space = when (match.groupValues[1]) {
+        "srgb" -> SRGB
+        "display-p3" -> DISPLAY_P3
+        "a98-rgb" -> ADOBE_RGB
+        "prophoto-rgb" -> ROMM_RGB
+        "rec2020" -> BT_2020
+        "xyz" -> XYZ50
+        else -> throw IllegalArgumentException("Unsupported color space: ${match.groupValues[1]}")
+    }
+
+    val values = match.groupValues[2].split(Regex("\\s+")).map { percentOrNumber(it).clampF() }
+    return space.create(floatArrayOf(
+        values.getOrElse(0) { 0f },
+        values.getOrElse(1) { 0f },
+        values.getOrElse(2) { 0f },
+        alpha(match.groupValues[3])
+    ))
 }
 
 

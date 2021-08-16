@@ -1,5 +1,10 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
+import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
+import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
+import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
+import com.github.ajalt.colormath.XYZColorSpaces.XYZ50
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
@@ -45,7 +50,8 @@ class CssParseTest {
         row("hsl(1,2,3%)"),
         row("hsl(1degrees,2%,3%)"),
         row("hsl(1ddeg,2%,3%)"),
-        row("hsl(1Deg,2%,3%)")
+        row("hsl(1Deg,2%,3%)"),
+        row("color(profoto-rgb 0.4835 0.9167 0.2188)")
     ) {
         shouldThrow<IllegalArgumentException> {
             Color.parse(it)
@@ -91,7 +97,7 @@ class CssParseTest {
         row("rgb(255, 0, 153, 100%)"),
         row("rgb(255 0 153 / 1)"),
         row("rgb(255 0 153 / 100%)"),
-        row("rgb(255, 0, 153.4, 1)")
+        row("rgb(255, 0, 153.4, 1)"),
     ) {
         Color.parse(it) shouldBe RGB(255, 0, 153)
     }
@@ -208,5 +214,19 @@ class CssParseTest {
         row("hwb(3.1416rad 23.4% 45.6%)", HWB(180.0, .234, .456)),
     ) { str, hwb ->
         Color.parse(str).shouldEqualColor(hwb)
+    }
+
+    @Test
+    @JsName("parseCssColor_color")
+    // https://www.w3.org/TR/css-color-4/#funcdef-color
+    fun `parseCssColor color`() = forAll(
+        row("color(srgb 25% 50% 75% / 90%)", SRGB(.25, .5, .75, .9)),
+        row("color(display-p3 -0.6112 1.0079 -0.2192)", DISPLAY_P3(0f, 1f, 0f)),
+        row("color(a98-rgb 25% 50% 75%)", ADOBE_RGB(.25, .5, .75)),
+        row("color(prophoto-rgb 25% 50% 75% / 90%)", ROMM_RGB(.25, .5, .75, .9)),
+        row("color(rec2020 0.42053 0.979780 0.00579)", BT_2020(0.42053, 0.979780, 0.00579)),
+        row("color(xyz 0.2005 0.14089 0.4472)", XYZ50(0.2005, 0.14089, 0.4472)),
+    ) { str, lch ->
+        Color.parse(str).shouldEqualColor(lch)
     }
 }
