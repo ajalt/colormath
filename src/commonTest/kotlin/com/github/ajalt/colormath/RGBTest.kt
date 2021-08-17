@@ -4,6 +4,7 @@ import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
+import kotlin.Double.Companion.NaN
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -24,19 +25,19 @@ class RGBTest {
     @Test
     @JsName("RGB_to_HSV")
     fun `RGB to HSV`() = testColorConversions(
-        RGB(0.00, 0.00, 0.00) to HSV(0.0, 0.0, 0.0),
-        RGB(0.18, 0.18, 0.18) to HSV(0.0, 0.0, 0.18),
+        RGB(0.00, 0.00, 0.00) to HSV(NaN, 0.0, 0.0),
+        RGB(0.18, 0.18, 0.18) to HSV(NaN, 0.0, 0.18),
         RGB(0.40, 0.50, 0.60) to HSV(210.0, 0.33333333, 0.6),
-        RGB(1.00, 1.00, 1.00) to HSV(0.0, 0.0, 1.0),
+        RGB(1.00, 1.00, 1.00) to HSV(NaN, 0.0, 1.0),
     )
 
     @Test
     @JsName("RGB_to_HSL")
     fun `RGB to HSL`() = testColorConversions(
-        RGB(0.00, 0.00, 0.00) to HSL(0.0, 0.0, 0.0),
-        RGB(0.18, 0.18, 0.18) to HSL(0.0, 0.0, 0.18),
+        RGB(0.00, 0.00, 0.00) to HSL(NaN, 0.0, 0.0),
+        RGB(0.18, 0.18, 0.18) to HSL(NaN, 0.0, 0.18),
         RGB(0.40, 0.50, 0.60) to HSL(210.0, 0.2, 0.5),
-        RGB(1.00, 1.00, 1.00) to HSL(0.0, 0.0, 1.0),
+        RGB(1.00, 1.00, 1.00) to HSL(NaN, 0.0, 1.0),
     )
 
     @Test
