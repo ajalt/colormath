@@ -183,6 +183,8 @@ data class XYZ internal constructor(
         )
     }
 
+    override fun toICtCp(): ICtCp = convertXYZToICtCp(this)
+
     /**
      * Convert this color to `xyY` [xyY] coordinates.
      *
