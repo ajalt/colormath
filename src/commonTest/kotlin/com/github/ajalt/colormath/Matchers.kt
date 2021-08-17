@@ -39,7 +39,8 @@ fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4, ignorePola
         l.size shouldBe r.size
         for (i in l.indices) {
             if (ignorePolar && space.components[i].isPolar) continue
-            l[i] shouldBe (r[i] plusOrMinus tolerance.toFloat())
+            if (l[i].isNaN()) r[i].isNaN() shouldBe true
+            else l[i] shouldBe (r[i] plusOrMinus tolerance.toFloat())
         }
     } catch (e: AssertionError) {
         println("┌ ex ${expected.toSRGB().toHex()} $expected")

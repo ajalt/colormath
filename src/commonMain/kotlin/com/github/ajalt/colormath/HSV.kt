@@ -3,20 +3,18 @@ package com.github.ajalt.colormath
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.normalizeDeg
 import com.github.ajalt.colormath.internal.polarComponentInfo
-import kotlin.math.floor
 import kotlin.math.max
-import kotlin.math.roundToInt
 
 /**
  * A color model represented with Hue, Saturation, and Value.
  *
  * This is a cylindrical representation of the sRGB space used in [RGB].
  *
- * | Component  | Description  | Range      |
- * | ---------- | ------------ | ---------- |
- * | [h]        | hue, degrees | `[0, 360)` |
- * | [s]        | saturation   | `[0, 1]`   |
- * | [v]        | value        | `[0, 1]`   |
+ * | Component  | Description                               | Range      |
+ * | ---------- | ----------------------------------------- | ---------- |
+ * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+ * | [s]        | saturation                                | `[0, 1]`   |
+ * | [v]        | value                                     | `[0, 1]`   |
  */
 data class HSV(override val h: Float, val s: Float, val v: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorSpace<HSV> {
@@ -40,22 +38,16 @@ data class HSV(override val h: Float, val s: Float, val v: Float, override val a
     override val space: ColorSpace<HSV> get() = HSV
 
     override fun toSRGB(): RGB {
-        val h = h.normalizeDeg() / 60f
-        val hi = floor(h) % 6
+        if (s < 1e-7) return RGB(v, v, v, alpha)
+        val v = v.toDouble()
+        val h = (h.normalizeDeg() / 60.0)
+        val s = s.toDouble()
 
-        val f = h - floor(h)
-        val p = v * (1f - s)
-        val q = v * (1f - (s * f))
-        val t = v * (1f - (s * (1f - f)))
-
-        return when (hi.roundToInt()) {
-            0 -> RGB(v, t, p, alpha)
-            1 -> RGB(q, v, p, alpha)
-            2 -> RGB(p, v, t, alpha)
-            3 -> RGB(p, q, v, alpha)
-            4 -> RGB(t, p, v, alpha)
-            else -> RGB(v, p, q, alpha)
+        fun f(n: Int): Float {
+            val k = (n + h) % 6
+            return (v - v * s * minOf(k, 4 - k, 1.0).coerceAtLeast(0.0)).toFloat()
         }
+        return SRGB(f(5), f(3), f(1), alpha)
     }
 
     override fun toHSL(): HSL {

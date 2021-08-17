@@ -1,19 +1,21 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.doCreate
+import com.github.ajalt.colormath.internal.nanToZero
 import com.github.ajalt.colormath.internal.normalizeDeg
 import com.github.ajalt.colormath.internal.polarComponentInfo
+import kotlin.math.min
 
 /**
  * A color model represented with Hue, Saturation, and Lightness.
  *
  * This is a cylindrical representation of the sRGB space used in [RGB].
  *
- * | Component  | Description  | Range      |
- * | ---------- | ------------ | ---------- |
- * | [h]        | hue, degrees | `[0, 360)` |
- * | [s]        | saturation   | `[0, 1]`   |
- * | [l]        | lightness    | `[0, 1]`   |
+ * | Component  | Description                               | Range      |
+ * | ---------- | ----------------------------------------- | ---------- |
+ * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+ * | [s]        | saturation                                | `[0, 1]`   |
+ * | [l]        | lightness                                 | `[0, 1]`   |
  */
 data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorSpace<HSL> {
@@ -40,32 +42,20 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
     override fun toSRGB(): RGB {
         if (s < 1e-7) return RGB(l, l, l, alpha)
 
-        val h = this.h.normalizeDeg() / 360.0
-        val s = this.s.toDouble()
-        val l = this.l.toDouble()
+        val h = (h.normalizeDeg() / 30.0).nanToZero()
+        val s = s.toDouble()
+        val l = l.toDouble()
 
-        val vj = when {
-            l < 0.5 -> l * (1 + s)
-            else -> l + s - l * s
+        fun f(n: Int): Float {
+            val k = (n + h) % 12.0
+            val a = s * min(l, 1 - l)
+            return (l - a * minOf(k - 3, 9 - k, 1.0).coerceAtLeast(-1.0)).toFloat()
         }
 
-        val vi = 2 * l - vj
-
-        fun t(vhn: Double): Float {
-            val vh = if (vhn < 0) vhn + 1 else if (vhn > 1) vhn - 1 else vhn
-            return when {
-                6 * vh < 1 -> vi + (vj - vi) * 6 * vh
-                2 * vh < 1 -> vj
-                3 * vh < 2 -> vi + (vj - vi) * (2.0 / 3.0 - vh) * 6
-                else -> vi
-            }.toFloat()
-        }
-
-        return RGB(t(h + (1.0 / 3.0)), t(h), t(h - (1.0 / 3.0)), alpha)
+        return SRGB(f(0), f(8), f(4), alpha)
     }
 
     override fun toHSV(): HSV {
-        val h = this.h.normalizeDeg()
         var s = this.s
         var l = this.l
         var smin = s

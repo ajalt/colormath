@@ -2,10 +2,7 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
 import com.github.ajalt.colormath.RenderCondition.AUTO
-import com.github.ajalt.colormath.internal.Matrix
-import com.github.ajalt.colormath.internal.cbrt
-import com.github.ajalt.colormath.internal.dot
-import com.github.ajalt.colormath.internal.spow
+import com.github.ajalt.colormath.internal.*
 import kotlin.math.roundToInt
 
 
@@ -220,22 +217,22 @@ data class RGB internal constructor(
     )
 
     override fun toHSL(): HSL {
-        return srgbHueMinMaxDelta { h, min, max, delta ->
+        return srgbHueMinMaxChroma { h, min, max, chroma ->
             val l = (min + max) / 2.0
             val s = when {
                 max == min -> 0.0
-                l <= 0.5 -> delta / (max + min)
-                else -> delta / (2 - max - min)
+                l <= 0.5 -> chroma / (max + min)
+                else -> chroma / (2 - max - min)
             }
             HSL(h.toFloat(), s.toFloat(), l.toFloat(), alpha)
         }
     }
 
     override fun toHSV(): HSV {
-        return srgbHueMinMaxDelta { h, _, max, delta ->
+        return srgbHueMinMaxChroma { h, _, max, chroma ->
             val s = when (max) {
                 0.0 -> 0.0
-                else -> (delta / max)
+                else -> (chroma / max)
             }
             HSV(h.toFloat(), s.toFloat(), max.toFloat(), alpha)
         }
@@ -259,7 +256,7 @@ data class RGB internal constructor(
 
     override fun toHWB(): HWB {
         // https://www.w3.org/TR/css-color-4/#rgb-to-hwb
-        return srgbHueMinMaxDelta { hue, min, max, _ ->
+        return srgbHueMinMaxChroma { hue, min, max, _ ->
             HWB(
                 h = hue.toFloat(),
                 w = min.toFloat(),
@@ -330,33 +327,28 @@ data class RGB internal constructor(
      *
      * Min and max are scaled to [0, 1]
      */
-    private inline fun <T> srgbHueMinMaxDelta(
-        block: (hue: Double, min: Double, max: Double, delta: Double) -> T,
+    private inline fun <T> srgbHueMinMaxChroma(
+        block: (hue: Double, min: Double, max: Double, chroma: Double) -> T,
     ): T = toSRGB {
         val r = r.toDouble()
         val g = g.toDouble()
         val b = b.toDouble()
         val min = minOf(r, g, b)
         val max = maxOf(r, g, b)
-        val delta = max - min
+        val chroma = max - min
 
-        var h = when {
-            max == min -> 0.0
-            r == max -> (g - b) / delta
-            g == max -> 2 + (b - r) / delta
-            b == max -> 4 + (r - g) / delta
+        val h = when {
+            chroma < 1e-7 -> Double.NaN
+            r == max -> (g - b) / chroma
+            g == max -> 2 + (b - r) / chroma
+            b == max -> 4 + (r - g) / chroma
             else -> 0.0
-        }
+        } * 60
 
-        h = minOf(h * 60, 360.0)
-        if (h < 0) h += 360
-
-        return block(h, min, max, delta)
+        return block(h.normalizeDeg(), min, max, chroma)
     }
 
-    private inline fun <T : Color> toSRGB(space: RGBColorSpace = RGBColorSpaces.SRGB, block: RGB.() -> T): T {
-        return if (this.space == space) this.block() else convertTo(space).block()
-    }
+    private inline fun <T : Color> toSRGB(block: RGB.() -> T): T = convertTo(SRGB).block()
 }
 
 
