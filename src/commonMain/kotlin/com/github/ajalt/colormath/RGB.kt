@@ -288,7 +288,10 @@ data class RGB internal constructor(
         )
     }
 
-    override fun toICtCp(): ICtCp = convertBT2020ToICtCp(convertTo(BT_2020))
+    override fun toICtCp(): ICtCp  {
+        if (space == BT_2020) return convertBT2020ToICtCp(this)
+        return toXYZ().toICtCp()
+    }
 
     override fun toAnsi16(): Ansi16 = toSRGB {
         val value = (toHSV().v * 100).roundToInt()

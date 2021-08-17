@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
+import com.github.ajalt.colormath.XYZColorSpaces.XYZ65
 import com.github.ajalt.colormath.internal.*
 
 /**
@@ -39,25 +40,44 @@ data class ICtCp(
 
     /** Convert this color to [BT.2020 RGB][RGBColorSpaces.BT_2020] */
     fun toBT2020(): RGB {
-        val f = PqNonlinearity
-        return MATRIX_ICTCP_ICTCP_to_LMS.dot(i, ct, cp) { l, m, s ->
-            MATRIX_ICTCP_LMS_to_RGB.dot(f.eotf(l), f.eotf(m), f.eotf(s)) { r, g, b ->
-                BT_2020(r, g, b, alpha)
+        val fo = BT_2020.transferFunctions
+        val fe = PqNonlinearity
+        return ICTCP_ICTCP_to_LMS.dot(i, ct, cp) { l, m, s ->
+            ICTCP_LMS_to_RGB.dot(fe.eotf(l), fe.eotf(m), fe.eotf(s)) { r, g, b ->
+                BT_2020(fo.oetf(r), fo.oetf(g), fo.oetf(b), alpha)
             }
         }
     }
 
-    override fun toXYZ(): XYZ = toBT2020().toXYZ()
+    override fun toXYZ(): XYZ {
+        val fe = PqNonlinearity
+        return ICTCP_ICTCP_to_LMS.dot(i, ct, cp) { l, m, s ->
+            ICTCP_LMS_TO_XYZ.dot(fe.eotf(l), fe.eotf(m), fe.eotf(s)) { x, y, z ->
+                XYZ65(x, y, z, alpha)
+            }
+        }
+    }
+
     override fun toSRGB(): RGB = toXYZ().toSRGB()
     override fun toICtCp(): ICtCp = this
     override fun toArray(): FloatArray = floatArrayOf(i, ct, cp, alpha)
 }
 
 internal fun convertBT2020ToICtCp(rgb: RGB): ICtCp {
-    val f = PqNonlinearity
-    return MATRIX_ICTCP_RGB_TO_LMS.dot(rgb.r, rgb.g, rgb.b) { l, m, s ->
-        MATRIX_ICTCP_LMS_TO_ICTCP.dot(f.oetf(l), f.oetf(m), f.oetf(s)) { i, ct, cp ->
+    val fe = BT_2020.transferFunctions
+    val fo = PqNonlinearity
+    return ICTCP_RGB_TO_LMS.dot(fe.eotf(rgb.r), fe.eotf(rgb.g), fe.eotf(rgb.b)) { l, m, s ->
+        ICTCP_LMS_TO_ICTCP.dot(fo.oetf(l), fo.oetf(m), fo.oetf(s)) { i, ct, cp ->
             ICtCp(i, ct, cp, rgb.alpha)
+        }
+    }
+}
+
+internal fun convertXYZToICtCp(xyz: XYZ): ICtCp {
+    val f = PqNonlinearity
+    return ICTCP_XYZ_TO_LMS.dot(xyz.x, xyz.y, xyz.z) { l, m, s ->
+        ICTCP_LMS_TO_ICTCP.dot(f.oetf(l), f.oetf(m), f.oetf(s)) { i, ct, cp ->
+            ICtCp(i, ct, cp, xyz.alpha)
         }
     }
 }
@@ -86,17 +106,34 @@ private object PqNonlinearity : RGBColorSpace.TransferFunctions {
     }
 }
 
-private val MATRIX_ICTCP_RGB_TO_LMS = Matrix(
+private val ICTCP_RGB_TO_LMS = Matrix(
     1688f, 2146f, 262f,
     683f, 2951f, 462f,
     99f, 309f, 3688f,
 ).scalarDiv(4096f, inPlace = true)
 
-private val MATRIX_ICTCP_LMS_TO_ICTCP = Matrix(
+private val ICTCP_LMS_TO_ICTCP = Matrix(
     2048f, 2048f, 0f,
     6610f, -13613f, 7003f,
     17933f, -17390f, -543f,
 ).scalarDiv(4096f, inPlace = true)
 
-private val MATRIX_ICTCP_LMS_to_RGB = MATRIX_ICTCP_RGB_TO_LMS.inverse()
-private val MATRIX_ICTCP_ICTCP_to_LMS = MATRIX_ICTCP_LMS_TO_ICTCP.inverse()
+private val ICTCP_LMS_to_RGB = ICTCP_RGB_TO_LMS.inverse()
+private val ICTCP_ICTCP_to_LMS = ICTCP_LMS_TO_ICTCP.inverse()
+
+// ICtCp defines the XYZ to LMS matrix by multiplying a crosstalk matrix with the old
+// Hunt-Pointer-Estevez transform. It's not clear why they use HPE rather than one of the newer
+// transforms.
+private val ICTCP_CROSSTALK = Matrix(
+    0.92f, 0.04f, 0.04f,
+    0.04f, 0.92f, 0.04f,
+    0.04f, 0.04f, 0.92f,
+)
+private val HPE_XYZ_TO_LMS = Matrix(
+    0.4002f, 0.7076f, -0.0808f,
+    -0.2263f, 1.1653f, 0.0457f,
+    0f, 0f, 0.9182f,
+)
+
+private val ICTCP_XYZ_TO_LMS = ICTCP_CROSSTALK.dot(HPE_XYZ_TO_LMS)
+private val ICTCP_LMS_TO_XYZ = ICTCP_XYZ_TO_LMS.inverse()
