@@ -167,7 +167,8 @@ data class XYZ internal constructor(
     override fun toJzAzBz(): JzAzBz = toD65 {
         fun pq(x: Double): Double {
             val xx = (x * 1e-4).pow(0.1593017578125)
-            return ((0.8359375 + 18.8515625 * xx) / (1 + 18.6875 * xx)).pow(134.034375)
+            val v = ((0.8359375 + 18.8515625 * xx) / (1 + 18.6875 * xx)).pow(134.034375)
+            return if (v.isNaN()) 0.0 else v
         }
 
         val lp = pq(0.674207838 * x + 0.382799340 * y - 0.047570458 * z)

@@ -51,7 +51,8 @@ data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: 
     override fun toXYZ(): XYZ {
         fun pqInv(x: Double): Double {
             val xx = x.pow(7.460772656268214e-03)
-            return 1e4 * ((0.8359375 - xx) / (18.6875 * xx - 18.8515625)).pow(6.277394636015326)
+            val v = 1e4 * ((0.8359375 - xx) / (18.6875 * xx - 18.8515625)).pow(6.277394636015326)
+            return if (v.isNaN()) 0.0 else v
         }
 
         val jz = j + d0
