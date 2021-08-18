@@ -7,11 +7,11 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
 /**
  * Oklch color model, the cylindrical representation of [Oklab].
  *
- * | Component  | Description  | Range      |
- * | ---------- | ------------ | ---------- |
- * | [l]        | lightness    | `[0, 1]`   |
- * | [c]        | chroma       | `[0, 1]`   |
- * | [h]        | hue, degrees | `[0, 360)` |
+ * | Component  | Description                               | Range      |
+ * | ---------- | ----------------------------------------- | ---------- |
+ * | [l]        | lightness                                 | `[0, 1]`   |
+ * | [c]        | chroma                                    | `[0, 1]`   |
+ * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
  */
 data class Oklch(val l: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
     companion object : ColorSpace<Oklch> {
@@ -35,7 +35,7 @@ data class Oklch(val l: Float, val c: Float, override val h: Float, override val
     }
 
     override fun toXYZ(): XYZ = toOklab().toXYZ()
-    override fun toOklab(): Oklab = fromPolarModel(c, h) { a, b -> return Oklab(l, a, b, alpha) }
+    override fun toOklab(): Oklab = fromPolarModel(c, h) { a, b -> Oklab(l, a, b, alpha) }
     override fun toOklch(): Oklch = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
 }

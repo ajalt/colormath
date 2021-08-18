@@ -22,12 +22,12 @@ internal fun Double.nanToZero(): Double = if (isNaN()) 0.0 else this
 // https://en.wikipedia.org/wiki/CIELUV#Cylindrical_representation_.28CIELCH.29
 internal inline fun <T> toPolarModel(a: Float, b: Float, block: (c: Float, h: Float) -> T): T {
     val c = sqrt(a * a + b * b)
-    val h = if (c > -1e-7 && c < 1e-7) 0f else atan2(b, a).radToDeg()
+    val h = if (c > -1e-7 && c < 1e-7) Float.NaN else atan2(b, a).radToDeg()
     return block(c, h.normalizeDeg())
 }
 
 internal inline fun <T> fromPolarModel(c: Float, h: Float, block: (a: Float, b: Float) -> T): T {
-    val hDegrees = h.degToRad()
+    val hDegrees = if (h.isNaN()) 0f else h.degToRad()
     val a = c * cos(hDegrees)
     val b = c * sin(hDegrees)
     return block(a, b)

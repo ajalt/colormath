@@ -9,13 +9,13 @@ import kotlin.math.sqrt
 /**
  * The JzCzHz color model, the cylindrical representation of [JzAzBz].
  *
- * | Component  | Description  | Range      |
- * | ---------- | ------------ | -----------|
- * | [j]        | lightness    | `[0, 1]`   |
- * | [c]        | chroma       | `[-1, 1]`  |
- * | [h]        | hue, degrees | `[0, 360)` |
+ * | Component  | Description                               | Range      |
+ * | ---------- | ----------------------------------------- | ---------- |
+ * | [j]        | lightness                                 | `[0, 1]`   |
+ * | [c]        | chroma                                    | `[-1, 1]`  |
+ * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
  *
- * #### Reference
+ *  #### Reference
  * M. Safdar, G. Cui, Y. Kim, and M. Luo, "Perceptually uniform color space for image signals including high dynamic
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
