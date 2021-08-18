@@ -44,11 +44,11 @@ object LCHuvColorSpaces {
 /**
  * CIE LCh(uv) color model, a.k.a. `HCL`, the cylindrical representation of [LUV].
  *
- * | Component  | Description  | Range      |
- * | ---------- | ------------ | ---------- |
- * | [l]        | lightness    | `[0, 100]` |
- * | [c]        | chroma       | `[0, 100]` |
- * | [h]        | hue, degrees | `[0, 360)` |
+ * | Component  | Description                               | Range      |
+ * | ---------- | ----------------------------------------- | ---------- |
+ * | [l]        | lightness                                 | `[0, 100]` |
+ * | [c]        | chroma                                    | `[0, 100]` |
+ * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
  */
 data class LCHuv internal constructor(
     val l: Float,

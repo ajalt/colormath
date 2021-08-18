@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
+import io.kotest.matchers.doubles.shouldBeNaN
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 
@@ -39,7 +40,7 @@ fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4, ignorePola
         l.size shouldBe r.size
         for (i in l.indices) {
             if (ignorePolar && space.components[i].isPolar) continue
-            if (l[i].isNaN()) r[i].isNaN() shouldBe true
+            if (l[i].isNaN()) r[i].toDouble().shouldBeNaN()
             else l[i] shouldBe (r[i] plusOrMinus tolerance.toFloat())
         }
     } catch (e: AssertionError) {

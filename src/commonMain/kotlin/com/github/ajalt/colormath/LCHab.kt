@@ -45,11 +45,11 @@ object LCHabColorSpaces {
 /**
  * `CIE LCh(ab)` color model, a.k.a. `LCH`, the cylindrical representation of [LAB].
  *
- * | Component  | Description  | Range      |
- * | ---------- | ------------ | ---------- |
- * | [l]        | lightness    | `[0, 100]` |
- * | [c]        | chroma       | `[0, 100]` |
- * | [h]        | hue, degrees | `[0, 360)` |
+ * | Component  | Description                               | Range      |
+ * | ---------- | ----------------------------------------- | ---------- |
+ * | [l]        | lightness                                 | `[0, 100]` |
+ * | [c]        | chroma                                    | `[0, 100]` |
+ * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
  */
 data class LCHab internal constructor(
     val l: Float,
