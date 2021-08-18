@@ -5,7 +5,7 @@ import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.inspectors.forAll
-import io.kotest.matchers.shouldBe
+import kotlin.Double.Companion.NaN
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -19,25 +19,6 @@ class TransformTest {
     ) { c1, c2, a, ex ->
         c1.interpolate(c2, a).shouldEqualColor(ex)
         c1.space.interpolator(c1, c2).interpolate(a).shouldEqualColor(ex)
-    }
-
-    @Test
-    @JsName("interpolator_with_hue_adjustment")
-    fun `interpolator with hue_adjustment`() = forAll(
-        row(0.00, 60),
-        row(0.25, 230),
-        row(0.50, 40),
-        row(0.75, 200),
-        row(1.00, 0),
-    ) { amount, h ->
-        val lerp = HSL.interpolator {
-            hueAdjustment = HueAdjustments.increasing
-            stop(HSL(60, 50, 50))
-            stop(HSL(40, 50, 50))
-            stop(HSL(0, 50, 50))
-        }
-        lerp.interpolate(amount).h shouldBe h
-
     }
 
     @Test
@@ -56,6 +37,24 @@ class TransformTest {
             stop(RGB("#800"))
             hint(.6)
             stop(RGB("#888"))
+        }.interpolate(pos).shouldEqualColor(ex)
+    }
+
+    @Test
+    @JsName("interpolator_with_NaN_hues")
+    fun `interpolator with NaN hues`() = forAll(
+        row(0.00, HSL(NaN, 0.2, 0.2)),
+        row(0.40, HSL(80.0, 0.4, 0.4)),
+        row(0.50, HSL(90.0, 0.5, 0.5)),
+        row(0.60, HSL(100.0, 0.6, 0.6)),
+        row(0.80, HSL(100.0, 0.7, 0.7)),
+        row(1.00, HSL(NaN, 0.8, 0.8)),
+    ) { pos, ex ->
+        HSL.interpolator {
+            stop(HSL(NaN, 0.2, 0.2))
+            stop(HSL(80.0, 0.4, 0.4), .4)
+            stop(HSL(100.0, 0.6, 0.6), .6)
+            stop(HSL(NaN, 0.8, 0.8))
         }.interpolate(pos).shouldEqualColor(ex)
     }
 
@@ -80,20 +79,19 @@ class TransformTest {
     @Test
     @JsName("interpolator_sequence")
     fun `interpolator sequence`() {
-        RGB.interpolator(RGB("#000"), RGB("#888")).sequence(9)
-            .toList().zip(listOf(
-                RGB("#000"),
-                RGB("#111"),
-                RGB("#222"),
-                RGB("#333"),
-                RGB("#444"),
-                RGB("#555"),
-                RGB("#666"),
-                RGB("#777"),
-                RGB("#888"),
-            )).forAll { (a, ex) ->
-                a.shouldEqualColor(ex)
-            }
+        RGB.interpolator(RGB("#000"), RGB("#888")).sequence(9).toList().zip(listOf(
+            RGB("#000"),
+            RGB("#111"),
+            RGB("#222"),
+            RGB("#333"),
+            RGB("#444"),
+            RGB("#555"),
+            RGB("#666"),
+            RGB("#777"),
+            RGB("#888"),
+        )).forAll { (a, ex) ->
+            a.shouldEqualColor(ex)
+        }
     }
 
     @Test
