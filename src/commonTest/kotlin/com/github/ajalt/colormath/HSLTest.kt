@@ -1,6 +1,5 @@
 package com.github.ajalt.colormath
 
-import kotlin.Double.Companion.NaN
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -14,10 +13,10 @@ class HSLTest {
     @Test
     @JsName("HSL_to_RGB")
     fun `HSL to RGB`() = testColorConversions(
-        HSL(NaN, 0.00, 0.00) to RGB(0.0, 0.0, 0.0),
+        HSL(Double.NaN, 0.00, 0.00) to RGB(0.0, 0.0, 0.0),
         HSL(64.80, 0.18, 0.18) to RGB(0.207216, 0.2124, 0.1476),
         HSL(144.00, 0.50, 0.60) to RGB(0.4, 0.8, 0.56),
-        HSL(NaN, 0.00, 1.00) to RGB(1.0, 1.0, 1.0),
+        HSL(Double.NaN, 0.00, 1.00) to RGB(1.0, 1.0, 1.0),
     )
 
     @Test

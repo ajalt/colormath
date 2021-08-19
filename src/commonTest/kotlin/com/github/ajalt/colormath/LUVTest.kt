@@ -1,6 +1,5 @@
 package com.github.ajalt.colormath
 
-import kotlin.Double.Companion.NaN
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -24,7 +23,7 @@ class LUVTest {
     @Test
     @JsName("LUV_to_LCHuv")
     fun `LUV to LCHuv`() = testColorConversions(
-        LUV(0.00, 0.00, 0.00) to LCHuv(0.0, 0.0, NaN),
+        LUV(0.00, 0.00, 0.00) to LCHuv(0.0, 0.0, Double.NaN),
         LUV(18.00, 18.00, 18.00) to LCHuv(18.0, 25.45584412, 45.0),
         LUV(40.00, 50.00, 60.00) to LCHuv(40.0, 78.10249676, 50.19442891),
         LUV(100.00, 100.00, 100.00) to LCHuv(100.0, 141.42135624, 45.0),

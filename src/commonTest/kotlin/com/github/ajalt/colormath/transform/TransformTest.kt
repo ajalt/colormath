@@ -5,7 +5,6 @@ import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.inspectors.forAll
-import kotlin.Double.Companion.NaN
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -43,18 +42,18 @@ class TransformTest {
     @Test
     @JsName("interpolator_with_NaN_hues")
     fun `interpolator with NaN hues`() = forAll(
-        row(0.00, HSL(NaN, 0.2, 0.2)),
+        row(0.00, HSL(Double.NaN, 0.2, 0.2)),
         row(0.40, HSL(80.0, 0.4, 0.4)),
         row(0.50, HSL(90.0, 0.5, 0.5)),
         row(0.60, HSL(100.0, 0.6, 0.6)),
         row(0.80, HSL(100.0, 0.7, 0.7)),
-        row(1.00, HSL(NaN, 0.8, 0.8)),
+        row(1.00, HSL(Double.NaN, 0.8, 0.8)),
     ) { pos, ex ->
         HSL.interpolator {
-            stop(HSL(NaN, 0.2, 0.2))
+            stop(HSL(Double.NaN, 0.2, 0.2))
             stop(HSL(80.0, 0.4, 0.4), .4)
             stop(HSL(100.0, 0.6, 0.6), .6)
-            stop(HSL(NaN, 0.8, 0.8))
+            stop(HSL(Double.NaN, 0.8, 0.8))
         }.interpolate(pos).shouldEqualColor(ex)
     }
 
