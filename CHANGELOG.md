@@ -18,6 +18,7 @@
 - The class name of the cylindrical representation of `LUV` is now `HCL`
 - Renamed `Color.fromCss` to `Color.parse`. The old name has been deprecated.
 - All `Color` constructors now use `alpha` as name of their final parameter.
+- Replace `toCssRgb` and `toCssHsl` with `fromatCssString` that supports all color models.
 - Updated Kotlin to 1.5.21
 
 ### Removed

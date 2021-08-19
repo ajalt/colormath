@@ -54,7 +54,14 @@ class CssRenderTest {
         row(R(255, 128, 0, .5f, alphaPercent = true), "rgb(255 128 0 / 50%)"),
         row(R(255, 128, 0, .5f, rgbPercent = true, alphaPercent = true), "rgb(100% 50% 0% / 50%)")
     ) { (r, g, b, a, commas, namedRgba, rgbPercent, alphaPercent, renderAlpha), expected ->
-        RGB(r, g, b, a).formatCssRgb(commas, namedRgba, rgbPercent, alphaPercent, renderAlpha) shouldBe expected
+        RGB(r, g, b, a).formatCssString(
+            AngleUnit.AUTO,
+            renderAlpha,
+            rgbPercent,
+            alphaPercent,
+            namedRgba,
+            commas
+        ) shouldBe expected
     }
 
     @Test
@@ -73,7 +80,14 @@ class CssRenderTest {
         row(H(180, 50, 50, hueUnit = RADIANS), "hsl(3.1415rad 50% 50%)"),
         row(H(180, 50, 50, hueUnit = TURNS), "hsl(0.5turn 50% 50%)"),
     ) { (h, s, l, a, commas, namedHsla, hueUnit, alphaPercent, renderAlpha), expected ->
-        HSL(h, s, l, a).formatCssHsl(commas, namedHsla, hueUnit, alphaPercent, renderAlpha) shouldBe expected
+        HSL(h, s, l, a).formatCssString(
+            hueUnit,
+            renderAlpha,
+            true,
+            alphaPercent,
+            namedHsla,
+            commas
+        ) shouldBe expected
     }
 
     @Test
