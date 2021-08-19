@@ -1,10 +1,6 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
-import com.github.ajalt.colormath.internal.Matrix
-import com.github.ajalt.colormath.internal.dot
-import com.github.ajalt.colormath.internal.scalarDiv
-import com.github.ajalt.colormath.internal.spow
 import kotlin.js.JsName
 import kotlin.test.Test
 
