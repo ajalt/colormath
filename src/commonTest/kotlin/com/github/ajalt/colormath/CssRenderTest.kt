@@ -2,6 +2,7 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.AngleUnit.*
 import com.github.ajalt.colormath.LABColorSpaces.LAB50
+import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScc
 import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
 import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
@@ -100,7 +101,7 @@ class CssRenderTest {
         row(ACEScc(.1, .2, .3), "color(--acescc 0.1 0.2 0.3)"),
         row(HSL(1.0, .2, .3), "hsl(1 20% 30%)"),
         row(LAB50(1.0, 20.0, 30.0), "lab(1% 20 30)"),
-        row(LCHab(1.0, 20.0, 30.0), "lch(1% 20 30)"),
+        row(LCHab50(1.0, 20.0, 30.0), "lch(1% 20 30)"),
         row(HWB(1.0, .2, .3), "hwb(1 20% 30%)"),
         row(XYZ50(.1, .2, .3), "color(xyz 0.1 0.2 0.3)"),
         row(JzAzBz(.1, .2, .3), "color(--jzazbz 0.1 0.2 0.3)"),

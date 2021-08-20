@@ -143,7 +143,7 @@ data class XYZ internal constructor(
         val u = 13.0 * l * (uPrime - uPrimeReference)
         val v = 13.0 * l * (vPrime - vPrimeReference)
 
-        return LUV(space.whitePoint)(l.coerceIn(0.0, 100.0), u, v, alpha)
+        return LUVColorSpace(space.whitePoint)(l.coerceIn(0.0, 100.0), u, v, alpha)
     }
 
     // https://bottosson.github.io/posts/oklab/#converting-from-xyz-to-oklab

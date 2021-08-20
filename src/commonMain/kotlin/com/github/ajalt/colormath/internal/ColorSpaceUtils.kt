@@ -1,8 +1,7 @@
 package com.github.ajalt.colormath.internal
 
-import com.github.ajalt.colormath.Color
-import com.github.ajalt.colormath.ColorComponentInfo
-import com.github.ajalt.colormath.ColorSpace
+import com.github.ajalt.colormath.*
+import com.github.ajalt.colormath.Illuminant.D65
 
 
 internal inline fun <T : Color> ColorSpace<T>.withValidComps(components: FloatArray, block: (FloatArray) -> T): T {
@@ -20,6 +19,11 @@ internal inline fun <T : Color> ColorSpace<T>.doCreate(
     return withValidComps(components) {
         init(components[0], components[1], components[2], components.getOrElse(3) { 1f })
     }
+}
+
+internal inline fun <T : Color> WhitePointColorSpace<T>.adaptToThis(color: Color, convert: (Color) -> T): T {
+    return if (((color.space as? WhitePointColorSpace<*>)?.whitePoint ?: D65) == whitePoint) convert(color)
+    else convert(color.toXYZ().adaptTo(XYZColorSpace(whitePoint)))
 }
 
 internal fun componentInfoList(vararg c: ColorComponentInfo) = listOf(*c, ColorComponentInfo("alpha", false))

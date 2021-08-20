@@ -30,6 +30,12 @@ fun <T : Color> roundtripTest(vararg colors: T, intermediate: ColorSpace<*> = SR
     }
 }
 
+fun convertToSpaceTest(vararg spaces: ColorSpace<*>, to: ColorSpace<*>) {
+    forAll(*spaces.map { row(it) }.toTypedArray()) {
+        it.create(floatArrayOf(.1f,.2f,.3f)).convertTo(to).space shouldBe to
+    }
+}
+
 fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4, ignorePolar: Boolean = false) {
     try {
         this::class shouldBe expected::class
