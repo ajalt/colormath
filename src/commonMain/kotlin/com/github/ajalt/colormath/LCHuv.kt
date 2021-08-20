@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.LCHuvColorSpaces.LCHuv65
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
 import com.github.ajalt.colormath.internal.polarComponentInfo
@@ -58,7 +59,23 @@ data class LCHuv internal constructor(
     override val space: LCHuvColorSpace,
 ) : HueColor {
     /** Default constructors for the [LCHuv] color model: the [LCHLCHuv65ab65][LCHuvColorSpaces.LCHuv65] space. */
-    companion object : LCHuvColorSpace by LCHuvColorSpaces.LCHuv65
+    companion object : LCHuvColorSpace by LCHuv65
+
+    override fun toHSLuv(): HSLuv {
+        if (l > 99.9999999) return HSLuv(h, 0f, 100f, alpha)
+        if (l < 0.00000001) return HSLuv(h, 0f, 0f, alpha)
+        val max = HUSLColorConverter.maxChromaForLH(l.toDouble(), h.toDouble())
+        val s = c / max * 100
+        return HSLuv(h, s.toFloat(), l, alpha)
+    }
+
+    override fun toHPLuv(): HPLuv {
+        if (l > 99.9999999) return HPLuv(h, 0f, 100f, alpha)
+        if (l < 0.00000001) return HPLuv(h, 0f, 0f, alpha)
+        val max = HUSLColorConverter.maxSafeChromaForL(l.toDouble())
+        val s = c / max * 100
+        return HPLuv(h, s.toFloat(), l, alpha)
+    }
 
     override fun toSRGB(): RGB = toLUV().toSRGB()
     override fun toXYZ(): XYZ = toLUV().toXYZ()
