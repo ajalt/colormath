@@ -76,9 +76,9 @@ data class LAB internal constructor(
         val xyzSpace = XYZColorSpace(space.whitePoint)
         if (l == 0f) return xyzSpace(0.0, 0.0, 0.0)
 
-        val fy = (l + 16) / 116f
-        val fz = fy - b / 200f
-        val fx = a / 500f + fy
+        val fy = (l + 16) / 116.0
+        val fz = fy - b / 200.0
+        val fx = a / 500.0 + fy
 
         val yr = if (l > CIE_E_times_K) fy.pow(3) else l / CIE_K
         val zr = fz.pow(3).let { if (it > CIE_E) it else (116 * fz - 16) / CIE_K }

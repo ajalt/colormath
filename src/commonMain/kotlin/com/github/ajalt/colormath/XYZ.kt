@@ -108,14 +108,14 @@ data class XYZ internal constructor(
 
     // http://www.brucelindbloom.com/Eqn_XYZ_to_Lab.html
     override fun toLAB(): LAB {
-        fun f(t: Float) = when {
+        fun f(t: Double) = when {
             t > CIE_E -> cbrt(t)
             else -> (t * CIE_K + 16) / 116
         }
 
-        val fx = f(x / space.whitePoint.chromaticity.X)
-        val fy = f(y / space.whitePoint.chromaticity.Y)
-        val fz = f(z / space.whitePoint.chromaticity.Z)
+        val fx = f(x.toDouble() / space.whitePoint.chromaticity.X)
+        val fy = f(y.toDouble() / space.whitePoint.chromaticity.Y)
+        val fz = f(z.toDouble() / space.whitePoint.chromaticity.Z)
 
         val l = (116 * fy) - 16
         val a = 500 * (fx - fy)
@@ -127,23 +127,23 @@ data class XYZ internal constructor(
     // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Luv.html
     override fun toLUV(): LUV {
         val wp = space.whitePoint.chromaticity
-        val denominator = x + 15 * y + 3 * z
-        val uPrime = if (denominator == 0f) 0f else (4 * x) / denominator
-        val vPrime = if (denominator == 0f) 0f else (9 * y) / denominator
+        val denominator = x + 15.0 * y + 3.0 * z
+        val uPrime = if (denominator == 0.0) 0.0 else (4 * x) / denominator
+        val vPrime = if (denominator == 0.0) 0.0 else (9 * y) / denominator
 
-        val denominatorReference = wp.X + 15 * wp.Y + 3 * wp.Z
-        val uPrimeReference = (4 * wp.X) / denominatorReference
-        val vPrimeReference = (9 * wp.Y) / denominatorReference
+        val denominatorReference = wp.X + 15.0 * wp.Y + 3.0 * wp.Z
+        val uPrimeReference = (4.0 * wp.X) / denominatorReference
+        val vPrimeReference = (9.0 * wp.Y) / denominatorReference
 
-        val yr = y / wp.Y
+        val yr = y / wp.Y.toDouble()
         val l = when {
             yr > CIE_E -> 116 * cbrt(yr) - 16
             else -> CIE_K * yr
         }
-        val u = 13 * l * (uPrime - uPrimeReference)
-        val v = 13 * l * (vPrime - vPrimeReference)
+        val u = 13.0 * l * (uPrime - uPrimeReference)
+        val v = 13.0 * l * (vPrime - vPrimeReference)
 
-        return LUV(space.whitePoint)(l.coerceIn(0f, 100f), u, v, alpha)
+        return LUV(space.whitePoint)(l.coerceIn(0.0, 100.0), u, v, alpha)
     }
 
     // https://bottosson.github.io/posts/oklab/#converting-from-xyz-to-oklab

@@ -70,6 +70,12 @@ interface Color {
     /** Convert this color to ICtCp */
     fun toICtCp(): ICtCp = toXYZ().toICtCp()
 
+    /** Convert this color to HSLuv */
+    fun toHSLuv(): HSLuv = toLCHuv().toHSLuv()
+
+    /** Convert this color to HPLuv */
+    fun toHPLuv(): HPLuv = toLCHuv().toHPLuv()
+
     /** Create a [FloatArray] containing all components of this color, with the [alpha] as the last component */
     fun toArray(): FloatArray
 

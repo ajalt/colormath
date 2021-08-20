@@ -80,15 +80,15 @@ data class LUV internal constructor(
         if (l == 0f) return xyzSpace(0.0f, 0.0f, 0.0f)
 
         val wp = space.whitePoint.chromaticity
-        val denominator0 = wp.X + 15 * wp.Y + 3 * wp.Z
-        val u0 = 4 * wp.X / denominator0
-        val v0 = 9 * wp.Y / denominator0
+        val denominator0 = wp.X + 15.0 * wp.Y + 3.0 * wp.Z
+        val u0 = 4.0 * wp.X / denominator0
+        val v0 = 9.0 * wp.Y / denominator0
 
-        val y = if (l > CIE_E_times_K) ((l + 16) / 116f).pow(3) else l / CIE_K
+        val y = if (l > CIE_E_times_K) ((l + 16.0) / 116.0).pow(3) else l / CIE_K
 
         val a = (52 * l / (u + 13 * l * u0) - 1) / 3
         val b = -5 * y
-        val c = -1f / 3
+        val c = -1.0 / 3
         val d = y * ((39 * l) / (v + 13 * l * v0) - 5)
 
         val x = (d - b) / (a - c)

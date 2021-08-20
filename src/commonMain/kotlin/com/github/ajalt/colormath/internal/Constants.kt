@@ -3,13 +3,13 @@ package com.github.ajalt.colormath.internal
 // Constants used in LAB and LUV conversions.
 // http://www.brucelindbloom.com/index.html?LContinuity.html
 /** ϵ = (6/29)^3 */
-internal const val CIE_E = 216f / 24389f
+internal const val CIE_E = 216.0 / 24389.0
 
 /** κ = (29/3)^3 */
-internal const val CIE_K = 24389f / 27f
+internal const val CIE_K = 24389.0 / 27.0
 
 /** ϵ × κ */
-internal const val CIE_E_times_K = 8f
+internal const val CIE_E_times_K = 8.0
 
 /** The CIECAM02 transform matrix for XYZ -> LMS */
 // https://en.wikipedia.org/wiki/CIECAM02#CAT02
