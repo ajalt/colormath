@@ -1,5 +1,9 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.LCHuvColorSpaces.LCHuv50
+import com.github.ajalt.colormath.LCHuvColorSpaces.LCHuv65
+import com.github.ajalt.colormath.LUVColorSpaces.LUV50
+import com.github.ajalt.colormath.LUVColorSpaces.LUV65
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -9,6 +13,9 @@ class LUVTest {
         LUV(0.01, 0.02, 0.03, 0.04),
         LUV(0.01, 0.02, 0.03, 0.04f),
     )
+
+    @Test
+    fun conversion() = convertToSpaceTest(LUV65, LCHuv65, LCHuv50, HSL, to = LUV50)
 
     @Test
     @JsName("LUV_to_XYZ")

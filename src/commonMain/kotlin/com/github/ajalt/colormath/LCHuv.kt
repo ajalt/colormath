@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.LCHuvColorSpaces.LCHuv65
+import com.github.ajalt.colormath.internal.adaptToThis
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
 import com.github.ajalt.colormath.internal.polarComponentInfo
@@ -29,7 +30,7 @@ private data class LCHuvColorSpaceImpl(override val whitePoint: WhitePoint) : LC
     override val name: String get() = "LCHuv"
     override val components: List<ColorComponentInfo> = polarComponentInfo("LCH")
     override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHuv = LCHuv(l, c, h, alpha, this)
-    override fun convert(color: Color): LCHuv = color.toLCHuv()
+    override fun convert(color: Color): LCHuv = adaptToThis(color) { it.toLCHuv() }
     override fun create(components: FloatArray): LCHuv = doCreate(components, ::invoke)
     override fun toString(): String = "LCHuvColorSpace($whitePoint)"
 }
@@ -62,16 +63,16 @@ data class LCHuv internal constructor(
     companion object : LCHuvColorSpace by LCHuv65
 
     override fun toHSLuv(): HSLuv {
-        if (l > 99.9999999) return HSLuv(h, 0f, 100f, alpha)
-        if (l < 0.00000001) return HSLuv(h, 0f, 0f, alpha)
+        if (l > 99.9999) return HSLuv(h, 0f, 100f, alpha)
+        if (l < 0.00001) return HSLuv(h, 0f, 0f, alpha)
         val max = HUSLColorConverter.maxChromaForLH(l.toDouble(), h.toDouble())
         val s = c / max * 100
         return HSLuv(h, s.toFloat(), l, alpha)
     }
 
     override fun toHPLuv(): HPLuv {
-        if (l > 99.9999999) return HPLuv(h, 0f, 100f, alpha)
-        if (l < 0.00000001) return HPLuv(h, 0f, 0f, alpha)
+        if (l > 99.9999) return HPLuv(h, 0f, 100f, alpha)
+        if (l < 0.00001) return HPLuv(h, 0f, 0f, alpha)
         val max = HUSLColorConverter.maxSafeChromaForL(l.toDouble())
         val s = c / max * 100
         return HPLuv(h, s.toFloat(), l, alpha)
@@ -79,7 +80,7 @@ data class LCHuv internal constructor(
 
     override fun toSRGB(): RGB = toLUV().toSRGB()
     override fun toXYZ(): XYZ = toLUV().toXYZ()
-    override fun toLUV(): LUV = fromPolarModel(c, h) { u, v -> LUV(space.whitePoint)(l, u, v, alpha) }
+    override fun toLUV(): LUV = fromPolarModel(c, h) { u, v -> LUVColorSpace(space.whitePoint)(l, u, v, alpha) }
     override fun toLCHuv(): LCHuv = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
 }

@@ -31,11 +31,11 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
      */
     constructor(h: Int, s: Int, l: Int, alpha: Float = 1f) : this(h.toFloat(), s / 100f, l / 100f, alpha)
 
-    constructor (l: Double, a: Double, b: Double, alpha: Double)
-            : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
+    constructor (h: Double, s: Double, l: Double, alpha: Double)
+            : this(h.toFloat(), s.toFloat(), l.toFloat(), alpha.toFloat())
 
-    constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
-            : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
+    constructor (h: Double, s: Double, l: Double, alpha: Float = 1f)
+            : this(h.toFloat(), s.toFloat(), l.toFloat(), alpha)
 
     override val space: ColorSpace<HSL> get() = HSL
 

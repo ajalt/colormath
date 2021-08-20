@@ -2,6 +2,7 @@
 
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.internal.adaptToThis
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
 import com.github.ajalt.colormath.internal.polarComponentInfo
@@ -29,7 +30,7 @@ private data class LCHabColorSpaceImpl(override val whitePoint: WhitePoint) : LC
     override val name: String get() = "LCHab"
     override val components: List<ColorComponentInfo> = polarComponentInfo("LCH")
     override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHab = LCHab(l, c, h, alpha, this)
-    override fun convert(color: Color): LCHab = color.toLCHab()
+    override fun convert(color: Color): LCHab = adaptToThis(color) { it.toLCHab() }
     override fun create(components: FloatArray): LCHab = doCreate(components, ::invoke)
     override fun toString(): String = "LCHabColorSpace($whitePoint)"
 }

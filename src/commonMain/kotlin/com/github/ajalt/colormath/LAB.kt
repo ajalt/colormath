@@ -30,7 +30,7 @@ private data class LABColorSpaceImpl(override val whitePoint: WhitePoint) : LABC
     override val name: String get() = "LAB"
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("LAB")
     override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB = LAB(l, a, b, alpha, this)
-    override fun convert(color: Color): LAB = color.toLAB()
+    override fun convert(color: Color): LAB = adaptToThis(color) { it.toLAB() }
     override fun create(components: FloatArray): LAB = doCreate(components, ::invoke)
     override fun toString(): String = "LABColorSpace($whitePoint)"
 }

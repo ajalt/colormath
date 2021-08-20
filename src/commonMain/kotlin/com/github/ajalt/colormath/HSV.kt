@@ -29,11 +29,11 @@ data class HSV(override val h: Float, val s: Float, val v: Float, override val a
      */
     constructor(h: Int, s: Int, v: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, v / 100f, a)
 
-    constructor (l: Double, a: Double, b: Double, alpha: Double)
-            : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
+    constructor (h: Double, s: Double, v: Double, alpha: Double)
+            : this(h.toFloat(), s.toFloat(), v.toFloat(), alpha.toFloat())
 
-    constructor (l: Double, a: Double, b: Double, alpha: Float = 1f)
-            : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
+    constructor (h: Double, s: Double, v: Double, alpha: Float = 1f)
+            : this(h.toFloat(), s.toFloat(), v.toFloat(), alpha)
 
     override val space: ColorSpace<HSV> get() = HSV
 

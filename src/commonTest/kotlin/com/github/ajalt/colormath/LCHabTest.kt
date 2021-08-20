@@ -1,5 +1,9 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.LABColorSpaces.LAB50
+import com.github.ajalt.colormath.LABColorSpaces.LAB65
+import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
+import com.github.ajalt.colormath.LCHabColorSpaces.LCHab65
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -11,6 +15,9 @@ class LCHabTest {
         LCHab(0.1, 0.011, 0.015, 0.04f),
         intermediate = LAB,
     )
+
+    @Test
+    fun conversion() = convertToSpaceTest(LAB65, LCHab65, LAB50, HSL, to = LCHab50)
 
     @Test
     @JsName("LCHab_to_LAB")

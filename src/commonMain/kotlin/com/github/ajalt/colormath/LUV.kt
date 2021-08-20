@@ -28,7 +28,7 @@ private data class LUVColorSpaceImpl(override val whitePoint: WhitePoint) : LUVC
     override val name: String get() = "LUV"
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("LUV")
     override operator fun invoke(l: Float, u: Float, v: Float, alpha: Float): LUV = LUV(l, u, v, alpha, this)
-    override fun convert(color: Color): LUV = color.toLUV()
+    override fun convert(color: Color): LUV = adaptToThis(color) { it.toLUV() }
     override fun create(components: FloatArray): LUV = doCreate(components, ::invoke)
     override fun toString(): String = "LUVColorSpace($whitePoint)"
 }
@@ -60,14 +60,7 @@ data class LUV internal constructor(
     override val space: LUVColorSpace,
 ) : Color {
     /** Default constructors for the [LUV] color model: the [LCHab65][LCHabColorSpaces.LCHab65] space. */
-    companion object : LUVColorSpace by LUVColorSpaces.LUV65 {
-        /** Create a new `LUV` color space that will be calculated relative to the given [whitePoint] */
-        operator fun invoke(whitePoint: WhitePoint): LUVColorSpace = when (whitePoint) {
-            Illuminant.D65 -> LUVColorSpaces.LUV65
-            Illuminant.D50 -> LUVColorSpaces.LUV50
-            else -> LUVColorSpaceImpl(whitePoint)
-        }
-    }
+    companion object : LUVColorSpace by LUVColorSpaces.LUV65
 
     override fun toSRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
@@ -97,7 +90,7 @@ data class LUV internal constructor(
         return xyzSpace(x, y, z, alpha)
     }
 
-    override fun toLCHuv(): LCHuv = toPolarModel(u, v) { c, h -> LCHuv(l, c, h, alpha) }
+    override fun toLCHuv(): LCHuv = toPolarModel(u, v) { c, h -> LCHuvColorSpace(space.whitePoint)(l, c, h, alpha) }
     override fun toLUV(): LUV = this
     override fun toArray(): FloatArray = floatArrayOf(l, u, v, alpha)
 }

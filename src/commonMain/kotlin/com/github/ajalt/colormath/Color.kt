@@ -1,5 +1,7 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.LCHuvColorSpaces.LCHuv65
+
 /**
  * A color that can be converted to other representations.
  *
@@ -71,10 +73,10 @@ interface Color {
     fun toICtCp(): ICtCp = toXYZ().toICtCp()
 
     /** Convert this color to HSLuv */
-    fun toHSLuv(): HSLuv = toLCHuv().toHSLuv()
+    fun toHSLuv(): HSLuv = convertTo(LCHuv65).toHSLuv()
 
     /** Convert this color to HPLuv */
-    fun toHPLuv(): HPLuv = toLCHuv().toHPLuv()
+    fun toHPLuv(): HPLuv = convertTo(LCHuv65).toHPLuv()
 
     /** Create a [FloatArray] containing all components of this color, with the [alpha] as the last component */
     fun toArray(): FloatArray
