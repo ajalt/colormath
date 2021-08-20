@@ -30,7 +30,7 @@ data class Ansi256(val code: Int) : Color {
     }
 
 
-    override val alpha: Float get() = 1f
+    override val alpha: Float get() = Float.NaN
     override val space: ColorSpace<Ansi256> get() = Ansi256
 
     override fun toSRGB(): RGB {

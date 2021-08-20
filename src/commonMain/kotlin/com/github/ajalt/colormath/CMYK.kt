@@ -15,7 +15,7 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | [y]        | yellow      | `[0, 1]` |
  * | [k]        | key / black | `[0, 1]` |
  */
-data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override val alpha: Float = 1f) : Color {
+data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override val alpha: Float = Float.NaN) : Color {
     companion object : ColorSpace<CMYK> {
         override val name: String get() = "CMYK"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("CMYK")
@@ -25,13 +25,13 @@ data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override
         }
     }
 
-    constructor (c: Double, m: Double, y: Double, k: Double, alpha: Double = 1.0)
+    constructor (c: Double, m: Double, y: Double, k: Double, alpha: Double = Double.NaN)
             : this(c.toFloat(), m.toFloat(), y.toFloat(), k.toFloat(), alpha.toFloat())
 
     /**
      * Construct a CMYK instance from Int values, with the color channels as percentages in the range `[0, 100]`.
      */
-    constructor(c: Int, m: Int, y: Int, k: Int, alpha: Float = 1f)
+    constructor(c: Int, m: Int, y: Int, k: Int, alpha: Float = Float.NaN)
             : this(c / 100f, m / 100f, y / 100f, k / 100f, alpha)
 
     override val space: ColorSpace<CMYK> get() = CMYK

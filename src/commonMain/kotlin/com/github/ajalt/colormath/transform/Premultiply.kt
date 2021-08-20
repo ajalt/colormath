@@ -15,7 +15,7 @@ fun <T : Color> T.multiplyAlpha() = map { space, components ->
 
 internal fun multiplyAlphaInPlace(space: ColorSpace<*>, components: FloatArray) {
     val a = components.last()
-    if (a == 1f) return
+    if (a.isNaN() || a == 1f) return
     for (i in 0 until components.lastIndex) {
         if (space.components[i].isPolar) continue
         components[i] = components[i] * a
@@ -36,7 +36,7 @@ fun <T : Color> T.divideAlpha(): T = map { space, components ->
 
 internal fun divideAlphaInPlace(space: ColorSpace<*>, components: FloatArray) {
     val a = components.last()
-    if (a == 0f || a == 1f) return
+    if (a.isNaN() || a == 0f || a == 1f) return
     for (i in 0 until components.lastIndex) {
         if (space.components[i].isPolar) continue
         components[i] = components[i] / a

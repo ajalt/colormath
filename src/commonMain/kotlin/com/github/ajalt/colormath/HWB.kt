@@ -15,7 +15,7 @@ import kotlin.math.roundToInt
  * | [w]        | whiteness    | `[0, 1]`   |
  * | [b]        | blackness    | `[0, 1]`   |
  */
-data class HWB(override val h: Float, val w: Float, val b: Float, override val alpha: Float = 1f) : Color, HueColor {
+data class HWB(override val h: Float, val w: Float, val b: Float, override val alpha: Float = Float.NaN) : Color, HueColor {
     companion object : ColorSpace<HWB> {
         override val name: String get() = "HWB"
         override val components: List<ColorComponentInfo> = polarComponentInfo("HWB")
@@ -26,7 +26,7 @@ data class HWB(override val h: Float, val w: Float, val b: Float, override val a
     constructor(h: Double, w: Double, b: Double, alpha: Double)
             : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha.toFloat())
 
-    constructor(h: Double, w: Double, b: Double, alpha: Float = 1.0f)
+    constructor(h: Double, w: Double, b: Double, alpha: Float = Float.NaN)
             : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha)
 
     override val space: ColorSpace<HWB> get() = HWB

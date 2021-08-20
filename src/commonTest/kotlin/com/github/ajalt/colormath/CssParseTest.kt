@@ -89,17 +89,8 @@ class CssParseTest {
         row("rgb(100%,0%,60%)"),
         row("rgb(100%, 0%, 60%)"),
         row("rgb(255 0 153)"),
-        row("#f09f"),
-        row("#F09F"),
-        row("#ff0099ff"),
-        row("#FF0099FF"),
-        row("rgb(255, 0, 153, 1)"),
-        row("rgb(255, 0, 153, 100%)"),
-        row("rgb(255 0 153 / 1)"),
-        row("rgb(255 0 153 / 100%)"),
-        row("rgb(255, 0, 153.4, 1)"),
     ) {
-        Color.parse(it) shouldBe RGB(255, 0, 153)
+        Color.parse(it).shouldEqualColor(RGB(255, 0, 153))
     }
 
     @Test
@@ -111,6 +102,7 @@ class CssParseTest {
     @Test
     @JsName("parseCssColor_alpha")
     fun `parseCssColor alpha`() = forAll(
+        row("#3a3", Float.NaN),
         row("#3a30", 0f),
         row("#3A3F", 1f),
         row("#33aa3300", 0f),
@@ -129,12 +121,12 @@ class CssParseTest {
     @Test
     @JsName("parseCssColor_hsl")
     fun `parseCssColor hsl`() = forAll(
-        row("hsl(270,60%,70%)", 270, 60, 70, 1f),
-        row("hsl(270, 60%, 70%)", 270, 60, 70, 1f),
-        row("hsl(270 60% 70%)", 270, 60, 70, 1f),
-        row("hsl(270deg, 60%, 70%)", 270, 60, 70, 1f),
-        row("hsl(4.71239rad, 60%, 70%)", 270, 60, 70, 1f),
-        row("hsl(.75turn, 60%, 70%)", 270, 60, 70, 1f),
+        row("hsl(270,60%,70%)", 270, 60, 70, Float.NaN),
+        row("hsl(270, 60%, 70%)", 270, 60, 70, Float.NaN),
+        row("hsl(270 60% 70%)", 270, 60, 70, Float.NaN),
+        row("hsl(270deg, 60%, 70%)", 270, 60, 70, Float.NaN),
+        row("hsl(4.71239rad, 60%, 70%)", 270, 60, 70, Float.NaN),
+        row("hsl(.75turn, 60%, 70%)", 270, 60, 70, Float.NaN),
         row("hsl(270, 60%, 50%, .15)", 270, 60, 50, .15f),
         row("hsl(270, 60%, 50%, 15%)", 270, 60, 50, .15f),
         row("hsl(270 60% 50% / .15)", 270, 60, 50, .15f),

@@ -3,6 +3,7 @@ package com.github.ajalt.colormath
 import com.github.ajalt.colormath.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
 import com.github.ajalt.colormath.XYZColorSpaces.XYZ50
+import com.github.ajalt.colormath.internal.nanToOne
 import kotlin.math.roundToInt
 
 enum class RenderCondition {
@@ -196,8 +197,8 @@ private fun Color.renderColorFunction(
 
 private fun Color.renderAlpha(commas: Boolean, renderAlpha: RenderCondition, alphaPercent: Boolean): String {
     return when {
-        renderAlpha == RenderCondition.ALWAYS || renderAlpha == RenderCondition.AUTO && alpha != 1f -> {
-            (if (commas) ", " else " / ") + alpha.render(alphaPercent)
+        renderAlpha == RenderCondition.ALWAYS || renderAlpha == RenderCondition.AUTO && !alpha.isNaN() && alpha != 1f -> {
+            (if (commas) ", " else " / ") + alpha.nanToOne().render(alphaPercent)
         }
         else -> ""
     }

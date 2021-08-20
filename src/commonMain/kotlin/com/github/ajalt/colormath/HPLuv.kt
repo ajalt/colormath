@@ -15,7 +15,7 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * ### References
  * - [HSLuv homepage](https://www.hsluv.org/)
  */
-data class HPLuv(override val h: Float, val p: Float, val l: Float, override val alpha: Float = 1f) : HueColor {
+data class HPLuv(override val h: Float, val p: Float, val l: Float, override val alpha: Float = Float.NaN) : HueColor {
     companion object : ColorSpace<HPLuv> {
         override val name: String get() = "HPLuv"
         override val components: List<ColorComponentInfo> = polarComponentInfo("HPL")
@@ -23,7 +23,7 @@ data class HPLuv(override val h: Float, val p: Float, val l: Float, override val
         override fun create(components: FloatArray): HPLuv = doCreate(components, ::HPLuv)
     }
 
-    constructor (h: Double, p: Double, l: Double, alpha: Double = 1.0)
+    constructor (h: Double, p: Double, l: Double, alpha: Double = Double.NaN)
             : this(h.toFloat(), p.toFloat(), l.toFloat(), alpha.toFloat())
 
     constructor (h: Double, p: Double, l: Double, alpha: Float)

@@ -21,7 +21,7 @@ data class ICtCp(
     val i: Float,
     val ct: Float,
     val cp: Float,
-    override val alpha: Float = 1f,
+    override val alpha: Float = Float.NaN,
 ) : Color {
     companion object : ColorSpace<ICtCp> {
         override val name: String get() = "ICtCp"
@@ -30,7 +30,7 @@ data class ICtCp(
         override fun create(components: FloatArray): ICtCp = doCreate(components, ::ICtCp)
     }
 
-    constructor (i: Double, ct: Double, cp: Double, alpha: Double = 1.0)
+    constructor (i: Double, ct: Double, cp: Double, alpha: Double = Double.NaN)
             : this(i.toFloat(), ct.toFloat(), cp.toFloat(), alpha.toFloat())
 
     constructor (i: Double, ct: Double, cp: Double, alpha: Float)

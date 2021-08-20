@@ -11,11 +11,11 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * The color space describing colors in the [LCHuv] model.
  */
 interface LCHuvColorSpace : WhitePointColorSpace<LCHuv> {
-    operator fun invoke(l: Float, c: Float, h: Float, alpha: Float = 1f): LCHuv
+    operator fun invoke(l: Float, c: Float, h: Float, alpha: Float = Float.NaN): LCHuv
     operator fun invoke(l: Double, c: Double, h: Double, alpha: Double): LCHuv =
         invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
 
-    operator fun invoke(l: Double, c: Double, h: Double, alpha: Float = 1f): LCHuv =
+    operator fun invoke(l: Double, c: Double, h: Double, alpha: Float = Float.NaN): LCHuv =
         invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 }
 

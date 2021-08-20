@@ -7,11 +7,11 @@ import kotlin.math.roundToInt
 
 
 interface RGBColorSpace : WhitePointColorSpace<RGB> {
-    operator fun invoke(r: Float, g: Float, b: Float, alpha: Float = 1f): RGB
+    operator fun invoke(r: Float, g: Float, b: Float, alpha: Float = Float.NaN): RGB
     operator fun invoke(r: Double, g: Double, b: Double, alpha: Double): RGB =
         invoke(r.toFloat(), g.toFloat(), b.toFloat(), alpha.toFloat())
 
-    operator fun invoke(r: Double, g: Double, b: Double, alpha: Float = 1f): RGB =
+    operator fun invoke(r: Double, g: Double, b: Double, alpha: Float = Float.NaN): RGB =
         invoke(r.toFloat(), g.toFloat(), b.toFloat(), alpha)
 
     /**
@@ -22,7 +22,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
      * @property b The blue channel, a value typically in the range `[0, 255]`
      * @property alpha The alpha channel, a value in the range `[0f, 1f]`
      */
-    operator fun invoke(r: Int, g: Int, b: Int, alpha: Float = 1f) = invoke(
+    operator fun invoke(r: Int, g: Int, b: Int, alpha: Float = Float.NaN) = invoke(
         r = (r / 255f),
         g = (g / 255f),
         b = (b / 255f),
@@ -43,7 +43,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
         r = hex.validateHex().parseHex(0),
         g = hex.parseHex(1),
         b = hex.parseHex(2),
-        alpha = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) / 255f else 1f
+        alpha = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) / 255f else Float.NaN
     )
 
     val transferFunctions: TransferFunctions
@@ -162,18 +162,15 @@ data class RGB internal constructor(
     /** The blue channel scaled to [0, 255]. HDR colors may exceed this range. */
     val blueInt: Int get() = (b * 255).roundToInt()
 
-    /** The alpha channel scaled to [0, 255]. */
-    val alphaInt: Int get() = (alpha * 255).roundToInt()
-
-    @Deprecated("use toRGBInt instead", ReplaceWith("toRGBInt()"))
-    fun toPackedInt(): Int = toRGBInt().argb.toInt()
+    /** The alpha channel scaled to [0, 255]. If the alpha is undefined, 255 will be returned. */
+    val alphaInt: Int get() = (alpha.nanToOne() * 255).roundToInt()
 
     /**
      * Return this color as a packed `ARGB` integer.
      *
      * All components will be clamped to `[0, 255]`.
      */
-    fun toRGBInt() = toSRGB { RGBInt(r, g, b, alpha) }
+    fun toRGBInt() = toSRGB { RGBInt(r, g, b, alpha.nanToOne()) }
 
     /**
      * Convert this color to an RGB hex string.

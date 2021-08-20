@@ -2,6 +2,7 @@ package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorSpace
+import com.github.ajalt.colormath.internal.nanToOne
 import com.github.ajalt.colormath.internal.normalizeDeg
 
 fun <T : Color> T.interpolate(
@@ -48,6 +49,13 @@ interface InterpolatorBuilder {
      * Defaults to [HueAdjustments.shorter].
      */
     var hueAdjustment: HueAdjustment?
+
+    /**
+     * A function too apply to all colors' alpha values prior to interpolation.
+     *
+     * By default, this will replace all [NaN][Float.NaN] values with `1`.
+     */
+    var alphaFixup: (Float) -> Float
 }
 
 /** Create a sequence of [length] colors evenly spaced along this interpolator's values */
@@ -88,6 +96,7 @@ private class InterpolatorImpl<T : Color>(
 private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T>) : InterpolatorBuilder {
     override var premultiplyAlpha: Boolean = true
     override var hueAdjustment: HueAdjustment? = HueAdjustments.shorter
+    override var alphaFixup: (Float) -> Float = { it.nanToOne() }
 
     // stops may omit position, never color
     // hints omit color, never position
@@ -126,7 +135,8 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
         fixupHints()
 
         val out = bakeComponents()
-        adjustHues(out)
+        fixupAlpha(out)
+        fixupHues(out)
         return InterpolatorImpl(space, out, premultiplyAlpha)
     }
 
@@ -192,9 +202,15 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
         }
     }
 
-    private fun adjustHues(entries: List<Pair<FloatArray, Float>>) {
+    private fun fixupHues(entries: List<Pair<FloatArray, Float>>) {
         for (i in 0 until entries.lastIndex) {
             adjHue(i, space, entries[i].first, entries[i + 1].first, hueAdjustment)
+        }
+    }
+
+    private fun fixupAlpha(entries: List<Pair<FloatArray, Float>>) {
+        for ((c, _) in entries) {
+            c[c.lastIndex] = alphaFixup(c.last())
         }
     }
 }

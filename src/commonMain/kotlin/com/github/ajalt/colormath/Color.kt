@@ -11,11 +11,12 @@ import com.github.ajalt.colormath.LCHuvColorSpaces.LCHuv65
  * Note that there is not a direct conversion between every pair of representations. In those cases,
  * the values may be converted through one or more intermediate representations.
  *
- * All colors have an [alpha] value, which is the opacity of the color as a fraction between 0 and 1.
- * If a model doesn't support an alpha channel, the value 1 (fully opaque) is used.
+ * All colors have an [alpha] value, which is the opacity of the color as a fraction between 0 and
+ * 1. The [alpha] will be [NaN][Float.NaN] if the value is unspecified or the color model doesn't
+ * support transparency.
  */
 interface Color {
-    /** The opacity of this color, in the range `[0, 1]` */
+    /** The opacity of this color, in the range `[0, 1]`, or [NaN][Float.NaN] if the opacity is unspecified */
     val alpha: Float
 
     /** The color space describing this color */

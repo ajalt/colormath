@@ -16,7 +16,7 @@ import kotlin.math.*
  * ### References
  * - [HSLuv homepage](https://www.hsluv.org/)
  */
-data class HSLuv(override val h: Float, val s: Float, val l: Float, override val alpha: Float = 1f) : HueColor {
+data class HSLuv(override val h: Float, val s: Float, val l: Float, override val alpha: Float = Float.NaN) : HueColor {
     companion object : ColorSpace<HSLuv> {
         override val name: String get() = "HSLuv"
         override val components: List<ColorComponentInfo> = polarComponentInfo("HSL")
@@ -24,7 +24,7 @@ data class HSLuv(override val h: Float, val s: Float, val l: Float, override val
         override fun create(components: FloatArray): HSLuv = doCreate(components, ::HSLuv)
     }
 
-    constructor (h: Double, s: Double, l: Double, alpha: Double = 1.0)
+    constructor (h: Double, s: Double, l: Double, alpha: Double = Double.NaN)
             : this(h.toFloat(), s.toFloat(), l.toFloat(), alpha.toFloat())
 
     constructor (h: Double, s: Double, l: Double, alpha: Float)
