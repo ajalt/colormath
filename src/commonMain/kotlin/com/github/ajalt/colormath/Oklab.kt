@@ -15,7 +15,7 @@ import com.github.ajalt.colormath.internal.toPolarModel
  * | [a]        | green-red   | `[-1, 1]` |
  * | [b]        | blue-yellow | `[-1, 1]` |
  */
-data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
+data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = Float.NaN) : Color {
     companion object : ColorSpace<Oklab> {
         override val name: String get() = "Oklab"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("LAB")
@@ -24,7 +24,7 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
     }
 
 
-    constructor (l: Double, a: Double, b: Double, alpha: Double = 1.0)
+    constructor (l: Double, a: Double, b: Double, alpha: Double = Double.NaN)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
 
     constructor (l: Double, a: Double, b: Double, alpha: Float)

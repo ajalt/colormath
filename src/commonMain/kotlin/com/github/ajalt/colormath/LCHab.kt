@@ -11,11 +11,11 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * The color space describing colors in the [LCHab] model.
  */
 interface LCHabColorSpace : WhitePointColorSpace<LCHab> {
-    operator fun invoke(l: Float, c: Float, h: Float, alpha: Float = 1f): LCHab
+    operator fun invoke(l: Float, c: Float, h: Float, alpha: Float = Float.NaN): LCHab
     operator fun invoke(l: Double, c: Double, h: Double, alpha: Double): LCHab =
         invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
 
-    operator fun invoke(l: Double, c: Double, h: Double, alpha: Float = 1f): LCHab =
+    operator fun invoke(l: Double, c: Double, h: Double, alpha: Float = Float.NaN): LCHab =
         invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 }
 

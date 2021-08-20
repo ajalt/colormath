@@ -11,11 +11,11 @@ import kotlin.math.pow
  * The color space describing colors in the [LAB] model.
  */
 interface LABColorSpace : WhitePointColorSpace<LAB> {
-    operator fun invoke(l: Float, a: Float, b: Float, alpha: Float = 1f): LAB
+    operator fun invoke(l: Float, a: Float, b: Float, alpha: Float = Float.NaN): LAB
     operator fun invoke(l: Double, a: Double, b: Double, alpha: Double): LAB =
         invoke(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
 
-    operator fun invoke(l: Double, a: Double, b: Double, alpha: Float = 1f): LAB =
+    operator fun invoke(l: Double, a: Double, b: Double, alpha: Float = Float.NaN): LAB =
         invoke(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 }
 

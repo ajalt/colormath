@@ -23,7 +23,7 @@ import kotlin.math.pow
  * M. Safdar, G. Cui, Y. Kim, and M. Luo, "Perceptually uniform color space for image signals including high dynamic
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
-data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
+data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: Float = Float.NaN) : Color {
     companion object : ColorSpace<JzAzBz> {
         override val name: String get() = "JzAzBz"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("Jz", "Az", "Bz")
@@ -36,7 +36,7 @@ data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: 
     constructor (j: Double, a: Double, b: Double, alpha: Double)
             : this(j.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
 
-    constructor (j: Double, a: Double, b: Double, alpha: Float = 1f)
+    constructor (j: Double, a: Double, b: Double, alpha: Float = Float.NaN)
             : this(j.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
     override val space: ColorSpace<JzAzBz> get() = JzAzBz

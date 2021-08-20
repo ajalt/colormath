@@ -35,7 +35,7 @@ data class Ansi16(val code: Int) : Color {
         }
     }
 
-    override val alpha: Float get() = 1f
+    override val alpha: Float get() = Float.NaN
     override val space: ColorSpace<Ansi16> get() = Ansi16
 
     override fun toSRGB(): RGB {

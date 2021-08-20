@@ -19,7 +19,7 @@ import kotlin.math.sqrt
  * M. Safdar, G. Cui, Y. Kim, and M. Luo, "Perceptually uniform color space for image signals including high dynamic
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
-data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color, HueColor {
+data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = Float.NaN) : Color, HueColor {
     companion object : ColorSpace<JzCzHz> {
         override val name: String get() = "JzCzHz"
         override val components: List<ColorComponentInfo> = polarComponentInfo("JCH")
@@ -30,7 +30,7 @@ data class JzCzHz(val j: Float, val c: Float, override val h: Float, override va
     constructor(l: Double, c: Double, h: Double, alpha: Double)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
 
-    constructor(l: Double, c: Double, h: Double, alpha: Float = 1.0f)
+    constructor(l: Double, c: Double, h: Double, alpha: Float = Float.NaN)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 
     override val space: ColorSpace<JzCzHz> get() = JzCzHz

@@ -2,6 +2,7 @@ package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorSpace
+import com.github.ajalt.colormath.internal.nanToOne
 
 fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
@@ -46,5 +47,5 @@ fun <T : Color> ColorSpace<T>.mix(
     val sum = amount1 + amount2
     require(sum != 0f) { "mix amounts cannot sum to 0" }
     val c = convert(color1).interpolate(color2, amount2 / sum, true, hueAdjustment)
-    return if (sum < 1f) c.map { _, comps -> comps.also { it[it.lastIndex] *= sum } } else c
+    return if (sum < 1f) c.map { _, comps -> comps.also { it[it.lastIndex] = it.last().nanToOne() * sum } } else c
 }
