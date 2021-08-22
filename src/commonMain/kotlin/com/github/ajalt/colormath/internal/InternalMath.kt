@@ -2,12 +2,19 @@ package com.github.ajalt.colormath.internal
 
 import kotlin.math.*
 
-internal fun Float.degToRad(): Float = (this * PI / 180f).toFloat()
-internal fun Float.radToDeg(): Float = (this * 180f / PI).toFloat()
+internal fun Float.degToRad(): Float = toDouble().degToRad().toFloat()
+internal fun Float.radToDeg(): Float = toDouble().radToDeg().toFloat()
 internal fun Float.gradToDeg(): Float = this * .9f
 internal fun Float.turnToDeg(): Float = this * 360f
 internal fun Float.degToGrad(): Float = this * 200f / 180f
 internal fun Float.degToTurns(): Float = this / 360f
+
+internal fun Double.radToDeg(): Double = (this * 180.0 / PI)
+internal fun Double.degToRad(): Double = (this * PI / 180.0)
+
+internal fun cosDeg(deg: Double) = cos(deg.degToRad())
+internal fun sinDeg(deg: Double) = sin(deg.degToRad())
+
 
 // formula from https://www.w3.org/TR/css-color-4/#hue-interpolation
 /** Return this value shifted to lie in [0, 360] */
@@ -39,3 +46,9 @@ internal inline fun <T> fromPolarModel(c: Float, h: Float, block: (a: Float, b: 
  */
 internal fun Double.spow(p: Double): Double = absoluteValue.pow(p).withSign(this)
 internal fun Float.spow(p: Double): Double = toDouble().spow(p)
+
+internal fun sqrtSumSq(a: Float, b: Float, c: Float): Float = sqrt(a.pow(2) + b.pow(2) + c.pow(2))
+internal fun sqrtSumSq(a: Double, b: Double): Double = sqrt(a.pow(2) + b.pow(2))
+internal fun sqrtSumSq(a: Double, b: Double, c: Double): Double = sqrt(a.pow(2) + b.pow(2) + c.pow(2))
+internal fun sqrtSumSq(a: Double, b: Double, c: Double, d: Double): Double =
+    sqrt(a.pow(2) + b.pow(2) + c.pow(2) + d.pow(2))

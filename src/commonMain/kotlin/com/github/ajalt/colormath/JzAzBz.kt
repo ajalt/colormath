@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.calculate.differenceEz
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import com.github.ajalt.colormath.internal.toPolarModel
@@ -10,8 +11,7 @@ import kotlin.math.pow
  *
  *  This color space is always calculated relative to [Illuminant.D65].
  *
- *  The JzAzBz color difference ΔEz between two colors can be calculated with
- *  [`color1.toJzCzHz().differenceFrom(color2)`][JzCzHz.differenceFrom]
+ *  The JzAzBz color difference ΔEz between two colors can be calculated with [differenceEz].
  *
  * | Component | Description | Range     |
  * | --------- | ----------- | --------- |
