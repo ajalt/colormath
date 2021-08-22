@@ -35,17 +35,6 @@ data class JzCzHz(val j: Float, val c: Float, override val h: Float, override va
 
     override val space: ColorSpace<JzCzHz> get() = JzCzHz
 
-    /**
-     * Calculate the color difference ΔEz between this color and [other].
-     */
-    fun differenceFrom(other: Color): Float {
-        val o = other.toJzCzHz()
-        val dj = o.j - j
-        val dc = o.c - c
-        val dH2 = 2 * c * o.c * (1 - cos(o.h - h)) // this is (ΔHz)²
-        return sqrt(dj * dj + dc * dc + dH2)
-    }
-
     override fun toSRGB(): RGB = when (j) {
         0f -> RGB(0f, 0f, 0f, alpha)
         else -> toJzAzBz().toSRGB()
