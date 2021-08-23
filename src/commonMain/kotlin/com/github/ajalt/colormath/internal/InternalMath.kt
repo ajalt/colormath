@@ -50,5 +50,3 @@ internal fun Float.spow(p: Double): Double = toDouble().spow(p)
 internal fun sqrtSumSq(a: Float, b: Float, c: Float): Float = sqrt(a.pow(2) + b.pow(2) + c.pow(2))
 internal fun sqrtSumSq(a: Double, b: Double): Double = sqrt(a.pow(2) + b.pow(2))
 internal fun sqrtSumSq(a: Double, b: Double, c: Double): Double = sqrt(a.pow(2) + b.pow(2) + c.pow(2))
-internal fun sqrtSumSq(a: Double, b: Double, c: Double, d: Double): Double =
-    sqrt(a.pow(2) + b.pow(2) + c.pow(2) + d.pow(2))

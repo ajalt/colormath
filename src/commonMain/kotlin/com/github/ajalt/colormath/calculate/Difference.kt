@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath.calculate
 
 import com.github.ajalt.colormath.*
+import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.internal.cosDeg
 import com.github.ajalt.colormath.internal.radToDeg
 import com.github.ajalt.colormath.internal.sinDeg
@@ -26,7 +27,7 @@ fun <T : Color> T.euclideanDistance(other: T): Float {
  * @return a value in the range `[0, 100]`, with 0 meaning the colors are identical.
  */
 // http://brucelindbloom.com/Eqn_DeltaE_CIE76.html
-fun <T : Color> T.differenceCIE76(other: T): Float {
+fun Color.differenceCIE76(other: Color): Float {
     val (l1, a1, b1) = DoubleLab(toLAB())
     val (l2, a2, b2) = DoubleLab(other.toLAB())
     return sqrtSumSq(l1 - l2, a1 - a2, b1 - b2).toFloat()
@@ -41,7 +42,7 @@ fun <T : Color> T.differenceCIE76(other: T): Float {
  * @return a value in the range `[0, 100]`, with 0 meaning the colors are identical.
  */
 // http://brucelindbloom.com/Eqn_DeltaE_CIE94.html
-fun <T : Color> T.differenceCIE94(other: T, textiles: Boolean = false): Float {
+fun Color.differenceCIE94(other: Color, textiles: Boolean = false): Float {
     val (l1, a1, b1) = DoubleLab(toLAB())
     val (l2, a2, b2) = DoubleLab(other.toLAB())
     val kL = if (textiles) 2 else 1
@@ -65,7 +66,7 @@ fun <T : Color> T.differenceCIE94(other: T, textiles: Boolean = false): Float {
  * @return a value in the range `[0, 100]`, with 0 meaning the colors are identical.
  */
 // http://brucelindbloom.com/Eqn_DeltaE_CIE2000.html
-fun <T : Color> T.differenceCIE2000(other: T): Float {
+fun Color.differenceCIE2000(other: Color): Float {
     val (l1, a1, b1) = DoubleLab(toLAB())
     val (l2, a2, b2) = DoubleLab(other.toLAB())
 
@@ -80,11 +81,11 @@ fun <T : Color> T.differenceCIE2000(other: T): Float {
     val cp1 = sqrtSumSq(ap1, b1)
     val cp2 = sqrtSumSq(ap2, b2)
     val cbp = (cp1 + cp2) / 2
-    val hp1 = atan2(b1, ap1).radToDeg() % 360
-    val hp2 = atan2(b2, ap2).radToDeg() % 360
+    val hp1 = atan2(b1, ap1).radToDeg().normalizeDeg()
+    val hp2 = atan2(b2, ap2).radToDeg().normalizeDeg()
     val hpDiff = abs(hp1 - hp2)
     val hbp = when {
-        hpDiff >= 180 -> (hp1 + hp2 + 360) / 2
+        hpDiff > 180 -> (hp1 + hp2 + 360) / 2
         else -> (hp1 + hp2) / 2
     }
     val t = (1 -
@@ -107,9 +108,14 @@ fun <T : Color> T.differenceCIE2000(other: T): Float {
     val sh = 1 + 0.015 * cbp * t
     val dTheta = 30 * exp(-((hbp - 275) / 25).pow(2))
     val cbp7 = cbp.pow(7)
-    val rc = 2 * sqrt(cbp7 / (cbp7 + 25.0.pow(7)))
-    val rt = -rc * sinDeg(2 * dTheta)
-    return sqrtSumSq(dlp / sl, dlp / sc, dHp / sh, rt * (dcp / sc) * (dHp / sh)).toFloat()
+    val rc = sqrt(cbp7 / (cbp7 + 25.0.pow(7)))
+    val rt = -2 * rc * sinDeg(2 * dTheta)
+    return sqrt(
+        (dlp / sl).pow(2) +
+                (dcp / sc).pow(2) +
+                (dHp / sh).pow(2) +
+                rt * (dcp / sc) * (dHp / sh)
+    ).toFloat()
 }
 
 /**
@@ -117,7 +123,7 @@ fun <T : Color> T.differenceCIE2000(other: T): Float {
  *
  * @return a value in the range `[0, 1]`, with 0 meaning the colors are identical.
  */
-fun <T : Color> T.differenceEz(other: T): Float {
+fun Color.differenceEz(other: Color): Float {
     val (j1, c1, h1) = DoubleJch(toJzCzHz())
     val (j2, c2, h2) = DoubleJch(other.toJzCzHz())
     val dH2 = 2 * c1 * c2 * (1 - cosDeg(h2 - h1)) // this is (ΔHz)²
