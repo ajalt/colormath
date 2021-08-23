@@ -13,7 +13,7 @@ import org.khronos.webgl.Uint8ClampedArray
 import org.w3c.dom.HTMLCanvasElement
 import kotlin.js.json
 
-private val rectColors = listOf(RGB, LAB, LUV, Oklab)
+private val rectColors = listOf(RGB, LAB, LUV, Oklab, JzAzBz, ICtCp)
 
 fun main() {
     var colors by mutableStateOf(listOf(RGB(0.0, 0.0, 0.5), Color.parse("aliceblue")))
