@@ -2,10 +2,6 @@ package com.github.ajalt.colormath.calculate
 
 import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.internal.*
-import com.github.ajalt.colormath.internal.cosDeg
-import com.github.ajalt.colormath.internal.radToDeg
-import com.github.ajalt.colormath.internal.sinDeg
-import com.github.ajalt.colormath.internal.sqrtSumSq
 import kotlin.jvm.JvmInline
 import kotlin.math.*
 
@@ -116,6 +112,40 @@ fun Color.differenceCIE2000(other: Color): Float {
                 (dHp / sh).pow(2) +
                 rt * (dcp / sc) * (dHp / sh)
     ).toFloat()
+}
+
+fun Color.differenceCMC(other: Color, l: Float = 2f, c: Float = 1f): Float {
+    val (l1, a1, b1) = DoubleLab(toLAB())
+    val (l2, a2, b2) = DoubleLab(other.toLAB())
+
+    val c1 = sqrtSumSq(a1, b1)
+    val c2 = sqrtSumSq(a2, b2)
+
+    val dl = l1 - l2
+    val da = a1 - a2
+    val db = b1 - b2
+    val dc = c1 - c2
+
+    val h1 = atan2(b1, a1).radToDeg().normalizeDeg()
+    val t = when {
+        h1 in 164.0..345.0 -> 0.56 + abs(0.2 * cosDeg(h1 + 168))
+        else -> 0.36 + abs(0.4 * cosDeg(h1 + 35))
+    }
+    val f = sqrt(c1.pow(4) / (c1.pow(4) + 1900))
+
+    val sl = when {
+        l1 < 16 -> 0.511
+        else -> 0.040975 * l1 / (1 + 0.01765 * l1)
+    }
+
+    val sc = 0.0638 * c1 / (1 + 0.0131 * c1) + 0.638
+    val sh = sc * (f * t + 1 - f)
+    val dh2 = da.pow(2) + db.pow(2) - dc.pow(2) //(ΔH)²
+
+    val v1 = dl / (l * sl)
+    val v2 = dc / (c * sc)
+    val sqrt = sqrt(v1.pow(2) + v2.pow(2) + (dh2 / sh.pow(2)))
+    return sqrt.toFloat()
 }
 
 /**

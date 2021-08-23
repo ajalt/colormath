@@ -45,6 +45,19 @@ class DifferenceTest {
     }
 
     @Test
+    fun cmc() = forAll(
+        row(c1, 0.0, 1f),
+        row(LAB(100.00000000, 426.67945353, 72.39590835), 172.7047712, 2f),
+        row(LAB(100.00000000, 74.05216981, 276.45318193), 20.59732717, 2f),
+        row(LAB(100.00000000, 08.32281957, -73.58297716), 121.7184147, 2f),
+        row(LAB(100.00000000, 426.67945353, 72.39590835), 172.7047712, 1f),
+        row(LAB(100.00000000, 74.05216981, 276.45318193), 20.59732717, 1f),
+        row(LAB(100.00000000, 08.32281957, -73.58297716), 121.7184147, 1f),
+    ) { c, ex, l ->
+        c1.differenceCMC(c, l = l).toDouble() shouldBe (ex plusOrMinus 1e-5)
+    }
+
+    @Test
     fun deltaEz() = forAll(
         // test values from https://observablehq.com/@jrus/jzazbz
         row(c1, 0.0),
