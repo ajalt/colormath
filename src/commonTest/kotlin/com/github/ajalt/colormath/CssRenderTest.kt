@@ -3,6 +3,7 @@ package com.github.ajalt.colormath
 import com.github.ajalt.colormath.AngleUnit.*
 import com.github.ajalt.colormath.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
+import com.github.ajalt.colormath.RGBColorSpaces.ACES
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScc
 import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
 import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
@@ -107,5 +108,14 @@ class CssRenderTest {
         row(JzAzBz(.1, .2, .3), "color(--jzazbz 0.1 0.2 0.3)"),
     ) { color, expected ->
         color.formatCssString() shouldBe expected
+    }
+
+    @Test
+    fun formatCssStringOrNull() = forAll(
+        row(RGB(1, 2, 3), "rgb(1 2 3)"),
+        row(ACES(.1, .2, .3), null),
+        row(JzAzBz(.1, .2, .3), null),
+    ) { color, expected ->
+        color.formatCssStringOrNull() shouldBe expected
     }
 }
