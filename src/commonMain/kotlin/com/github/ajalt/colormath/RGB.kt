@@ -46,6 +46,12 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
         alpha = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) / 255f else Float.NaN
     )
 
+    /** Construct an RGB instance  with a grey color from a fraction of white in range `[0, 1]` */
+    fun grey(amount: Float, alpha: Float = Float.NaN): RGB = invoke(amount, amount, amount, alpha)
+
+    /** Construct an RGB instance  with a grey color from a fraction of white in range `[0, 1]` */
+    fun grey(amount: Double, alpha: Double = Double.NaN): RGB = invoke(amount, amount, amount, alpha)
+
     val transferFunctions: TransferFunctions
 
     /**
@@ -285,7 +291,7 @@ data class RGB internal constructor(
         )
     }
 
-    override fun toICtCp(): ICtCp  {
+    override fun toICtCp(): ICtCp {
         if (space == BT_2020) return convertBT2020ToICtCp(this)
         return toXYZ().toICtCp()
     }
