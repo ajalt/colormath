@@ -22,6 +22,12 @@ class RGBTest {
     }
 
     @Test
+    fun grey() {
+        RGB.grey(.1f, .2f) shouldBe RGB(.1, .1, .1, .2)
+        ROMM_RGB.grey(.5) shouldBe ROMM_RGB(.5, .5, .5)
+    }
+
+    @Test
     @JsName("RGB_to_HSV")
     fun `RGB to HSV`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to HSV(Double.NaN, 0.0, 0.0),
