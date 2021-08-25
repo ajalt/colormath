@@ -7,14 +7,14 @@ import com.github.ajalt.colormath.internal.normalizeDeg
 
 fun <T : Color> T.interpolate(
     other: Color,
-    amount: Float,
+    t: Float,
     premultiplyAlpha: Boolean = true,
     hueAdjustment: HueAdjustment? = HueAdjustments.shorter,
 ): T = map { space, components ->
     val lmult = mult(space, premultiplyAlpha, components)
     val rmult = mult(space, premultiplyAlpha, space.convert(other).toArray())
     adjHue(0, space, lmult, rmult, hueAdjustment)
-    interpolateComponents(lmult, rmult, FloatArray(components.size), amount, premultiplyAlpha, space)
+    interpolateComponents(lmult, rmult, FloatArray(components.size), t, premultiplyAlpha, space)
 }
 
 fun <T : Color> ColorSpace<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
@@ -28,8 +28,8 @@ fun <T : Color> ColorSpace<T>.interpolator(vararg stops: Color, premultiplyAlpha
 }
 
 interface Interpolator<T : Color> {
-    fun interpolate(position: Float): T
-    fun interpolate(position: Double): T = interpolate(position.toFloat())
+    fun interpolate(t: Float): T
+    fun interpolate(t: Double): T = interpolate(t.toFloat())
 }
 
 interface InterpolatorBuilder {
@@ -74,8 +74,8 @@ private class InterpolatorImpl<T : Color>(
 ) : Interpolator<T> {
     private val out = FloatArray(space.components.size)
 
-    override fun interpolate(position: Float): T {
-        return space.create(lerpComponents(position))
+    override fun interpolate(t: Float): T {
+        return space.create(lerpComponents(t))
     }
 
     private fun lerpComponents(pos: Float): FloatArray {
