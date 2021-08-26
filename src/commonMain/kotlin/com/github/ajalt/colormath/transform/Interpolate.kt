@@ -3,18 +3,17 @@ package com.github.ajalt.colormath.transform
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.internal.nanToOne
-import com.github.ajalt.colormath.internal.normalizeDeg
 
 fun <T : Color> T.interpolate(
     other: Color,
     t: Float,
     premultiplyAlpha: Boolean = true,
-    hueAdjustment: HueAdjustment? = HueAdjustments.shorter,
+    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
 ): T = map { space, components ->
-    val lmult = mult(space, premultiplyAlpha, components)
-    val rmult = mult(space, premultiplyAlpha, space.convert(other).toArray())
-    adjHue(0, space, lmult, rmult, hueAdjustment)
-    interpolateComponents(lmult, rmult, FloatArray(components.size), t, premultiplyAlpha, space)
+    val l = mult(space, premultiplyAlpha, components)
+    val r = mult(space, premultiplyAlpha, space.convert(other).toArray())
+    fixupHues(space, hueAdjustment, listOf(Stop(l, 0f), Stop(r, 1f)))
+    interpolateComponents(l, r, FloatArray(components.size), t, premultiplyAlpha, space)
 }
 
 fun <T : Color> ColorSpace<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
@@ -23,7 +22,7 @@ fun <T : Color> ColorSpace<T>.interpolator(builder: InterpolatorBuilder.() -> Un
 
 fun <T : Color> ColorSpace<T>.interpolator(vararg stops: Color, premultiplyAlpha: Boolean = true): Interpolator<T> {
     require(stops.size > 1) { "interpolators require at least two stops" }
-    val positioned = stops.mapIndexed { i, it -> convert(it).toArray() to (i.toFloat() / stops.lastIndex) }
+    val positioned = stops.mapIndexed { i, it -> Stop(convert(it).toArray(), (i.toFloat() / stops.lastIndex)) }
     return InterpolatorImpl(this, positioned, premultiplyAlpha)
 }
 
@@ -48,7 +47,7 @@ interface InterpolatorBuilder {
      *
      * Defaults to [HueAdjustments.shorter].
      */
-    var hueAdjustment: HueAdjustment?
+    var hueAdjustment: HueAdjustment
 
     /**
      * A function too apply to all colors' alpha values prior to interpolation.
@@ -67,9 +66,12 @@ fun <T : Color> Interpolator<T>.sequence(length: Int): Sequence<T> {
 
 //region: implementations
 
+@Suppress("ArrayInDataClass")
+private data class Stop(val components: FloatArray, val pos: Float)
+
 private class InterpolatorImpl<T : Color>(
     private val space: ColorSpace<T>,
-    private val stops: List<Pair<FloatArray, Float>>,
+    private val stops: List<Stop>,
     private val premultiplyAlpha: Boolean,
 ) : Interpolator<T> {
     private val out = FloatArray(space.components.size)
@@ -79,12 +81,12 @@ private class InterpolatorImpl<T : Color>(
     }
 
     private fun lerpComponents(pos: Float): FloatArray {
-        if (pos <= 0f) return stops.first().first
-        if (pos >= 1f) return stops.last().first
+        if (pos <= 0f) return stops.first().components
+        if (pos >= 1f) return stops.last().components
 
-        val start = stops.indexOfLast { it.second <= pos }
-        if (start < 0) return stops.first().first
-        if (stops[start].second == pos || start == stops.lastIndex) return stops[start].first
+        val start = stops.indexOfLast { it.pos <= pos }
+        if (start < 0) return stops.first().components
+        if (stops[start].pos == pos || start == stops.lastIndex) return stops[start].components
         val end = start + 1
 
         val (lc, lp) = stops[start]
@@ -95,7 +97,7 @@ private class InterpolatorImpl<T : Color>(
 
 private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T>) : InterpolatorBuilder {
     override var premultiplyAlpha: Boolean = true
-    override var hueAdjustment: HueAdjustment? = HueAdjustments.shorter
+    override var hueAdjustment: HueAdjustment = HueAdjustments.shorter
     override var alphaFixup: (Float) -> Float = { it.nanToOne() }
 
     // stops may omit position, never color
@@ -136,7 +138,7 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
 
         val out = bakeComponents()
         fixupAlpha(out)
-        fixupHues(out)
+        fixupHues(space, hueAdjustment, out)
         return InterpolatorImpl(space, out, premultiplyAlpha)
     }
 
@@ -195,22 +197,25 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
     }
 
     // Convert all colors to this model, premultiply alphas if necessary, and convert to arrays
-    private fun bakeComponents(): List<Pair<FloatArray, Float>> {
+    private fun bakeComponents(): List<Stop> {
         // precondition: all entries have colors and positions
         return entries.map { (c, p) ->
-            mult(space, premultiplyAlpha, space.convert(c!!).toArray()) to p!!
+            Stop(mult(space, premultiplyAlpha, space.convert(c!!).toArray()), p!!)
         }
     }
 
-    private fun fixupHues(entries: List<Pair<FloatArray, Float>>) {
-        for (i in 0 until entries.lastIndex) {
-            adjHue(i, space, entries[i].first, entries[i + 1].first, hueAdjustment)
-        }
-    }
-
-    private fun fixupAlpha(entries: List<Pair<FloatArray, Float>>) {
+    private fun fixupAlpha(entries: List<Stop>) {
         for ((c, _) in entries) {
             c[c.lastIndex] = alphaFixup(c.last())
+        }
+    }
+}
+
+private fun fixupHues(space: ColorSpace<*>, hueAdjustment: HueAdjustment, entries: List<Stop>) {
+    for ((i, c) in space.components.withIndex()) {
+        if (!c.isPolar) continue
+        hueAdjustment(entries.map { it.components[i] }).forEachIndexed { j, hue ->
+            entries[j].components[i] = hue
         }
     }
 }
@@ -237,33 +242,6 @@ private fun mult(space: ColorSpace<*>, premultiplyAlpha: Boolean, components: Fl
 private fun div(space: ColorSpace<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
     if (premultiplyAlpha) divideAlphaInPlace(space, components)
     return components
-}
-
-private fun adjHue(
-    entry: Int,
-    space: ColorSpace<*>,
-    lcomp: FloatArray,
-    rcomp: FloatArray,
-    hueAdjustment: HueAdjustment?,
-) {
-    if (hueAdjustment == null) return
-    if (entry == 0) {
-        for (i in space.components.indices) {
-            if (!space.components[i].isPolar) continue
-            lcomp[i] = lcomp[i].normalizeDeg()
-        }
-    }
-
-    for (i in space.components.indices) {
-        if (!space.components[i].isPolar) continue
-        val l = lcomp[i]
-        val r = rcomp[i]
-
-        if (r.isNaN()) continue
-        rcomp[i] = if (l.isNaN()) r.normalizeDeg() else {
-            l + hueAdjustment(r.normalizeDeg() - l.normalizeDeg())
-        }
-    }
 }
 
 private fun lerp(l: Float, r: Float, amount: Float): Float {
