@@ -7,7 +7,7 @@ import kotlin.jvm.JvmName
 /**
  * The `CIE xyY` color space, also used to store `xy` chromaticity coordinates by setting [Y] to 1.
  *
- * [x], [y], and [z] and relative values. [X], [Y], and [Z] are absolute.
+ * [x], [y], and [z] are relative values. [X], [Y], and [Z] are absolute.
  */
 data class xyY(
     val x: Float,
