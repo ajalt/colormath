@@ -6,11 +6,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.Color
+import com.github.ajalt.colormath.RGBColorSpaces.ACES
+import com.github.ajalt.colormath.RGBColorSpaces.ACEScc
+import com.github.ajalt.colormath.RGBColorSpaces.ACEScct
+import com.github.ajalt.colormath.RGBColorSpaces.ACEScg
+import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
+import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
+import com.github.ajalt.colormath.RGBColorSpaces.BT_709
+import com.github.ajalt.colormath.RGBColorSpaces.DCI_P3
+import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
+import com.github.ajalt.colormath.RGBColorSpaces.LINEAR_SRGB
+import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.calculate.wcagContrastRatio
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.attributes.step
 import org.jetbrains.compose.web.attributes.value
 import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.selectors.className
+import org.jetbrains.compose.web.css.selectors.hover
+import org.jetbrains.compose.web.css.selectors.plus
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
 import kotlin.js.json
@@ -44,6 +58,17 @@ private val rows = listOf(
     Row("XYZ", XYZ),
     Row("HSLuv", HSLuv, step = 1.0),
     Row("HPLuv", HPLuv, step = 1.0),
+    Row("Linear sRGB", LINEAR_SRGB),
+    Row("ACES2065-1 RGB", ACES),
+    Row("ACEScc RGB", ACEScc),
+    Row("ACEScct RGB", ACEScct),
+    Row("ACEScg RGB", ACEScg),
+    Row("Adobe RGB 1998", ADOBE_RGB),
+    Row("BT.2020 (REC.2020) RGB", BT_2020),
+    Row("BT.709 (REC.709) RGB", BT_709),
+    Row("DCI P3 RGB", DCI_P3),
+    Row("Display P3 RGB", DISPLAY_P3),
+    Row("ROMM RGB (ProPhoto)", ROMM_RGB),
     Row("CMYK", CMYK),
     Row("Ansi (16 color)", Ansi16, step = 1.0, round = true),
     Row("Ansi (256 color)", Ansi256, step = 1.0, round = true),
@@ -51,6 +76,40 @@ private val rows = listOf(
 
 fun main() {
     renderComposable(rootElementId = "root") {
+        Style {
+            className("input") style {
+                property("appearance", "textfield")
+                backgroundColor(rgba(0, 0, 0, .26f))
+                maxWidth(20.percent)
+                marginRight(4.px)
+                paddingLeft(1.cssRem)
+                paddingRight(1.cssRem)
+                marginBottom(15.px)
+                width(100.percent)
+                height(1.8.cssRem)
+                color(Color("inherit"))
+                fontSize(.8.cssRem)
+                borderRadius(.1.cssRem)
+            }
+            className("input") + hover() style {
+                backgroundColor(rgba(1f, 1f, 1f, .12f))
+            }
+            className("colorpicker") style {
+                display(DisplayStyle.Block)
+                marginBottom(15.px)
+                borderRadius(.25.cssRem)
+                width(100.percent)
+                height(60.px)
+            }
+            className("dropdown") style {
+                display(DisplayStyle.Block)
+                width(100.percent)
+                paddingLeft(.7.cssRem)
+                paddingRight(.7.cssRem)
+                height(1.8.cssRem)
+                marginBottom(15.px)
+            }
+        }
         var color: Color by remember { mutableStateOf(Color.parse("rebeccapurple").toSRGB()) }
         var row: Row by remember { mutableStateOf(rows[0]) }
 
@@ -60,14 +119,7 @@ fun main() {
                     Text("Convert from: ")
                 }
                 Select({
-                    style {
-                        display(DisplayStyle.Block)
-                        width(100.percent)
-                        paddingLeft(.7.cssRem)
-                        paddingRight(.7.cssRem)
-                        height(1.8.cssRem)
-                        marginBottom(15.px)
-                    }
+                    classes("dropdown")
                     onInput { e ->
                         e.value?.let { name ->
                             row = rows.first { it.name == name }
@@ -87,15 +139,7 @@ fun main() {
                 Div {
                     for (i in 0 until color.space.components.lastIndex) {
                         NumberInput(attrs = {
-                            style {
-                                property("appearance", "textfield")
-                                maxWidth(20.percent)
-                                marginRight(4.px)
-                                paddingLeft(1.cssRem)
-                                paddingRight(1.cssRem)
-                                marginBottom(15.px)
-                            }
-                            classes("md-search__input") // class is part of mkdocs material
+                            classes("input")
                             step(if (color.space.components[i].isPolar) 1.0 else row.step)
                             onInput { event ->
                                 val a = color.toArray()
@@ -113,13 +157,7 @@ fun main() {
                     Text("Or pick one: ")
                 }
                 Input(InputType.Color, attrs = {
-                    style {
-                        display(DisplayStyle.Block)
-                        marginBottom(15.px)
-                        borderRadius(.25.cssRem)
-                        width(100.percent)
-                        height(60.px)
-                    }
+                    classes("colorpicker")
                     onInput { color = Color.parse(it.value) }
                     value(color.toSRGB().toHex())
                 })
