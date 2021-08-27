@@ -23,11 +23,8 @@ data class HWB(override val h: Float, val w: Float, val b: Float, override val a
         override fun create(components: FloatArray): HWB = doCreate(components, ::HWB)
     }
 
-    constructor(h: Double, w: Double, b: Double, alpha: Double)
+    constructor(h: Number, w: Number, b: Number, alpha: Number = Float.NaN)
             : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha.toFloat())
-
-    constructor(h: Double, w: Double, b: Double, alpha: Float = Float.NaN)
-            : this(h.toFloat(), w.toFloat(), b.toFloat(), alpha)
 
     override val space: ColorSpace<HWB> get() = HWB
 

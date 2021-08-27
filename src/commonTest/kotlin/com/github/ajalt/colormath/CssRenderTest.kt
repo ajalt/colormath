@@ -31,9 +31,9 @@ class CssRenderTest {
     )
 
     private data class H(
-        val h: Int,
-        val s: Int,
-        val l: Int,
+        val h: Number,
+        val s: Number,
+        val l: Number,
         val a: Float = 1f,
         val commas: Boolean = false,
         val namedHsla: Boolean = false,
@@ -76,11 +76,11 @@ class CssRenderTest {
         row(H(0, 0, 0, .5f, alphaPercent = true), "hsl(0 0% 0% / 50%)"),
         row(H(0, 0, 0, renderAlpha = ALWAYS), "hsl(0 0% 0% / 1)"),
         row(H(0, 0, 0, .5f, renderAlpha = NEVER), "hsl(0 0% 0%)"),
-        row(H(180, 50, 50), "hsl(180 50% 50%)"),
-        row(H(180, 50, 50, hueUnit = DEGREES), "hsl(180deg 50% 50%)"),
-        row(H(180, 50, 50, hueUnit = GRADIANS), "hsl(200grad 50% 50%)"),
-        row(H(180, 50, 50, hueUnit = RADIANS), "hsl(3.1415rad 50% 50%)"),
-        row(H(180, 50, 50, hueUnit = TURNS), "hsl(0.5turn 50% 50%)"),
+        row(H(180, .5, .5), "hsl(180 50% 50%)"),
+        row(H(180, .5, .5, hueUnit = DEGREES), "hsl(180deg 50% 50%)"),
+        row(H(180, .5, .5, hueUnit = GRADIANS), "hsl(200grad 50% 50%)"),
+        row(H(180, .5, .5, hueUnit = RADIANS), "hsl(3.1415rad 50% 50%)"),
+        row(H(180, .5, .5, hueUnit = TURNS), "hsl(0.5turn 50% 50%)"),
     ) { (h, s, l, a, commas, namedHsla, hueUnit, alphaPercent, renderAlpha), expected ->
         HSL(h, s, l, a).formatCssString(
             hueUnit,

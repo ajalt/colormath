@@ -24,16 +24,8 @@ data class HSV(override val h: Float, val s: Float, val v: Float, override val a
         override fun create(components: FloatArray): HSV = doCreate(components, ::HSV)
     }
 
-    /**
-     * Construct an HSV instance from Int values, with [h] in `[0, 360]`, and [s] and [v] in the range `[0, 100]`.
-     */
-    constructor(h: Int, s: Int, v: Int, a: Float = 1f) : this(h.toFloat(), s / 100f, v / 100f, a)
-
-    constructor (h: Double, s: Double, v: Double, alpha: Double)
+    constructor (h: Number, s: Number, v: Number, alpha: Number = Float.NaN)
             : this(h.toFloat(), s.toFloat(), v.toFloat(), alpha.toFloat())
-
-    constructor (h: Double, s: Double, v: Double, alpha: Float = Float.NaN)
-            : this(h.toFloat(), s.toFloat(), v.toFloat(), alpha)
 
     override val space: ColorSpace<HSV> get() = HSV
 

@@ -6,10 +6,7 @@ import kotlin.test.Test
 
 class JzCzHzTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        JzCzHz(0.01, 0.02, 0.03, 0.04),
-        JzCzHz(0.01, 0.02, 0.03, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(JzCzHz(0.01, 0.02, 0.03, 0.04))
 
     @Test
     @JsName("JzCzHz_to_JzAzBz")

@@ -9,10 +9,7 @@ import kotlin.test.Test
 
 class LUVTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        LUV(0.01, 0.02, 0.03, 0.04),
-        LUV(0.01, 0.02, 0.03, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(LUV(0.01, 0.02, 0.03, 0.04))
 
     @Test
     fun conversion() = convertToSpaceTest(LUV65, LCHuv65, LCHuv50, HSL, to = LUV50)

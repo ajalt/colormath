@@ -10,11 +10,7 @@ import kotlin.test.Test
 
 class LCHabTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        LCHab(0.1, 0.011, 0.015, 0.04),
-        LCHab(0.1, 0.011, 0.015, 0.04f),
-        intermediate = LAB,
-    )
+    fun roundtrip() = roundtripTest(LCHab(0.1, 0.011, 0.015, 0.04), intermediate = LAB)
 
     @Test
     fun conversion() = convertToSpaceTest(LAB65, LCHab65, LAB50, HSL, to = LCHab50)

@@ -5,10 +5,7 @@ import kotlin.test.Test
 
 class HSVTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        HSV(0.01, 0.02, 0.03, 0.04),
-        HSV(0.01, 0.02, 0.03, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(HSV(0.01, 0.02, 0.03, 0.04))
 
     @Test
     @JsName("HSV_to_RGB")

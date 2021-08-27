@@ -15,7 +15,7 @@ data class xyY(
     @get:JvmName("getAbsoluteY")
     val Y: Float = 1f,
 ) {
-    constructor(x: Double, y: Double, Y: Double = 1.0) : this(x.toFloat(), y.toFloat(), Y.toFloat())
+    constructor(x: Number, y: Number, Y: Number = 1.0) : this(x.toFloat(), y.toFloat(), Y.toFloat())
 
     val z: Float get() = 1 - x - y
 

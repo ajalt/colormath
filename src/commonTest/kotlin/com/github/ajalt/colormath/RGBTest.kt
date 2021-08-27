@@ -9,11 +9,7 @@ import kotlin.test.Test
 
 class RGBTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        RGB(0.01, 0.02, 0.03, 0.04),
-        RGB(0.01, 0.02, 0.03, 0.04f),
-        intermediate = XYZ
-    )
+    fun roundtrip() = roundtripTest(RGB(0.01, 0.02, 0.03, 0.04), intermediate = XYZ)
 
     @Test
     fun clamp() {

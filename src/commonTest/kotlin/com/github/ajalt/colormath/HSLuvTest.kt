@@ -5,11 +5,7 @@ import kotlin.test.Test
 
 class HSLuvTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        HSLuv(0.1, 0.011, 0.012, 0.04),
-        HSLuv(0.1, 0.011, 0.012, 0.04f),
-        intermediate = LCHuv
-    )
+    fun roundtrip() = roundtripTest(HSLuv(0.1, 0.011, 0.012, 0.04), intermediate = LCHuv)
 
     // Test cases generated from the reference implementation
     @Test

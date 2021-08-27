@@ -6,10 +6,7 @@ import kotlin.test.Test
 
 class ICtCpTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        ICtCp(0.01, 0.011, 0.012, 0.04),
-        ICtCp(0.01, 0.011, 0.012, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(ICtCp(0.01, 0.011, 0.012, 0.04))
 
     @Test
     @JsName("ICtCp_to_BT2020")

@@ -23,12 +23,8 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
         override fun create(components: FloatArray): Oklab = doCreate(components, ::Oklab)
     }
 
-
-    constructor (l: Double, a: Double, b: Double, alpha: Double = Double.NaN)
+    constructor (l: Number, a: Number, b: Number, alpha: Number = Float.NaN)
             : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
-
-    constructor (l: Double, a: Double, b: Double, alpha: Float)
-            : this(l.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
     override val space: ColorSpace<Oklab> get() = Oklab
 

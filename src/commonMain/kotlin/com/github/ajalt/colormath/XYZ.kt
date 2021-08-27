@@ -8,12 +8,7 @@ import kotlin.math.pow
  * The color space describing colors in the [XYZ] model.
  */
 interface XYZColorSpace : WhitePointColorSpace<XYZ> {
-    operator fun invoke(x: Float, y: Float, z: Float, alpha: Float = Float.NaN): XYZ
-    operator fun invoke(x: Double, y: Double, z: Double, alpha: Double): XYZ =
-        invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat())
-
-    operator fun invoke(x: Double, y: Double, z: Double, alpha: Float = Float.NaN): XYZ =
-        invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha)
+    operator fun invoke(x: Number, y: Number, z: Number, alpha: Number = Float.NaN): XYZ
 }
 
 /** Create a new [XYZColorSpace] that will be calculated relative to the given [whitePoint] */
@@ -26,10 +21,11 @@ fun XYZColorSpace(whitePoint: WhitePoint): XYZColorSpace = when (whitePoint) {
 private data class XYZColorSpaceImpl(override val whitePoint: WhitePoint) : XYZColorSpace {
     override val name: String get() = "XYZ"
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("XYZ")
-    override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ = XYZ(x, y, z, alpha, this)
     override fun convert(color: Color): XYZ = color.toXYZ().adaptTo(this)
     override fun create(components: FloatArray): XYZ = doCreate(components, ::invoke)
     override fun toString(): String = "XYZColorSpace($whitePoint)"
+    override operator fun invoke(x: Number, y: Number, z: Number, alpha: Number): XYZ =
+        XYZ(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat(), this)
 }
 
 object XYZColorSpaces {

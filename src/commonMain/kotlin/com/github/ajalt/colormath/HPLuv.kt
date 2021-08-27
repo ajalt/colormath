@@ -23,11 +23,8 @@ data class HPLuv(override val h: Float, val p: Float, val l: Float, override val
         override fun create(components: FloatArray): HPLuv = doCreate(components, ::HPLuv)
     }
 
-    constructor (h: Double, p: Double, l: Double, alpha: Double = Double.NaN)
+    constructor (h: Number, p: Number, l: Number, alpha: Number = Float.NaN)
             : this(h.toFloat(), p.toFloat(), l.toFloat(), alpha.toFloat())
-
-    constructor (h: Double, p: Double, l: Double, alpha: Float)
-            : this(h.toFloat(), p.toFloat(), l.toFloat(), alpha)
 
     override val space: ColorSpace<HPLuv> get() = HPLuv
 

@@ -21,19 +21,12 @@ data class Oklch(val l: Float, val c: Float, override val h: Float, override val
         override fun create(components: FloatArray): Oklch = doCreate(components, ::Oklch)
     }
 
-    constructor(l: Double, c: Double, h: Double, alpha: Double)
+    constructor(l: Number, c: Number, h: Number, alpha: Number = Float.NaN)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
-
-    constructor(l: Double, c: Double, h: Double, alpha: Float = Float.NaN)
-            : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 
     override val space: ColorSpace<Oklch> get() = Oklch
 
-    override fun toSRGB(): RGB = when (l) {
-        0f -> RGB(0f, 0f, 0f, alpha)
-        else -> toOklab().toSRGB()
-    }
-
+    override fun toSRGB(): RGB = toOklab().toSRGB()
     override fun toXYZ(): XYZ = toOklab().toXYZ()
     override fun toOklab(): Oklab = fromPolarModel(c, h) { a, b -> Oklab(l, a, b, alpha) }
     override fun toOklch(): Oklch = this

@@ -5,10 +5,7 @@ import kotlin.test.Test
 
 class OklabTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        Oklab(0.1, 0.011, 0.012, 0.04),
-        Oklab(0.1, 0.011, 0.012, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(Oklab(0.1, 0.011, 0.012, 0.04))
 
     @Test
     @JsName("Oklab_to_XYZ")
