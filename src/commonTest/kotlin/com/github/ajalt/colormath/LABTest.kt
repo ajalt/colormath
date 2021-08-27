@@ -9,10 +9,7 @@ import kotlin.test.Test
 
 class LABTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        LAB(0.01, 0.02, 0.03, 0.04),
-        LAB(0.01, 0.02, 0.03, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(LAB(0.01, 0.02, 0.03, 0.04))
 
     @Test
     fun conversion() = convertToSpaceTest(LAB65, LCHab50, LCHab65, HSL, to = LAB50)

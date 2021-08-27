@@ -9,12 +9,7 @@ import kotlin.math.pow
  * The color space describing colors in the [LUV] model.
  */
 interface LUVColorSpace : WhitePointColorSpace<LUV> {
-    operator fun invoke(l: Float, u: Float, v: Float, alpha: Float = Float.NaN): LUV
-    operator fun invoke(l: Double, u: Double, v: Double, alpha: Double): LUV =
-        invoke(l.toFloat(), u.toFloat(), v.toFloat(), alpha.toFloat())
-
-    operator fun invoke(l: Double, u: Double, v: Double, alpha: Float = Float.NaN): LUV =
-        invoke(l.toFloat(), u.toFloat(), v.toFloat(), alpha)
+    operator fun invoke(l: Number, u: Number, v: Number, alpha: Number = Float.NaN): LUV
 }
 
 /** Create a new [LUVColorSpace] that will be calculated relative to the given [whitePoint] */
@@ -27,10 +22,11 @@ fun LUVColorSpace(whitePoint: WhitePoint): LUVColorSpace = when (whitePoint) {
 private data class LUVColorSpaceImpl(override val whitePoint: WhitePoint) : LUVColorSpace {
     override val name: String get() = "LUV"
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("LUV")
-    override operator fun invoke(l: Float, u: Float, v: Float, alpha: Float): LUV = LUV(l, u, v, alpha, this)
     override fun convert(color: Color): LUV = adaptToThis(color) { it.toLUV() }
     override fun create(components: FloatArray): LUV = doCreate(components, ::invoke)
     override fun toString(): String = "LUVColorSpace($whitePoint)"
+    override operator fun invoke(l: Number, u: Number, v: Number, alpha: Number): LUV =
+        LUV(l.toFloat(), u.toFloat(), v.toFloat(), alpha.toFloat(), this)
 }
 
 object LUVColorSpaces {

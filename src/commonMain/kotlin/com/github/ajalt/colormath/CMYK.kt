@@ -25,7 +25,7 @@ data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override
         }
     }
 
-    constructor (c: Double, m: Double, y: Double, k: Double, alpha: Double = Double.NaN)
+    constructor (c: Number, m: Number, y: Number, k: Number, alpha: Number = Float.NaN)
             : this(c.toFloat(), m.toFloat(), y.toFloat(), k.toFloat(), alpha.toFloat())
 
     /**

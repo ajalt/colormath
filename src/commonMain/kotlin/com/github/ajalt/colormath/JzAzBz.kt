@@ -33,11 +33,8 @@ data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: 
         internal const val d0 = 1.6295499532821566e-11
     }
 
-    constructor (j: Double, a: Double, b: Double, alpha: Double)
+    constructor (j: Number, a: Number, b: Number, alpha: Number = Float.NaN)
             : this(j.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
-
-    constructor (j: Double, a: Double, b: Double, alpha: Float = Float.NaN)
-            : this(j.toFloat(), a.toFloat(), b.toFloat(), alpha)
 
     override val space: ColorSpace<JzAzBz> get() = JzAzBz
 

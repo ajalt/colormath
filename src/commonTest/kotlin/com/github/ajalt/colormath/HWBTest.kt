@@ -5,10 +5,7 @@ import kotlin.test.Test
 
 class HWBTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        HWB(0.01, 0.02, 0.03, 0.04),
-        HWB(0.01, 0.02, 0.03, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(HWB(0.01, 0.02, 0.03, 0.04))
 
     @Test
     @JsName("HWB_to_RGB")

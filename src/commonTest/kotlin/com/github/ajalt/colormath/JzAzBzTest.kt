@@ -5,10 +5,7 @@ import kotlin.test.Test
 
 class JzAzBzTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        JzAzBz(0.01, 0.011, 0.012, 0.04),
-        JzAzBz(0.01, 0.011, 0.012, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(JzAzBz(0.01, 0.011, 0.012, 0.04))
 
     @Test
     @JsName("JzAzBz_to_XYZ")

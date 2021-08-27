@@ -6,11 +6,7 @@ import kotlin.test.Test
 
 class OklchTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        Oklch(0.01, 0.02, 0.03, 0.04),
-        Oklch(0.01, 0.02, 0.03, 0.04f),
-        intermediate = Oklab,
-    )
+    fun roundtrip() = roundtripTest(Oklch(0.01, 0.02, 0.03, 0.04), intermediate = Oklab)
 
     @Test
     @JsName("Oklab_to_Oklch")

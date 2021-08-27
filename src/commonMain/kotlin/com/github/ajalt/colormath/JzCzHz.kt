@@ -27,11 +27,8 @@ data class JzCzHz(val j: Float, val c: Float, override val h: Float, override va
         override fun create(components: FloatArray): JzCzHz = doCreate(components, ::JzCzHz)
     }
 
-    constructor(l: Double, c: Double, h: Double, alpha: Double)
+    constructor(l: Number, c: Number, h: Number, alpha: Number = Float.NaN)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
-
-    constructor(l: Double, c: Double, h: Double, alpha: Float = Float.NaN)
-            : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha)
 
     override val space: ColorSpace<JzCzHz> get() = JzCzHz
 

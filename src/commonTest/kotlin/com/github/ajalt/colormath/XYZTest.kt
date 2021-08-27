@@ -10,10 +10,7 @@ import kotlin.test.Test
 
 class XYZTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        XYZ(0.01, 0.02, 0.03, 0.04),
-        XYZ(0.01, 0.02, 0.03, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(XYZ(0.01, 0.02, 0.03, 0.04))
 
     @Test
     @JsName("XYZ_to_RGB")

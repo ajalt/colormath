@@ -7,12 +7,7 @@ import kotlin.math.roundToInt
 
 
 interface RGBColorSpace : WhitePointColorSpace<RGB> {
-    operator fun invoke(r: Float, g: Float, b: Float, alpha: Float = Float.NaN): RGB
-    operator fun invoke(r: Double, g: Double, b: Double, alpha: Double): RGB =
-        invoke(r.toFloat(), g.toFloat(), b.toFloat(), alpha.toFloat())
-
-    operator fun invoke(r: Double, g: Double, b: Double, alpha: Float = Float.NaN): RGB =
-        invoke(r.toFloat(), g.toFloat(), b.toFloat(), alpha)
+    operator fun invoke(r: Number, g: Number, b: Number, alpha: Number = Float.NaN): RGB
 
     /**
      * Construct an RGB instance from Int values in the range `[0, 255]`.
@@ -52,6 +47,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
     /** Construct an RGB instance  with a grey color from a fraction of white in range `[0, 1]` */
     fun grey(amount: Double, alpha: Double = Double.NaN): RGB = invoke(amount, amount, amount, alpha)
 
+    /** The [TransferFunctions] for this color space */
     val transferFunctions: TransferFunctions
 
     /**

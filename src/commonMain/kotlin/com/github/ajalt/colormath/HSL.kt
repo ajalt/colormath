@@ -17,7 +17,8 @@ import kotlin.math.min
  * | [s]        | saturation                                | `[0, 1]`   |
  * | [l]        | lightness                                 | `[0, 1]`   |
  */
-data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = Float.NaN) : Color, HueColor {
+data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = Float.NaN) : Color,
+    HueColor {
     companion object : ColorSpace<HSL> {
         override val name: String get() = "HSL"
         override val components: List<ColorComponentInfo> = polarComponentInfo("HSL")
@@ -25,17 +26,8 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
         override fun create(components: FloatArray): HSL = doCreate(components, ::HSL)
     }
 
-    /**
-     * Construct an HSL instance from `Int` values, with [h] in `[0, 360)`, and [s] and [l] as percentages in the range
-     * `[0, 100]`.
-     */
-    constructor(h: Int, s: Int, l: Int, alpha: Float = Float.NaN) : this(h.toFloat(), s / 100f, l / 100f, alpha)
-
-    constructor (h: Double, s: Double, l: Double, alpha: Double)
+    constructor (h: Number, s: Number, l: Number, alpha: Number = Float.NaN)
             : this(h.toFloat(), s.toFloat(), l.toFloat(), alpha.toFloat())
-
-    constructor (h: Double, s: Double, l: Double, alpha: Float = Float.NaN)
-            : this(h.toFloat(), s.toFloat(), l.toFloat(), alpha)
 
     override val space: ColorSpace<HSL> get() = HSL
 

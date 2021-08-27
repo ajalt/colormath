@@ -5,10 +5,7 @@ import kotlin.test.Test
 
 class HSLTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        HSL(0.01, 0.02, 0.03, 0.04),
-        HSL(0.01, 0.02, 0.03, 0.04f),
-    )
+    fun roundtrip() = roundtripTest(HSL(0.01, 0.02, 0.03, 0.04))
 
     @Test
     @JsName("HSL_to_RGB")

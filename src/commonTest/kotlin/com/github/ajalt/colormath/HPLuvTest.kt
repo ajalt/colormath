@@ -5,11 +5,7 @@ import kotlin.test.Test
 
 class HPLuvTest {
     @Test
-    fun roundtrip() = roundtripTest(
-        HPLuv(0.1, 0.011, 0.012, 0.04),
-        HPLuv(0.1, 0.011, 0.012, 0.04f),
-        intermediate = LCHuv
-    )
+    fun roundtrip() = roundtripTest(HPLuv(0.1, 0.011, 0.012, 0.04), intermediate = LCHuv)
 
     @Test
     @JsName("LCHuv_to_HPLuv")
