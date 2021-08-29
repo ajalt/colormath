@@ -94,6 +94,29 @@ class TransformTest {
     }
 
     @Test
+    @JsName("monotonic_spline_interpolator")
+    fun `monotonic spline interpolator`() = forAll(
+        row(0.00, RGB(0, 0, 0)),
+        row(0.10, RGB(0.10667, 0.10667, 0.10667)),
+        row(0.25, RGB(0.26667, 0.26667, 0.26667)),
+        row(0.30, RGB(0.32107, 0.32107, 0.32107)),
+        row(0.50, RGB(0.53333, 0.53333, 0.53333)),
+        row(0.60, RGB(0.61493, 0.61493, 0.61493)),
+        row(0.75, RGB(0.73333, 0.73333, 0.73333)),
+        row(0.80, RGB(0.78240, 0.78240, 0.78240)),
+        row(1.00, RGB(1, 1, 1)),
+    ) { pos, ex ->
+        RGB.interpolator {
+            method = InterpolationMethods.monotonicSpline()
+            stop(RGB("#000"))
+            stop(RGB("#444"))
+            stop(RGB("#888"))
+            stop(RGB("#bbb"))
+            stop(RGB("#fff"))
+        }.interpolate(pos).shouldEqualColor(ex.copy(alpha = 1f))
+    }
+
+    @Test
     fun multiplyAlpha() = forAll(
         row(RGB(100, 100, 100, 1f), RGB(100, 100, 100, 1f)),
         row(RGB(100, 100, 100, 0.5f), RGB(50, 50, 50, 0.5f)),
@@ -119,17 +142,17 @@ class TransformTest {
         val plum = LCHab50(73.3321, 37.6076, 324.5817)
         val mixed = LCHab50(51.51, 52.21, 325.8)
         forAll(
-//            row(LCHab50.mix(purple, .5f, plum, .5f), mixed),
-//            row(LCHab50.mix(purple, .5f, plum), mixed),
-//            row(LCHab50.mix(purple, plum, .5f), mixed),
-//            row(LCHab50.mix(purple, plum), mixed),
-//            row(LCHab50.mix(plum, purple), mixed),
-//            row(LCHab50.mix(purple, .8f, plum, .8f), mixed),
+            row(LCHab50.mix(purple, .5f, plum, .5f), mixed),
+            row(LCHab50.mix(purple, .5f, plum), mixed),
+            row(LCHab50.mix(purple, plum, .5f), mixed),
+            row(LCHab50.mix(purple, plum), mixed),
+            row(LCHab50.mix(plum, purple), mixed),
+            row(LCHab50.mix(purple, .8f, plum, .8f), mixed),
             row(LCHab50.mix(purple, .3f, plum, .3f), LCHab50(51.51, 52.21, 325.8, 0.6)),
-//            row(LCHab50.mix(LCHab50(62.253, 54.011, 63.677), .4f, LCHab50(91.374, 31.406, 98.834)),
-//                LCHab50(79.7256, 40.448, 84.771)),
-//            row(LCHab50.mix(LCHab50(50f, 50f, 60f), LCHab50(50f, 50f, 0f), HueAdjustments.longer),
-//                LCHab50(50f, 50f, 210f))
+            row(LCHab50.mix(LCHab50(62.253, 54.011, 63.677), .4f, LCHab50(91.374, 31.406, 98.834)),
+                LCHab50(79.7256, 40.448, 84.771)),
+            row(LCHab50.mix(LCHab50(50f, 50f, 60f), LCHab50(50f, 50f, 0f), HueAdjustments.longer),
+                LCHab50(50f, 50f, 210f)),
         ) { actual, ex ->
             actual.shouldEqualColor(ex, 0.1)
         }
