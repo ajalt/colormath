@@ -23,7 +23,10 @@ fun <T : Color> ColorSpace<T>.interpolator(builder: InterpolatorBuilder.() -> Un
 fun <T : Color> ColorSpace<T>.interpolator(vararg stops: Color, premultiplyAlpha: Boolean = true): Interpolator<T> {
     require(stops.size > 1) { "interpolators require at least two stops" }
     val positioned = stops.mapIndexed { i, it -> Stop(convert(it).toArray(), (i.toFloat() / stops.lastIndex)) }
-    return InterpolatorImpl(this, positioned, premultiplyAlpha)
+    val lerps = components.mapIndexed { i, _ ->
+        InterpolationMethods.linear().build(positioned.map { Point(it.pos, it.components[i]) })
+    }
+    return InterpolatorImpl(lerps, this, premultiplyAlpha)
 }
 
 interface Interpolator<T : Color> {
@@ -55,6 +58,11 @@ interface InterpolatorBuilder {
      * By default, this will replace all [NaN][Float.NaN] values with `1`.
      */
     var alphaFixup: (Float) -> Float
+
+    /**
+     * The interpolation method to use. Linear by default.
+     */
+    var method: InterpolationMethod
 }
 
 /** Create a sequence of [length] colors evenly spaced along this interpolator's values */
@@ -70,28 +78,22 @@ fun <T : Color> Interpolator<T>.sequence(length: Int): Sequence<T> {
 private data class Stop(val components: FloatArray, val pos: Float)
 
 private class InterpolatorImpl<T : Color>(
+    private val lerps: List<InterpolationMethod.ChannelInterpolator>,
     private val space: ColorSpace<T>,
-    private val stops: List<Stop>,
     private val premultiplyAlpha: Boolean,
 ) : Interpolator<T> {
+    init {
+        require(lerps.size == space.components.size)
+    }
+
     private val out = FloatArray(space.components.size)
 
     override fun interpolate(t: Float): T {
-        return space.create(lerpComponents(t))
-    }
-
-    private fun lerpComponents(pos: Float): FloatArray {
-        if (pos <= 0f) return stops.first().components
-        if (pos >= 1f) return stops.last().components
-
-        val start = stops.indexOfLast { it.pos <= pos }
-        if (start < 0) return stops.first().components
-        if (stops[start].pos == pos || start == stops.lastIndex) return stops[start].components
-        val end = start + 1
-
-        val (lc, lp) = stops[start]
-        val (rc, rp) = stops[end]
-        return interpolateComponents(lc, rc, out, (pos - lp) / (rp - lp), premultiplyAlpha, space)
+        for (i in out.indices) {
+            out[i] = lerps[i].interpolate(t)
+        }
+        div(space, premultiplyAlpha, out)
+        return space.create(out)
     }
 }
 
@@ -99,6 +101,8 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
     override var premultiplyAlpha: Boolean = true
     override var hueAdjustment: HueAdjustment = HueAdjustments.shorter
     override var alphaFixup: (Float) -> Float = { it.nanToOne() }
+
+    override var method: InterpolationMethod = InterpolationMethods.linear()
 
     // stops may omit position, never color
     // hints omit color, never position
@@ -139,7 +143,10 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
         val out = bakeComponents()
         fixupAlpha(out)
         fixupHues(space, hueAdjustment, out)
-        return InterpolatorImpl(space, out, premultiplyAlpha)
+        val lerps = space.components.mapIndexed { i, _ ->
+            method.build(out.map { Point(it.pos, it.components[i]) })
+        }
+        return InterpolatorImpl(lerps, space, premultiplyAlpha)
     }
 
     // step 1

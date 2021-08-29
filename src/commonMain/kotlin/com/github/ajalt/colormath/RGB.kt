@@ -67,7 +67,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
         /**
          * The Electro-Optical Transfer Function (EOTF / EOCF)
          *
-         * This function decodes non-linear signal values into liner-light values.
+         * This function decodes non-linear signal values into linear-light values.
          */
         fun eotf(x: Float): Float
 
@@ -89,7 +89,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
      *
      * ### EOTF
      * ```
-     * Y = X¹ᐟ ᵞ
+     * Y = X¹ᐟᵞ
      * ```
      */
     data class GammaTransferFunctions(
