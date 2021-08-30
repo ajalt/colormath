@@ -1,15 +1,19 @@
 package com.github.ajalt.colormath.website
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.transform.interpolator
+import com.github.ajalt.colormath.transform.sequence
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.RangeInput
 import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposable
-import org.khronos.webgl.Uint8ClampedArray
+import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
 import kotlin.js.json
 
@@ -95,26 +99,10 @@ fun main() {
 
 private fun updateCanvas(canvas: HTMLCanvasElement, color1: Color, color2: Color) {
     val lerp = color1.space.interpolator(color1, color2)
-    canvas.edit2dImageData {
-        // draw the first row
-        for (x in 0 until width) {
-            data.setColor(x, 0, width, lerp.interpolate(x / width.toFloat()))
-        }
-        // copy the first row to the rest of the canvas
-        for (y in 0 until height) {
-            data.asDynamic().copyWithin(y * width * 4, 0, width * 4)
-        }
-    }
-}
-
-private fun Uint8ClampedArray.setColor(x: Int, y: Int, width: Int, color: Color) {
-    val rgb = color.toSRGB()
-    val i = (y * width + x) * 4
-    with(asDynamic()) {
-        this[i] = rgb.redInt
-        this[i + 1] = rgb.greenInt
-        this[i + 2] = rgb.blueInt
-        this[i + 3] = rgb.alphaInt
+    val ctx = canvas.getContext("2d") as CanvasRenderingContext2D
+    lerp.sequence(canvas.width).forEachIndexed { x, color ->
+        ctx.fillStyle = color.toSRGB().toHex()
+        ctx.fillRect(x.toDouble(), 0.0, 1.0, canvas.height.toDouble())
     }
 }
 
