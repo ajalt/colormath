@@ -23,10 +23,3 @@ fun Canvas(
         content = fallbackContent
     )
 }
-
-inline fun HTMLCanvasElement.edit2dImageData(block: ImageData.() -> Unit) {
-    val ctx = getContext("2d") as CanvasRenderingContext2D
-    val imageData = ctx.createImageData(width.toDouble(), height.toDouble())
-    imageData.block()
-    ctx.putImageData(imageData, 0.0, 0.0)
-}
