@@ -3,7 +3,6 @@ package com.github.ajalt.colormath.transform
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sign
-import kotlin.math.withSign
 
 
 data class Point(val x: Float, val y: Float)
@@ -30,7 +29,7 @@ object InterpolationMethods {
      * ### Reference
      * Steffen, M., “A simple method for monotonic interpolation in one dimension.”, _Astronomy and
      * Astrophysics_, vol. 239, pp. 443–450, 1990.
-     * [Online](https://ui.adsabs.harvard.edu/abs/1990A%26A...239..443S%2F/abstract)
+     * [Online](https://ui.adsabs.harvard.edu/abs/1990A&A...239..443S)
      */
     fun monotonicSpline(parabolicEndpoints: Boolean = false): InterpolationMethod = object : InterpolationMethod {
         override fun build(points: List<Point>): InterpolationMethod.ChannelInterpolator {
@@ -74,13 +73,15 @@ private class MonotonicSplineInterpolator(
     private val n = points.lastIndex
 
     /** The slope of the secant from i to i+1*/
-    private val s = calc { i -> (points[i + 1].y - points[i].y) / (points[i + 1].x - points[i].x) }
+    private val s = FloatArray(points.size - 1) { i ->
+        (points[i + 1].y - points[i].y) / (points[i + 1].x - points[i].x)
+    }
 
     /** The size of the interval from i to i+1 */
-    private val h = calc { i -> points[i + 1].x - points[i].x }
+    private val h = FloatArray(points.size - 1) { i -> points[i + 1].x - points[i].x }
 
     /** The slope of a unique parabola passing through i-1, i, and i+1 */
-    private val p = List(points.size) { i ->
+    private val p = FloatArray(points.size) { i ->
         when (i) {
             0 -> s[0] * (1 + h[0] / (h[0] + h[1])) - s[1] * (h[0] / (h[0] + h[1]))
             n -> s[n - 1] * (1 + h[n - 1] / (h[n - 1] + h[n - 2])) - s[n - 2] * (h[n - 1] / (h[n - 1] + h[n - 2]))
@@ -89,7 +90,7 @@ private class MonotonicSplineInterpolator(
     }
 
     /** The first order derivatives, using one-sided finite differences for the endpoints */
-    private val yp = List(points.size) { i ->
+    private val yp = FloatArray(points.size) { i ->
         when (i) {
             0 -> when {
                 parabolicEndpoints -> when {
@@ -108,23 +109,17 @@ private class MonotonicSplineInterpolator(
                 }
                 else -> s[n - 1]
             }
-            else -> sign(s[i - 1]) + minOf(abs(s[i - 1]), abs(s[i]), abs(p[i]) / 2).withSign(s[i])
+            else -> (sign(s[i - 1]) + sign(s[i])) * minOf(abs(s[i - 1]), abs(s[i]), abs(p[i]) / 2)
         }
     }
 
-    private inline fun calc(init: (Int) -> Float) = List(points.size) { i ->
-        if (i == 0) 0f else if (i == n) 0f else init(i)
-    }
-
     override fun interpolate(t: Float): Float {
-        val search = points.binarySearchBy(t) { it.x }
-        val i = (if (search < 0) -search - 1 else search).coerceIn(1 until n)
+        val i = (t * n).toInt().coerceIn(0, n - 1)
         val (xi, yi) = points[i]
         val xDiff = t - xi
         val ai = (yp[i] + yp[i + 1] - 2 * s[i]) / h[i].pow(2)
-        val bi = (3 * s[i] * 2 * yp[i] * yp[i - 1]) / h[i]
-        val ci = yp[i]
-        return ai * xDiff.pow(3) + bi * xDiff.pow(2) + ci * xDiff + yi
+        val bi = (3 * s[i] - 2 * yp[i] - yp[i + 1]) / h[i]
+        return ai * xDiff.pow(3) + bi * xDiff.pow(2) + yp[i] * xDiff + yi
     }
 }
 
