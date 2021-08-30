@@ -104,7 +104,7 @@ class TransformTest {
         row(0.60, RGB(0.61493, 0.61493, 0.61493)),
         row(0.75, RGB(0.73333, 0.73333, 0.73333)),
         row(0.80, RGB(0.78240, 0.78240, 0.78240)),
-        row(1.00, RGB(1, 1, 1)),
+        row(1.00, RGB(1.0, 1.0, 1.0)),
     ) { pos, ex ->
         RGB.interpolator {
             method = InterpolationMethods.monotonicSpline()
