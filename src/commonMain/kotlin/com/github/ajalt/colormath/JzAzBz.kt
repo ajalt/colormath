@@ -24,6 +24,7 @@ import kotlin.math.pow
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
 data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: Float = Float.NaN) : Color {
+    /** Default constructors for the [JzAzBz] color model. */
     companion object : ColorSpace<JzAzBz> {
         override val name: String get() = "JzAzBz"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("Jz", "Az", "Bz")

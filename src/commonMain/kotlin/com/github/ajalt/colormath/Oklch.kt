@@ -14,6 +14,7 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
  */
 data class Oklch(val l: Float, val c: Float, override val h: Float, override val alpha: Float = Float.NaN) : Color, HueColor {
+    /** Default constructors for the [Oklch] color model. */
     companion object : ColorSpace<Oklch> {
         override val name: String get() = "Oklch"
         override val components: List<ColorComponentInfo> = polarComponentInfo("LCH")

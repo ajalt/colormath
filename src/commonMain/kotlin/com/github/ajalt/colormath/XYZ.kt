@@ -54,6 +54,7 @@ data class XYZ internal constructor(
     override val alpha: Float,
     override val space: XYZColorSpace,
 ) : Color {
+    /** Default constructors for the [XYZ] color model: the [XYZ65][XYZColorSpaces.XYZ65] space. */
     companion object : XYZColorSpace by XYZColorSpaces.XYZ65
 
     /**

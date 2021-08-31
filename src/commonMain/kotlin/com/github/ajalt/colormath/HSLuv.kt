@@ -17,6 +17,7 @@ import kotlin.math.*
  * - [HSLuv homepage](https://www.hsluv.org/)
  */
 data class HSLuv(override val h: Float, val s: Float, val l: Float, override val alpha: Float = Float.NaN) : HueColor {
+    /** Default constructors for the [HSLuv] color model. */
     companion object : ColorSpace<HSLuv> {
         override val name: String get() = "HSLuv"
         override val components: List<ColorComponentInfo> = polarComponentInfo("HSL")

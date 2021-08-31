@@ -16,7 +16,8 @@ import kotlin.math.max
  * | [s]        | saturation                                | `[0, 1]`   |
  * | [v]        | value                                     | `[0, 1]`   |
  */
-data class HSV(override val h: Float, val s: Float, val v: Float, override val alpha: Float = Float.NaN) : Color, HueColor {
+data class HSV(override val h: Float, val s: Float, val v: Float, override val alpha: Float = Float.NaN) : HueColor {
+    /** Default constructors for the [HSV] color model. */
     companion object : ColorSpace<HSV> {
         override val name: String get() = "HSV"
         override val components: List<ColorComponentInfo> = polarComponentInfo("HSV")

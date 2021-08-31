@@ -20,6 +20,7 @@ import kotlin.math.sqrt
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
 data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = Float.NaN) : Color, HueColor {
+    /** Default constructors for the [JzCzHz] color model. */
     companion object : ColorSpace<JzCzHz> {
         override val name: String get() = "JzCzHz"
         override val components: List<ColorComponentInfo> = polarComponentInfo("JCH")

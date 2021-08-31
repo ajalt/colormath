@@ -23,6 +23,7 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | white  | 37         | 47         | 97        | 107       |
  */
 data class Ansi16(val code: Int) : Color {
+    /** Default constructors for the [Ansi16] color model. */
     companion object : ColorSpace<Ansi16> {
         override val name: String get() = "Ansi16"
         override val components: List<ColorComponentInfo> = componentInfoList(

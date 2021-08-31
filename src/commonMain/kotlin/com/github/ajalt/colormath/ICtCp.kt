@@ -23,6 +23,7 @@ data class ICtCp(
     val cp: Float,
     override val alpha: Float = Float.NaN,
 ) : Color {
+    /** Default constructors for the [ICtCp] color model. */
     companion object : ColorSpace<ICtCp> {
         override val name: String get() = "ICtCp"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("I", "Ct", "Cp")

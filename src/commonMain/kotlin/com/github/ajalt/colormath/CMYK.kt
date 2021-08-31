@@ -16,6 +16,7 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | [k]        | key / black | `[0, 1]` |
  */
 data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override val alpha: Float = Float.NaN) : Color {
+    /** Default constructors for the [CMYK] color model. */
     companion object : ColorSpace<CMYK> {
         override val name: String get() = "CMYK"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("CMYK")
