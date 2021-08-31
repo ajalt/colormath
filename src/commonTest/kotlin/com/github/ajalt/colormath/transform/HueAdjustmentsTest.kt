@@ -47,7 +47,7 @@ class HueAdjustmentsTest {
         listOf(0, 300, 50, 0, 100),
     )
 
-    private fun doTest(adj: HueAdjustment, before: List<Int>, expected: List<Int>) {
+    private fun doTest(adj: ComponentAdjustment, before: List<Int>, expected: List<Int>) {
         val lerp = HSL.interpolator {
             hueAdjustment = adj
             before.forEach { stop(HSL(it.toDouble(), .5, .5)) }

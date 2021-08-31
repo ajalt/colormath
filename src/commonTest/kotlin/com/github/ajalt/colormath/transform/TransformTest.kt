@@ -23,13 +23,13 @@ class TransformTest {
     @Test
     @JsName("interpolator_with_hint")
     fun `interpolator with hint`() = forAll(
-        row(0.00, RGB("#000f")),
-        row(0.25, RGB("#400f")),
-        row(0.50, RGB("#800f")),
-        row(0.55, RGB("#822f")),
-        row(0.60, RGB("#844f")),
-        row(0.80, RGB("#866f")),
-        row(1.00, RGB("#888f")),
+        row(0.00, RGB("#000")),
+        row(0.25, RGB("#400")),
+        row(0.50, RGB("#800")),
+        row(0.55, RGB("#822")),
+        row(0.60, RGB("#844")),
+        row(0.80, RGB("#866")),
+        row(1.00, RGB("#888")),
     ) { pos, ex ->
         RGB.interpolator {
             stop(RGB("#000"))
@@ -42,12 +42,12 @@ class TransformTest {
     @Test
     @JsName("interpolator_with_NaN_hues")
     fun `interpolator with NaN hues`() = forAll(
-        row(0.00, HSL(Double.NaN, 0.2, 0.2, 1.0)),
-        row(0.40, HSL(80.0, 0.4, 0.4, 1.0)),
-        row(0.50, HSL(90.0, 0.5, 0.5, 1.0)),
-        row(0.60, HSL(100.0, 0.6, 0.6, 1.0)),
-        row(0.80, HSL(100.0, 0.7, 0.7, 1.0)),
-        row(1.00, HSL(Double.NaN, 0.8, 0.8, 1.0)),
+        row(0.00, HSL(Double.NaN, 0.2, 0.2)),
+        row(0.40, HSL(80.0, 0.4, 0.4)),
+        row(0.50, HSL(90.0, 0.5, 0.5)),
+        row(0.60, HSL(100.0, 0.6, 0.6)),
+        row(0.80, HSL(100.0, 0.7, 0.7)),
+        row(1.00, HSL(Double.NaN, 0.8, 0.8)),
     ) { pos, ex ->
         HSL.interpolator {
             stop(HSL(Double.NaN, 0.2, 0.2))
@@ -60,13 +60,13 @@ class TransformTest {
     @Test
     @JsName("interpolator_explicit_positions")
     fun `interpolator with explicit positions`() = forAll(
-        row(0.00, RGB("#111f")),
-        row(0.15, RGB("#222f")),
-        row(0.20, RGB("#333f")),
-        row(0.50, RGB("#333f")),
-        row(0.70, RGB("#333f")),
-        row(0.90, RGB("#555f")),
-        row(1.00, RGB("#555f")),
+        row(0.00, RGB("#111")),
+        row(0.15, RGB("#222")),
+        row(0.20, RGB("#333")),
+        row(0.50, RGB("#333")),
+        row(0.70, RGB("#333")),
+        row(0.90, RGB("#555")),
+        row(1.00, RGB("#555")),
     ) { pos, ex ->
         RGB.interpolator {
             stop(RGB("#111"), .1)
@@ -116,7 +116,7 @@ class TransformTest {
             stop(RGB("#444"))
             stop(RGB("#fff"))
             stop(RGB("#888"))
-        }.interpolate(pos).shouldEqualColor(ex.copy(alpha = 1f))
+        }.interpolate(pos).shouldEqualColor(ex)
     }
 
     @Test
@@ -138,7 +138,7 @@ class TransformTest {
             stop(RGB("#444"), .2)
             stop(RGB("#222"), .4)
             stop(RGB("#aaa"), .9)
-        }.interpolate(pos).shouldEqualColor(ex.copy(alpha = 1f))
+        }.interpolate(pos).shouldEqualColor(ex)
     }
 
     @Test
@@ -164,7 +164,7 @@ class TransformTest {
             stop(RGB("#444"))
             stop(RGB("#fff"))
             stop(RGB("#888"))
-        }.interpolate(pos).shouldEqualColor(ex.copy(alpha = 1f))
+        }.interpolate(pos).shouldEqualColor(ex)
     }
 
     @Test
@@ -179,12 +179,12 @@ class TransformTest {
     @Test
     @JsName("monotone_spline_interpolator_with_NaN_hues")
     fun `monotone spline interpolator with NaN hues`() = forAll(
-        row(0.00, HSL(Double.NaN, 0.2, 0.2, 1.0)),
-        row(0.40, HSL(80.0, 0.4, 0.4, 1.0)),
-        row(0.45, HSL(140.0, 0.7125, 0.7125, 1.0)),
-        row(0.55, HSL(150.0, 0.8, 0.8, 1.0)),
-        row(0.80, HSL(100.0, 0.675, 0.675, 1.0)),
-        row(1.00, HSL(Double.NaN, 0.8, 0.8, 1.0)),
+        row(0.00, HSL(Double.NaN, 0.2, 0.2)),
+        row(0.40, HSL(80.0, 0.4, 0.4)),
+        row(0.45, HSL(140.0, 0.7125, 0.7125)),
+        row(0.55, HSL(150.0, 0.8, 0.8)),
+        row(0.80, HSL(100.0, 0.675, 0.675)),
+        row(1.00, HSL(Double.NaN, 0.8, 0.8)),
         ) { pos, ex ->
         HSL.interpolator {
             method = InterpolationMethods.monotoneSpline()

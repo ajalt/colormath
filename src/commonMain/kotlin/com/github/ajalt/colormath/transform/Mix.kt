@@ -7,21 +7,21 @@ import com.github.ajalt.colormath.internal.nanToOne
 fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
     color2: Color,
-    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
+    hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
 ): Color = mix(color1, .5f, color2, .5f, hueAdjustment)
 
 fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
     amount1: Float,
     color2: Color,
-    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
+    hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
 ): Color = mix(color1, amount1, color2, 1f - amount1, hueAdjustment)
 
 fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
     color2: Color,
     amount2: Float,
-    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
+    hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
 ): Color = mix(color1, 1f - amount2, color2, amount2, hueAdjustment)
 
 /**
@@ -42,7 +42,7 @@ fun <T : Color> ColorSpace<T>.mix(
     amount1: Float,
     color2: Color,
     amount2: Float,
-    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
+    hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
 ): Color {
     val sum = amount1 + amount2
     require(sum != 0f) { "mix amounts cannot sum to 0" }
