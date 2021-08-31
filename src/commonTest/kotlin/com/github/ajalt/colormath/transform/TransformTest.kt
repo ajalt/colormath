@@ -177,6 +177,26 @@ class TransformTest {
     }
 
     @Test
+    @JsName("monotone_spline_interpolator_with_NaN_hues")
+    fun `monotone spline interpolator with NaN hues`() = forAll(
+        row(0.00, HSL(Double.NaN, 0.2, 0.2, 1.0)),
+        row(0.40, HSL(80.0, 0.4, 0.4, 1.0)),
+        row(0.45, HSL(140.0, 0.7125, 0.7125, 1.0)),
+        row(0.55, HSL(150.0, 0.8, 0.8, 1.0)),
+        row(0.80, HSL(100.0, 0.675, 0.675, 1.0)),
+        row(1.00, HSL(Double.NaN, 0.8, 0.8, 1.0)),
+        ) { pos, ex ->
+        HSL.interpolator {
+            method = InterpolationMethods.monotoneSpline()
+            stop(HSL(Double.NaN, 0.2, 0.2))
+            stop(HSL(80.0, 0.4, 0.4), .4)
+            stop(HSL(200.0, 1.0, 1.0), .5)
+            stop(HSL(100.0, 0.6, 0.6), .6)
+            stop(HSL(Double.NaN, 0.8, 0.8))
+        }.interpolate(pos).shouldEqualColor(ex)
+    }
+
+    @Test
     fun divideAlpha() = forAll(
         row(RGB(100, 100, 100, 1f), RGB(100, 100, 100, 1f)),
         row(RGB(50, 50, 50, 0.5f), RGB(100, 100, 100, 0.5f)),

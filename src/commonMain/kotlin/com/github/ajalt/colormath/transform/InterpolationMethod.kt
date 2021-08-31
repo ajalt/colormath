@@ -59,14 +59,6 @@ private class LinearInterpolator(private val points: List<Point>) : Interpolatio
         val (rx, ry) = points[end]
         return lerp(ly, ry, (t - lx) / (rx - lx))
     }
-
-    private fun lerp(l: Float, r: Float, t: Float): Float {
-        return when {
-            l.isNaN() -> r
-            r.isNaN() -> l
-            else -> l + t * (r - l)
-        }
-    }
 }
 
 
@@ -121,13 +113,27 @@ private class MonotonicSplineInterpolator(
         val i = points.indexOfLast { it.x <= t }.coerceIn(0, n - 1)
         val (xi, yi) = points[i]
         val xDiff = t - xi
+        if (xDiff == 0f) return yi
         val ai = (yp[i] + yp[i + 1] - 2 * s[i]) / h[i].pow(2)
         val bi = (3 * s[i] - 2 * yp[i] - yp[i + 1]) / h[i]
-        return ai * xDiff.pow(3) + bi * xDiff.pow(2) + yp[i] * xDiff + yi
+        val f = ai * xDiff.pow(3) + bi * xDiff.pow(2) + yp[i] * xDiff + yi
+        if (f.isNaN()) {
+            // we need three or four non-nan points to calculate a spline, so fallback to lerp when necessary
+            return when {
+                t <= x(0) -> y(0)
+                t >= x(n) -> y(n)
+                else -> lerp(yi, y(i + 1), xDiff / (x(i + 1) - xi))
+            }
+        }
+        return f
     }
 }
 
-
-
-
+private fun lerp(l: Float, r: Float, t: Float): Float {
+    return when {
+        l.isNaN() -> r
+        r.isNaN() -> l
+        else -> l + t * (r - l)
+    }
+}
 
