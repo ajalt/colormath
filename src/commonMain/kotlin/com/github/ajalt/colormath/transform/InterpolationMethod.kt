@@ -1,22 +1,40 @@
 package com.github.ajalt.colormath.transform
 
+import com.github.ajalt.colormath.transform.InterpolationMethod.Point
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sign
 
 
-data class Point(val x: Float, val y: Float)
+/**
+ * A method used for [interpolation][InterpolatorBuilder.method].
+ */
 interface InterpolationMethod {
-    interface ChannelInterpolator {
+    /**
+     * @property x the position of the interpolation stop
+     * @property y the value of the component being interpolated at position [x]
+     */
+    data class Point(val x: Float, val y: Float)
+
+    /**
+     * An interpolation that calculates values for a single color component.
+     */
+    interface ComponentInterpolator {
         fun interpolate(t: Float): Float
     }
 
-    fun build(points: List<Point>): ChannelInterpolator
+    /**
+     * Construct a [ComponentInterpolator] for a given list of [points].
+     */
+    fun build(points: List<Point>): ComponentInterpolator
 }
 
 object InterpolationMethods {
+    /**
+     * Linear piecewise interpolation
+     */
     fun linear(): InterpolationMethod = object : InterpolationMethod {
-        override fun build(points: List<Point>): InterpolationMethod.ChannelInterpolator = LinearInterpolator(points)
+        override fun build(points: List<Point>): InterpolationMethod.ComponentInterpolator = LinearInterpolator(points)
     }
 
     /**
@@ -36,7 +54,7 @@ object InterpolationMethods {
      *   finite differences.
      */
     fun monotoneSpline(parabolicEndpoints: Boolean = false): InterpolationMethod = object : InterpolationMethod {
-        override fun build(points: List<Point>): InterpolationMethod.ChannelInterpolator {
+        override fun build(points: List<Point>): InterpolationMethod.ComponentInterpolator {
             return if (points.size < 3) linear().build(points)
             else MonotonicSplineInterpolator(points, parabolicEndpoints)
         }
@@ -44,7 +62,7 @@ object InterpolationMethods {
 }
 
 
-private class LinearInterpolator(private val points: List<Point>) : InterpolationMethod.ChannelInterpolator {
+private class LinearInterpolator(private val points: List<Point>) : InterpolationMethod.ComponentInterpolator {
     init {
         require(points.size > 1) { "At least two points are required for interpolation" }
     }
@@ -65,7 +83,7 @@ private class LinearInterpolator(private val points: List<Point>) : Interpolatio
 private class MonotonicSplineInterpolator(
     private val points: List<Point>,
     parabolicEndpoints: Boolean,
-) : InterpolationMethod.ChannelInterpolator {
+) : InterpolationMethod.ComponentInterpolator {
     private val n = points.lastIndex
     private fun x(i: Int) = points[i].x
     private fun y(i: Int) = points[i].y

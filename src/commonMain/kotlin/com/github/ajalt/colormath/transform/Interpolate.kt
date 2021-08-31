@@ -3,7 +3,17 @@ package com.github.ajalt.colormath.transform
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.internal.nanToOne
+import com.github.ajalt.colormath.transform.InterpolationMethod.Point
 
+/**
+ * Interpolate linearly between this color and [other].
+ *
+ * @param other the color to interpolate to. It will be converted to this color's space if it isn't already.
+ * @param t The amount to interpolate, with 0 returning this color, and 1 returning [other]
+ * @param premultiplyAlpha If true, multiply each color's components be the color's alpha value
+ *   before interpolating, and divide the result by its alpha.
+ * @param hueAdjustment How to interpolate the hue component, if there is one.
+ */
 fun <T : Color> T.interpolate(
     other: Color,
     t: Float,
@@ -16,32 +26,75 @@ fun <T : Color> T.interpolate(
     interpolateComponents(l, r, FloatArray(components.size), t, premultiplyAlpha, space)
 }
 
+/**
+ * Build an interpolator that will produce colors in this color space.
+ */
 fun <T : Color> ColorSpace<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
     return InterpolatorBuilderImpl(this).apply(builder).build()
 }
 
-fun <T : Color> ColorSpace<T>.interpolator(vararg stops: Color, premultiplyAlpha: Boolean = true): Interpolator<T> {
+/**
+ * Build a linear interpolator with two or more evenly spaced [stops].
+ *
+ * @param premultiplyAlpha If true, multiply each color's components be the color's alpha value
+ *   before interpolating, and divide the result by its alpha.
+ */
+fun <T : Color> ColorSpace<T>.interpolator(
+    vararg stops: Color,
+    premultiplyAlpha: Boolean = true,
+): Interpolator<T> {
     require(stops.size > 1) { "interpolators require at least two stops" }
-    val positioned = stops.mapIndexed { i, it -> Stop(convert(it).toArray(), (i.toFloat() / stops.lastIndex)) }
-    val lerps = components.mapIndexed { i, _ ->
-        InterpolationMethods.linear().build(positioned.map { Point(it.pos, it.components[i]) })
+    return interpolator {
+        this.premultiplyAlpha = premultiplyAlpha
+        stops.forEach { stop(it) }
     }
-    return InterpolatorImpl(lerps, this, premultiplyAlpha)
 }
 
+/**
+ * An interpolator between two or more colors.
+ *
+ * Build an instance of this class with [interpolator].
+ */
 interface Interpolator<T : Color> {
     fun interpolate(t: Float): T
     fun interpolate(t: Double): T = interpolate(t.toFloat())
 }
 
+
 interface InterpolatorBuilder {
+    /** Add a stop with a default position */
     fun stop(color: Color)
+
+    /** Add a stop with a given [position] */
     fun stop(color: Color, position: Float)
+
+    /** Add a stop with a given [position] */
     fun stop(color: Color, position: Double) = stop(color, position.toFloat())
+
+    /**
+     * Add stops at [position1] and [position2] with the same color.
+     *
+     * This can be useful for creating a solid color stripe.
+     */
     fun stop(color: Color, position1: Float, position2: Float)
+
+    /**
+     * Add stops at [position1] and [position2] with the same color.
+     *
+     * This can be useful for creating a solid color stripe.
+     */
     fun stop(color: Color, position1: Double, position2: Double) = stop(color, position1.toFloat(), position2.toFloat())
+
+    /** Set the midpoint of the gradient between the previous and next stop */
     fun hint(position: Float)
+
+    /** Set the midpoint of the gradient between the previous and next stop */
     fun hint(position: Double) = hint(position.toFloat())
+
+    /**
+     * If true, multiply each color's components be the color's alpha value before interpolating,
+     * and divide the result by its alpha.
+     */
     var premultiplyAlpha: Boolean
 
     /**
@@ -78,7 +131,7 @@ fun <T : Color> Interpolator<T>.sequence(length: Int): Sequence<T> {
 private data class Stop(val components: FloatArray, val pos: Float)
 
 private class InterpolatorImpl<T : Color>(
-    private val lerps: List<InterpolationMethod.ChannelInterpolator>,
+    private val lerps: List<InterpolationMethod.ComponentInterpolator>,
     private val space: ColorSpace<T>,
     private val premultiplyAlpha: Boolean,
 ) : Interpolator<T> {
