@@ -24,6 +24,7 @@ import kotlin.math.roundToInt
  */
 @JvmInline
 value class RGBInt(val argb: UInt) : Color {
+    /** Default constructors for [RGBInt]. */
     companion object : ColorSpace<RGBInt> {
         override val name: String get() = "RGBInt"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
