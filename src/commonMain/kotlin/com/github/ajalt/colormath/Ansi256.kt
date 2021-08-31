@@ -41,7 +41,7 @@ data class Ansi256(val code: Int) : Color {
         // grayscale
         if (code >= 232) {
             val c = (code - 232) * 10 + 8
-            return RGB(c, c, c)
+            return RGB.from255(c, c, c)
         }
 
         // color

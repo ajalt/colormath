@@ -56,7 +56,7 @@ class CssRenderTest {
         row(R(255, 128, 0, .5f, alphaPercent = true), "rgb(255 128 0 / 50%)"),
         row(R(255, 128, 0, .5f, rgbPercent = true, alphaPercent = true), "rgb(100% 50% 0% / 50%)")
     ) { (r, g, b, a, commas, namedRgba, rgbPercent, alphaPercent, renderAlpha), expected ->
-        RGB(r, g, b, a).formatCssString(
+        RGB.from255(r, g, b, a).formatCssString(
             AngleUnit.AUTO,
             renderAlpha,
             rgbPercent,
@@ -94,7 +94,7 @@ class CssRenderTest {
 
     @Test
     fun formatCssString() = forAll(
-        row(RGB(1, 2, 3), "rgb(1 2 3)"),
+        row(RGB.from255(1, 2, 3), "rgb(1 2 3)"),
         row(DISPLAY_P3(.1, .2, .3), "color(display-p3 0.1 0.2 0.3)"),
         row(ADOBE_RGB(.1, .2, .3), "color(a98-rgb 0.1 0.2 0.3)"),
         row(ROMM_RGB(.1, .2, .3), "color(prophoto-rgb 0.1 0.2 0.3)"),
@@ -112,7 +112,7 @@ class CssRenderTest {
 
     @Test
     fun formatCssStringOrNull() = forAll(
-        row(RGB(1, 2, 3), "rgb(1 2 3)"),
+        row(RGB.from255(1, 2, 3), "rgb(1 2 3)"),
         row(ACES(.1, .2, .3), null),
         row(JzAzBz(.1, .2, .3), null),
     ) { color, expected ->

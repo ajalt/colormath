@@ -13,7 +13,7 @@ class RGBTest {
 
     @Test
     fun clamp() {
-        RGB(1, 2, 3).clamp() shouldBe RGB(1, 2, 3)
+        RGB(.1, .2, .3).clamp() shouldBe RGB(.1, .2, .3)
         ROMM_RGB(.5, -1.0, 1.1, 3.0).clamp() shouldBe ROMM_RGB(.5, 0.0, 1.0, 1.0)
     }
 
@@ -44,10 +44,10 @@ class RGBTest {
     @Test
     @JsName("RGB_to_Hex")
     fun `RGB to Hex`() = forAll(
-        row(RGB(0, 0, 0).toHex(false), "000000"),
-        row(RGB(140, 200, 100).toHex(), "#8cc864"),
-        row(RGB(140, 200, 100).toHex(true), "#8cc864"),
-        row(RGB(255, 255, 255).toHex(false), "ffffff")
+        row(RGB.from255(0, 0, 0).toHex(false), "000000"),
+        row(RGB.from255(140, 200, 100).toHex(), "#8cc864"),
+        row(RGB.from255(140, 200, 100).toHex(true), "#8cc864"),
+        row(RGB.from255(255, 255, 255).toHex(false), "ffffff")
     ) { actual, expected ->
         actual shouldBe expected
     }
@@ -55,15 +55,15 @@ class RGBTest {
     @Test
     @JsName("Hex_to_RGB")
     fun `Hex to RGB`() = forAll(
-        row("000000", RGB(0, 0, 0)),
-        row("#8CC864", RGB(140, 200, 100)),
-        row("ffffff", RGB(255, 255, 255)),
-        row("ffffff00", RGB(255, 255, 255, 0f)),
-        row("#ffffff00", RGB(255, 255, 255, 0f)),
-        row("#3a30", RGB(51, 170, 51, 0f)),
-        row("#3A3F", RGB(51, 170, 51, 1f)),
-        row("#33aa3300", RGB(51, 170, 51, 0f)),
-        row("#33AA3380", RGB(51, 170, 51, 0x80 / 0xff.toFloat())),
+        row("000000", RGB.from255(0, 0, 0)),
+        row("#8CC864", RGB.from255(140, 200, 100)),
+        row("ffffff", RGB.from255(255, 255, 255)),
+        row("ffffff00", RGB.from255(255, 255, 255, 0f)),
+        row("#ffffff00", RGB.from255(255, 255, 255, 0f)),
+        row("#3a30", RGB.from255(51, 170, 51, 0f)),
+        row("#3A3F", RGB.from255(51, 170, 51, 1f)),
+        row("#33aa3300", RGB.from255(51, 170, 51, 0f)),
+        row("#33AA3380", RGB.from255(51, 170, 51, 0x80 / 0xff.toFloat())),
     ) { hex, rgb ->
         RGB(hex) shouldBe rgb
     }

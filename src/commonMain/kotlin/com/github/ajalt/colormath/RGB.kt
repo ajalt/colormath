@@ -17,7 +17,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
      * @property b The blue channel, a value typically in the range `[0, 255]`
      * @property alpha The alpha channel, a value in the range `[0f, 1f]`
      */
-    operator fun invoke(r: Int, g: Int, b: Int, alpha: Float = Float.NaN) = invoke(
+    fun from255(r: Int, g: Int, b: Int, alpha: Float = Float.NaN) = invoke(
         r = (r / 255f),
         g = (g / 255f),
         b = (b / 255f),
@@ -34,7 +34,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
      * - `def`: A shorter version of the 6 digit form. Each digit is repeated, so `def` is equivalent to `ddeeff`
      * - `defa`: A shorter version of the 8 digit for.Each digit is repeated, so `defa` is equivalent to `ddeeffaa`
      */
-    operator fun invoke(hex: String) = invoke(
+    operator fun invoke(hex: String) = from255(
         r = hex.validateHex().parseHex(0),
         g = hex.parseHex(1),
         b = hex.parseHex(2),
@@ -127,7 +127,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
  * ```kotlin
  * RGB(0.2, 0.4, 0.6)
  * SRGB(0.2, 0.4, 0.6)
- * RGB(51, 102, 153)
+ * RGB.from255(51, 102, 153)
  * RGB("#369")
  * RGB("#336699")
  * ```

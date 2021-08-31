@@ -96,7 +96,7 @@ private fun rgb(match: MatchResult): Color {
     return if (match.groupValues[1].endsWith("%")) {
         RGB(r.clampF(), g.clampF(), b.clampF(), a)
     } else {
-        RGB(r.clampInt(), g.clampInt(), b.clampInt(), a)
+        RGB.from255(r.clampInt(), g.clampInt(), b.clampInt(), a)
     }
 }
 

@@ -11,10 +11,10 @@ import kotlin.test.Test
 class TransformTest {
     @Test
     fun interpolate() = forAll(
-        row(RGB(0, 0, 0), RGB(254, 254, 254), 0f, RGB(0, 0, 0)),
-        row(RGB(0, 0, 0), RGB(254, 254, 254), .5f, RGB(127, 127, 127)),
-        row(RGB(0, 0, 0), RGB(254, 254, 254), 1f, RGB(254, 254, 254)),
-        row(RGB(0, 0, 0), RGB(254, 254, 254).toXYZ(), 1f, RGB(254, 254, 254)),
+        row(RGB(0, 0, 0), RGB.from255(254, 254, 254), 0f, RGB.from255(0, 0, 0)),
+        row(RGB(0, 0, 0), RGB.from255(254, 254, 254), .5f, RGB.from255(127, 127, 127)),
+        row(RGB(0, 0, 0), RGB.from255(254, 254, 254), 1f, RGB.from255(254, 254, 254)),
+        row(RGB(0, 0, 0), RGB.from255(254, 254, 254).toXYZ(), 1f, RGB.from255(254, 254, 254)),
     ) { c1, c2, a, ex ->
         c1.interpolate(c2, a).shouldEqualColor(ex)
         c1.space.interpolator(c1, c2).interpolate(a).shouldEqualColor(ex)
@@ -169,9 +169,9 @@ class TransformTest {
 
     @Test
     fun multiplyAlpha() = forAll(
-        row(RGB(100, 100, 100, 1f), RGB(100, 100, 100, 1f)),
-        row(RGB(100, 100, 100, 0.5f), RGB(50, 50, 50, 0.5f)),
-        row(RGB(100, 100, 100, 0f), RGB(0, 0, 0, 0f)),
+        row(RGB.from255(100, 100, 100, 1f), RGB.from255(100, 100, 100, 1f)),
+        row(RGB.from255(100, 100, 100, 0.5f), RGB.from255(50, 50, 50, 0.5f)),
+        row(RGB.from255(100, 100, 100, 0f), RGB.from255(0, 0, 0, 0f)),
     ) { rgb, ex ->
         rgb.multiplyAlpha().shouldEqualColor(ex)
     }
@@ -198,9 +198,9 @@ class TransformTest {
 
     @Test
     fun divideAlpha() = forAll(
-        row(RGB(100, 100, 100, 1f), RGB(100, 100, 100, 1f)),
-        row(RGB(50, 50, 50, 0.5f), RGB(100, 100, 100, 0.5f)),
-        row(RGB(100, 100, 100, 0f), RGB(100, 100, 100, 0f)),
+        row(RGB.from255(100, 100, 100, 1f), RGB.from255(100, 100, 100, 1f)),
+        row(RGB.from255(50, 50, 50, 0.5f), RGB.from255(100, 100, 100, 0.5f)),
+        row(RGB.from255(100, 100, 100, 0f), RGB.from255(100, 100, 100, 0f)),
     ) { rgb, ex ->
         rgb.divideAlpha().shouldEqualColor(ex)
     }
@@ -231,9 +231,9 @@ class TransformTest {
 
     @Test
     fun chromaticAdapter() = forAll(
-        row(RGB.createChromaticAdapter(RGB(209, 215, 212)).adapt(RGB(192, 202, 202)),
+        row(RGB.createChromaticAdapter(RGB.from255(209, 215, 212)).adapt(RGB.from255(192, 202, 202)),
             RGB(r = 0.9202273, g = 0.94016844, b = 0.9533126)),
-        row(RGB.createChromaticAdapter(RGB(209, 215, 212).toChrom()).adapt(RGB(192, 202, 202)),
+        row(RGB.createChromaticAdapter(RGB.from255(209, 215, 212).toChrom()).adapt(RGB.from255(192, 202, 202)),
             RGB(r = 0.9202273, g = 0.94016844, b = 0.9533126)),
         row(RGBInt.createChromaticAdapter(RGBInt(200, 210, 220)).adapt(RGBInt(11, 222, 33)),
             RGB(r = 0.29472744, g = 1.0578139, b = 0.073229484).toRGBInt()),
