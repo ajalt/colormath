@@ -142,6 +142,32 @@ class TransformTest {
     }
 
     @Test
+    @JsName("monotone_spline_interpolator_parabolic_endpoints")
+    fun `monotone spline interpolator parabolic endpoints`() = forAll(
+        row(0.00, RGB(0, 0, 0)),
+        row(0.05, RGB(0.24693, 0.24693, 0.24693)),
+        row(0.10, RGB(0.45013, 0.45013, 0.45013)),
+        row(0.15, RGB(0.6032, 0.6032, 0.6032)),
+        row(0.20, RGB(0.69973, 0.69973, 0.69973)),
+        row(0.40, RGB(0.43093, 0.43093, 0.43093)),
+        row(0.45, RGB(0.3152, 0.3152, 0.3152)),
+        row(0.50, RGB(0.26667, 0.26667, 0.26667)),
+        row(0.55, RGB(0.34293, 0.34293, 0.34293)),
+        row(0.60, RGB(0.5248, 0.5248, 0.5248)),
+        row(0.80, RGB(0.98133, 0.98133, 0.98133)),
+        row(1.00, RGB(0.53333, 0.53333, 0.53333)),
+    ) { pos, ex ->
+        RGB.interpolator {
+            method = InterpolationMethods.monotoneSpline(parabolicEndpoints = true)
+            stop(RGB("#000"))
+            stop(RGB("#bbb"))
+            stop(RGB("#444"))
+            stop(RGB("#fff"))
+            stop(RGB("#888"))
+        }.interpolate(pos).shouldEqualColor(ex.copy(alpha = 1f))
+    }
+
+    @Test
     fun multiplyAlpha() = forAll(
         row(RGB(100, 100, 100, 1f), RGB(100, 100, 100, 1f)),
         row(RGB(100, 100, 100, 0.5f), RGB(50, 50, 50, 0.5f)),

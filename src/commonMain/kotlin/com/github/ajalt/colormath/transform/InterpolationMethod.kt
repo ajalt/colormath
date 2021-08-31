@@ -30,6 +30,10 @@ object InterpolationMethods {
      * Steffen, M., “A simple method for monotonic interpolation in one dimension.”, _Astronomy and
      * Astrophysics_, vol. 239, pp. 443–450, 1990.
      * [Online](https://ui.adsabs.harvard.edu/abs/1990A&A...239..443S)
+     *
+     * @param parabolicEndpoints If true, calculate the curves at the boundary points based on the
+     *   unique parabola passing through them. By default, the boundaries are calculated by one-sided
+     *   finite differences.
      */
     fun monotoneSpline(parabolicEndpoints: Boolean = false): InterpolationMethod = object : InterpolationMethod {
         override fun build(points: List<Point>): InterpolationMethod.ChannelInterpolator {
