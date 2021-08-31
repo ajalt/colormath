@@ -2,7 +2,6 @@ package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorSpace
-import com.github.ajalt.colormath.internal.nanToOne
 import com.github.ajalt.colormath.transform.InterpolationMethod.Point
 
 /**
@@ -18,7 +17,7 @@ fun <T : Color> T.interpolate(
     other: Color,
     t: Float,
     premultiplyAlpha: Boolean = true,
-    hueAdjustment: HueAdjustment = HueAdjustments.shorter,
+    hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
 ): T = map { space, components ->
     val l = mult(space, premultiplyAlpha, components)
     val r = mult(space, premultiplyAlpha, space.convert(other).toArray())
@@ -59,6 +58,15 @@ interface Interpolator<T : Color> {
     fun interpolate(t: Float): T
     fun interpolate(t: Double): T = interpolate(t.toFloat())
 }
+
+
+/**
+ * A function that takes a list of values for a single component and returns a new list with the
+ * value to use for interpolation of that component.
+ *
+ * The returned list must be the same size as the input.
+ */
+typealias ComponentAdjustment = (hues: List<Float>) -> List<Float>
 
 
 interface InterpolatorBuilder {
@@ -103,14 +111,15 @@ interface InterpolatorBuilder {
      *
      * Defaults to [HueAdjustments.shorter].
      */
-    var hueAdjustment: HueAdjustment
+    var hueAdjustment: ComponentAdjustment
 
     /**
-     * A function too apply to all colors' alpha values prior to interpolation.
+     * A function to apply to all colors' alpha values prior to interpolation.
      *
-     * By default, this will replace all [NaN][Float.NaN] values with `1`.
+     * By default, this will replace all [NaN][Float.NaN] values with `1`, unless all alpha values
+     * are `NaN`, in which case the values are left as-is.
      */
-    var alphaFixup: (Float) -> Float
+    var alphaAdjustment: ComponentAdjustment
 
     /**
      * The interpolation method to use. Linear by default.
@@ -152,8 +161,13 @@ private class InterpolatorImpl<T : Color>(
 
 private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T>) : InterpolatorBuilder {
     override var premultiplyAlpha: Boolean = true
-    override var hueAdjustment: HueAdjustment = HueAdjustments.shorter
-    override var alphaFixup: (Float) -> Float = { it.nanToOne() }
+    override var hueAdjustment: ComponentAdjustment = HueAdjustments.shorter
+    override var alphaAdjustment: ComponentAdjustment = { l ->
+        when {
+            l.all { it.isNaN() } -> l
+            else -> l.map { if (it.isNaN()) 1f else it }
+        }
+    }
 
     override var method: InterpolationMethod = InterpolationMethods.linear()
 
@@ -265,13 +279,13 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
     }
 
     private fun fixupAlpha(entries: List<Stop>) {
-        for ((c, _) in entries) {
-            c[c.lastIndex] = alphaFixup(c.last())
+        alphaAdjustment(entries.map { it.components.last() }).forEachIndexed { i, alpha ->
+            entries[i].components[space.components.lastIndex] = alpha
         }
     }
 }
 
-private fun fixupHues(space: ColorSpace<*>, hueAdjustment: HueAdjustment, entries: List<Stop>) {
+private fun fixupHues(space: ColorSpace<*>, hueAdjustment: ComponentAdjustment, entries: List<Stop>) {
     for ((i, c) in space.components.withIndex()) {
         if (!c.isPolar) continue
         hueAdjustment(entries.map { it.components[i] }).forEachIndexed { j, hue ->
