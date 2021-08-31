@@ -31,7 +31,7 @@ object InterpolationMethods {
      * Astrophysics_, vol. 239, pp. 443–450, 1990.
      * [Online](https://ui.adsabs.harvard.edu/abs/1990A&A...239..443S)
      */
-    fun monotonicSpline(parabolicEndpoints: Boolean = false): InterpolationMethod = object : InterpolationMethod {
+    fun monotoneSpline(parabolicEndpoints: Boolean = false): InterpolationMethod = object : InterpolationMethod {
         override fun build(points: List<Point>): InterpolationMethod.ChannelInterpolator {
             return if (points.size < 3) linear().build(points)
             else MonotonicSplineInterpolator(points, parabolicEndpoints)
@@ -71,14 +71,14 @@ private class MonotonicSplineInterpolator(
     parabolicEndpoints: Boolean,
 ) : InterpolationMethod.ChannelInterpolator {
     private val n = points.lastIndex
-
-    /** The slope of the secant from i to i+1*/
-    private val s = FloatArray(points.size - 1) { i ->
-        (points[i + 1].y - points[i].y) / (points[i + 1].x - points[i].x)
-    }
+    private fun x(i: Int) = points[i].x
+    private fun y(i: Int) = points[i].y
 
     /** The size of the interval from i to i+1 */
-    private val h = FloatArray(points.size - 1) { i -> points[i + 1].x - points[i].x }
+    private val h = FloatArray(n) { i -> x(i + 1) - x(i) }
+
+    /** The slope of the secant from i to i+1*/
+    private val s = FloatArray(n) { i -> (y(i + 1) - y(i)) / h[i] }
 
     /** The slope of a unique parabola passing through i-1, i, and i+1 */
     private val p = FloatArray(points.size) { i ->
@@ -114,7 +114,7 @@ private class MonotonicSplineInterpolator(
     }
 
     override fun interpolate(t: Float): Float {
-        val i = (t * n).toInt().coerceIn(0, n - 1)
+        val i = points.indexOfLast { it.x <= t }.coerceIn(0, n - 1)
         val (xi, yi) = points[i]
         val xDiff = t - xi
         val ai = (yp[i] + yp[i + 1] - 2 * s[i]) / h[i].pow(2)

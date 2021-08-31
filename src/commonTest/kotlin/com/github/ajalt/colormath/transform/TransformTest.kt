@@ -94,8 +94,8 @@ class TransformTest {
     }
 
     @Test
-    @JsName("monotonic_spline_interpolator_equal_spacing")
-    fun `monotonic spline interpolator equal spacing`() = forAll(
+    @JsName("monotone_spline_interpolator_equal_spacing")
+    fun `monotone spline interpolator equal spacing`() = forAll(
         row(0.00, RGB(0, 0, 0)),
         row(0.05, RGB(0.17013, 0.17013, 0.17013)),
         row(0.10, RGB(0.36373, 0.36373, 0.36373)),
@@ -110,12 +110,34 @@ class TransformTest {
         row(1.00, RGB(0.53333, 0.53333, 0.53333)),
     ) { pos, ex ->
         RGB.interpolator {
-            method = InterpolationMethods.monotonicSpline()
+            method = InterpolationMethods.monotoneSpline()
             stop(RGB("#000"))
             stop(RGB("#bbb"))
             stop(RGB("#444"))
             stop(RGB("#fff"))
             stop(RGB("#888"))
+        }.interpolate(pos).shouldEqualColor(ex.copy(alpha = 1f))
+    }
+
+    @Test
+    @JsName("monotonic_spline_interpolator_unequal_spacing")
+    fun `monotone spline interpolator unequal spacing`() = forAll(
+        row(0.00, RGB(0.26666662, 0.26666662, 0.26666662)),
+        row(0.10, RGB(0.0, 0.0, 0.0)),
+        row(0.15, RGB(0.16666669, 0.16666669, 0.16666669)),
+        row(0.20, RGB(0.26666668, 0.26666668, 0.26666668)),
+        row(0.30, RGB(0.2, 0.2, 0.2)),
+        row(0.40, RGB(0.13333334, 0.13333334, 0.13333334)),
+        row(0.50, RGB(0.17173335, 0.17173335, 0.17173335)),
+        row(0.90, RGB(0.6666668, 0.6666668, 0.6666668)),
+        row(1.00, RGB(0.7477335, 0.7477335, 0.7477335)),
+    ) { pos, ex ->
+        RGB.interpolator {
+            method = InterpolationMethods.monotoneSpline()
+            stop(RGB("#000"), .1)
+            stop(RGB("#444"), .2)
+            stop(RGB("#222"), .4)
+            stop(RGB("#aaa"), .9)
         }.interpolate(pos).shouldEqualColor(ex.copy(alpha = 1f))
     }
 
