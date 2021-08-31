@@ -43,8 +43,8 @@ data class Ansi16(val code: Int) : Color {
         // grayscale
         when (code) {
             30, 40 -> return RGB(0f, 0f, 0f)
-            90, 100 -> return RGB(128, 128, 128)
-            37, 47 -> return RGB(192, 192, 192)
+            90, 100 -> return RGB.from255(128, 128, 128)
+            37, 47 -> return RGB.from255(192, 192, 192)
             97, 107 -> return RGB(1.0f, 1.0f, 1.0f)
         }
 
