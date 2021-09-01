@@ -49,7 +49,7 @@ class HueAdjustmentsTest {
 
     private fun doTest(adj: ComponentAdjustment, before: List<Int>, expected: List<Int>) {
         val lerp = HSL.interpolator {
-            hueAdjustment = adj
+            componentAdjustment("h", adj)
             before.forEach { stop(HSL(it.toDouble(), .5, .5)) }
         }
         val actual = List(before.size) { lerp.interpolate(it / before.lastIndex.toDouble()).h.roundToInt() }

@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.Color
+import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.transform.InterpolationMethod.Point
 
@@ -106,25 +107,30 @@ interface InterpolatorBuilder {
     var premultiplyAlpha: Boolean
 
     /**
-     * An optional adjustment to the hue components of the colors, if there is one, or `null` to
-     * leave hue components unchanged.
-     *
-     * Defaults to [HueAdjustments.shorter].
-     */
-    var hueAdjustment: ComponentAdjustment
-
-    /**
-     * A function to apply to all colors' alpha values prior to interpolation.
-     *
-     * By default, this will replace all [NaN][Float.NaN] values with `1`, unless all alpha values
-     * are `NaN`, in which case the values are left as-is.
-     */
-    var alphaAdjustment: ComponentAdjustment
-
-    /**
      * The interpolation method to use. Linear by default.
      */
     var method: InterpolationMethod
+
+    /**
+     * Add an [adjustment] to a [component] with a given name.
+     *
+     * By default, two adjustments are added:
+     *
+     * - alpha: if an alpha components are not `NaN`, all `NaN` values are replaced with 1
+     * - hue: for [polar][ColorComponentInfo.isPolar] components, [HueAdjustments.shorter] is applied
+     *
+     * ## Example
+     *
+     * Overriding the default hue adjustment, and disabling the alpha adjustment:
+     *
+     * ```
+     * HSV.interpolator {
+     *     componentAdjustment("h", HueAdjustments.longer)
+     *     componentAdjustment("alpha") { it }
+     * }
+     * ```
+     */
+    fun componentAdjustment(component: String, adjustment: ComponentAdjustment)
 }
 
 /** Create a sequence of [length] colors evenly spaced along this interpolator's values */
@@ -161,15 +167,24 @@ private class InterpolatorImpl<T : Color>(
 
 private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T>) : InterpolatorBuilder {
     override var premultiplyAlpha: Boolean = true
-    override var hueAdjustment: ComponentAdjustment = HueAdjustments.shorter
-    override var alphaAdjustment: ComponentAdjustment = { l ->
-        when {
-            l.all { it.isNaN() } -> l
-            else -> l.map { if (it.isNaN()) 1f else it }
+
+    private val adjustments = mutableMapOf("alpha" to alphaAdjustment)
+
+    init {
+        space.components.filter { it.isPolar }.forEach {
+            adjustments[it.name.lowercase()] = HueAdjustments.shorter
         }
     }
 
     override var method: InterpolationMethod = InterpolationMethods.linear()
+
+    override fun componentAdjustment(component: String, adjustment: ComponentAdjustment) {
+        require(space.components.any { it.name.equals(component, ignoreCase = true) }) {
+            "Unknown component name \"$component\" for color model ${space.name}. " +
+                    "Valid names are ${space.components.map { it.name }}"
+        }
+        adjustments[component.lowercase()] = adjustment
+    }
 
     // stops may omit position, never color
     // hints omit color, never position
@@ -208,8 +223,7 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
         fixupHints()
 
         val out = bakeComponents()
-        fixupAlpha(out)
-        fixupHues(space, hueAdjustment, out)
+        applyAdjustments(out)
         val lerps = space.components.mapIndexed { i, _ ->
             method.build(out.map { Point(it.pos, it.components[i]) })
         }
@@ -266,7 +280,7 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
             if (stop.isStop) continue
             val prev = entries[i - 1].color!!
             val next = entries[i + 1].color!!
-            entries[i] = stop.copy(color = prev.interpolate(next, 0.5f, premultiplyAlpha, hueAdjustment))
+            entries[i] = stop.copy(color = prev.interpolate(next, 0.5f, premultiplyAlpha))
         }
     }
 
@@ -278,9 +292,12 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
         }
     }
 
-    private fun fixupAlpha(entries: List<Stop>) {
-        alphaAdjustment(entries.map { it.components.last() }).forEachIndexed { i, alpha ->
-            entries[i].components[space.components.lastIndex] = alpha
+    private fun applyAdjustments(entries: List<Stop>) {
+        for ((i, component) in space.components.withIndex()) {
+            val adj = adjustments[component.name.lowercase()] ?: continue
+            adj(entries.map { it.components[i] }).forEachIndexed { j, new ->
+                entries[j].components[i] = new
+            }
         }
     }
 }
@@ -306,6 +323,13 @@ private fun interpolateComponents(
         out[i] = lerp(l[i], r[i], amount)
     }
     return div(space, divideAlpha, out)
+}
+
+private val alphaAdjustment: ComponentAdjustment = { l ->
+    when {
+        l.all { it.isNaN() } -> l
+        else -> l.map { if (it.isNaN()) 1f else it }
+    }
 }
 
 private fun mult(space: ColorSpace<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
