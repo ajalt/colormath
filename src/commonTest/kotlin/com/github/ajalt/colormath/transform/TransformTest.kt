@@ -168,6 +168,16 @@ class TransformTest {
     }
 
     @Test
+    @JsName("interpolator_alpha_fixup")
+    fun `interpolator alpha fixup`() {
+        RGB.interpolator {
+            premultiplyAlpha = false
+            stop(RGB("#0001"))
+            stop(RGB("#222"))
+        }.interpolate(.5).shouldEqualColor(RGB("#1118"))
+    }
+
+    @Test
     fun multiplyAlpha() = forAll(
         row(RGB.from255(100, 100, 100, 1f), RGB.from255(100, 100, 100, 1f)),
         row(RGB.from255(100, 100, 100, 0.5f), RGB.from255(50, 50, 50, 0.5f)),
@@ -185,7 +195,7 @@ class TransformTest {
         row(0.55, HSL(150.0, 0.8, 0.8)),
         row(0.80, HSL(100.0, 0.675, 0.675)),
         row(1.00, HSL(Double.NaN, 0.8, 0.8)),
-        ) { pos, ex ->
+    ) { pos, ex ->
         HSL.interpolator {
             method = InterpolationMethods.monotoneSpline()
             stop(HSL(Double.NaN, 0.2, 0.2))
