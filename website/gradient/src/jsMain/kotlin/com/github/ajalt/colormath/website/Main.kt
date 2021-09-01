@@ -1,104 +1,140 @@
 package com.github.ajalt.colormath.website
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.Color
+import com.github.ajalt.colormath.transform.InterpolationMethods
 import com.github.ajalt.colormath.transform.interpolator
 import com.github.ajalt.colormath.transform.sequence
+import org.jetbrains.compose.web.attributes.InputType
+import org.jetbrains.compose.web.attributes.value
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.RangeInput
-import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.css.selectors.className
+import org.jetbrains.compose.web.css.selectors.hover
+import org.jetbrains.compose.web.css.selectors.plus
+import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
-import kotlin.js.json
+import kotlin.random.Random
 
-private val rectColors = listOf(RGB, LAB, LUV, Oklab, JzAzBz, ICtCp)
+private val spaces = listOf(RGB, LAB, LUV, Oklab, JzAzBz)
+
+@Composable
+fun row(space: ColorSpace<*>, colors: List<Color>, spline: Boolean) {
+    Div(attrs = { classes("row") }) {
+        Div(attrs = { style { width(5.em) } }) {
+            Text(space.name)
+        }
+        Canvas(width = 600, height = 50, attrs = { style { borderRadius(4.px) } }) {
+            DomSideEffect(spline to colors) { updateCanvas(it, space, spline, colors) }
+        }
+    }
+}
+
 
 fun main() {
-    var colors by mutableStateOf(listOf(RGB(0.0, 0.0, 0.5), Color.parse("aliceblue")))
-
-    @Composable
-    fun row(space: ColorSpace<*>) {
-        Div(attrs = {
-            style {
+    renderComposable(rootElementId = "root") {
+        Style {
+            className("input") style {
+                backgroundColor(rgba(0, 0, 0, .26f))
+                color(Color("inherit"))
+                fontSize(.8.cssRem)
+                borderRadius(.1.cssRem)
+                height(1.8.cssRem)
+                paddingLeft(1.cssRem)
+            }
+            className("input") + hover() style {
+                backgroundColor(rgba(1f, 1f, 1f, .12f))
+            }
+            className("numberinput") style {
+                width(3.cssRem)
+            }
+            className("btn") style {
+                paddingRight(1.cssRem)
+            }
+            className("row") style {
                 display(DisplayStyle.Flex)
                 alignItems(AlignItems.Center)
                 justifyContent(JustifyContent.Center)
                 flexWrap(FlexWrap.Wrap)
                 margin(4.px)
             }
-        }) {
-            Div(attrs = {
-                style {
-                    width(5.em)
-                }
-            }) { Text(space.name) }
-            Canvas(attrs = {
-                this.attr("width", "600")
-                this.attr("height", "50")
-
-                style {
-                    borderRadius(4.px)
-                }
-            }) {
-                DomSideEffect(colors) { updateCanvas(it, space.convert(colors[0]), space.convert(colors[1])) }
-            }
-        }
-    }
-
-    renderComposable(rootElementId = "root") {
-
-        Div(attrs = {
-            style {
+            className("pickers") style {
                 display(DisplayStyle.Flex)
                 flexWrap(FlexWrap.Wrap)
-                justifyContent(JustifyContent.SpaceEvenly)
-                property("margin-bottom", 8.px)
+                justifyContent(JustifyContent.SpaceBetween)
+                width(600.px)
+                marginLeft(5.em + 5.px)
             }
+            className("colorpicker") style {
+                width(40.px)
+                height(30.px)
+            }
+            className("config") style {
+                display(DisplayStyle.Flex)
+                alignItems(AlignItems.Center)
+                justifyContent(JustifyContent.SpaceBetween)
+                flexWrap(FlexWrap.Wrap)
+                marginLeft(4.em)
+            }
+        }
+        var colors: List<Color> by remember { mutableStateOf(listOf(RGB("#33d"), RGB("#eef"))) }
+        var spline by remember { mutableStateOf(false) }
+
+        Div(attrs = {
+            classes("config")
+            style { property("margin-bottom", 8.px) }
         }) {
-            for ((i, color) in colors.withIndex()) {
-                Div {
-                    for (j in 0 until color.space.components.lastIndex) {
-                        val component = color.space.components[j]
-                        val value = color.toArray()[j]
-                        Div(attrs = {
-                            style {
-                                display(DisplayStyle.Flex)
-                                flexWrap(FlexWrap.Wrap)
-                            }
-                        }) {
-                            Div(attrs = { style { width(2.em) } }) { Text(component.name) }
-                            Div(attrs = { style { width(3.em) } }) { Text(fmt(value)) }
-                            Div {
-                                RangeInput(value,
-                                    min = 0,
-                                    max = 1,
-                                    step = 0.01,
-                                    attrs = {
-                                        onInput {
-                                            val array = color.toArray().apply { set(j, (it.value ?: 0).toFloat()) }
-                                            val new = color.space.create(array)
-                                            colors = if (i == 0) listOf(new, colors[1]) else listOf(colors[0], new)
-                                        }
-                                    })
-                            }
-                        }
+            Div {
+                NumberInput(min = 2, max = 7) {
+                    classes("input", "numberinput")
+                    value(colors.size.toString())
+                    onInput {
+                        val n = it.value?.toInt() ?: return@onInput
+                        colors = colors.take(n) + List(n - colors.size) { randColor() }
                     }
+                    style { margin(1.em) }
                 }
+                Label { Text("number of stops") }
+            }
+            Div {
+                Button(attrs = {
+                    classes("input", "btn")
+                    onClick { colors = colors.map { randColor() } }
+                }) { Text("randomize colors") }
+            }
+            Div {
+                CheckboxInput(checked = spline) {
+                    onInput { spline = it.value }
+                    style { margin(1.em) }
+                }
+                Label { Text("spline interpolation") }
             }
         }
 
-        rectColors.forEach { row(it) }
+        Div(attrs = { classes("pickers") }) {
+            for ((i, color) in colors.withIndex()) {
+                Input(InputType.Color, attrs = {
+                    classes("colorpicker")
+                    onInput { e -> colors = colors.toMutableList().also { it[i] = Color.parse(e.value) } }
+                    value(color.toSRGB().toHex())
+                })
+            }
+        }
+
+        spaces.forEach { row(it, colors, spline) }
     }
 }
 
-private fun updateCanvas(canvas: HTMLCanvasElement, color1: Color, color2: Color) {
-    val lerp = color1.space.interpolator(color1, color2)
+private fun randf(a: Int, b: Int): Double = a + (b - a) * Random.nextDouble()
+private fun randColor() = LCHab(randf(10, 90), randf(10, 90), randf(0, 359)).toSRGB().clamp()
+
+private fun updateCanvas(canvas: HTMLCanvasElement, space: ColorSpace<*>, spline: Boolean, colors: List<Color>) {
+    val lerp = space.interpolator {
+        colors.forEach { stop(it) }
+        method = if (spline) InterpolationMethods.monotoneSpline(true) else InterpolationMethods.linear()
+    }
     val ctx = canvas.getContext("2d") as CanvasRenderingContext2D
     lerp.sequence(canvas.width).forEachIndexed { x, color ->
         ctx.fillStyle = color.toSRGB().toHex()
@@ -106,8 +142,3 @@ private fun updateCanvas(canvas: HTMLCanvasElement, color1: Color, color2: Color
     }
 }
 
-private fun fmt(number: Number): String {
-    return number.asDynamic().toLocaleString("en-us",
-        json("useGrouping" to false, "maximumFractionDigits" to 3)
-    ).unsafeCast<String>()
-}

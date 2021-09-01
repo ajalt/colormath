@@ -39,7 +39,7 @@ markdown_extensions:
 nav:
   - 'Getting Started': index.md
   - 'Try It Online':
-    - 'Color converter': tryit.md
-    - 'Gradient generator': gradients.md
+    - 'Color converter': converter.md
+    - 'Gradient generator': gradient.md
   - 'API Reference': api/colormath/com.github.ajalt.colormath/index.html
   - 'Releases': changelog.md
