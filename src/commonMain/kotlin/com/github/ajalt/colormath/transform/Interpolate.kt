@@ -3,6 +3,7 @@ package com.github.ajalt.colormath.transform
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
+import com.github.ajalt.colormath.internal.scaleRange
 import com.github.ajalt.colormath.transform.InterpolationMethod.Point
 
 /**
@@ -70,35 +71,36 @@ interface Interpolator<T : Color> {
 typealias ComponentAdjustment = (hues: List<Float>) -> List<Float>
 
 
+/**
+ * A builder for configuring an [InterpolatorBuilder] stop.
+ */
+interface InterpolatorStopBuilder {
+    /**
+     * The easing function to use for components in this stop. Overrides any easing functions
+     * configured on the [InterpolatorBuilder].
+     */
+    var easing: EasingFunction?
+
+    /**
+     * The easing function to use for a single [component].
+     *
+     * Overrides easing functions configured elsewhere.
+     */
+    fun componentEasing(component: String, easingFn: EasingFunction)
+}
+
+typealias InterpolatorStopBuilderContext = InterpolatorStopBuilder.() -> Unit
+
 interface InterpolatorBuilder {
     /** Add a stop with a default position */
-    fun stop(color: Color)
+    fun stop(color: Color, builder: InterpolatorStopBuilderContext = {})
 
     /** Add a stop with a given [position] */
-    fun stop(color: Color, position: Float)
+    fun stop(color: Color, position: Float, builder: InterpolatorStopBuilderContext = {})
 
     /** Add a stop with a given [position] */
-    fun stop(color: Color, position: Double) = stop(color, position.toFloat())
-
-    /**
-     * Add stops at [position1] and [position2] with the same color.
-     *
-     * This can be useful for creating a solid color stripe.
-     */
-    fun stop(color: Color, position1: Float, position2: Float)
-
-    /**
-     * Add stops at [position1] and [position2] with the same color.
-     *
-     * This can be useful for creating a solid color stripe.
-     */
-    fun stop(color: Color, position1: Double, position2: Double) = stop(color, position1.toFloat(), position2.toFloat())
-
-    /** Set the midpoint of the gradient between the previous and next stop */
-    fun hint(position: Float)
-
-    /** Set the midpoint of the gradient between the previous and next stop */
-    fun hint(position: Double) = hint(position.toFloat())
+    fun stop(color: Color, position: Double, builder: InterpolatorStopBuilderContext = {}) =
+        stop(color, position.toFloat(), builder)
 
     /**
      * If true, multiply each color's components be the color's alpha value before interpolating,
@@ -110,6 +112,19 @@ interface InterpolatorBuilder {
      * The interpolation method to use. Linear by default.
      */
     var method: InterpolationMethod
+
+    /**
+     * The [EasingFunction] to use for all components. Defaults to [linear][EasingFunctions.linear].
+     *
+     * @see EasingFunctions
+     */
+    var easing: EasingFunction
+
+    /**
+     * Set the easing function for a particular [component] by name. This overrides the default
+     * [easing][InterpolatorBuilder.easing] for this component.
+     */
+    fun componentEasing(component: String, easing: EasingFunction)
 
     /**
      * Add an [adjustment] to a [component] with a given name.
@@ -142,92 +157,123 @@ fun <T : Color> Interpolator<T>.sequence(length: Int): Sequence<T> {
 
 //region: implementations
 
+private class InterpolatorStopBuilderImpl(private val space: ColorSpace<*>) : InterpolatorStopBuilder {
+    private val fns = mutableMapOf<String, EasingFunction>()
+    override var easing: EasingFunction? = null
+
+    override fun componentEasing(component: String, easingFn: EasingFunction) {
+        fns[requireComponentName(space, component)] = easingFn
+    }
+
+    fun build(easingFns: Map<String, EasingFunction>, defEasingFn: EasingFunction): List<EasingFunction> {
+        return space.components.map {
+            val n = it.name.lowercase()
+            fns.getOrElse(n) { easingFns.getOrElse(n) { easing ?: defEasingFn } }
+        }
+    }
+}
+
 @Suppress("ArrayInDataClass")
 private data class Stop(val components: FloatArray, val pos: Float)
 
 private class InterpolatorImpl<T : Color>(
     private val lerps: List<InterpolationMethod.ComponentInterpolator>,
+    private val easing: List<Easing>,
     private val space: ColorSpace<T>,
     private val premultiplyAlpha: Boolean,
 ) : Interpolator<T> {
+    data class Easing(val position: Float, val fns: List<EasingFunction>)
+
     init {
         require(lerps.size == space.components.size)
+        require(easing.all { it.fns.size == space.components.size })
     }
 
     private val out = FloatArray(space.components.size)
 
     override fun interpolate(t: Float): T {
+        val li = easing.indexOfLast { it.position <= t }
+        if (li < 0 || li == easing.lastIndex || easing[li].position == t) {
+            lerpEdgecase(t)
+        } else {
+            lerpEased(li, t)
+        }
+
+        div(space, premultiplyAlpha, out)
+        return space.create(out)
+    }
+
+    private fun lerpEdgecase(t: Float) {
         for (i in out.indices) {
             out[i] = lerps[i].interpolate(t)
         }
-        div(space, premultiplyAlpha, out)
-        return space.create(out)
+    }
+
+    private fun lerpEased(li: Int, t: Float) {
+        val lx = easing[li].position
+        val rx = easing[li + 1].position
+
+        //scale t to 0-1 for easing
+        val t1 = scaleRange(lx.toDouble(), rx.toDouble(), 0.0, 1.0, t.toDouble())
+
+        for (i in out.indices) {
+            val te = easing[li].fns[i].ease(t1)
+
+            // scale eased t back to full range for interpolator
+            val tf = scaleRange(0.0, 1.0, lx.toDouble(), rx.toDouble(), te)
+
+            out[i] = lerps[i].interpolate(tf.toFloat())
+        }
     }
 }
 
 private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T>) : InterpolatorBuilder {
+    private data class Entry(val color: Color, val pos: Float?, val builder: InterpolatorStopBuilderImpl)
+
     override var premultiplyAlpha: Boolean = true
-
-    private val adjustments = mutableMapOf("alpha" to alphaAdjustment)
-
-    init {
-        space.components.filter { it.isPolar }.forEach {
-            adjustments[it.name.lowercase()] = HueAdjustments.shorter
-        }
-    }
-
     override var method: InterpolationMethod = InterpolationMethods.linear()
-
-    override fun componentAdjustment(component: String, adjustment: ComponentAdjustment) {
-        require(space.components.any { it.name.equals(component, ignoreCase = true) }) {
-            "Unknown component name \"$component\" for color model ${space.name}. " +
-                    "Valid names are ${space.components.map { it.name }}"
-        }
-        adjustments[component.lowercase()] = adjustment
-    }
-
-    // stops may omit position, never color
-    // hints omit color, never position
-    private data class Entry(val color: Color?, val pos: Float?) {
-        val isHint get() = color == null
-        val isStop get() = color != null
-    }
+    override var easing: EasingFunction = EasingFunctions.linear()
 
     private val entries = mutableListOf<Entry>()
-
-    override fun stop(color: Color) {
-        entries += Entry(color, null)
+    private val easingFns = mutableMapOf<String, EasingFunction>()
+    private val adjustments = mutableMapOf("alpha" to alphaAdjustment).apply {
+        space.components.filter { it.isPolar }.forEach {
+            set(it.name.lowercase(), HueAdjustments.shorter)
+        }
     }
 
-    override fun stop(color: Color, position: Float) {
-        entries += Entry(color, position)
+    override fun componentAdjustment(component: String, adjustment: ComponentAdjustment) {
+        adjustments[requireComponentName(space, component)] = adjustment
     }
 
-    override fun stop(color: Color, position1: Float, position2: Float) {
-        entries += Entry(color, position1)
-        entries += Entry(color, position2)
+    override fun componentEasing(component: String, easing: EasingFunction) {
+        easingFns[requireComponentName(space, component)] = easing
     }
 
-    override fun hint(position: Float) {
-        check(entries.isNotEmpty() && entries.last().isStop) { "Hints must be placed between two color stops" }
-        entries += Entry(null, position)
+    override fun stop(color: Color, builder: InterpolatorStopBuilderContext) {
+        entries += Entry(color, null, InterpolatorStopBuilderImpl(space).also(builder))
+    }
+
+    override fun stop(color: Color, position: Float, builder: InterpolatorStopBuilderContext) {
+        entries += Entry(color, position, InterpolatorStopBuilderImpl(space).also(builder))
     }
 
     fun build(): Interpolator<T> {
-        require(entries.count { it.isStop } >= 2) { "At least two color stops are required" }
-        require(entries.last().isStop) { "Must have a color stop after the last hint" }
         // https://www.w3.org/TR/css-images-4/#color-stop-syntax
         fixupEndpoints()
         fixupDecreasingPos()
         fixupMissingPos()
-        fixupHints()
 
         val out = bakeComponents()
         applyAdjustments(out)
         val lerps = space.components.mapIndexed { i, _ ->
             method.build(out.map { Point(it.pos, it.components[i]) })
         }
-        return InterpolatorImpl(lerps, space, premultiplyAlpha)
+
+        val fns = entries.map {
+            InterpolatorImpl.Easing(it.pos!!, it.builder.build(easingFns, easing))
+        }
+        return InterpolatorImpl(lerps, fns, space, premultiplyAlpha)
     }
 
     // step 1
@@ -257,12 +303,11 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
                     runStart = i
                 }
                 runLen += 1
-            } else if (entry.isStop && runLen > 0) {
+            } else if (runLen > 0) {
                 val prevPos = entries[runStart - 1].pos!!
                 val nextPos = entry.pos
                 var fixed = 0
                 for (j in runStart until i) {
-                    if (entries[j].isHint) continue
                     entries[j] = entries[j].copy(pos = lerp(prevPos, nextPos, (1 + fixed).toFloat() / (1 + runLen)))
                     fixed += 1
                 }
@@ -273,22 +318,11 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
         }
     }
 
-    private fun fixupHints() {
-        // precondition: there is always a regular stop before and after every hint
-        // precondition: all stops have positions
-        for ((i, stop) in entries.withIndex()) {
-            if (stop.isStop) continue
-            val prev = entries[i - 1].color!!
-            val next = entries[i + 1].color!!
-            entries[i] = stop.copy(color = prev.interpolate(next, 0.5f, premultiplyAlpha))
-        }
-    }
-
     // Convert all colors to this model, premultiply alphas if necessary, and convert to arrays
     private fun bakeComponents(): List<Stop> {
         // precondition: all entries have colors and positions
         return entries.map { (c, p) ->
-            Stop(mult(space, premultiplyAlpha, space.convert(c!!).toArray()), p!!)
+            Stop(mult(space, premultiplyAlpha, space.convert(c).toArray()), p!!)
         }
     }
 
@@ -323,6 +357,14 @@ private fun interpolateComponents(
         out[i] = lerp(l[i], r[i], amount)
     }
     return div(space, divideAlpha, out)
+}
+
+private fun requireComponentName(space: ColorSpace<*>, name: String): String {
+    require(space.components.any { it.name.equals(name, ignoreCase = true) }) {
+        "Unknown component name \"$name\" for color model ${space.name}. " +
+                "Valid names are ${space.components.map { it.name }}"
+    }
+    return name.lowercase()
 }
 
 private val alphaAdjustment: ComponentAdjustment = { l ->

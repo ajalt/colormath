@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath.transform
 
 import com.github.ajalt.colormath.HSL
+import com.github.ajalt.colormath.shouldBeFloat
 import io.kotest.matchers.shouldBe
 import kotlin.math.roundToInt
 import kotlin.test.Test
@@ -9,7 +10,8 @@ class HueAdjustmentsTest {
     @Test
     fun nan() {
         val l = listOf(0f, Float.NaN, 10f, 20f, Float.NaN, Float.NaN)
-        HueAdjustments.shorter(l) shouldBe l
+        val ac = HueAdjustments.shorter(l)
+        for ((a, ex) in ac.zip(l)) a.shouldBeFloat(ex)
     }
 
     @Test
