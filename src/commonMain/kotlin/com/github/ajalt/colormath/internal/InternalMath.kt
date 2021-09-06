@@ -50,3 +50,7 @@ internal fun Float.spow(p: Double): Double = toDouble().spow(p)
 internal fun sqrtSumSq(a: Float, b: Float, c: Float): Float = sqrt(a.pow(2) + b.pow(2) + c.pow(2))
 internal fun sqrtSumSq(a: Double, b: Double): Double = sqrt(a.pow(2) + b.pow(2))
 internal fun sqrtSumSq(a: Double, b: Double, c: Double): Double = sqrt(a.pow(2) + b.pow(2) + c.pow(2))
+
+internal fun scaleRange(l1: Double, r1: Double, l2: Double, r2: Double, t: Double): Double {
+    return if (r1 == l1) t else (r2 - l2) * (t - l1) / (r1 - l1) + l2
+}

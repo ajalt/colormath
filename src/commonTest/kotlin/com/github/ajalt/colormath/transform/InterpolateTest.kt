@@ -22,8 +22,8 @@ class InterpolateTest {
     }
 
     @Test
-    @JsName("interpolator_with_hint")
-    fun `interpolator with hint`() = forAll(
+    @JsName("interpolator_with_midpoint")
+    fun `interpolator with midpoint`() = forAll(
         row(0.00, RGB("#000")),
         row(0.25, RGB("#400")),
         row(0.50, RGB("#800")),
@@ -34,8 +34,9 @@ class InterpolateTest {
     ) { pos, ex ->
         RGB.interpolator {
             stop(RGB("#000"))
-            stop(RGB("#800"))
-            hint(.6)
+            stop(RGB("#800")) {
+                easing = EasingFunctions.midpoint(0.2)
+            }
             stop(RGB("#888"))
         }.interpolate(pos).shouldEqualColor(ex)
     }
@@ -71,7 +72,8 @@ class InterpolateTest {
     ) { pos, ex ->
         RGB.interpolator {
             stop(RGB("#111"), .1)
-            stop(RGB("#333"), .2, .8)
+            stop(RGB("#333"), .2)
+            stop(RGB("#333"), .8)
             stop(RGB("#555"), .8)
         }.interpolate(pos).shouldEqualColor(ex)
     }

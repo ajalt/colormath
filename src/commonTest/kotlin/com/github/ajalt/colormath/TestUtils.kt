@@ -32,7 +32,7 @@ fun <T : Color> roundtripTest(vararg colors: T, intermediate: ColorSpace<*> = SR
 
 fun convertToSpaceTest(vararg spaces: ColorSpace<*>, to: ColorSpace<*>) {
     forAll(*spaces.map { row(it) }.toTypedArray()) {
-        it.create(floatArrayOf(.1f,.2f,.3f)).convertTo(to).space shouldBe to
+        it.create(floatArrayOf(.1f, .2f, .3f)).convertTo(to).space shouldBe to
     }
 }
 
@@ -46,12 +46,16 @@ fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4, ignorePola
         l.size shouldBe r.size
         for (i in l.indices) {
             if (ignorePolar && space.components[i].isPolar) continue
-            if (l[i].isNaN()) r[i].toDouble().shouldBeNaN()
-            else l[i] shouldBe (r[i] plusOrMinus tolerance.toFloat())
+            l[i].shouldBeFloat(r[i], tolerance)
         }
     } catch (e: AssertionError) {
         println("┌ ex ${expected.toSRGB().toHex()} $expected")
         println("└ ac ${this.toSRGB().toHex()} $this")
         throw e
     }
+}
+
+fun Float.shouldBeFloat(ex: Float, tolerance: Double = 0.0) {
+    if (ex.isNaN()) toDouble().shouldBeNaN()
+    else this shouldBe (ex plusOrMinus tolerance.toFloat())
 }

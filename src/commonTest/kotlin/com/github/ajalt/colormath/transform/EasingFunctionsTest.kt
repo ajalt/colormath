@@ -17,6 +17,6 @@ class EasingFunctionsTest {
         row(0.3, -1, 0.7, 2, 0.8, 1.17525804),
         row(0.3, -1, 0.7, 2, 1.0, 1.0),
     ) { x1, y1, x2, y2, t, ex ->
-        EasingFunctions.cubicBezier(x1, y1, x2, y2)(t) shouldBe (ex plusOrMinus 1e-5)
+        EasingFunctions.cubicBezier(x1, y1, x2, y2).ease(t) shouldBe (ex plusOrMinus 1e-5)
     }
 }

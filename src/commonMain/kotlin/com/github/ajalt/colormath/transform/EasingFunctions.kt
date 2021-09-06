@@ -1,9 +1,23 @@
 package com.github.ajalt.colormath.transform
 
+import com.github.ajalt.colormath.internal.scaleRange
 import kotlin.math.absoluteValue
 
-typealias EasingFunction = (t: Double) -> Double
+/**
+ * A function for use with interpolator [easing][InterpolatorBuilder.easing].
+ */
+fun interface EasingFunction {
+    /**
+     * Apply an easing function to a parameter [t] in the range `[0, 1]`.
+     *
+     * The return value should be 0 when [t] is 0, and 1 when [t] is 1.
+     */
+    fun ease(t: Double): Double
+}
 
+/**
+ * Built-in easing functions for use with interpolator [easing][InterpolatorBuilder.easing].
+ */
 object EasingFunctions {
 
     /**
@@ -22,13 +36,36 @@ object EasingFunctions {
     /**
      * The default linear easing function
      */
-    fun linear(): EasingFunction = { it }
+    fun linear(): EasingFunction = EasingFunction { it }
+
+    /**
+     * A linear easing function that sets the midpoint at a given [position].
+     *
+     * @param position A value in `[0, 1]` indicating where the midpoint should be. A value of 0.5
+     *   will behave the same as [linear] easing.
+     */
+    fun midpoint(position: Number): EasingFunction {
+        val p = position.toDouble()
+        if (p <= 0) return EasingFunction { 1.0 }
+        if (p >= 1) return EasingFunction { 0.0 }
+        return EasingFunction { t ->
+            when {
+                t <= p -> scaleRange(0.0, p, 0.0, 0.5, t)
+                else -> scaleRange(p, 1.0, 0.5, 1.0, t)
+            }
+        }
+    }
 }
 
 /**
  * P₀ is always (0, 0), and P₁ is always (1, 1)
  */
-private class CubicBezierEasing(x1: Double, y1: Double, x2: Double, y2: Double) : EasingFunction {
+private class CubicBezierEasing(
+    private val x1: Double,
+    private val y1: Double,
+    private val x2: Double,
+    private val y2: Double,
+) : EasingFunction {
     init {
         require(x1 in 0.0..1.0 && x2 in 0.0..1.0) { "Bezier x coordinates must be in the range [0, 1]" }
     }
@@ -99,9 +136,29 @@ private class CubicBezierEasing(x1: Double, y1: Double, x2: Double, y2: Double) 
 
     // The `t` value coming in is the `x` value of the curve. We need to find the `t` value of the
     // curve in order to find its `y` value.
-    override fun invoke(x: Double): Double {
-        // TODO: https://www.w3.org/TR/css-easing-1/#cubic-bezier-algo
-        return sampleCurveY(findTFromX(x))
+    override fun ease(x: Double): Double {
+        // edge cases handled according to https://www.w3.org/TR/css-easing-1/#cubic-bezier-algo
+        return when {
+            x < 0 -> {
+                when {
+                    x1 > 0 -> tangent(0.0, 0.0, x1, y1, x)
+                    x2 > 0 -> tangent(0.0, 0.0, x2, y2, x)
+                    else -> 0.0
+                }
+            }
+            x > 1 -> {
+                when {
+                    x2 < 1 -> tangent(x2, y2, 1.0, 1.0, x)
+                    x1 < 1 -> tangent(x1, y1, 1.0, 1.0, x)
+                    else -> 1.0
+                }
+            }
+            else -> sampleCurveY(findTFromX(x))
+        }
+    }
+
+    private fun tangent(x1: Double, y1: Double, x2: Double, y2: Double, x: Double): Double {
+        return (y2 - y1) / (x2 - x1) * (x - x1) + y1
     }
 
     private fun Double.approxEq(b: Double, epsilon: Double): Boolean {
