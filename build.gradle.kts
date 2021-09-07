@@ -5,16 +5,19 @@ import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import java.io.ByteArrayOutputStream
 
 plugins {
-    kotlin("multiplatform") version "1.5.21"
-    id("org.jetbrains.dokka") version "1.5.0"
+    kotlin("multiplatform") version "1.5.30"
+    id("org.jetbrains.dokka") version "1.5.30-dev-115"
     id("maven-publish")
     id("signing")
 }
 
+repositories {
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/dokka/dev")
+}
 
 buildscript {
     dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:1.5.0")
+        classpath("org.jetbrains.dokka:dokka-base:1.5.30-dev-115")
     }
 }
 
@@ -72,7 +75,7 @@ val jvmJar by tasks.getting(Jar::class) {
 
 
 fun getPublishVersion(): String {
-    // Call gradle with -PinferVersion to set the dynamic version name. Otherwise we skip it to save time.
+    // Call gradle with -PinferVersion to set the dynamic version name. Otherwise, we skip it to save time.
     if (!project.hasProperty("inferVersion")) return VERSION_NAME
 
     val stdout = ByteArrayOutputStream()
