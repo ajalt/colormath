@@ -11,5 +11,5 @@ docs/api/
 docs/changelog.md
 docs/index.md
 site/
-docs/js/gradients.js
-docs/js/tryit.js
+docs/js/gradient.js
+docs/js/converter.js

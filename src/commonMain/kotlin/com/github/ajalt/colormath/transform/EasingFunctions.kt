@@ -34,7 +34,7 @@ object EasingFunctions {
     }
 
     /**
-     * The default linear easing function
+     * The linear easing function which leaves the timing unchanged.
      */
     fun linear(): EasingFunction = EasingFunction { it }
 
@@ -55,6 +55,38 @@ object EasingFunctions {
             }
         }
     }
+
+    /**
+     * The "ease" easing function
+     *
+     * Defined in [CSS Easing 1](https://www.w3.org/TR/css-easing-1), this is equivalent to
+     * `cubicBezier(0.25, 0.1, 0.25, 1.0)`
+     */
+    fun ease(): EasingFunction = cubicBezier(0.25, 0.1, 0.25, 1.0)
+
+    /**
+     * The "ease-in" easing function
+     *
+     * Defined in [CSS Easing 1](https://www.w3.org/TR/css-easing-1), this is equivalent to
+     * `cubicBezier(0.42, 0, 1, 1)`
+     */
+    fun easeIn(): EasingFunction = cubicBezier(0.42, 0, 1, 1)
+
+    /**
+     * The "ease-out" easing function
+     *
+     * Defined in [CSS Easing 1](https://www.w3.org/TR/css-easing-1), this is equivalent to
+     * `cubicBezier(0, 0, 0.58, 1)`
+     */
+    fun easeOut(): EasingFunction = cubicBezier(0, 0, 0.58, 1)
+
+    /**
+     * The "ease-in-out" easing function
+     *
+     * Defined in [CSS Easing 1](https://www.w3.org/TR/css-easing-1), this is equivalent to
+     * `cubicBezier(0.42, 0, 0.58, 1)`
+     */
+    fun easeInOut(): EasingFunction = cubicBezier(0.42, 0, 0.58, 1)
 }
 
 /**

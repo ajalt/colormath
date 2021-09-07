@@ -20,4 +20,18 @@ class EasingFunctionsTest {
     ) { x1, y1, x2, y2, t, ex ->
         EasingFunctions.cubicBezier(x1, y1, x2, y2).ease(t.toFloat()).toDouble() shouldBe (ex plusOrMinus 1e-5)
     }
+
+    @Test
+    fun builtInEasings() = forAll(
+        row(EasingFunctions.ease(), 0.2, 0.2952443),
+        row(EasingFunctions.ease(), 0.8, 0.9756253),
+        row(EasingFunctions.easeIn(), 0.2, 0.0622820),
+        row(EasingFunctions.easeIn(), 0.8, 0.6916339),
+        row(EasingFunctions.easeOut(), 0.2, 0.3083660),
+        row(EasingFunctions.easeOut(), 0.8, 0.9377179),
+        row(EasingFunctions.easeInOut(), 0.2, 0.0816598),
+        row(EasingFunctions.easeInOut(), 0.8, 0.9183401),
+    ) { fn, t, ex ->
+        fn.ease(t.toFloat()).toDouble() shouldBe (ex plusOrMinus 1e-5)
+    }
 }
