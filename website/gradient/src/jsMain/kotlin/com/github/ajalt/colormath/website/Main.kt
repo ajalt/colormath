@@ -3,11 +3,11 @@ package com.github.ajalt.colormath.website
 import androidx.compose.runtime.*
 import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.Color
+import com.github.ajalt.colormath.transform.EasingFunctions
 import com.github.ajalt.colormath.transform.InterpolationMethods
 import com.github.ajalt.colormath.transform.interpolator
 import com.github.ajalt.colormath.transform.sequence
 import org.jetbrains.compose.web.attributes.InputType
-import org.jetbrains.compose.web.attributes.value
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.selectors.className
 import org.jetbrains.compose.web.css.selectors.hover
@@ -21,17 +21,26 @@ import kotlin.random.Random
 private val spaces = listOf(RGB, LAB, LUV, Oklab, JzAzBz)
 
 @Composable
-fun row(space: ColorSpace<*>, colors: List<Color>, spline: Boolean) {
+fun row(space: ColorSpace<*>, colors: List<Color>, spline: Boolean, easing: String) {
     Div(attrs = { classes("row") }) {
         Div(attrs = { style { width(5.em) } }) {
             Text(space.name)
         }
         Canvas(width = 600, height = 50, attrs = { style { borderRadius(4.px) } }) {
-            DomSideEffect(spline to colors) { updateCanvas(it, space, spline, colors) }
+            DomSideEffect(Triple(spline, colors, easing)) { updateCanvas(it, space, spline, colors, easing) }
         }
     }
 }
 
+private val easings = mapOf(
+    "linear" to EasingFunctions.linear(),
+    "ease" to EasingFunctions.ease(),
+    "ease-in" to EasingFunctions.easeIn(),
+    "ease-in-out" to EasingFunctions.easeInOut(),
+    "ease-out" to EasingFunctions.easeOut(),
+    "midpoint 25%" to EasingFunctions.midpoint(.25),
+    "midpoint 75%" to EasingFunctions.midpoint(.75),
+)
 
 fun main() {
     renderComposable(rootElementId = "root") {
@@ -50,6 +59,12 @@ fun main() {
             className("numberinput") style {
                 width(3.cssRem)
             }
+            className("select") style {
+                fontSize(.8.cssRem)
+                borderRadius(.1.cssRem)
+                height(1.8.cssRem)
+                margin(.8.cssRem)
+            }
             className("btn") style {
                 paddingRight(1.cssRem)
             }
@@ -58,14 +73,13 @@ fun main() {
                 alignItems(AlignItems.Center)
                 justifyContent(JustifyContent.Center)
                 flexWrap(FlexWrap.Wrap)
-                margin(4.px)
+                marginTop(4.px)
             }
             className("pickers") style {
                 display(DisplayStyle.Flex)
                 flexWrap(FlexWrap.Wrap)
                 justifyContent(JustifyContent.SpaceBetween)
                 width(600.px)
-                marginLeft(5.em + 5.px)
             }
             className("colorpicker") style {
                 width(40.px)
@@ -81,6 +95,7 @@ fun main() {
         }
         var colors: List<Color> by remember { mutableStateOf(listOf(RGB("#33d"), RGB("#eef"))) }
         var spline by remember { mutableStateOf(false) }
+        var easing by remember { mutableStateOf("linear") }
 
         Div(attrs = {
             classes("config")
@@ -111,29 +126,48 @@ fun main() {
                 }
                 Label { Text("spline interpolation") }
             }
-        }
-
-        Div(attrs = { classes("pickers") }) {
-            for ((i, color) in colors.withIndex()) {
-                Input(InputType.Color, attrs = {
-                    classes("colorpicker")
-                    onInput { e -> colors = colors.toMutableList().also { it[i] = Color.parse(e.value) } }
-                    value(color.toSRGB().toHex())
-                })
+            Div {
+                Select(attrs = {
+                    classes("select")
+                    onInput { it.value?.let { s -> easing = s } }
+                }) {
+                    easings.keys.forEach { Option(it) { Text(it) } }
+                }
+                Label { Text("easing function") }
             }
         }
 
-        spaces.forEach { row(it, colors, spline) }
+        Div(attrs = { classes("row") }) {
+            Div(attrs = { style { width(5.em) } })
+            Div(attrs = { classes("pickers") }) {
+                for ((i, color) in colors.withIndex()) {
+                    Input(InputType.Color, attrs = {
+                        classes("colorpicker")
+                        onInput { e -> colors = colors.toMutableList().also { it[i] = Color.parse(e.value) } }
+                        value(color.toSRGB().toHex())
+                    })
+                }
+            }
+        }
+
+        spaces.forEach { row(it, colors, spline, easing) }
     }
 }
 
 private fun randf(a: Int, b: Int): Double = a + (b - a) * Random.nextDouble()
 private fun randColor() = LCHab(randf(10, 90), randf(10, 90), randf(0, 359)).toSRGB().clamp()
 
-private fun updateCanvas(canvas: HTMLCanvasElement, space: ColorSpace<*>, spline: Boolean, colors: List<Color>) {
+private fun updateCanvas(
+    canvas: HTMLCanvasElement,
+    space: ColorSpace<*>,
+    spline: Boolean,
+    colors: List<Color>,
+    easing: String,
+) {
     val lerp = space.interpolator {
         colors.forEach { stop(it) }
         method = if (spline) InterpolationMethods.monotoneSpline(true) else InterpolationMethods.linear()
+        easings[easing]?.let { this.easing = it }
     }
     val ctx = canvas.getContext("2d") as CanvasRenderingContext2D
     lerp.sequence(canvas.width).forEachIndexed { x, color ->
