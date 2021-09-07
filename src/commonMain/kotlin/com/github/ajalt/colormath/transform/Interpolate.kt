@@ -214,15 +214,15 @@ private class InterpolatorImpl<T : Color>(
         val rx = easing[li + 1].position
 
         //scale t to 0-1 for easing
-        val t1 = scaleRange(lx.toDouble(), rx.toDouble(), 0.0, 1.0, t.toDouble())
+        val t1 = scaleRange(lx, rx, 0f, 1f, t)
 
         for (i in out.indices) {
             val te = easing[li].fns[i].ease(t1)
 
             // scale eased t back to full range for interpolator
-            val tf = scaleRange(0.0, 1.0, lx.toDouble(), rx.toDouble(), te)
+            val tf = scaleRange(0f, 1f, lx, rx, te)
 
-            out[i] = lerps[i].interpolate(tf.toFloat())
+            out[i] = lerps[i].interpolate(tf)
         }
     }
 }

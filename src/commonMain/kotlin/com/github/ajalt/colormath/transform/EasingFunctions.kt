@@ -12,7 +12,7 @@ fun interface EasingFunction {
      *
      * The return value should be 0 when [t] is 0, and 1 when [t] is 1.
      */
-    fun ease(t: Double): Double
+    fun ease(t: Float): Float
 }
 
 /**
@@ -45,13 +45,13 @@ object EasingFunctions {
      *   will behave the same as [linear] easing.
      */
     fun midpoint(position: Number): EasingFunction {
-        val p = position.toDouble()
-        if (p <= 0) return EasingFunction { 1.0 }
-        if (p >= 1) return EasingFunction { 0.0 }
+        val p = position.toFloat()
+        if (p <= 0) return EasingFunction { 1f }
+        if (p >= 1) return EasingFunction { 0f }
         return EasingFunction { t ->
             when {
-                t <= p -> scaleRange(0.0, p, 0.0, 0.5, t)
-                else -> scaleRange(p, 1.0, 0.5, 1.0, t)
+                t <= p -> scaleRange(0f, p, 0f, 0.5f, t)
+                else -> scaleRange(p, 1f, 0.5f, 1f, t)
             }
         }
     }
@@ -66,6 +66,7 @@ private class CubicBezierEasing(
     private val x2: Double,
     private val y2: Double,
 ) : EasingFunction {
+    // This implementation is based off of the algorithms used in servo https://github.com/servo/servo
     init {
         require(x1 in 0.0..1.0 && x2 in 0.0..1.0) { "Bezier x coordinates must be in the range [0, 1]" }
     }
@@ -134,9 +135,10 @@ private class CubicBezierEasing(
         return t
     }
 
-    // The `t` value coming in is the `x` value of the curve. We need to find the `t` value of the
-    // curve in order to find its `y` value.
-    override fun ease(x: Double): Double {
+    override fun ease(t: Float): Float {
+        // The `t` value coming in is the `x` value of the curve. We need to find the `t` value of the
+        // curve in order to find its `y` value.
+        val x = t.toDouble()
         // edge cases handled according to https://www.w3.org/TR/css-easing-1/#cubic-bezier-algo
         return when {
             x < 0 -> {
@@ -154,7 +156,7 @@ private class CubicBezierEasing(
                 }
             }
             else -> sampleCurveY(findTFromX(x))
-        }
+        }.toFloat()
     }
 
     private fun tangent(x1: Double, y1: Double, x2: Double, y2: Double, x: Double): Double {
