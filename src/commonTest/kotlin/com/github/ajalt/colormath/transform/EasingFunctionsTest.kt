@@ -3,6 +3,7 @@ package com.github.ajalt.colormath.transform
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus
+import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
@@ -17,6 +18,6 @@ class EasingFunctionsTest {
         row(0.3, -1, 0.7, 2, 0.8, 1.17525804),
         row(0.3, -1, 0.7, 2, 1.0, 1.0),
     ) { x1, y1, x2, y2, t, ex ->
-        EasingFunctions.cubicBezier(x1, y1, x2, y2).ease(t) shouldBe (ex plusOrMinus 1e-5)
+        EasingFunctions.cubicBezier(x1, y1, x2, y2).ease(t.toFloat()).toDouble() shouldBe (ex plusOrMinus 1e-5)
     }
 }
