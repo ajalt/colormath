@@ -32,8 +32,8 @@ object RGBColorSpaces {
      * ACES2065-1, a digital color image encoding appropriate for both photographed and computer-generated images.
      *
      * ### References
-     * - [SMPTE ST 2065-1][https://ieeexplore.ieee.org/document/7289895]
-     * - [Academy TB-2014-004][https://github.com/ampas/aces-docs]
+     * - [SMPTE ST 2065-1](https://ieeexplore.ieee.org/document/7289895)
+     * - [Academy TB-2014-004](https://github.com/ampas/aces-docs)
      */
     val ACES: RGBColorSpace = RGBColorSpace(
         "ACES2065-1",
@@ -49,7 +49,7 @@ object RGBColorSpaces {
      * expect a log relationship to relative scene exposures for proper operation.
      *
      * ### References
-     * - [Academy S-2014-003][https://github.com/ampas/aces-docs]
+     * - [Academy S-2014-003](https://github.com/ampas/aces-docs)
      */
     val ACEScc: RGBColorSpace = RGBColorSpace(
         "ACEScc",
@@ -65,7 +65,7 @@ object RGBColorSpaces {
      * controls expect a log relationship to relative scene exposures for proper operation.
      *
      * ### References
-     * - [Academy S-2016-001][https://github.com/ampas/aces-docs]
+     * - [Academy S-2016-001](https://github.com/ampas/aces-docs)
      */
     val ACEScct: RGBColorSpace = RGBColorSpace(
         "ACEScct",
@@ -80,7 +80,7 @@ object RGBColorSpaces {
      * ACEScg, a working space for CGI render and compositing to be used in conjunction with the [ACES] system.
      *
      * ### References
-     * - [Academy S-2014-004][https://github.com/ampas/aces-docs]
+     * - [Academy S-2014-004](https://github.com/ampas/aces-docs)
      */
     val ACEScg: RGBColorSpace = RGBColorSpace(
         "ACEScg",

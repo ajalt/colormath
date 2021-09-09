@@ -100,7 +100,7 @@ private fun rgb(match: MatchResult): Color {
     }
 }
 
-fun hsl(match: MatchResult): Color {
+private fun hsl(match: MatchResult): Color {
     val h = hue(match.groupValues[1])
     val s = percent(match.groupValues[2])
     val l = percent(match.groupValues[3])

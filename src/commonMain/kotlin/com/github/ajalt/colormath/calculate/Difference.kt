@@ -114,6 +114,17 @@ fun Color.differenceCIE2000(other: Color): Float {
     ).toFloat()
 }
 
+/**
+ * Calculate the difference ΔEcmc between this color and [other] using the _Colour Measurement
+ * Committee_ recommendation.
+ *
+ * This formula has two parameters used to weight the result based on the ratio of [l]:[c]. Commonly
+ * used values are 2:1 for acceptability and 1:1 for the threshold of imperceptibility.
+ *
+ * Note that this is a quasimetric, so `a.differenceCMC(b)` may not equal `b.differenceCMC(a)`
+ *
+ * @return a value in the range `[0, 100]`, with 0 meaning the colors are identical.
+ */
 fun Color.differenceCMC(other: Color, l: Float = 2f, c: Float = 1f): Float {
     val (l1, a1, b1) = DoubleLab(toLAB())
     val (l2, a2, b2) = DoubleLab(other.toLAB())
