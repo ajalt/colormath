@@ -12,7 +12,7 @@ import com.github.ajalt.colormath.internal.turnToDeg
 import kotlin.math.roundToInt
 
 /**
- * Parse a string representing a color value from CSS Color Module Level 1 through 4
+ * Parse a string representing a CSS color value.
  *
  * Custom color spaces with dashed identifiers are not currently supported.
  *
@@ -23,8 +23,8 @@ fun Color.Companion.parse(color: String): Color {
 }
 
 /**
- * Parse a string representing a color value from CSS Color Module Level 1 through 4, or return null
- * if the string isn't in a recognized format.
+ * Parse a string representing a CSS color value, or return null if the string isn't in a recognized
+ * format.
  */
 fun Color.Companion.parseOrNull(color: String): Color? {
     val keywordColor = CssColors.colorsByName[color]

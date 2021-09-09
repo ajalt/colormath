@@ -4,9 +4,9 @@ Colormath is a Kotlin Multiplatform library for color manipulation and conversio
 
 Colormath can:
 
-- Convert between various color models and spaces
+- Convert between color models and spaces
 - Manipulate colors with transformation such as mixing and chromatic adaptation
-- Calculate accessability contrast, color difference
+- Calculate attributes such as WCAG contrast and perceptual color difference
 - Generate gradients with custom interpolation methods and easing functions
 - Parse and render colors as strings, including all representations from the CSS spec
 
