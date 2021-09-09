@@ -26,17 +26,17 @@ class TransformTest {
         val plum = LCHab50(73.3321, 37.6076, 324.5817)
         val mixed = LCHab50(51.51, 52.21, 325.8)
         forAll(
-            row(LCHab50.mix(purple, .5f, plum, .5f), mixed),
-            row(LCHab50.mix(purple, .5f, plum), mixed),
-            row(LCHab50.mix(purple, plum, .5f), mixed),
+            row(LCHab50.mix(purple, .5, plum, .5), mixed),
+            row(LCHab50.mix(purple, .5, plum), mixed),
+            row(LCHab50.mix(purple, plum, .5), mixed),
             row(LCHab50.mix(purple, plum), mixed),
             row(LCHab50.mix(plum, purple), mixed),
-            row(LCHab50.mix(purple, .8f, plum, .8f), mixed),
-            row(LCHab50.mix(purple, .3f, plum, .3f), LCHab50(51.51, 52.21, 325.8, 0.6)),
-            row(LCHab50.mix(LCHab50(62.253, 54.011, 63.677), .4f, LCHab50(91.374, 31.406, 98.834)),
+            row(LCHab50.mix(purple, .8, plum, .8), mixed),
+            row(LCHab50.mix(purple, .3, plum, .3), LCHab50(51.51, 52.21, 325.8, 0.6)),
+            row(LCHab50.mix(LCHab50(62.253, 54.011, 63.677), .4, LCHab50(91.374, 31.406, 98.834)),
                 LCHab50(79.7256, 40.448, 84.771)),
-            row(LCHab50.mix(LCHab50(50f, 50f, 60f), LCHab50(50f, 50f, 0f), HueAdjustments.longer),
-                LCHab50(50f, 50f, 210f)),
+            row(LCHab50.mix(LCHab50(50, 50, 60), LCHab50(50, 50, 0), HueAdjustments.longer),
+                LCHab50(50, 50, 210)),
         ) { actual, ex ->
             actual.shouldEqualColor(ex, 0.1)
         }
