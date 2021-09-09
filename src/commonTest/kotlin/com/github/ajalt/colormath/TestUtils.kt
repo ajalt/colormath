@@ -4,6 +4,8 @@ import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.shouldBeNaN
 import io.kotest.matchers.floats.plusOrMinus
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 
 fun <T : Color, U : Color> testColorConversions(
@@ -36,7 +38,13 @@ fun convertToSpaceTest(vararg spaces: ColorSpace<*>, to: ColorSpace<*>) {
     }
 }
 
-fun Color.shouldEqualColor(expected: Color, tolerance: Double = 5e-4, ignorePolar: Boolean = false) {
+fun Color?.shouldEqualColor(expected: Color?, tolerance: Double = 5e-4, ignorePolar: Boolean = false) {
+    if (expected == null) {
+        this.shouldBeNull()
+        return
+    }
+
+    this.shouldNotBeNull()
     try {
         this::class shouldBe expected::class
         space shouldBe expected.space
