@@ -12,10 +12,10 @@ import kotlin.test.Test
 class InterpolateTest {
     @Test
     fun interpolate() = forAll(
-        row(RGB(0, 0, 0), RGB.from255(254, 254, 254), 0f, RGB.from255(0, 0, 0)),
-        row(RGB(0, 0, 0), RGB.from255(254, 254, 254), .5f, RGB.from255(127, 127, 127)),
-        row(RGB(0, 0, 0), RGB.from255(254, 254, 254), 1f, RGB.from255(254, 254, 254)),
-        row(RGB(0, 0, 0), RGB.from255(254, 254, 254).toXYZ(), 1f, RGB.from255(254, 254, 254)),
+        row(RGB(0, 0, 0), RGB.from255(254, 254, 254), 0, RGB.from255(0, 0, 0)),
+        row(RGB(0, 0, 0), RGB.from255(254, 254, 254), .5, RGB.from255(127, 127, 127)),
+        row(RGB(0, 0, 0), RGB.from255(254, 254, 254), 1, RGB.from255(254, 254, 254)),
+        row(RGB(0, 0, 0), RGB.from255(254, 254, 254).toXYZ(), 1, RGB.from255(254, 254, 254)),
     ) { c1, c2, a, ex ->
         c1.interpolate(c2, a).shouldEqualColor(ex)
         c1.space.interpolator(c1, c2).interpolate(a).shouldEqualColor(ex)
