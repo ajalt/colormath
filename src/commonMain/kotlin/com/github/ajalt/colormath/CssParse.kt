@@ -11,21 +11,26 @@ import com.github.ajalt.colormath.internal.radToDeg
 import com.github.ajalt.colormath.internal.turnToDeg
 import kotlin.math.roundToInt
 
-@Deprecated("Function renamed Color.parse", ReplaceWith("this.parse(color)"))
-fun Color.Companion.fromCss(color: String): Color = Color.parse(color)
-
 /**
  * Parse a string representing a color value from CSS Color Module Level 1 through 4
  *
- * The `color()` and `device-cmyk()` functions are not currently supported.
+ * Custom color spaces with dashed identifiers are not currently supported.
  *
  * @throws IllegalArgumentException if the value cannot be parsed
  */
 fun Color.Companion.parse(color: String): Color {
+    return parseOrNull(color) ?: throw IllegalArgumentException("Invalid color: $color")
+}
+
+/**
+ * Parse a string representing a color value from CSS Color Module Level 1 through 4, or return null
+ * if the string isn't in a recognized format.
+ */
+fun Color.Companion.parseOrNull(color: String): Color? {
     val keywordColor = CssColors.colorsByName[color]
     return when {
         keywordColor != null -> keywordColor
-        color.startsWith("#") -> RGB(color)
+        color.startsWith("#") -> runCatching { RGB(color) }.getOrNull()
         else -> {
             PATTERNS.RGB_1.matchEntire(color)?.let { rgb(it) }
                 ?: PATTERNS.RGB_2.matchEntire(color)?.let { rgb(it) }
@@ -37,7 +42,6 @@ fun Color.Companion.parse(color: String): Color {
                 ?: PATTERNS.LCH.matchEntire(color)?.let { lch(it) }
                 ?: PATTERNS.HWB.matchEntire(color)?.let { hwb(it) }
                 ?: PATTERNS.COLOR.matchEntire(color)?.let { color(it) }
-                ?: throw IllegalArgumentException("Invalid color: $color")
         }
     }
 }
@@ -66,7 +70,7 @@ private object PATTERNS {
     val COLOR = Regex("""color\(([\w\-]+)\s+($NUMBER_OR_PERCENT(?:\s+$NUMBER_OR_PERCENT)*)$SLASH_ALPHA\)""")
 }
 
-private fun color(match: MatchResult): Color {
+private fun color(match: MatchResult): Color? {
     val space = when (match.groupValues[1]) {
         "srgb" -> SRGB
         "display-p3" -> DISPLAY_P3
@@ -74,7 +78,7 @@ private fun color(match: MatchResult): Color {
         "prophoto-rgb" -> ROMM_RGB
         "rec2020" -> BT_2020
         "xyz" -> XYZ50
-        else -> throw IllegalArgumentException("Unsupported color space: ${match.groupValues[1]}")
+        else -> return null
     }
 
     val values = match.groupValues[2].split(Regex("\\s+")).map { percentOrNumber(it).clampF() }

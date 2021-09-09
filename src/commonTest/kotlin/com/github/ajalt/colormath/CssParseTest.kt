@@ -5,6 +5,7 @@ import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
 import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
 import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.XYZColorSpaces.XYZ50
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
@@ -53,9 +54,8 @@ class CssParseTest {
         row("hsl(1Deg,2%,3%)"),
         row("color(profoto-rgb 0.4835 0.9167 0.2188)")
     ) {
-        shouldThrow<IllegalArgumentException> {
-            Color.parse(it)
-        }
+        shouldThrow<IllegalArgumentException> { Color.parse(it) }
+        shouldNotThrow<Exception> { Color.parseOrNull(it) shouldBe null }
     }
 
     @Test
@@ -91,6 +91,7 @@ class CssParseTest {
         row("rgb(255 0 153)"),
     ) {
         Color.parse(it).shouldEqualColor(RGB.from255(255, 0, 153))
+        Color.parseOrNull(it).shouldEqualColor(RGB.from255(255, 0, 153))
     }
 
     @Test
