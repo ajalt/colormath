@@ -17,7 +17,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
      * @property b The blue channel, a value typically in the range `[0, 255]`
      * @property alpha The alpha channel, a value in the range `[0f, 1f]`
      */
-    fun from255(r: Int, g: Int, b: Int, alpha: Float = Float.NaN) = invoke(
+    fun from255(r: Int, g: Int, b: Int, alpha: Number = Float.NaN) = invoke(
         r = (r / 255f),
         g = (g / 255f),
         b = (b / 255f),
@@ -41,11 +41,8 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
         alpha = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) / 255f else Float.NaN
     )
 
-    /** Construct an RGB instance  with a grey color from a fraction of white in range `[0, 1]` */
-    fun grey(amount: Float, alpha: Float = Float.NaN): RGB = invoke(amount, amount, amount, alpha)
-
-    /** Construct an RGB instance  with a grey color from a fraction of white in range `[0, 1]` */
-    fun grey(amount: Double, alpha: Double = Double.NaN): RGB = invoke(amount, amount, amount, alpha)
+    /** Construct an RGB instance with a grey color from a fraction of white in range `[0, 1]` */
+    fun grey(amount: Number, alpha: Number = Float.NaN): RGB = invoke(amount, amount, amount, alpha)
 
     /** The [TransferFunctions] for this color space */
     val transferFunctions: TransferFunctions

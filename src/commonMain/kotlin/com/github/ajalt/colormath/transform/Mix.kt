@@ -12,17 +12,17 @@ fun <T : Color> ColorSpace<T>.mix(
 
 fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
-    amount1: Float,
+    amount1: Number,
     color2: Color,
     hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
-): Color = mix(color1, amount1, color2, 1f - amount1, hueAdjustment)
+): Color = mix(color1, amount1, color2, 1f - amount1.toFloat(), hueAdjustment)
 
 fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
     color2: Color,
-    amount2: Float,
+    amount2: Number,
     hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
-): Color = mix(color1, 1f - amount2, color2, amount2, hueAdjustment)
+): Color = mix(color1, 1f - amount2.toFloat(), color2, amount2, hueAdjustment)
 
 /**
  * Mix [amount1] of [color1] and [amount2] of [color2] in this color space.
@@ -39,13 +39,13 @@ fun <T : Color> ColorSpace<T>.mix(
  */
 fun <T : Color> ColorSpace<T>.mix(
     color1: Color,
-    amount1: Float,
+    amount1: Number,
     color2: Color,
-    amount2: Float,
+    amount2: Number,
     hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
 ): Color {
-    val sum = amount1 + amount2
+    val sum = amount1.toFloat() + amount2.toFloat()
     require(sum != 0f) { "mix amounts cannot sum to 0" }
-    val c = convert(color1).interpolate(color2, amount2 / sum, true, hueAdjustment)
+    val c = convert(color1).interpolate(color2, amount2.toFloat() / sum, true, hueAdjustment)
     return if (sum < 1f) c.map { _, comps -> comps.also { it[it.lastIndex] = it.last().nanToOne() * sum } } else c
 }
