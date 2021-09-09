@@ -17,14 +17,14 @@ import com.github.ajalt.colormath.transform.InterpolationMethod.Point
  */
 fun <T : Color> T.interpolate(
     other: Color,
-    t: Float,
+    t: Number,
     premultiplyAlpha: Boolean = true,
     hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
 ): T = map { space, components ->
     val l = mult(space, premultiplyAlpha, components)
     val r = mult(space, premultiplyAlpha, space.convert(other).toArray())
     fixupHues(space, hueAdjustment, listOf(Stop(l, 0f), Stop(r, 1f)))
-    interpolateComponents(l, r, FloatArray(components.size), t, premultiplyAlpha, space)
+    interpolateComponents(l, r, FloatArray(components.size), t.toFloat(), premultiplyAlpha, space)
 }
 
 /**
@@ -57,8 +57,12 @@ fun <T : Color> ColorSpace<T>.interpolator(
  * Build an instance of this class with [interpolator].
  */
 interface Interpolator<T : Color> {
-    fun interpolate(t: Float): T
-    fun interpolate(t: Double): T = interpolate(t.toFloat())
+    /**
+     * Create a new interpolated number
+     *
+     * @param t a number in the range `[0, 1]`, indicating how far along the stops to interpolate
+     */
+    fun interpolate(t: Number): T
 }
 
 
@@ -191,12 +195,13 @@ private class InterpolatorImpl<T : Color>(
 
     private val out = FloatArray(space.components.size)
 
-    override fun interpolate(t: Float): T {
-        val li = easing.indexOfLast { it.position <= t }
-        if (li < 0 || li == easing.lastIndex || easing[li].position == t) {
-            lerpEdgecase(t)
+    override fun interpolate(t: Number): T {
+        val tf = t.toFloat()
+        val li = easing.indexOfLast { it.position <= tf }
+        if (li < 0 || li == easing.lastIndex || easing[li].position == tf) {
+            lerpEdgecase(tf)
         } else {
-            lerpEased(li, t)
+            lerpEased(li, tf)
         }
 
         div(space, premultiplyAlpha, out)
