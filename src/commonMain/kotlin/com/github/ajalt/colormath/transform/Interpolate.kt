@@ -20,10 +20,10 @@ fun <T : Color> T.interpolate(
     t: Number,
     premultiplyAlpha: Boolean = true,
     hueAdjustment: ComponentAdjustment = HueAdjustments.shorter,
-): T = map { space, components ->
-    val l = mult(space, premultiplyAlpha, components)
-    val r = mult(space, premultiplyAlpha, space.convert(other).toArray())
-    fixupHues(space, hueAdjustment, listOf(Stop(l, 0f), Stop(r, 1f)))
+): T = map { components ->
+    val l = mult(this, premultiplyAlpha, components)
+    val r = mult(this, premultiplyAlpha, this.convert(other).toArray())
+    fixupHues(this, hueAdjustment, listOf(Stop(l, 0f), Stop(r, 1f)))
     interpolateComponents(l, r, FloatArray(components.size), t.toFloat(), premultiplyAlpha, space)
 }
 
