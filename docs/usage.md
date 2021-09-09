@@ -2,7 +2,7 @@
 
 ## Creating colors
 
-All colors can be created by specifying each component separately.
+Instances of a color are constructed by invoking their color model.
 
 ```kotlin
 LAB(50, 75, 100)
@@ -23,7 +23,7 @@ LAB(l=0, a=0, b=0, alpha=0.5)
 ```
 
 If you don't specify an alpha value, it will default to `NaN`. This makes it possible to distinguish
-unspecified alpha value, which can be important for operations like interpolation. 
+unspecified alpha values, which can be important for operations like interpolation. 
 
 sRGB colors can also be constructed from hex strings or integers. All of the following are equivalent:
 
@@ -35,6 +35,8 @@ RGB("#369")
 RGB("#336699")
 RGBInt(0x336699u).toSRGB()
 ```
+
+You can find the full list of built-in color spaces [here][colorspaces].
 
 ## Converting colors
 
@@ -62,8 +64,8 @@ val converter = SRGB.converterTo(ACES)
 val acesColors = srgbColors.map { converter.convert(it) } 
 ```
 
-When converting to polar spaces like `HSL`, the hue is undefined for grayscale colors. In this case,
-the hue will be `NaN`.
+When converting to polar spaces like `HSL`, the hue is undefined for grayscale colors. When that's the case,
+the hue value will be `NaN`.
 
 ## Color transforms
 
@@ -135,7 +137,7 @@ val wheat = RGB("#f5deb3")
 val tan = RGB("#d2b48c")
 val sienna = RGB("#a0522d")
 val accent = RGB("#b22222")
-wheat.mostContrasting(tan, sienna, accent)
+wheat.mostContrasting(tan, sienna, accent) // returns accent
 ```
 
 In addition to [mostContrasting], you can use [firstWithContrast] or [firstWithContrastOrNull],
@@ -168,7 +170,7 @@ val interp = Oklab.interpolator {
 // Get a single color
 interp.interpolate(0.25)
 
-// Or a sequence of colors
+// Or a sequence of colors to draw a gradient
 for ((x, color) in interp.sequence(canvas.width).withIndex()) {
     canvas.drawRect(x=x, y=0, w=1, h=canvas.height, color)
 }
@@ -188,7 +190,7 @@ LCHab.interpolator {
 
 ### Easing functions
 
-There the interpolation method changes the path the gradient takes through the color space, an
+Where the interpolation method changes the path the gradient takes through a color space, an
 easing function changes the speed that the path is traversed.
 
 [EasingFunctions] includes all the CSS easing functions, as well as an easing
@@ -222,10 +224,10 @@ alpha will have their alphas set to 1.
 
 #### Hue adjustment
 
-When interpolation in a cylindrical space like LCH<sub>ab</sub>, there are multiple ways to
-interpolate the hue (do you travel clockwise or counterclockwise around the circle?).
-[HueAdjustments] contains all the methods defined in the CSS standard. By default,
-[HueAdjustments.shorter] is used.
+When interpolating in a cylindrical space like LCH<sub>ab</sub>, there are multiple ways to
+interpolate the hue (do you travel clockwise or counterclockwise around the hue circle?). You can
+pick a strategy from [HueAdjustments], which contains all the methods defined in the CSS standard. By
+default, [HueAdjustments.shorter][shorter] is used.
 
 ```kotlin
 LCHab.interpolator {
@@ -240,7 +242,7 @@ LCHab.interpolator {
 
 ## Chromatic adaptation
 
-When converting between color spaces that use different white points, the color are automatically
+When converting between color spaces that use different white points, the color is automatically
 adapted using Von Kries' method with the CIECAM02 CAT matrix. If you'd like to perform chromatic
 adaptation using a different matrix (such as Bradford's), you can convert the color to XYZ and use
 [adaptTo].
@@ -335,3 +337,4 @@ RGB(.2, .4, .6).toHex() // "#336699"
 [XYZ50]:                    api/colormath/com.github.ajalt.colormath/-x-y-z-color-spaces/-x-y-z50.html
 [LCHab50]:                  api/colormath/com.github.ajalt.colormath/-l-c-hab-color-spaces/-l-c-hab50.html
 [LAB50]:                    api/colormath/com.github.ajalt.colormath/-l-a-b-color-spaces/-l-a-b50.html
+[colorspaces]:              colorspaces.md

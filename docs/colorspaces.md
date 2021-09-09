@@ -7,24 +7,35 @@ Colormath has a number of built-in color spaces and models.
     defines colors with the additive combination of red, green, and blue light.
 
     A *color space* is a color model plus the details necessary to represent a color in that model. sRGB
-    and DCI P3 both color spaces the use the RGB model, but they define different values for the exact
+    and DCI P3 are both color spaces the use the RGB model, but they define different values for the exact
     colors of their RGB primaries.
 
 ## Built-in color models
 
-### ANSI color codes
+## RGB
+- [RGB][RGB]
 
-- [ANSI16][ANSI16]
-- [ANSI256][ANSI256]
+The RGB color model defines colors with the additive combination of reg, green, and blue lights. RGB
+components are stored as floating point numbers in the range `[0, 1]`. You can also represent sRGB
+colors as packed integers with [RGBInt][RGBInt], or create them from integers in the range `[0, 255]`
+with [RGB.from255()][from255].
 
-Based on the VGA color palette, there are models for [4-bit, 16 color codes][ANSI16]
-and [8-bit, 256 color codes][ANSI256]
+## RGB color spaces
 
-### CMYK
+Colormath includes a number of built-in RGB color spaces. The default RGB space is sRGB.
 
-- [CMYK][CMYK]
-
-Colormath's CMYK model uses device-independent conversions. Device CMYK profiles are not currently supported.
+- [sRGB][SRGB]
+- [Linear sRGB][LINEAR_SRGB]
+- [ACES][ACES]
+- [ACEScc][ACEScc]
+- [ACEScct][ACEScct]
+- [ACEScg][ACEScg]
+- [Adobe RGB][ADOBE_RGB]
+- [BT.2020 / REC.2020][BT_2020]
+- [BT.709 / REC.709][BT_709]
+- [DCI P3][DCI_P3]
+- [Display P3][DISPLAY_P3]
+- [ROMM RGB / ProPhoto RGB][ROMM_RGB]
 
 ### HSL
 
@@ -111,30 +122,20 @@ The XYZ color model is common used as a profile connection space when converting
 The XYZ model has multiple color spaces that are defined in terms of a white point. The default white point
 is D65.
 
-# RGB
-- [RGB][RGB]
 
-The RGB color model defines colors with the additive combination of reg, green, and blue lights. RGB
-components are stored as floating point numbers in the range `[0, 1]`. You can also represent sRGB
-colors as packed integers with [RGBInt][RGBInt], or create them from integers in the range `[0, 255]` 
-with [RGB.from255()][from255].
+### ANSI color codes
 
-## RGB color spaces
+- [ANSI16][ANSI16]
+- [ANSI256][ANSI256]
 
-Colormath includes a number of built-in RGB color spaces. The default RGB space is sRGB.
+Based on the VGA color palette, there are models for [4-bit, 16 color codes][ANSI16]
+and [8-bit, 256 color codes][ANSI256]
 
-- [sRGB][SRGB]
-- [Linear sRGB][LINEAR_SRGB]
-- [ACES][ACES]
-- [ACEScc][ACEScc]
-- [ACEScct][ACEScct]
-- [ACEScg][ACEScg]
-- [Adobe RGB][ADOBE_RGB]
-- [BT.2020 / REC.2020][BT_2020]
-- [BT.709 / REC.709][BT_709]
-- [DCI P3][DCI_P3]
-- [Display P3][DISPLAY_P3]
-- [ROMM RGB / ProPhoto RGB][ROMM_RGB]
+### CMYK
+
+- [CMYK][CMYK]
+
+Colormath's CMYK model uses device-independent conversions. Device CMYK profiles are not currently supported.
 
 
 [ACES]:                 api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-a-c-e-s.html
