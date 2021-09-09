@@ -9,8 +9,8 @@ import com.github.ajalt.colormath.ColorSpace
  *
  * [Polar components][ColorComponentInfo.isPolar] and the alpha value itself are not changed.
  */
-fun <T : Color> T.multiplyAlpha() = map { space, components ->
-    components.also { multiplyAlphaInPlace(space, it) }
+fun <T : Color> T.multiplyAlpha() = map { components ->
+    components.also { multiplyAlphaInPlace(this, it) }
 }
 
 internal fun multiplyAlphaInPlace(space: ColorSpace<*>, components: FloatArray) {
@@ -30,8 +30,8 @@ internal fun multiplyAlphaInPlace(space: ColorSpace<*>, components: FloatArray) 
  * [Polar components][ColorComponentInfo.isPolar] and the alpha value itself are not changed.
  * If `alpha == 0`, all components are left unchanged.
  */
-fun <T : Color> T.divideAlpha(): T = map { space, components ->
-    components.also { divideAlphaInPlace(space, it) }
+fun <T : Color> T.divideAlpha(): T = map { components ->
+    components.also { divideAlphaInPlace(this, it) }
 }
 
 internal fun divideAlphaInPlace(space: ColorSpace<*>, components: FloatArray) {

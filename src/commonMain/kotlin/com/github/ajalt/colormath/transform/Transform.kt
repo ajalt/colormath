@@ -14,7 +14,7 @@ import com.github.ajalt.colormath.ColorSpace
  * The new color components. You may alter and return `components` directly, or a new array the same size as
  * `components`.
  */
-typealias ColorMapper<T> = (space: ColorSpace<T>, components: FloatArray) -> FloatArray
+typealias ColorMapper<T> = ColorSpace<T>.(components: FloatArray) -> FloatArray
 
 /**
  * Return an new color in the same color space that is the result of applying [transform] to the components of this
