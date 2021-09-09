@@ -1,78 +1,52 @@
 # Colormath
 
-Colormath is a Kotlin Multiplatform library that allows you to convert between a number of color
-models. Colormath can also parse and render CSS colors.
+Colormath is a Kotlin Multiplatform library for color manipulation and conversion.
 
-[Try it online](https://ajalt.github.io/colormath/tryit/)
+Colormath can:
 
-## Supported color models
-
-* [RGB](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-r-g-b/index.html)
-* [CMYK](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-c-m-y-k/index.html)
-* [HSL](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-h-s-l/index.html)
-* [HSV](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-h-s-v/index.html)
-* [HWB](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-h-w-b/index.html)
-* [LAB](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-l-a-b/index.html)
-* [LCH](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-l-c-h/index.html)
-* [LUV](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-l-u-v/index.html)
-* [XYZ](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-x-y-z/index.html)
-* [ANSI-16 color codes](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-ansi16/index.html)
-* [ANSI-256 color codes](https://ajalt.github.io/colormath/api/colormath/com.github.ajalt.colormath/-ansi256/index.html)
-
-## Usage
-
-### Conversion
-
-Each color model is represented with a data class, and contains `.toXXX()` methods to convert to
-other models.
-
-All `Color` classes contain an `alpha` channel, which defaults to `1` (fully opaque) for color models
-that don't support transparency (such as ANSI color codes).
+- Convert between various color models and spaces
+- Manipulate colors with transformation such as mixing and chromatic adaptation
+- Calculate accessability contrast, color difference
+- Generate gradients with custom interpolation methods and easing functions
+- Parse and render colors as strings, including all representations from the CSS spec
 
 ```kotlin
-> RGB("#adcdef").toHSV()
-HSV(h=211, s=28, v=94)
+// Create an sRGB color
+val color = RGB("#ff23cc")
 
-> RGB(r=12, g=128, b=255, a=.5f).toCMYK()
-CMYK(c=95, m=50, y=0, k=0, a=.5f)
+// Interpolate with another color
+val mixed = color.interpolate(RGB(0.1, 0.4, 1), 0.5f)
+// RGB("#8c45e6")
 
-> HSL(180, 50, 50).toHex()
-"#40bfbf"
+// Convert to a different color space
+val lab = mixed.toLAB()
+// LAB(46.3, 60.9, -70)
+
+// Change the transparency
+val labA = lab.copy(alpha = 0.25f)
+// LAB(46.3, 60.9, -70, 0.25)
+
+// Adapt white point
+val lab50 = labA.convertTo(LAB50)
+// LAB50(45, 55.1812, 72.5911, 0.25)
+
+// Render as a css color string
+println(lab50.formatCssString())
+// "lab(45% 55.1812 -72.5911 / 0.25)"
+
+// Render as a hex value
+println(lab50.toSRGB().toHex(renderAlpha = NEVER))
+// "#8c44e6"
 ```
 
-### CSS Parsing and rendering
+## Documentation
 
-You can parse most colors allowed by the CSS Color Module Levels 1 through 4.
+The full documentation can be found on [the website](https://ajalt.github.io/colormath).
 
-```kotlin
-> Color.parse("#ff009980")
-RGB(r=255, g=0, b=153, a=.5)
+There are also some online examples:
 
-> Color.parse("rgb(100%, 0%, 60%)")
-RGB(r=255, g=0, b=153, a=1)
-
-> Color.parse("rgb(1e2, .5e1, .5e0, +.25e2%)")
-RGB(r=100, g=5, b=1, a=.25)
-
-> Color.parse("hsl(.75turn, 60%, 70%)")
-HSL(h=270, s=60, l=70, a=1)
-
-> Color.parse("rebeccapurple").toRGB().toHex()
-"#663399"
-```
-
-You can also render any color in CSS `rgb` or `hsl` functional or whitespace notation
-
-```kotlin
-> RGB(255, 0, 128).toCssRgb()
-"rgb(255, 0, 128)"
-
-> RGB(255, 0, 128, .5f).toCssRgb(rgbStyle=PERCENT)
-"rgb(100%, 0%, 50%, .5)"
-
-> XYZ(25.0, 50.0, 75.0, .5f).toCssHsl(commas = false, hueUnit = RADIANS)
-"hsl(3.1241rad 100% 44% / .5)"
-``` 
+- [Color space converter](https://ajalt.github.io/colormath/converter/)
+- [Gradient generator](https://ajalt.github.io/colormath/gradient/)
 
 ## Installation
 

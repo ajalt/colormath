@@ -4,7 +4,7 @@ import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.withValidComps
 
 /**
- * An ANSI-16 color code
+ * A 4-bit, 16 color ANSI code
  *
  * Conversions to [Ansi16] will always use foreground color codes. Conversions from [Ansi16] to [RGB] use the Windows XP
  * Console palette.

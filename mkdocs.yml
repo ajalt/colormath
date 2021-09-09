@@ -35,9 +35,12 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed
   - tables
+  - admonition
 
 nav:
   - 'Getting Started': index.md
+  - 'Usage': usage.md
+  - 'Color Spaces': colorspaces.md
   - 'Try It Online':
     - 'Color converter': converter.md
     - 'Gradient generator': gradient.md

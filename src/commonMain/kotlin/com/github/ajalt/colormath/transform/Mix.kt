@@ -31,7 +31,7 @@ fun <T : Color> ColorSpace<T>.mix(
  * one, they will be normalized and the final alpha value will be multiplied by their sum.
  *
  * This implements the `color-mix` functionality specified in
- * [CSS Color Module 5][https://www.w3.org/TR/css-color-5/#color-mix]
+ * [CSS Color Module 5](https://www.w3.org/TR/css-color-5/#color-mix)
  *
  * @param amount1 The amount of [color1] to mix. A fraction in `[0, 1]`. If omitted, defaults to `1 - amount2`
  * @param amount2 The amount of [color2] to mix. A fraction in `[0, 1]`. If omitted, defaults to `1 - amount1`

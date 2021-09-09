@@ -5,7 +5,7 @@ import com.github.ajalt.colormath.internal.withValidComps
 import kotlin.math.floor
 
 /**
- * An ANSI-256 color code
+ * An 8-bit, 256 color ANSI code
  *
  * Unlike [Ansi16], these codes don't have separate values for foreground and background.
  *
