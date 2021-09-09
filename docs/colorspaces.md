@@ -15,12 +15,18 @@ Colormath has a number of built-in color spaces and models.
 ## RGB
 - [RGB][RGB]
 
+| Component  | Description | Range    |
+| ---------- | ----------- | -------- |
+| r          | red         | `[0, 1]` |
+| g          | green       | `[0, 1]` |
+| b          | blue        | `[0, 1]` |
+
 The RGB color model defines colors with the additive combination of reg, green, and blue lights. RGB
 components are stored as floating point numbers in the range `[0, 1]`. You can also represent sRGB
 colors as packed integers with [RGBInt][RGBInt], or create them from integers in the range `[0, 255]`
 with [RGB.from255()][from255].
 
-## RGB color spaces
+### RGB color spaces
 
 Colormath includes a number of built-in RGB color spaces. The default RGB space is sRGB.
 
@@ -41,11 +47,23 @@ Colormath includes a number of built-in RGB color spaces. The default RGB space 
 
 - [HSL][HSL]
 
+| Component  | Description                               | Range      |
+| ---------- | ----------------------------------------- | ---------- |
+| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| s          | saturation                                | `[0, 1]`   |
+| l          | lightness                                 | `[0, 1]`   |
+
 A cylindrical representation of sRGB using Hue, Saturation, and Lightness.
 
 ### HSV
 
 - [HSV][HSV]
+
+| Component  | Description                               | Range      |
+| ---------- | ----------------------------------------- | ---------- |
+| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| s          | saturation                                | `[0, 1]`   |
+| v          | value                                     | `[0, 1]`   |
 
 A cylindrical representation of sRGB using Hue, Saturation, and Value / brightness.
 
@@ -53,12 +71,31 @@ A cylindrical representation of sRGB using Hue, Saturation, and Value / brightne
 
 - [HWB][HWB]
 
+| Component  | Description  | Range      |
+| ---------- | ------------ | ---------- |
+| h          | hue, degrees | `[0, 360)` |
+| w          | whiteness    | `[0, 1]`   |
+| b          | blackness    | `[0, 1]`   |
+
 A cylindrical representation of sRGB using Hue, Whiteness, and Blackness.
 
 ### HSLuv and HPLuv
 
 - [HSLuv][HSLuv]
+
+| Component  | Description                               | Range      |
+| ---------- | ----------------------------------------- | ---------- |
+| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| s          | saturation                                | `[0, 100]` |
+| l          | lightness                                 | `[0, 100]` |
+
 - [HPLuv][HPLuv]
+
+| Component  | Description                               | Range      |
+| ---------- | ----------------------------------------- | ---------- |
+| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| p          | percentage saturation                     | `[0, 100]` |
+| l          | lightness                                 | `[0, 100]` |
 
 HSLuv and HPLuv are color spaces designed as a human friendly alternative to HSL.
 
@@ -66,20 +103,53 @@ HSLuv and HPLuv are color spaces designed as a human friendly alternative to HSL
 
 - [ICtCp][ICtCp]
 
+| Component  | Description          | Range         |
+| ---------- | -------------------- | ------------- |
+| I          | intensity            | `[0, 1]`      |
+| C<sub>t</sub> | Tritan (blue-yellow) | `[-0.5, 0.5]` |
+| C<sub>p</sub> | Protan (red-green)   | `[-0.5, 0.5]` |
+  
 IC<sub>t</sub>C<sub>p</sub> is a color space designed for high dynamic range and wide color gamut imagery.
 
 ## J<sub>z</sub>A<sub>z</sub>B<sub>z</sub> and J<sub>z</sub>C<sub>z</sub>H<sub>z</sub>
 
 - [JzAzBz][JzAzBz]
+
+| Component | Description | Range     |
+| --------- | ----------- | --------- |
+| J<sub>z</sub> | lightness   | `[0, 1]`  |
+| A<sub>z</sub> | green-red   | `[-1, 1]` |
+| B<sub>z</sub> | blue-yellow | `[-1, 1]` |
+
 - [JzCzHz][JzCzHz]
 
-J<sub>z</sub>A<sub>z</sub>B<sub>z</sub> is a perceptually uniform space where euclidean distance predicts perceptual
-difference. J<sub>z</sub>C<sub>z</sub>H<sub>z</sub> is its cylindrical representation.
+| Component  | Description                               | Range      |
+| ---------- | ----------------------------------------- | ---------- |
+| J<sub>z</sub> | lightness                                 | `[0, 1]`   |
+| C<sub>z</sub> | chroma                                    | `[-1, 1]`  |
+| H<sub>z</sub> | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+
+J<sub>z</sub>A<sub>z</sub>B<sub>z</sub> is a perceptually uniform space where euclidean distance
+predicts perceptual difference. J<sub>z</sub>C<sub>z</sub>H<sub>z</sub> is its cylindrical
+representation.
 
 ## CIE L\*a\*b\* and LCH<sub>ab</sub>
 
 - [LAB][LAB]
+
+| Component  | Description | Range         |
+| ---------- | ----------- | ------------- |
+| L          | lightness   | `[0, 100]`    |
+| a*         | green-red   | `[-100, 100]` |
+| b*         | blue-yellow | `[-100, 100]` |
+
 - [LCHab][LCHab]
+
+| Component  | Description                               | Range      |
+| ---------- | ----------------------------------------- | ---------- |
+| L          | lightness                                 | `[0, 100]` |
+| c          | chroma                                    | `[0, 100]` |
+| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
 
 LAB is a color model intended to be perceptually uniform. Its cylindrical representation is LCH<sub>ab</sub>.
 
@@ -88,13 +158,26 @@ LAB is a color model intended to be perceptually uniform. Its cylindrical repres
 - [LABColorSpaces][LABColorSpaces]
 - [LCHabColorSpaces][LCHabColorSpaces]
 
-LAB and LCHab models each have multiple color spaces that are defined in terms of a white point. The default white point
-is D65.
+LAB and LCHab models each have multiple color spaces that are defined relative to a white point. The
+default white point is D65.
 
 ## CIE L\*u\*v\* and LCH<sub>uv</sub>
 
 - [LUV][LUV]
+
+| Component  | Description  | Range         |
+| ---------- | ------------ | ------------- |
+| L          | lightness    | `[0, 100]`    |
+| u          |              | `[-100, 100]` |
+| v          |              | `[-100, 100]` |
+
 - [LCHuv][LCHuv]
+
+| Component  | Description                               | Range      |
+| ---------- | ----------------------------------------- | ---------- |
+| L          | lightness                                 | `[0, 100]` |
+| c          | chroma                                    | `[0, 100]` |
+| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
 
 LUV is a color model intended to be perceptually uniform. Its cylindrical representation is LCH<sub>uv</sub>.
 
@@ -103,24 +186,48 @@ LUV is a color model intended to be perceptually uniform. Its cylindrical repres
 - [LUVColorSpaces][LUVColorSpaces]
 - [LCHuvColorSpaces][LCHuvColorSpaces]
 
-LUV and LCHuv models each have multiple color spaces that are defined in terms of a white point. The default white point
-is D65.
+LUV and LCHuv models each have multiple color spaces that are defined relative to a white point. The
+default white point is D65.
 
 ## Oklab and Oklch
+
 - [Oklab][Oklab]
+
+| Component  | Description | Range     |
+| ---------- | ----------- | --------- |
+| L          | lightness   | `[0, 1]`  |
+| a          | green-red   | `[-1, 1]` |
+| b          | blue-yellow | `[-1, 1]` |
+
+
 - [Oklch][Oklch]
+
+| Component  | Description                               | Range      |
+| ---------- | ----------------------------------------- | ---------- |
+| L          | lightness                                 | `[0, 1]`   |
+| c          | chroma                                    | `[0, 1]`   |
+| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
 
 Oklab is a perceptual color space for image processing. Its cylindrical representation is Oklch.
 
 ## CIE XYZ
+
 - [XYZ][XYZ]
+
+| Component  | Range    |
+| ---------- | -------- |
+| X          | `[0, 1]` |
+| Y          | `[0, 1]` |
+| Z          | `[0, 1]` |
 
 The XYZ color model is common used as a profile connection space when converting between other models.
 
 ### XYZ color spaces
 
-The XYZ model has multiple color spaces that are defined in terms of a white point. The default white point
-is D65.
+- [XYZColorSpaces]
+
+The XYZ model has multiple color spaces that are defined relative to a white point. The default
+white point is D65.
 
 
 ### ANSI color codes
@@ -135,7 +242,15 @@ and [8-bit, 256 color codes][ANSI256]
 
 - [CMYK][CMYK]
 
-Colormath's CMYK model uses device-independent conversions. Device CMYK profiles are not currently supported.
+| Component  | Description | Range    |
+| ---------- | ----------- | -------- |
+| c          | cyan        | `[0, 1]` |
+| m          | magenta     | `[0, 1]` |
+| y          | yellow      | `[0, 1]` |
+| k          | key / black | `[0, 1]` |
+
+Colormath's CMYK model uses device-independent conversions. Device CMYK profiles are not currently
+supported.
 
 
 [ACES]:                 api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-a-c-e-s.html

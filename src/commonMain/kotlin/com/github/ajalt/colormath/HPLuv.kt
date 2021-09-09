@@ -9,7 +9,7 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * | Component  | Description                               | Range      |
  * | ---------- | ----------------------------------------- | ---------- |
  * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
- * | [p]        | pastel saturation                         | `[0, 100]` |
+ * | [p]        | percentage saturation                     | `[0, 100]` |
  * | [l]        | lightness                                 | `[0, 100]` |
  *
  * ### References
