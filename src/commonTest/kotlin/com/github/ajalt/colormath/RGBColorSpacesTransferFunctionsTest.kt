@@ -4,11 +4,11 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScc
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScct
-import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
-import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
-import com.github.ajalt.colormath.RGBColorSpaces.BT_709
+import com.github.ajalt.colormath.RGBColorSpaces.AdobeRGB
+import com.github.ajalt.colormath.RGBColorSpaces.BT2020
+import com.github.ajalt.colormath.RGBColorSpaces.BT709
 import com.github.ajalt.colormath.RGBColorSpaces.DCI_P3
-import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
+import com.github.ajalt.colormath.RGBColorSpaces.DisplayP3
 import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
@@ -22,27 +22,27 @@ class RGBColorSpacesTransferFunctionsTest {
     fun SRGB() = doTest(SRGB, 0.01292, 0.46135612950044164)
 
     @Test
-    fun ADOBE_RGB() = doTest(ADOBE_RGB, 0.043239356144868332, 0.45852946567989455)
+    fun ADOBE_RGB() = doTest(AdobeRGB, 0.043239356144868332, 0.45852946567989455)
 
     @Test
-    fun BT_2020() = doTest(BT_2020, 0.0045, 0.40884640249350368)
+    fun BT_2020() = doTest(BT2020, 0.0045, 0.40884640249350368)
 
     @Test
-    fun BT_709() = doTest(BT_709, 0.0045, 0.409007728864150)
+    fun BT_709() = doTest(BT709, 0.0045, 0.409007728864150)
 
     @Test
     fun BT_709_extra() = forAll(
         row(0.015, 0.0675, "oetf"),
         row(0.0675, 0.015, "eotf"),
     ) { input, ex, func ->
-        doSingleTest(BT_709, input, ex, func)
+        doSingleTest(BT709, input, ex, func)
     }
 
     @Test
     fun DCI_P3() = doTest(DCI_P3, 0.070170382867038292, 0.5170902489415321)
 
     @Test
-    fun DISPLAY_P3() = doTest(DISPLAY_P3, 0.01292, 0.46135612950044164)
+    fun DISPLAY_P3() = doTest(DisplayP3, 0.01292, 0.46135612950044164)
 
     @Test
     fun ROMM_RGB() = doTest(ROMM_RGB, 0.016, 0.385711424751138)

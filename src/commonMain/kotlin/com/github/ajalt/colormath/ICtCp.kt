@@ -1,6 +1,6 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
+import com.github.ajalt.colormath.RGBColorSpaces.BT2020
 import com.github.ajalt.colormath.XYZColorSpaces.XYZ65
 import com.github.ajalt.colormath.internal.*
 
@@ -31,13 +31,13 @@ data class ICtCp(val i: Float, val ct: Float, val cp: Float, override val alpha:
 
     override val space: ColorSpace<ICtCp> get() = ICtCp
 
-    /** Convert this color to [BT.2020 RGB][RGBColorSpaces.BT_2020] */
+    /** Convert this color to [BT.2020 RGB][RGBColorSpaces.BT2020] */
     fun toBT2020(): RGB {
-        val fo = BT_2020.transferFunctions
+        val fo = BT2020.transferFunctions
         val fe = PqNonlinearity
         return ICTCP_ICTCP_to_LMS.dot(i, ct, cp) { l, m, s ->
             ICTCP_LMS_to_RGB.dot(fe.eotf(l), fe.eotf(m), fe.eotf(s)) { r, g, b ->
-                BT_2020(fo.oetf(r), fo.oetf(g), fo.oetf(b), alpha)
+                BT2020(fo.oetf(r), fo.oetf(g), fo.oetf(b), alpha)
             }
         }
     }
@@ -57,7 +57,7 @@ data class ICtCp(val i: Float, val ct: Float, val cp: Float, override val alpha:
 }
 
 internal fun convertBT2020ToICtCp(rgb: RGB): ICtCp {
-    val fe = BT_2020.transferFunctions
+    val fe = BT2020.transferFunctions
     val fo = PqNonlinearity
     return ICTCP_RGB_TO_LMS.dot(fe.eotf(rgb.r), fe.eotf(rgb.g), fe.eotf(rgb.b)) { l, m, s ->
         ICTCP_LMS_TO_ICTCP.dot(fo.oetf(l), fo.oetf(m), fo.oetf(s)) { i, ct, cp ->

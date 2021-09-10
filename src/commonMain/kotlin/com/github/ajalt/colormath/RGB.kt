@@ -1,6 +1,6 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
+import com.github.ajalt.colormath.RGBColorSpaces.BT2020
 import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.internal.*
 import kotlin.math.roundToInt
@@ -133,7 +133,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
  *
  * ```kotlin
  * import com.github.ajalt.colormath.RGBColorSpaces.LINEAR_SRGB
- * LINEAR_SRGB(0.1, 0.2, 0.3)
+ * LinearSRGB(0.1, 0.2, 0.3)
  * ```
  *
  * | Component  | Description | Range    |
@@ -194,8 +194,8 @@ data class RGB internal constructor(
         val f = SRGB.transferFunctions
         return when {
             this.space == space -> this
-            this.space == SRGB && space == RGBColorSpaces.LINEAR_SRGB -> space(f.eotf(r), f.eotf(g), f.eotf(b), alpha)
-            this.space == RGBColorSpaces.LINEAR_SRGB && space == SRGB -> space(f.oetf(r), f.oetf(g), f.oetf(b), alpha)
+            this.space == SRGB && space == RGBColorSpaces.LinearSRGB -> space(f.eotf(r), f.eotf(g), f.eotf(b), alpha)
+            this.space == RGBColorSpaces.LinearSRGB && space == SRGB -> space(f.oetf(r), f.oetf(g), f.oetf(b), alpha)
             else -> toXYZ().toRGB(space)
         }
     }
@@ -285,7 +285,7 @@ data class RGB internal constructor(
     }
 
     override fun toICtCp(): ICtCp {
-        if (space == BT_2020) return convertBT2020ToICtCp(this)
+        if (space == BT2020) return convertBT2020ToICtCp(this)
         return toXYZ().toICtCp()
     }
 

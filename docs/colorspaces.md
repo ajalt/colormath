@@ -13,6 +13,7 @@ Colormath has a number of built-in color spaces and models.
 ## Built-in color models
 
 ## RGB
+
 - [RGB][RGB]
 
 | Component  | Description | Range    |
@@ -28,7 +29,8 @@ with [RGB.from255()][from255].
 
 ### RGB color spaces
 
-Colormath includes a number of built-in RGB color spaces. The default RGB space is sRGB.
+Colormath includes a number of built-in RGB color spaces, and you can define your own with
+[RGBColorSpace]. The default RGB space is sRGB.
 
 - [sRGB][SRGB]
 - [Linear sRGB][LINEAR_SRGB]
@@ -257,15 +259,14 @@ supported.
 [ACEScc]:               api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-a-c-e-scc.html
 [ACEScct]:              api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-a-c-e-scct.html
 [ACEScg]:               api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-a-c-e-scg.html
-[ADOBE_RGB]:            api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-a-d-o-b-e_-r-g-b.html
+[ADOBE_RGB]:            api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-adobe-r-g-b.html
 [ANSI16]:               api/colormath/com.github.ajalt.colormath/-ansi16/index.html
 [ANSI256]:              api/colormath/com.github.ajalt.colormath/-ansi256/index.html
-[BT_2020]:              api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-b-t_2020.html
-[BT_709]:               api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-b-t_709.html
+[BT_2020]:              api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-b-t2020.html
+[BT_709]:               api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-b-t709.html
 [CMYK]:                 api/colormath/com.github.ajalt.colormath/-c-m-y-k/index.html
 [DCI_P3]:               api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-d-c-i_-p3.html
-[DISPLAY_P3]:           api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-d-i-s-p-l-a-y_-p3.html
-[from255]:              api/colormath/com.github.ajalt.colormath/-r-g-b-color-space/from255.html
+[DISPLAY_P3]:           api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-display-p3.html
 [HPLuv]:                api/colormath/com.github.ajalt.colormath/-h-p-luv/index.html
 [HSL]:                  api/colormath/com.github.ajalt.colormath/-h-s-l/index.html
 [HSLuv]:                api/colormath/com.github.ajalt.colormath/-h-s-luv/index.html
@@ -280,15 +281,17 @@ supported.
 [LCHab]:                api/colormath/com.github.ajalt.colormath/-l-c-hab/index.html
 [LCHuvColorSpaces]:     api/colormath/com.github.ajalt.colormath/-l-c-huv-color-spaces/index.html
 [LCHuv]:                api/colormath/com.github.ajalt.colormath/-l-c-huv/index.html
-[LINEAR_SRGB]:          api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-l-i-n-e-a-r_-s-r-g-b.html
+[LINEAR_SRGB]:          api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-linear-s-r-g-b.html
 [LUVColorSpaces]:       api/colormath/com.github.ajalt.colormath/-l-u-v-color-spaces/index.html
 [LUV]:                  api/colormath/com.github.ajalt.colormath/-l-u-v/index.html
 [Oklab]:                api/colormath/com.github.ajalt.colormath/-oklab/index.html
 [Oklch]:                api/colormath/com.github.ajalt.colormath/-oklch/index.html
+[RGBColorSpace]:        api/colormath/com.github.ajalt.colormath/-r-g-b-color-space.html
 [RGBInt]:               api/colormath/com.github.ajalt.colormath/-r-g-b-int/index.html
 [RGB]:                  api/colormath/com.github.ajalt.colormath/-r-g-b/index.html
 [ROMM_RGB]:             api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-r-o-m-m_-r-g-b.html
 [SRGB]:                 api/colormath/com.github.ajalt.colormath/-r-g-b-color-spaces/-s-r-g-b.html
 [XYZColorSpaces]:       api/colormath/com.github.ajalt.colormath/-x-y-z-color-spaces/index.html
 [XYZ]:                  api/colormath/com.github.ajalt.colormath/-x-y-z/index.html
+[from255]:              api/colormath/com.github.ajalt.colormath/-r-g-b-color-space/from255.html
 [xyY]:                  api/colormath/com.github.ajalt.colormath/xy-y/index.html

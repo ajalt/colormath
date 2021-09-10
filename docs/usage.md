@@ -50,7 +50,7 @@ XYZ(.1, .2, .3).toOklab()
 You can also convert to a specific color space with [convertTo]:
 
 ```kotlin
-RGB("#111").convertTo(LINEAR_SRGB)
+RGB("#111").convertTo(LinearSRGB)
 RGB("#222").convertTo(LAB)
 RGB("#333").convertTo(LAB50)
 ```
@@ -303,38 +303,38 @@ RGB(.2, .4, .6).toHex() // "#336699"
     adaptation before rendering. To avoid this, use the D50 versions of the constructors: [LAB50],
     [LCHab50], and [XYZ50]
 
-[Color]:                    api/colormath/com.github.ajalt.colormath/-color/index.html
-[convertTo]:                api/colormath/com.github.ajalt.colormath/convert-to.html
-[RGBToRGBConverter]:        api/colormath/com.github.ajalt.colormath/-r-g-b-to-r-g-b-converter/index.html
 [Color.map]:                api/colormath/com.github.ajalt.colormath.transform/map.html
-[color-mix]:                https://www.w3.org/TR/css-color-5/#color-mix
-[multiplyAlpha]:            api/colormath/com.github.ajalt.colormath.transform/multiply-alpha.html
-[divideAlpha]:              api/colormath/com.github.ajalt.colormath.transform/divide-alpha.html
-[isInSRGBGamut]:            api/colormath/com.github.ajalt.colormath.calculate/is-in-s-r-g-b-gamut.html
-[wcagcontrast]:             https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio
-[mostContrasting]:          api/colormath/com.github.ajalt.colormath.calculate/most-contrasting.html
-[firstWithContrast]:        api/colormath/com.github.ajalt.colormath.calculate/first-with-contrast.html
-[firstWithContrastOrNull]:  api/colormath/com.github.ajalt.colormath.calculate/first-with-contrast-or-null.html
-[euclideanDistance]:        api/colormath/com.github.ajalt.colormath.calculate/euclidean-distance.html
-[differenceEz]:             api/colormath/com.github.ajalt.colormath.calculate/difference-ez.html
-[differenceCMC]:            api/colormath/com.github.ajalt.colormath.calculate/difference-c-m-c.html
-[differenceCIE94]:          api/colormath/com.github.ajalt.colormath.calculate/difference-c-i-e94.html
-[differenceCIE76]:          api/colormath/com.github.ajalt.colormath.calculate/difference-c-i-e76.html
-[differenceCIE2000]:        api/colormath/com.github.ajalt.colormath.calculate/difference-c-i-e2000.html
-[interpolator]:             api/colormath/com.github.ajalt.colormath.transform/interpolator.html
-[EasingFunctions]:          api/colormath/com.github.ajalt.colormath.transform/-easing-functions/index.html
-[HueAdjustments]:           api/colormath/com.github.ajalt.colormath.transform/-hue-adjustments/index.html
-[shorter]:                  api/colormath/com.github.ajalt.colormath.transform/-hue-adjustments/shorter.html
-[adaptTo]:                  api/colormath/com.github.ajalt.colormath/-x-y-z/adapt-to.html
-[createChromaticAdapter]:   api/colormath/com.github.ajalt.colormath.transform/create-chromatic-adapter.html
-[parse]:                    api/colormath/com.github.ajalt.colormath/parse.html
-[parseOrNull]:              api/colormath/com.github.ajalt.colormath/parse-or-null.html
-[formatCssString]:          api/colormath/com.github.ajalt.colormath/format-css-string.html
-[formatCssStringOrNull]:    api/colormath/com.github.ajalt.colormath/format-css-string-or-null.html
-[toHex]:                    api/colormath/com.github.ajalt.colormath/-r-g-b/to-hex.html
+[Color]:                    api/colormath/com.github.ajalt.colormath/-color/index.html
 [D50]:                      api/colormath/com.github.ajalt.colormath/-illuminant/-d50.html
 [D65]:                      api/colormath/com.github.ajalt.colormath/-illuminant/-d65.html
-[XYZ50]:                    api/colormath/com.github.ajalt.colormath/-x-y-z-color-spaces/-x-y-z50.html
-[LCHab50]:                  api/colormath/com.github.ajalt.colormath/-l-c-hab-color-spaces/-l-c-hab50.html
+[EasingFunctions]:          api/colormath/com.github.ajalt.colormath.transform/-easing-functions/index.html
+[HueAdjustments]:           api/colormath/com.github.ajalt.colormath.transform/-hue-adjustments/index.html
 [LAB50]:                    api/colormath/com.github.ajalt.colormath/-l-a-b-color-spaces/-l-a-b50.html
+[LCHab50]:                  api/colormath/com.github.ajalt.colormath/-l-c-hab-color-spaces/-l-c-hab50.html
+[RGBToRGBConverter]:        api/colormath/com.github.ajalt.colormath/-r-g-b-to-r-g-b-converter/index.html
+[XYZ50]:                    api/colormath/com.github.ajalt.colormath/-x-y-z-color-spaces/-x-y-z50.html
+[adaptTo]:                  api/colormath/com.github.ajalt.colormath/-x-y-z/adapt-to.html
+[color-mix]:                https://www.w3.org/TR/css-color-5/#color-mix
 [colorspaces]:              colorspaces.md
+[convertTo]:                api/colormath/com.github.ajalt.colormath/convert-to.html
+[createChromaticAdapter]:   api/colormath/com.github.ajalt.colormath.transform/create-chromatic-adapter.html
+[differenceCIE2000]:        api/colormath/com.github.ajalt.colormath.calculate/difference-c-i-e2000.html
+[differenceCIE76]:          api/colormath/com.github.ajalt.colormath.calculate/difference-c-i-e76.html
+[differenceCIE94]:          api/colormath/com.github.ajalt.colormath.calculate/difference-c-i-e94.html
+[differenceCMC]:            api/colormath/com.github.ajalt.colormath.calculate/difference-c-m-c.html
+[differenceEz]:             api/colormath/com.github.ajalt.colormath.calculate/difference-ez.html
+[divideAlpha]:              api/colormath/com.github.ajalt.colormath.transform/divide-alpha.html
+[euclideanDistance]:        api/colormath/com.github.ajalt.colormath.calculate/euclidean-distance.html
+[firstWithContrastOrNull]:  api/colormath/com.github.ajalt.colormath.calculate/first-with-contrast-or-null.html
+[firstWithContrast]:        api/colormath/com.github.ajalt.colormath.calculate/first-with-contrast.html
+[formatCssStringOrNull]:    api/colormath/com.github.ajalt.colormath/format-css-string-or-null.html
+[formatCssString]:          api/colormath/com.github.ajalt.colormath/format-css-string.html
+[interpolator]:             api/colormath/com.github.ajalt.colormath.transform/interpolator.html
+[isInSRGBGamut]:            api/colormath/com.github.ajalt.colormath.calculate/is-in-s-r-g-b-gamut.html
+[mostContrasting]:          api/colormath/com.github.ajalt.colormath.calculate/most-contrasting.html
+[multiplyAlpha]:            api/colormath/com.github.ajalt.colormath.transform/multiply-alpha.html
+[parseOrNull]:              api/colormath/com.github.ajalt.colormath/parse-or-null.html
+[parse]:                    api/colormath/com.github.ajalt.colormath/parse.html
+[shorter]:                  api/colormath/com.github.ajalt.colormath.transform/-hue-adjustments/shorter.html
+[toHex]:                    api/colormath/com.github.ajalt.colormath/-r-g-b/to-hex.html
+[wcagcontrast]:             https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio

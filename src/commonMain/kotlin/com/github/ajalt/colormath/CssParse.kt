@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
-import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
-import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
+import com.github.ajalt.colormath.RGBColorSpaces.AdobeRGB
+import com.github.ajalt.colormath.RGBColorSpaces.BT2020
+import com.github.ajalt.colormath.RGBColorSpaces.DisplayP3
 import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.XYZColorSpaces.XYZ50
 import com.github.ajalt.colormath.internal.gradToDeg
@@ -73,10 +73,10 @@ private object PATTERNS {
 private fun color(match: MatchResult): Color? {
     val space = when (match.groupValues[1]) {
         "srgb" -> SRGB
-        "display-p3" -> DISPLAY_P3
-        "a98-rgb" -> ADOBE_RGB
+        "display-p3" -> DisplayP3
+        "a98-rgb" -> AdobeRGB
         "prophoto-rgb" -> ROMM_RGB
-        "rec2020" -> BT_2020
+        "rec2020" -> BT2020
         "xyz" -> XYZ50
         else -> return null
     }

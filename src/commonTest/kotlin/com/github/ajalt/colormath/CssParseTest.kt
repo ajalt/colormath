@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
-import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
-import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
+import com.github.ajalt.colormath.RGBColorSpaces.AdobeRGB
+import com.github.ajalt.colormath.RGBColorSpaces.BT2020
+import com.github.ajalt.colormath.RGBColorSpaces.DisplayP3
 import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.XYZColorSpaces.XYZ50
 import io.kotest.assertions.throwables.shouldNotThrow
@@ -214,10 +214,10 @@ class CssParseTest {
     // https://www.w3.org/TR/css-color-4/#funcdef-color
     fun `parseCssColor color`() = forAll(
         row("color(srgb 25% 50% 75% / 90%)", SRGB(.25, .5, .75, .9)),
-        row("color(display-p3 -0.6112 1.0079 -0.2192)", DISPLAY_P3(0f, 1f, 0f)),
-        row("color(a98-rgb 25% 50% 75%)", ADOBE_RGB(.25, .5, .75)),
+        row("color(display-p3 -0.6112 1.0079 -0.2192)", DisplayP3(0f, 1f, 0f)),
+        row("color(a98-rgb 25% 50% 75%)", AdobeRGB(.25, .5, .75)),
         row("color(prophoto-rgb 25% 50% 75% / 90%)", ROMM_RGB(.25, .5, .75, .9)),
-        row("color(rec2020 0.42053 0.979780 0.00579)", BT_2020(0.42053, 0.979780, 0.00579)),
+        row("color(rec2020 0.42053 0.979780 0.00579)", BT2020(0.42053, 0.979780, 0.00579)),
         row("color(xyz 0.2005 0.14089 0.4472)", XYZ50(0.2005, 0.14089, 0.4472)),
     ) { str, lch ->
         Color.parse(str).shouldEqualColor(lch)

@@ -5,7 +5,7 @@ Colormath is a Kotlin Multiplatform library for color manipulation and conversio
 Colormath can:
 
 - Convert between color models and spaces
-- Manipulate colors with transformation such as mixing and chromatic adaptation
+- Manipulate colors with transformations such as mixing and chromatic adaptation
 - Calculate attributes such as WCAG contrast and perceptual color difference
 - Generate gradients with custom interpolation methods and easing functions
 - Parse and render colors as strings, including all representations from the CSS spec
@@ -33,10 +33,6 @@ val lab50 = labA.convertTo(LAB50)
 // Render as a css color string
 println(lab50.formatCssString())
 // "lab(45% 55.1812 -72.5911 / 0.25)"
-
-// Render as a hex value
-println(lab50.toSRGB().toHex(renderAlpha = NEVER))
-// "#8c44e6"
 ```
 
 ## Documentation

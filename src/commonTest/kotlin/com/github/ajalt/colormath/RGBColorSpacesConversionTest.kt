@@ -6,12 +6,12 @@ import com.github.ajalt.colormath.RGBColorSpaces.ACES
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScc
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScct
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScg
-import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
-import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
-import com.github.ajalt.colormath.RGBColorSpaces.BT_709
+import com.github.ajalt.colormath.RGBColorSpaces.AdobeRGB
+import com.github.ajalt.colormath.RGBColorSpaces.BT2020
+import com.github.ajalt.colormath.RGBColorSpaces.BT709
 import com.github.ajalt.colormath.RGBColorSpaces.DCI_P3
-import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
-import com.github.ajalt.colormath.RGBColorSpaces.LINEAR_SRGB
+import com.github.ajalt.colormath.RGBColorSpaces.DisplayP3
+import com.github.ajalt.colormath.RGBColorSpaces.LinearSRGB
 import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import kotlin.test.Test
 
@@ -66,38 +66,38 @@ class RGBColorSpacesConversionTest {
 
     @Test
     fun ADOBE_RGBTest() = testColorConversions(
-        SRGB(0.0, 0.0, 0.0) to ADOBE_RGB(0.0, 0.0, 0.0),
-        SRGB(0.18, 0.18, 0.18) to ADOBE_RGB(0.1942107, 0.1942107, 0.1942107),
-        SRGB(0.25, 0.5, 0.75) to ADOBE_RGB(0.34674071, 0.4961037, 0.73614257),
-        SRGB(1.0, 1.0, 1.0) to ADOBE_RGB(1.0, 1.0, 1.0),
-        ADOBE_RGB(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
-        ADOBE_RGB(0.18, 0.18, 0.18) to SRGB(0.16419367, 0.16419367, 0.16419367),
-        ADOBE_RGB(0.25, 0.5, 0.75) to SRGB(-0.26405475, 0.5039929, 0.76401618),
-        ADOBE_RGB(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
+        SRGB(0.0, 0.0, 0.0) to AdobeRGB(0.0, 0.0, 0.0),
+        SRGB(0.18, 0.18, 0.18) to AdobeRGB(0.1942107, 0.1942107, 0.1942107),
+        SRGB(0.25, 0.5, 0.75) to AdobeRGB(0.34674071, 0.4961037, 0.73614257),
+        SRGB(1.0, 1.0, 1.0) to AdobeRGB(1.0, 1.0, 1.0),
+        AdobeRGB(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
+        AdobeRGB(0.18, 0.18, 0.18) to SRGB(0.16419367, 0.16419367, 0.16419367),
+        AdobeRGB(0.25, 0.5, 0.75) to SRGB(-0.26405475, 0.5039929, 0.76401618),
+        AdobeRGB(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
     )
 
     @Test
     fun BT_2020Test() = testColorConversions(
-        SRGB(0.0, 0.0, 0.0) to BT_2020(0.0, 0.0, 0.0),
-        SRGB(0.18, 0.18, 0.18) to BT_2020(0.11784851, 0.11784851, 0.11784851),
-        SRGB(0.25, 0.5, 0.75) to BT_2020(0.3319963, 0.44097427, 0.69642135),
-        SRGB(1.0, 1.0, 1.0) to BT_2020(1.0, 1.0, 1.0),
-        BT_2020(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
-        BT_2020(0.18, 0.18, 0.18) to SRGB(0.24167749, 0.24167749, 0.24167749),
-        BT_2020(0.25, 0.5, 0.75) to SRGB(-0.82351434, 0.56552977, 0.79951101),
-        BT_2020(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
+        SRGB(0.0, 0.0, 0.0) to BT2020(0.0, 0.0, 0.0),
+        SRGB(0.18, 0.18, 0.18) to BT2020(0.11784851, 0.11784851, 0.11784851),
+        SRGB(0.25, 0.5, 0.75) to BT2020(0.3319963, 0.44097427, 0.69642135),
+        SRGB(1.0, 1.0, 1.0) to BT2020(1.0, 1.0, 1.0),
+        BT2020(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
+        BT2020(0.18, 0.18, 0.18) to SRGB(0.24167749, 0.24167749, 0.24167749),
+        BT2020(0.25, 0.5, 0.75) to SRGB(-0.82351434, 0.56552977, 0.79951101),
+        BT2020(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
     )
 
     @Test
     fun BT_709Test() = testColorConversions(
-        SRGB(0.0, 0.0, 0.0) to BT_709(0.0, 0.0, 0.0),
-        SRGB(0.18, 0.18, 0.18) to BT_709(0.11808925, 0.11808925, 0.11808925),
-        SRGB(0.25, 0.5, 0.75) to BT_709(0.18869271, 0.45018853, 0.7216247),
-        SRGB(1.0, 1.0, 1.0) to BT_709(1.0, 1.0, 1.0),
-        BT_709(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
-        BT_709(0.18, 0.18, 0.18) to SRGB(0.24145733, 0.24145733, 0.24145733),
-        BT_709(0.25, 0.5, 0.75) to SRGB(0.3097387, 0.54645807, 0.77574057),
-        BT_709(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
+        SRGB(0.0, 0.0, 0.0) to BT709(0.0, 0.0, 0.0),
+        SRGB(0.18, 0.18, 0.18) to BT709(0.11808925, 0.11808925, 0.11808925),
+        SRGB(0.25, 0.5, 0.75) to BT709(0.18869271, 0.45018853, 0.7216247),
+        SRGB(1.0, 1.0, 1.0) to BT709(1.0, 1.0, 1.0),
+        BT709(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
+        BT709(0.18, 0.18, 0.18) to SRGB(0.24145733, 0.24145733, 0.24145733),
+        BT709(0.25, 0.5, 0.75) to SRGB(0.3097387, 0.54645807, 0.77574057),
+        BT709(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
     )
 
     @Test
@@ -114,14 +114,14 @@ class RGBColorSpacesConversionTest {
 
     @Test
     fun DISPLAY_P3Test() = testColorConversions(
-        SRGB(0.0, 0.0, 0.0) to DISPLAY_P3(0.0, 0.0, 0.0),
-        SRGB(0.18, 0.18, 0.18) to DISPLAY_P3(0.18, 0.18, 0.18),
-        SRGB(0.25, 0.5, 0.75) to DISPLAY_P3(0.31300491, 0.49410464, 0.7301505),
-        SRGB(1.0, 1.0, 1.0) to DISPLAY_P3(1.0, 1.0, 1.0),
-        DISPLAY_P3(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
-        DISPLAY_P3(0.18, 0.18, 0.18) to SRGB(0.18, 0.18, 0.18),
-        DISPLAY_P3(0.25, 0.5, 0.75) to SRGB(0.12407597, 0.50734577, 0.77112741),
-        DISPLAY_P3(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
+        SRGB(0.0, 0.0, 0.0) to DisplayP3(0.0, 0.0, 0.0),
+        SRGB(0.18, 0.18, 0.18) to DisplayP3(0.18, 0.18, 0.18),
+        SRGB(0.25, 0.5, 0.75) to DisplayP3(0.31300491, 0.49410464, 0.7301505),
+        SRGB(1.0, 1.0, 1.0) to DisplayP3(1.0, 1.0, 1.0),
+        DisplayP3(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
+        DisplayP3(0.18, 0.18, 0.18) to SRGB(0.18, 0.18, 0.18),
+        DisplayP3(0.25, 0.5, 0.75) to SRGB(0.12407597, 0.50734577, 0.77112741),
+        DisplayP3(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
     )
 
     @Test
@@ -138,14 +138,14 @@ class RGBColorSpacesConversionTest {
 
     @Test
     fun LINEAR_SRGBTest() = testColorConversions(
-        SRGB(0.0, 0.0, 0.0) to LINEAR_SRGB(0.0, 0.0, 0.0),
-        SRGB(0.18, 0.18, 0.18) to LINEAR_SRGB(0.02721178, 0.02721178, 0.02721178),
-        SRGB(0.25, 0.5, 0.75) to LINEAR_SRGB(0.05087609, 0.21404114, 0.52252155),
-        SRGB(1.0, 1.0, 1.0) to LINEAR_SRGB(1.0, 1.0, 1.0),
-        LINEAR_SRGB(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
-        LINEAR_SRGB(0.18, 0.18, 0.18) to SRGB(0.46135613, 0.46135613, 0.46135613),
-        LINEAR_SRGB(0.25, 0.5, 0.75) to SRGB(0.53709873, 0.73535698, 0.88082502),
-        LINEAR_SRGB(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
+        SRGB(0.0, 0.0, 0.0) to LinearSRGB(0.0, 0.0, 0.0),
+        SRGB(0.18, 0.18, 0.18) to LinearSRGB(0.02721178, 0.02721178, 0.02721178),
+        SRGB(0.25, 0.5, 0.75) to LinearSRGB(0.05087609, 0.21404114, 0.52252155),
+        SRGB(1.0, 1.0, 1.0) to LinearSRGB(1.0, 1.0, 1.0),
+        LinearSRGB(0.0, 0.0, 0.0) to SRGB(0.0, 0.0, 0.0),
+        LinearSRGB(0.18, 0.18, 0.18) to SRGB(0.46135613, 0.46135613, 0.46135613),
+        LinearSRGB(0.25, 0.5, 0.75) to SRGB(0.53709873, 0.73535698, 0.88082502),
+        LinearSRGB(1.0, 1.0, 1.0) to SRGB(1.0, 1.0, 1.0),
     )
 
     @Test

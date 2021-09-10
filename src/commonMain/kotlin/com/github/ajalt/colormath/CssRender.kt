@@ -81,10 +81,10 @@ fun Color.formatCssStringOrNull(
     return when (this) {
         is RGB -> when (space) {
             SRGB -> renderSRGB(legacyFormat, legacyName, unitsPercent, alphaPercent, renderAlpha)
-            RGBColorSpaces.DISPLAY_P3 -> renderColorFunction("display-p3", unitsPercent, alphaPercent, renderAlpha)
-            RGBColorSpaces.ADOBE_RGB -> renderColorFunction("a98-rgb", unitsPercent, alphaPercent, renderAlpha)
+            RGBColorSpaces.DisplayP3 -> renderColorFunction("display-p3", unitsPercent, alphaPercent, renderAlpha)
+            RGBColorSpaces.AdobeRGB -> renderColorFunction("a98-rgb", unitsPercent, alphaPercent, renderAlpha)
             RGBColorSpaces.ROMM_RGB -> renderColorFunction("prophoto-rgb", unitsPercent, alphaPercent, renderAlpha)
-            RGBColorSpaces.BT_2020 -> renderColorFunction("rec2020", unitsPercent, alphaPercent, renderAlpha)
+            RGBColorSpaces.BT2020 -> renderColorFunction("rec2020", unitsPercent, alphaPercent, renderAlpha)
             else -> null
         }
         is HSL -> renderHsl(legacyFormat, legacyName, hueUnit, alphaPercent, renderAlpha)

@@ -22,7 +22,6 @@ fun <T : Color> T.euclideanDistance(other: T): Float {
  *
  * @return a value in the range `[0, 100]`, with 0 meaning the colors are identical.
  */
-// http://brucelindbloom.com/Eqn_DeltaE_CIE76.html
 fun Color.differenceCIE76(other: Color): Float {
     val (l1, a1, b1) = DoubleLab(toLAB())
     val (l2, a2, b2) = DoubleLab(other.toLAB())
@@ -37,7 +36,6 @@ fun Color.differenceCIE76(other: Color): Float {
  *
  * @return a value in the range `[0, 100]`, with 0 meaning the colors are identical.
  */
-// http://brucelindbloom.com/Eqn_DeltaE_CIE94.html
 fun Color.differenceCIE94(other: Color, textiles: Boolean = false): Float {
     val (l1, a1, b1) = DoubleLab(toLAB())
     val (l2, a2, b2) = DoubleLab(other.toLAB())
@@ -61,7 +59,6 @@ fun Color.differenceCIE94(other: Color, textiles: Boolean = false): Float {
  *
  * @return a value in the range `[0, 100]`, with 0 meaning the colors are identical.
  */
-// http://brucelindbloom.com/Eqn_DeltaE_CIE2000.html
 fun Color.differenceCIE2000(other: Color): Float {
     val (l1, a1, b1) = DoubleLab(toLAB())
     val (l2, a2, b2) = DoubleLab(other.toLAB())
