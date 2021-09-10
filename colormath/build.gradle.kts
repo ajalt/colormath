@@ -2,7 +2,6 @@
 
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
-import java.io.ByteArrayOutputStream
 
 plugins {
     kotlin("multiplatform")
@@ -31,6 +30,7 @@ kotlin {
     linuxX64()
     mingwX64()
     macosX64()
+    macosArm64()
 
     ios()
     tvos()
@@ -43,7 +43,7 @@ kotlin {
             dependsOn(commonMain)
         }
 
-        listOf("macosX64", "linuxX64", "mingwX64", "ios", "tvos", "watchos").forEach { target ->
+        listOf("macosX64", "macosArm64", "linuxX64", "mingwX64", "ios", "tvos", "watchos").forEach { target ->
             getByName(target + "Main").dependsOn(nativeMain)
         }
 

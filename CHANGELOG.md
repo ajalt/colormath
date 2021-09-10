@@ -13,6 +13,7 @@
 - Color metadata: `ColorSpace`, `Color.space`, `Color.toArray`, `ColorSpace.create`
 - CSS parsing and rendering now support all CSS color strings
 - `RGBInt`: an inline class that stores `RGB` colors packed in a single Int. Create instances directly, or convert to it with `RGB.toRGBInt()`
+- Publish `macosArm64` target.
 
 ### Changed
 - All `Color` classes now store their color components as `Float`
