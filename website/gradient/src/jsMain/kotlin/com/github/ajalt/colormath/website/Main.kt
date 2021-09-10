@@ -1,8 +1,10 @@
 package com.github.ajalt.colormath.website
 
 import androidx.compose.runtime.*
-import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.Color
+import com.github.ajalt.colormath.ColorSpace
+import com.github.ajalt.colormath.model.*
+import com.github.ajalt.colormath.parse
 import com.github.ajalt.colormath.transform.EasingFunctions
 import com.github.ajalt.colormath.transform.InterpolationMethods
 import com.github.ajalt.colormath.transform.interpolator
