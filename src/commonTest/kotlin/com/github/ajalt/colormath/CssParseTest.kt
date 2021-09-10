@@ -68,7 +68,7 @@ class CssParseTest {
         row("rgb(1,2,256)", RGB.from255(1, 2, 255)),
         row("rgb(1,-2,3)", RGB.from255(1, 0, 3)),
         row("rgb(1,2,-3)", RGB.from255(1, 2, 0)),
-        row("rgb(1,2,3,-1)", RGB.from255(1, 2, 3, 0f)),
+        row("rgb(1,2,3,-1)", RGB.from255(1, 2, 3, 0)),
         row("hsl(1,-2%,3%)", HSL(1, 0, .03)),
         row("hsl(1,2%,-3%)", HSL(1, .02, 0)),
         row("hsl(1,2%,3%,-4%)", HSL(1, .02, .03, 0f)),
@@ -98,7 +98,7 @@ class CssParseTest {
     @Test
     @JsName("parseCssColor_float_exponents")
     fun `parseCssColor float exponents`() {
-        Color.parse("rgb(1e2, .5e1, .5e0, +.25e2%)") shouldBe RGB.from255(100, 5, 1, .25f)
+        Color.parse("rgb(1e2, .5e1, .5e0, +.25e2%)") shouldBe RGB(100 / 255f, 5 / 255f, 1 / 255f, .25)
     }
 
     @Test
@@ -117,7 +117,7 @@ class CssParseTest {
         row("rgba(51 170 51 / 40%)", .4f),
         row("rgba(51, 170, 50.6, 1)", 1f)
     ) { color, alpha ->
-        Color.parse(color) shouldBe RGB.from255(51, 170, 51, alpha)
+        Color.parse(color) shouldBe RGB(51 / 255f, 170 / 255f, 51 / 255f, alpha)
     }
 
     @Test

@@ -17,16 +17,16 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
     /**
      * Construct an RGB instance from Int values in the range `[0, 255]`.
      *
-     * @property r The red channel, a value typically in the range `[0, 255]`
-     * @property g The green channel, a value typically in the range `[0, 255]`
-     * @property b The blue channel, a value typically in the range `[0, 255]`
-     * @property alpha The alpha channel, a value in the range `[0f, 1f]`
+     * @property r The red channel, an integer in the range `[0, 255]`
+     * @property g The green channel, an integer in the range `[0, 255]`
+     * @property b The blue channel, an integer in the range `[0, 255]`
+     * @property alpha The alpha channel, an integer in the range `[0, 255]`, or -1 for unspecified alpha
      */
-    fun from255(r: Int, g: Int, b: Int, alpha: Number = Float.NaN) = invoke(
+    fun from255(r: Int, g: Int, b: Int, alpha: Int = -1) = invoke(
         r = (r / 255f),
         g = (g / 255f),
         b = (b / 255f),
-        alpha = alpha
+        alpha = if (alpha < 0) Float.NaN else (alpha / 255f)
     )
 
     /**
@@ -43,7 +43,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
         r = hex.validateHex().parseHex(0),
         g = hex.parseHex(1),
         b = hex.parseHex(2),
-        alpha = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) / 255f else Float.NaN
+        alpha = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) else -1
     )
 
     /** Construct an RGB instance with a grey color from a fraction of white in range `[0, 1]` */
