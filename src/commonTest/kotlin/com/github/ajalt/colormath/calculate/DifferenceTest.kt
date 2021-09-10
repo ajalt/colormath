@@ -1,6 +1,6 @@
 package com.github.ajalt.colormath.calculate
 
-import com.github.ajalt.colormath.LAB
+import com.github.ajalt.colormath.model.LAB
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus

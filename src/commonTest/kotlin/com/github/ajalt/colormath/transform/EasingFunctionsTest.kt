@@ -3,7 +3,6 @@ package com.github.ajalt.colormath.transform
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus
-import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 

@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.model.HSL
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI

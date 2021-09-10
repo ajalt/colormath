@@ -1,6 +1,6 @@
 package com.github.ajalt.colormath.transform
 
-import com.github.ajalt.colormath.HSL
+import com.github.ajalt.colormath.model.HSL
 import com.github.ajalt.colormath.shouldBeFloat
 import io.kotest.matchers.shouldBe
 import kotlin.math.roundToInt

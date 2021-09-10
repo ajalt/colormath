@@ -1,14 +1,12 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.RGBColorSpaces.AdobeRGB
-import com.github.ajalt.colormath.RGBColorSpaces.BT2020
-import com.github.ajalt.colormath.RGBColorSpaces.DisplayP3
-import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
-import com.github.ajalt.colormath.XYZColorSpaces.XYZ50
-import com.github.ajalt.colormath.internal.gradToDeg
-import com.github.ajalt.colormath.internal.normalizeDeg
-import com.github.ajalt.colormath.internal.radToDeg
-import com.github.ajalt.colormath.internal.turnToDeg
+import com.github.ajalt.colormath.internal.*
+import com.github.ajalt.colormath.model.*
+import com.github.ajalt.colormath.model.RGBColorSpaces.AdobeRGB
+import com.github.ajalt.colormath.model.RGBColorSpaces.BT2020
+import com.github.ajalt.colormath.model.RGBColorSpaces.DisplayP3
+import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
+import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
 import kotlin.math.roundToInt
 
 /**

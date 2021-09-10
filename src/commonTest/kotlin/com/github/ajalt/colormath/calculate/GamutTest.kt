@@ -1,6 +1,6 @@
 package com.github.ajalt.colormath.calculate
 
-import com.github.ajalt.colormath.RGB
+import com.github.ajalt.colormath.model.RGB
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe

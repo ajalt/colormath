@@ -1,11 +1,13 @@
 package com.github.ajalt.colormath.transform
 
-import com.github.ajalt.colormath.*
-import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
+import com.github.ajalt.colormath.Color
+import com.github.ajalt.colormath.model.LCHabColorSpaces.LCHab50
+import com.github.ajalt.colormath.model.RGB
+import com.github.ajalt.colormath.model.RGBInt
+import com.github.ajalt.colormath.model.xyY
+import com.github.ajalt.colormath.shouldEqualColor
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
-import io.kotest.inspectors.forAll
-import kotlin.js.JsName
 import kotlin.test.Test
 
 class TransformTest {

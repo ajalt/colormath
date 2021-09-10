@@ -1,5 +1,7 @@
 package com.github.ajalt.colormath
 
+import com.github.ajalt.colormath.model.xyY
+
 /** A named chromaticity */
 data class WhitePoint(val name: String, val chromaticity: xyY) {
     override fun toString(): String = name

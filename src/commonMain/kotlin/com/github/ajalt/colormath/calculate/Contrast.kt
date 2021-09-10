@@ -1,9 +1,9 @@
 package com.github.ajalt.colormath.calculate
 
 import com.github.ajalt.colormath.Color
-import com.github.ajalt.colormath.RGB
-import com.github.ajalt.colormath.RGBColorSpaces
 import com.github.ajalt.colormath.convertTo
+import com.github.ajalt.colormath.model.RGB
+import com.github.ajalt.colormath.model.RGBColorSpaces
 import kotlin.math.max
 import kotlin.math.min
 

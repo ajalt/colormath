@@ -1,9 +1,10 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.LABColorSpaces.LAB50
-import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
-import com.github.ajalt.colormath.XYZColorSpaces.XYZ50
 import com.github.ajalt.colormath.internal.nanToOne
+import com.github.ajalt.colormath.model.*
+import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
+import com.github.ajalt.colormath.model.LCHabColorSpaces.LCHab50
+import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
 import kotlin.math.roundToInt
 
 enum class RenderCondition {

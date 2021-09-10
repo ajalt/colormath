@@ -309,11 +309,11 @@ RGB(.2, .4, .6).toHex() // "#336699"
 [D65]:                      api/colormath/com.github.ajalt.colormath/-illuminant/-d65.html
 [EasingFunctions]:          api/colormath/com.github.ajalt.colormath.transform/-easing-functions/index.html
 [HueAdjustments]:           api/colormath/com.github.ajalt.colormath.transform/-hue-adjustments/index.html
-[LAB50]:                    api/colormath/com.github.ajalt.colormath/-l-a-b-color-spaces/-l-a-b50.html
-[LCHab50]:                  api/colormath/com.github.ajalt.colormath/-l-c-hab-color-spaces/-l-c-hab50.html
-[RGBToRGBConverter]:        api/colormath/com.github.ajalt.colormath/-r-g-b-to-r-g-b-converter/index.html
-[XYZ50]:                    api/colormath/com.github.ajalt.colormath/-x-y-z-color-spaces/-x-y-z50.html
-[adaptTo]:                  api/colormath/com.github.ajalt.colormath/-x-y-z/adapt-to.html
+[LAB50]:                    api/colormath/com.github.ajalt.colormath.model/-l-a-b-color-spaces/-l-a-b50.html
+[LCHab50]:                  api/colormath/com.github.ajalt.colormath.model/-l-c-hab-color-spaces/-l-c-hab50.html
+[RGBToRGBConverter]:        api/colormath/com.github.ajalt.colormath.transform/-r-g-b-to-r-g-b-converter/index.html
+[XYZ50]:                    api/colormath/com.github.ajalt.colormath.model/-x-y-z-color-spaces/-x-y-z50.html
+[adaptTo]:                  api/colormath/com.github.ajalt.colormath.model/-x-y-z/adapt-to.html
 [color-mix]:                https://www.w3.org/TR/css-color-5/#color-mix
 [colorspaces]:              colorspaces.md
 [convertTo]:                api/colormath/com.github.ajalt.colormath/convert-to.html
@@ -336,5 +336,5 @@ RGB(.2, .4, .6).toHex() // "#336699"
 [parseOrNull]:              api/colormath/com.github.ajalt.colormath/parse-or-null.html
 [parse]:                    api/colormath/com.github.ajalt.colormath/parse.html
 [shorter]:                  api/colormath/com.github.ajalt.colormath.transform/-hue-adjustments/shorter.html
-[toHex]:                    api/colormath/com.github.ajalt.colormath/-r-g-b/to-hex.html
+[toHex]:                    api/colormath/com.github.ajalt.colormath.model/-r-g-b/to-hex.html
 [wcagcontrast]:             https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio
