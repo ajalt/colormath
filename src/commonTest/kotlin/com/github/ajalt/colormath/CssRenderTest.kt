@@ -5,9 +5,9 @@ import com.github.ajalt.colormath.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.LCHabColorSpaces.LCHab50
 import com.github.ajalt.colormath.RGBColorSpaces.ACES
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScc
-import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
-import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
-import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
+import com.github.ajalt.colormath.RGBColorSpaces.AdobeRGB
+import com.github.ajalt.colormath.RGBColorSpaces.BT2020
+import com.github.ajalt.colormath.RGBColorSpaces.DisplayP3
 import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.RenderCondition.*
 import com.github.ajalt.colormath.RenderCondition.AUTO
@@ -95,10 +95,10 @@ class CssRenderTest {
     @Test
     fun formatCssString() = forAll(
         row(RGB.from255(1, 2, 3), "rgb(1 2 3)"),
-        row(DISPLAY_P3(.1, .2, .3), "color(display-p3 0.1 0.2 0.3)"),
-        row(ADOBE_RGB(.1, .2, .3), "color(a98-rgb 0.1 0.2 0.3)"),
+        row(DisplayP3(.1, .2, .3), "color(display-p3 0.1 0.2 0.3)"),
+        row(AdobeRGB(.1, .2, .3), "color(a98-rgb 0.1 0.2 0.3)"),
         row(ROMM_RGB(.1, .2, .3), "color(prophoto-rgb 0.1 0.2 0.3)"),
-        row(BT_2020(.1, .2, .3), "color(rec2020 0.1 0.2 0.3)"),
+        row(BT2020(.1, .2, .3), "color(rec2020 0.1 0.2 0.3)"),
         row(ACEScc(.1, .2, .3), "color(--acescc 0.1 0.2 0.3)"),
         row(HSL(1.0, .2, .3), "hsl(1 20% 30%)"),
         row(LAB50(1.0, 20.0, 30.0), "lab(1% 20 30)"),

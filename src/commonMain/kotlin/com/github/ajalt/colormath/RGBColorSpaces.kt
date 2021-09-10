@@ -19,7 +19,7 @@ object RGBColorSpaces {
      * ### References
      * - [IEC 61966-2-1](https://webstore.iec.ch/publication/6169)
      */
-    val LINEAR_SRGB: RGBColorSpace = RGBColorSpace(
+    val LinearSRGB: RGBColorSpace = RGBColorSpace(
         "Linear sRGB",
         Illuminant.D65,
         RGBColorSpace.LinearTransferFunctions,
@@ -99,7 +99,7 @@ object RGBColorSpaces {
      * ### References
      * - [Adobe RGB (1998) Color Image Encoding](https://www.adobe.com/digitalimag/pdfs/AdobeRGB1998.pdf)
      */
-    val ADOBE_RGB: RGBColorSpace = RGBColorSpace(
+    val AdobeRGB: RGBColorSpace = RGBColorSpace(
         "Adobe RGB",
         Illuminant.D65,
         RGBColorSpace.GammaTransferFunctions(2.19921875),
@@ -118,7 +118,7 @@ object RGBColorSpaces {
      * ### References
      * - [ITU-R BT.2020-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf)
      */
-    val BT_2020: RGBColorSpace = BT2020Space
+    val BT2020: RGBColorSpace = BT2020Space
 
     /**
      * ITU-R Recommendation BT.709, also known as BT.709 or REC.709
@@ -126,7 +126,7 @@ object RGBColorSpaces {
      * ### References
      * - [ITU-R BT.709-9](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.709-6-201506-I!!PDF-E.pdf)
      */
-    val BT_709: RGBColorSpace = RGBColorSpace(
+    val BT709: RGBColorSpace = RGBColorSpace(
         "BT.709",
         Illuminant.D65,
         BT709TransferFunctions,
@@ -161,7 +161,7 @@ object RGBColorSpaces {
      * - [RP 431-2:2011](https://ieeexplore.ieee.org/document/7290729)
      * - [Digital Cinema System Specification - Version 1.1](https://www.dcimovies.com/archives/spec_v1_1/DCI_DCinema_System_Spec_v1_1.pdf)
      */
-    val DISPLAY_P3: RGBColorSpace = RGBColorSpace(
+    val DisplayP3: RGBColorSpace = RGBColorSpace(
         "Display P3",
         Illuminant.D65,
         SRGBTransferFunctions,

@@ -10,12 +10,12 @@ import com.github.ajalt.colormath.RGBColorSpaces.ACES
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScc
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScct
 import com.github.ajalt.colormath.RGBColorSpaces.ACEScg
-import com.github.ajalt.colormath.RGBColorSpaces.ADOBE_RGB
-import com.github.ajalt.colormath.RGBColorSpaces.BT_2020
-import com.github.ajalt.colormath.RGBColorSpaces.BT_709
+import com.github.ajalt.colormath.RGBColorSpaces.AdobeRGB
+import com.github.ajalt.colormath.RGBColorSpaces.BT2020
+import com.github.ajalt.colormath.RGBColorSpaces.BT709
 import com.github.ajalt.colormath.RGBColorSpaces.DCI_P3
-import com.github.ajalt.colormath.RGBColorSpaces.DISPLAY_P3
-import com.github.ajalt.colormath.RGBColorSpaces.LINEAR_SRGB
+import com.github.ajalt.colormath.RGBColorSpaces.DisplayP3
+import com.github.ajalt.colormath.RGBColorSpaces.LinearSRGB
 import com.github.ajalt.colormath.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.calculate.wcagContrastRatio
 import org.jetbrains.compose.web.attributes.InputType
@@ -58,16 +58,16 @@ private val rows = listOf(
     Row("XYZ", XYZ),
     Row("HSLuv", HSLuv, step = 1.0),
     Row("HPLuv", HPLuv, step = 1.0),
-    Row("Linear sRGB", LINEAR_SRGB),
+    Row("Linear sRGB", LinearSRGB),
     Row("ACES2065-1 RGB", ACES),
     Row("ACEScc RGB", ACEScc),
     Row("ACEScct RGB", ACEScct),
     Row("ACEScg RGB", ACEScg),
-    Row("Adobe RGB 1998", ADOBE_RGB),
-    Row("BT.2020 (REC.2020) RGB", BT_2020),
-    Row("BT.709 (REC.709) RGB", BT_709),
+    Row("Adobe RGB 1998", AdobeRGB),
+    Row("BT.2020 (REC.2020) RGB", BT2020),
+    Row("BT.709 (REC.709) RGB", BT709),
     Row("DCI P3 RGB", DCI_P3),
-    Row("Display P3 RGB", DISPLAY_P3),
+    Row("Display P3 RGB", DisplayP3),
     Row("ROMM RGB (ProPhoto)", ROMM_RGB),
     Row("CMYK", CMYK),
     Row("Ansi (16 color)", Ansi16, step = 1.0, round = true),
