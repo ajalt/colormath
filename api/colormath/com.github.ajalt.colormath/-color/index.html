@@ -2,43 +2,47 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Color</title>
-<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script><link href="../../../images/palette_black_36dp.svg"><link href="../../../styles/logo-styles.css" rel="Stylesheet">  </head>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><link href="../../../styles/prism.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script><script type="text/javascript" src="../../../scripts/prism.js" async="async"></script><link href="../../../images/palette_black_36dp.svg"><link href="../../../styles/logo-styles.css" rel="Stylesheet">  </head>
   <body>
+    <div class="navigation-wrapper" id="navigation-wrapper">
+      <div id="leftToggler"><span class="icon-toggler"></span></div>
+      <div class="library-name"><a href="../../../index.html">colormath</a></div>
+      <div>3.0.0</div>
+      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+      </div>
+    </div>
     <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
+      <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="colormath::com.github.ajalt.colormath/Color///PointingToDeclaration//788909594">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../index.html">colormath</a>/<a href="../index.html">com.github.ajalt.colormath</a>/<a href="index.html">Color</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
+      <div id="main"><script type="text/javascript" src="../../../scripts/main.js"></script>
+        <div class="main-content" id="content" pageIds="colormath::com.github.ajalt.colormath/Color///PointingToDeclaration//1787990027">
+          <div class="breadcrumbs"><a href="../../../index.html">colormath</a>/<a href="../index.html">com.github.ajalt.colormath</a>/<a href="index.html">Color</a></div>
           <div class="cover ">
-            <h1 class="cover"><span>Color</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A color that can be converted to other representations.</p><p class="paragraph">The conversion functions can return the object they're called on if it is already in the correct format.</p><p class="paragraph">Note that there is not a direct conversion between every pair of representations. In those cases, the values may be converted through one or more intermediate representations. This may cause a loss of precision.</p><p class="paragraph">All colors have an <a href="alpha.html">alpha</a> value, which is the opacity of the color. If a colorspace doesn't support an alpha channel, the value 1 (fully opaque) is used.</p></div></div>
+            <h1 class="cover"><span><span>Color</span></span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A color that can be converted to other representations.</p><p class="paragraph">The conversion functions can return the object they're called on if it is already in the correct format.</p><p class="paragraph">Note that there is not a direct conversion between every pair of representations. In those cases, the values may be converted through one or more intermediate representations.</p><p class="paragraph">All colors have an <a href="alpha.html">alpha</a> value, which is the opacity of the color as a fraction between 0 and</p><ol><li><p class="paragraph">The <a href="alpha.html">alpha</a> will be <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/-na-n.html">NaN</a> if the value is unspecified or the color model doesn't support transparency.</p></li></ol></div></div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Extensions">Extensions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
             <div class="tabs-section-body">
               <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="-2044062976%2FClasslikes%2F788909594" anchor-label="Companion" id="-2044062976%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+              <div class="table" data-togglable="Types"><a data-name="-2044062976%2FClasslikes%2F1787990027" anchor-label="Companion" id="-2044062976%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-companion/index.html">Companion</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2044062976%2FClasslikes%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="-companion/index.html"><span><span>Companion</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2044062976%2FClasslikes%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-companion/index.html">Companion</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
 </div>
 </div>
@@ -47,321 +51,506 @@
                 </div>
               </div>
               <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="-1425196898%2FFunctions%2F788909594" anchor-label="toAnsi16" id="-1425196898%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+              <div class="table" data-togglable="Functions"><a data-name="-1425196898%2FFunctions%2F1787990027" anchor-label="toAnsi16" id="-1425196898%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-ansi16.html">toAnsi16</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1425196898%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-ansi16.html"><span>to</span><wbr></wbr><span><span>Ansi16</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1425196898%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-ansi16.html">toAnsi16</a>(): <a href="../-ansi16/index.html">Ansi16</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-ansi16.html"><span class="token function">toAnsi16</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-ansi16/index.html">Ansi16</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="-1425196898%2FFunctions%2F788909594" anchor-label="toAnsi16" id="-1425196898%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1425196898%2FFunctions%2F788909594" anchor-label="toAnsi16" id="-1425196898%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to a 16-color ANSI code</div></div>
+<a data-name="-1425196898%2FFunctions%2F1787990027" anchor-label="toAnsi16" id="-1425196898%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1425196898%2FFunctions%2F1787990027" anchor-label="toAnsi16" id="-1425196898%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to a 16-color ANSI code</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="1521232420%2FFunctions%2F788909594" anchor-label="toAnsi256" id="1521232420%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="1521232420%2FFunctions%2F1787990027" anchor-label="toAnsi256" id="1521232420%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-ansi256.html">toAnsi256</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1521232420%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-ansi256.html"><span>to</span><wbr></wbr><span><span>Ansi256</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1521232420%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-ansi256.html">toAnsi256</a>(): <a href="../-ansi256/index.html">Ansi256</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-ansi256.html"><span class="token function">toAnsi256</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-ansi256/index.html">Ansi256</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="1521232420%2FFunctions%2F788909594" anchor-label="toAnsi256" id="1521232420%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="1521232420%2FFunctions%2F788909594" anchor-label="toAnsi256" id="1521232420%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to a 256-color ANSI code</div></div>
+<a data-name="1521232420%2FFunctions%2F1787990027" anchor-label="toAnsi256" id="1521232420%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1521232420%2FFunctions%2F1787990027" anchor-label="toAnsi256" id="1521232420%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to a 256-color ANSI code</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="1072070954%2FFunctions%2F788909594" anchor-label="toCMYK" id="1072070954%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="-1913612837%2FFunctions%2F1787990027" anchor-label="toArray" id="-1913612837%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-c-m-y-k.html">toCMYK</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1072070954%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-array.html"><span>to</span><wbr></wbr><span><span>Array</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1913612837%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-c-m-y-k.html">toCMYK</a>(): <a href="../-c-m-y-k/index.html">CMYK</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-array.html"><span class="token function">toArray</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html">FloatArray</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="1072070954%2FFunctions%2F788909594" anchor-label="toCMYK" id="1072070954%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="1072070954%2FFunctions%2F788909594" anchor-label="toCMYK" id="1072070954%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to Cyan-Magenta-Yellow-Key</div></div>
+<a data-name="-1913612837%2FFunctions%2F1787990027" anchor-label="toArray" id="-1913612837%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1913612837%2FFunctions%2F1787990027" anchor-label="toArray" id="-1913612837%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Create a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html">FloatArray</a> containing all components of this color, with the <span data-unresolved-link="com.github.ajalt.colormath//alpha/#kotlin.String/PointingToDeclaration/">alpha</span> as the last component</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="278252651%2FFunctions%2F788909594" anchor-label="toHex" id="278252651%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="1072070954%2FFunctions%2F1787990027" anchor-label="toCMYK" id="1072070954%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-hex.html">toHex</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="278252651%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-c-m-y-k.html"><span>to</span><wbr></wbr><span><span>CMYK</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1072070954%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-hex.html">toHex</a>(withNumberSign: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true, renderAlpha: <a href="../-render-condition/index.html">RenderCondition</a> = RenderCondition.AUTO): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-c-m-y-k.html"><span class="token function">toCMYK</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-c-m-y-k/index.html">CMYK</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="278252651%2FFunctions%2F788909594" anchor-label="toHex" id="278252651%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="278252651%2FFunctions%2F788909594" anchor-label="toHex" id="278252651%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to an RGB hex string.</div></div>
+<a data-name="1072070954%2FFunctions%2F1787990027" anchor-label="toCMYK" id="1072070954%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1072070954%2FFunctions%2F1787990027" anchor-label="toCMYK" id="1072070954%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to device-independent CMYK</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="1622976051%2FFunctions%2F788909594" anchor-label="toHSL" id="1622976051%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="-875615313%2FFunctions%2F1787990027" anchor-label="toHPLuv" id="-875615313%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-h-s-l.html">toHSL</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1622976051%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-h-p-luv.html"><span>to</span><wbr></wbr><span><span>HPLuv</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-875615313%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-h-s-l.html">toHSL</a>(): <a href="../-h-s-l/index.html">HSL</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-h-p-luv.html"><span class="token function">toHPLuv</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-h-p-luv/index.html">HPLuv</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="1622976051%2FFunctions%2F788909594" anchor-label="toHSL" id="1622976051%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="1622976051%2FFunctions%2F788909594" anchor-label="toHSL" id="1622976051%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to Hue-Saturation-Luminosity</div></div>
+<a data-name="-875615313%2FFunctions%2F1787990027" anchor-label="toHPLuv" id="-875615313%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-875615313%2FFunctions%2F1787990027" anchor-label="toHPLuv" id="-875615313%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to HPLuv</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="1933174121%2FFunctions%2F788909594" anchor-label="toHSV" id="1933174121%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="1622976051%2FFunctions%2F1787990027" anchor-label="toHSL" id="1622976051%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-h-s-v.html">toHSV</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1933174121%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-h-s-l.html"><span>to</span><wbr></wbr><span><span>HSL</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1622976051%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-h-s-v.html">toHSV</a>(): <a href="../-h-s-v/index.html">HSV</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-h-s-l.html"><span class="token function">toHSL</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-h-s-l/index.html">HSL</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="1933174121%2FFunctions%2F788909594" anchor-label="toHSV" id="1933174121%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="1933174121%2FFunctions%2F788909594" anchor-label="toHSV" id="1933174121%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to Hue-Saturation-Value</div></div>
+<a data-name="1622976051%2FFunctions%2F1787990027" anchor-label="toHSL" id="1622976051%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1622976051%2FFunctions%2F1787990027" anchor-label="toHSL" id="1622976051%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to HSL</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="864266753%2FFunctions%2F788909594" anchor-label="toHWB" id="864266753%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="1203689778%2FFunctions%2F1787990027" anchor-label="toHSLuv" id="1203689778%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-h-w-b.html">toHWB</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="864266753%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-h-s-luv.html"><span>to</span><wbr></wbr><span><span>HSLuv</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1203689778%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-h-w-b.html">toHWB</a>(): <a href="../-h-w-b/index.html">HWB</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-h-s-luv.html"><span class="token function">toHSLuv</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-h-s-luv/index.html">HSLuv</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="864266753%2FFunctions%2F788909594" anchor-label="toHWB" id="864266753%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="864266753%2FFunctions%2F788909594" anchor-label="toHWB" id="864266753%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to HWB</div></div>
+<a data-name="1203689778%2FFunctions%2F1787990027" anchor-label="toHSLuv" id="1203689778%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1203689778%2FFunctions%2F1787990027" anchor-label="toHSLuv" id="1203689778%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to HSLuv</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="164648679%2FFunctions%2F788909594" anchor-label="toLAB" id="164648679%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="1933174121%2FFunctions%2F1787990027" anchor-label="toHSV" id="1933174121%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-l-a-b.html">toLAB</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="164648679%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-h-s-v.html"><span>to</span><wbr></wbr><span><span>HSV</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1933174121%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-l-a-b.html">toLAB</a>(): <a href="../-l-a-b/index.html">LAB</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-h-s-v.html"><span class="token function">toHSV</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-h-s-v/index.html">HSV</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="164648679%2FFunctions%2F788909594" anchor-label="toLAB" id="164648679%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="164648679%2FFunctions%2F788909594" anchor-label="toLAB" id="164648679%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to CIE LAB</div></div>
+<a data-name="1933174121%2FFunctions%2F1787990027" anchor-label="toHSV" id="1933174121%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1933174121%2FFunctions%2F1787990027" anchor-label="toHSV" id="1933174121%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to HSV</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-2020971741%2FFunctions%2F788909594" anchor-label="toLCH" id="-2020971741%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="864266753%2FFunctions%2F1787990027" anchor-label="toHWB" id="864266753%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-l-c-h.html">toLCH</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2020971741%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-h-w-b.html"><span>to</span><wbr></wbr><span><span>HWB</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="864266753%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-l-c-h.html">toLCH</a>(): <a href="../-l-c-h/index.html">LCH</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-h-w-b.html"><span class="token function">toHWB</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-h-w-b/index.html">HWB</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="-2020971741%2FFunctions%2F788909594" anchor-label="toLCH" id="-2020971741%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="-2020971741%2FFunctions%2F788909594" anchor-label="toLCH" id="-2020971741%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to CIE LCh(uv)</div></div>
+<a data-name="864266753%2FFunctions%2F1787990027" anchor-label="toHWB" id="864266753%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="864266753%2FFunctions%2F1787990027" anchor-label="toHWB" id="864266753%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to HWB</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-1457511321%2FFunctions%2F788909594" anchor-label="toLUV" id="-1457511321%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="388573997%2FFunctions%2F1787990027" anchor-label="toICtCp" id="388573997%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-l-u-v.html">toLUV</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1457511321%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-i-ct-cp.html"><span>to</span><wbr></wbr><span>ICt</span><wbr></wbr><span><span>Cp</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="388573997%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-l-u-v.html">toLUV</a>(): <a href="../-l-u-v/index.html">LUV</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-i-ct-cp.html"><span class="token function">toICtCp</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-i-ct-cp/index.html">ICtCp</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="-1457511321%2FFunctions%2F788909594" anchor-label="toLUV" id="-1457511321%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1457511321%2FFunctions%2F788909594" anchor-label="toLUV" id="-1457511321%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to CIE LUV</div></div>
+<a data-name="388573997%2FFunctions%2F1787990027" anchor-label="toICtCp" id="388573997%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="388573997%2FFunctions%2F1787990027" anchor-label="toICtCp" id="388573997%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to ICtCp</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="110946215%2FFunctions%2F788909594" anchor-label="toRGB" id="110946215%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="-1481155707%2FFunctions%2F1787990027" anchor-label="toJzAzBz" id="-1481155707%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-r-g-b.html">toRGB</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="110946215%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-jz-az-bz.html"><span>to</span><wbr></wbr><span>Jz</span><wbr></wbr><span>Az</span><wbr></wbr><span><span>Bz</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1481155707%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract fun <a href="to-r-g-b.html">toRGB</a>(): <a href="../-r-g-b/index.html">RGB</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-jz-az-bz.html"><span class="token function">toJzAzBz</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-jz-az-bz/index.html">JzAzBz</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="110946215%2FFunctions%2F788909594" anchor-label="toRGB" id="110946215%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="110946215%2FFunctions%2F788909594" anchor-label="toRGB" id="110946215%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to Red-Green-Blue (using sRGB color space)</div></div>
+<a data-name="-1481155707%2FFunctions%2F1787990027" anchor-label="toJzAzBz" id="-1481155707%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1481155707%2FFunctions%2F1787990027" anchor-label="toJzAzBz" id="-1481155707%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to JzAzBz</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-543814565%2FFunctions%2F788909594" anchor-label="toXYZ" id="-543814565%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="1379764493%2FFunctions%2F1787990027" anchor-label="toJzCzHz" id="1379764493%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-x-y-z.html">toXYZ</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-543814565%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="to-jz-cz-hz.html"><span>to</span><wbr></wbr><span>Jz</span><wbr></wbr><span>Cz</span><wbr></wbr><span><span>Hz</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1379764493%2FFunctions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="to-x-y-z.html">toXYZ</a>(): <a href="../-x-y-z/index.html">XYZ</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-jz-cz-hz.html"><span class="token function">toJzCzHz</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-jz-cz-hz/index.html">JzCzHz</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="-543814565%2FFunctions%2F788909594" anchor-label="toXYZ" id="-543814565%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="-543814565%2FFunctions%2F788909594" anchor-label="toXYZ" id="-543814565%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Convert this color to CIE XYZ</div></div>
+<a data-name="1379764493%2FFunctions%2F1787990027" anchor-label="toJzCzHz" id="1379764493%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1379764493%2FFunctions%2F1787990027" anchor-label="toJzCzHz" id="1379764493%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to JzCzHz</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="164648679%2FFunctions%2F1787990027" anchor-label="toLAB" id="164648679%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="to-l-a-b.html"><span>to</span><wbr></wbr><span><span>LAB</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="164648679%2FFunctions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-l-a-b.html"><span class="token function">toLAB</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-l-a-b/index.html">LAB</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="164648679%2FFunctions%2F1787990027" anchor-label="toLAB" id="164648679%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="164648679%2FFunctions%2F1787990027" anchor-label="toLAB" id="164648679%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to CIE LAB</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1390367906%2FFunctions%2F1787990027" anchor-label="toLCHab" id="1390367906%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="to-l-c-hab.html"><span>to</span><wbr></wbr><span><span>LCHab</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1390367906%2FFunctions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-l-c-hab.html"><span class="token function">toLCHab</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-l-c-hab/index.html">LCHab</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1390367906%2FFunctions%2F1787990027" anchor-label="toLCHab" id="1390367906%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1390367906%2FFunctions%2F1787990027" anchor-label="toLCHab" id="1390367906%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to CIE LCh(ab)</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-231792094%2FFunctions%2F1787990027" anchor-label="toLCHuv" id="-231792094%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="to-l-c-huv.html"><span>to</span><wbr></wbr><span><span>LCHuv</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-231792094%2FFunctions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-l-c-huv.html"><span class="token function">toLCHuv</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-l-c-huv/index.html">LCHuv</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-231792094%2FFunctions%2F1787990027" anchor-label="toLCHuv" id="-231792094%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-231792094%2FFunctions%2F1787990027" anchor-label="toLCHuv" id="-231792094%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to CIE LCh(uv)</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1457511321%2FFunctions%2F1787990027" anchor-label="toLUV" id="-1457511321%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="to-l-u-v.html"><span>to</span><wbr></wbr><span><span>LUV</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1457511321%2FFunctions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-l-u-v.html"><span class="token function">toLUV</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-l-u-v/index.html">LUV</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1457511321%2FFunctions%2F1787990027" anchor-label="toLUV" id="-1457511321%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1457511321%2FFunctions%2F1787990027" anchor-label="toLUV" id="-1457511321%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to CIE LUV</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1496967933%2FFunctions%2F1787990027" anchor-label="toOklab" id="-1496967933%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="to-oklab.html"><span>to</span><wbr></wbr><span><span>Oklab</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1496967933%2FFunctions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-oklab.html"><span class="token function">toOklab</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-oklab/index.html">Oklab</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1496967933%2FFunctions%2F1787990027" anchor-label="toOklab" id="-1496967933%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1496967933%2FFunctions%2F1787990027" anchor-label="toOklab" id="-1496967933%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to Oklab</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="612378943%2FFunctions%2F1787990027" anchor-label="toOklch" id="612378943%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="to-oklch.html"><span>to</span><wbr></wbr><span><span>Oklch</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="612378943%2FFunctions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-oklch.html"><span class="token function">toOklch</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-oklch/index.html">Oklch</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="612378943%2FFunctions%2F1787990027" anchor-label="toOklch" id="612378943%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="612378943%2FFunctions%2F1787990027" anchor-label="toOklch" id="612378943%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to Oklch</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1889719404%2FFunctions%2F1787990027" anchor-label="toSRGB" id="1889719404%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="to-s-r-g-b.html"><span>to</span><wbr></wbr><span><span>SRGB</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1889719404%2FFunctions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-s-r-g-b.html"><span class="token function">toSRGB</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-r-g-b/index.html">RGB</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1889719404%2FFunctions%2F1787990027" anchor-label="toSRGB" id="1889719404%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1889719404%2FFunctions%2F1787990027" anchor-label="toSRGB" id="1889719404%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to <a href="../../com.github.ajalt.colormath.model/-r-g-b-color-spaces/-s-r-g-b.html">sRGB</a></p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-543814565%2FFunctions%2F1787990027" anchor-label="toXYZ" id="-543814565%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="to-x-y-z.html"><span>to</span><wbr></wbr><span><span>XYZ</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-543814565%2FFunctions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-x-y-z.html"><span class="token function">toXYZ</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.ajalt.colormath.model/-x-y-z/index.html">XYZ</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-543814565%2FFunctions%2F1787990027" anchor-label="toXYZ" id="-543814565%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-543814565%2FFunctions%2F1787990027" anchor-label="toXYZ" id="-543814565%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to CIE XYZ</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
               </div>
               <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="1394578459%2FProperties%2F788909594" anchor-label="alpha" id="1394578459%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+              <div class="table" data-togglable="Properties"><a data-name="1394578459%2FProperties%2F1787990027" anchor-label="alpha" id="1394578459%2FProperties%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="alpha.html">alpha</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1394578459%2FProperties%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="alpha.html">alpha</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1394578459%2FProperties%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="1394578459%2FProperties%2F788909594" anchor-label="alpha" id="1394578459%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">open val <a href="alpha.html">alpha</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1394578459%2FProperties%2F788909594" anchor-label="alpha" id="1394578459%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>The opacity of this color, in the range <code>[0, 1]</code>.</div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><a data-name="1394578459%2FProperties%2F1787990027" anchor-label="alpha" id="1394578459%2FProperties%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="alpha.html">alpha</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1394578459%2FProperties%2F1787990027" anchor-label="alpha" id="1394578459%2FProperties%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">The opacity of this color, in the range <code class="lang-kotlin">[0, 1]</code>, or <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/-na-n.html">NaN</a> if the opacity is unspecified</p></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-787234445%2FProperties%2F1787990027" anchor-label="space" id="-787234445%2FProperties%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="space.html">space</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-787234445%2FProperties%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><a data-name="-787234445%2FProperties%2F1787990027" anchor-label="space" id="-787234445%2FProperties%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="space.html">space</a><span class="token operator">: </span><a href="../-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-787234445%2FProperties%2F1787990027" anchor-label="space" id="-787234445%2FProperties%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">The color space describing this color</p></div></div></div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <h2 class="">Inheritors</h2>
-              <div class="table" data-togglable="Inheritors"><a data-name="232695993%2FInheritors%2F788909594" anchor-label="Ansi16" id="232695993%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+              <div class="table" data-togglable="Inheritors"><a data-name="1213057398%2FInheritors%2F1787990027" anchor-label="HueColor" id="1213057398%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-ansi16/index.html">Ansi16</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="232695993%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../-hue-color/index.html">HueColor</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1213057398%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-271068207%2FInheritors%2F788909594" anchor-label="Ansi256" id="-271068207%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="711582004%2FInheritors%2F1787990027" anchor-label="Ansi16" id="711582004%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-ansi256/index.html">Ansi256</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-271068207%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-ansi16/index.html">Ansi16</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="711582004%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="382283525%2FInheritors%2F788909594" anchor-label="CMYK" id="382283525%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="1689496246%2FInheritors%2F1787990027" anchor-label="Ansi256" id="1689496246%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-c-m-y-k/index.html">CMYK</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="382283525%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-ansi256/index.html">Ansi256</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1689496246%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-839986080%2FInheritors%2F788909594" anchor-label="HSL" id="-839986080%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="-131184064%2FInheritors%2F1787990027" anchor-label="CMYK" id="-131184064%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-h-s-l/index.html">HSL</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-839986080%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-c-m-y-k/index.html">CMYK</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-131184064%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-529788010%2FInheritors%2F788909594" anchor-label="HSV" id="-529788010%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="-2030900845%2FInheritors%2F1787990027" anchor-label="HWB" id="-2030900845%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-h-s-v/index.html">HSV</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-529788010%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-h-w-b/index.html">HWB</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2030900845%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1598695378%2FInheritors%2F788909594" anchor-label="HWB" id="-1598695378%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="95001407%2FInheritors%2F1787990027" anchor-label="ICtCp" id="95001407%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-h-w-b/index.html">HWB</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1598695378%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-i-ct-cp/index.html">ICtCp</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="95001407%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1996653844%2FInheritors%2F788909594" anchor-label="LAB" id="1996653844%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="655623195%2FInheritors%2F1787990027" anchor-label="JzAzBz" id="655623195%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-l-a-b/index.html">LAB</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1996653844%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-jz-az-bz/index.html">JzAzBz</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="655623195%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-188966576%2FInheritors%2F788909594" anchor-label="LCH" id="-188966576%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="-778423901%2FInheritors%2F1787990027" anchor-label="JzCzHz" id="-778423901%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-l-c-h/index.html">LCH</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-188966576%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-jz-cz-hz/index.html">JzCzHz</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-778423901%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="374493844%2FInheritors%2F788909594" anchor-label="LUV" id="374493844%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="1564448377%2FInheritors%2F1787990027" anchor-label="LAB" id="1564448377%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-l-u-v/index.html">LUV</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="374493844%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-l-a-b/index.html">LAB</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1564448377%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1942951380%2FInheritors%2F788909594" anchor-label="RGB" id="1942951380%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="-57711623%2FInheritors%2F1787990027" anchor-label="LUV" id="-57711623%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-r-g-b/index.html">RGB</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1942951380%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-l-u-v/index.html">LUV</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-57711623%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1288190600%2FInheritors%2F788909594" anchor-label="XYZ" id="1288190600%2FInheritors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="-1790540523%2FInheritors%2F1787990027" anchor-label="Oklab" id="-1790540523%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-x-y-z/index.html">XYZ</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1288190600%2FInheritors%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-oklab/index.html">Oklab</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1790540523%2FInheritors%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+<a data-name="318806353%2FInheritors%2F1787990027" anchor-label="Oklch" id="318806353%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-oklch/index.html">Oklch</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="318806353%2FInheritors%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+<a data-name="1510745913%2FInheritors%2F1787990027" anchor-label="RGB" id="1510745913%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-r-g-b/index.html">RGB</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1510745913%2FInheritors%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+<a data-name="-1944551622%2FInheritors%2F1787990027" anchor-label="RGBInt" id="-1944551622%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-r-g-b-int/index.html">RGBInt</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1944551622%2FInheritors%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+<a data-name="855985133%2FInheritors%2F1787990027" anchor-label="XYZ" id="855985133%2FInheritors%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.model/-x-y-z/index.html">XYZ</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="855985133%2FInheritors%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
@@ -369,36 +558,240 @@
                 </div>
               </div>
               <h2 class="tabbedcontent">Extensions</h2>
-              <div class="table" data-togglable="Extensions"><a data-name="-1163461482%2FExtensions%2F788909594" anchor-label="toCssHsl" id="-1163461482%2FExtensions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+              <div class="table" data-togglable="Extensions"><a data-name="1435611220%2FExtensions%2F1787990027" anchor-label="convertTo" id="1435611220%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../to-css-hsl.html">toCssHsl</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1163461482%2FExtensions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../convert-to.html"><span>convert</span><wbr></wbr><span><span>To</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1435611220%2FExtensions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">fun <a href="index.html">Color</a>.<a href="../to-css-hsl.html">toCssHsl</a>(commas: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true, namedHsla: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false, hueUnit: <a href="../-angle-unit/index.html">AngleUnit</a> = AngleUnit.AUTO, alphaPercent: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false, renderAlpha: <a href="../-render-condition/index.html">RenderCondition</a> = RenderCondition.AUTO): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../convert-to.html">T</a><span class="token operator"> : </span><a href="index.html">Color</a><span class="token operator">&gt; </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../convert-to.html"><span class="token function">convertTo</span></a><span class="token punctuation">(</span>space<span class="token operator">: </span><a href="../-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../convert-to.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../convert-to.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="-1163461482%2FExtensions%2F788909594" anchor-label="toCssHsl" id="-1163461482%2FExtensions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1163461482%2FExtensions%2F788909594" anchor-label="toCssHsl" id="-1163461482%2FExtensions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Render this color in CSS <code>hsl</code> functional notation.</div></div>
+<a data-name="1435611220%2FExtensions%2F1787990027" anchor-label="convertTo" id="1435611220%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1435611220%2FExtensions%2F1787990027" anchor-label="convertTo" id="1435611220%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Convert this color to a given <a href="../convert-to.html">space</a>.</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-1667935401%2FExtensions%2F788909594" anchor-label="toCssRgb" id="-1667935401%2FExtensions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+<a data-name="-1072776396%2FExtensions%2F1787990027" anchor-label="differenceCIE2000" id="-1072776396%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../to-css-rgb.html">toCssRgb</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1667935401%2FExtensions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/difference-c-i-e2000.html"><span>difference</span><wbr></wbr><span><span>CIE2000</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1072776396%2FExtensions%2F1787990027"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">fun <a href="index.html">Color</a>.<a href="../to-css-rgb.html">toCssRgb</a>(commas: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true, namedRgba: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false, rgbPercent: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false, alphaPercent: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false, renderAlpha: <a href="../-render-condition/index.html">RenderCondition</a> = RenderCondition.AUTO): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/difference-c-i-e2000.html"><span class="token function">differenceCIE2000</span></a><span class="token punctuation">(</span>other<span class="token operator">: </span><a href="index.html">Color</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<a data-name="-1667935401%2FExtensions%2F788909594" anchor-label="toCssRgb" id="-1667935401%2FExtensions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1667935401%2FExtensions%2F788909594" anchor-label="toCssRgb" id="-1667935401%2FExtensions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>Render this color in CSS <code>rgb</code> functional notation.</div></div>
+<a data-name="-1072776396%2FExtensions%2F1787990027" anchor-label="differenceCIE2000" id="-1072776396%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1072776396%2FExtensions%2F1787990027" anchor-label="differenceCIE2000" id="-1072776396%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Calculate the difference ΔEab between this color and <a href="../../com.github.ajalt.colormath.calculate/difference-c-i-e2000.html">other</a> using the CIE 2000 recommendation.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-801808013%2FExtensions%2F1787990027" anchor-label="differenceCIE76" id="-801808013%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/difference-c-i-e76.html"><span>difference</span><wbr></wbr><span><span>CIE76</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-801808013%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/difference-c-i-e76.html"><span class="token function">differenceCIE76</span></a><span class="token punctuation">(</span>other<span class="token operator">: </span><a href="index.html">Color</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-801808013%2FExtensions%2F1787990027" anchor-label="differenceCIE76" id="-801808013%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-801808013%2FExtensions%2F1787990027" anchor-label="differenceCIE76" id="-801808013%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Calculate the difference ΔEab between this color and <a href="../../com.github.ajalt.colormath.calculate/difference-c-i-e76.html">other</a> using the CIE 1976 recommendation.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1844048365%2FExtensions%2F1787990027" anchor-label="differenceCIE94" id="1844048365%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/difference-c-i-e94.html"><span>difference</span><wbr></wbr><span><span>CIE94</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1844048365%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/difference-c-i-e94.html"><span class="token function">differenceCIE94</span></a><span class="token punctuation">(</span>other<span class="token operator">: </span><a href="index.html">Color</a><span class="token punctuation">, </span>textiles<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1844048365%2FExtensions%2F1787990027" anchor-label="differenceCIE94" id="1844048365%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1844048365%2FExtensions%2F1787990027" anchor-label="differenceCIE94" id="1844048365%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Calculate the difference ΔEab between this color and <a href="../../com.github.ajalt.colormath.calculate/difference-c-i-e94.html">other</a> using the CIE 1994 recommendation.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="360735096%2FExtensions%2F1787990027" anchor-label="differenceCMC" id="360735096%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/difference-c-m-c.html"><span>difference</span><wbr></wbr><span><span>CMC</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="360735096%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/difference-c-m-c.html"><span class="token function">differenceCMC</span></a><span class="token punctuation">(</span>other<span class="token operator">: </span><a href="index.html">Color</a><span class="token punctuation">, </span>l<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">2.0f</span><span class="token punctuation">, </span>c<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">1.0f</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="360735096%2FExtensions%2F1787990027" anchor-label="differenceCMC" id="360735096%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="360735096%2FExtensions%2F1787990027" anchor-label="differenceCMC" id="360735096%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Calculate the difference ΔEcmc between this color and <a href="../../com.github.ajalt.colormath.calculate/difference-c-m-c.html">other</a> using the <i>Colour Measurement Committee</i> recommendation.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1916450732%2FExtensions%2F1787990027" anchor-label="differenceEz" id="-1916450732%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/difference-ez.html"><span>difference</span><wbr></wbr><span><span>Ez</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1916450732%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/difference-ez.html"><span class="token function">differenceEz</span></a><span class="token punctuation">(</span>other<span class="token operator">: </span><a href="index.html">Color</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1916450732%2FExtensions%2F1787990027" anchor-label="differenceEz" id="-1916450732%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1916450732%2FExtensions%2F1787990027" anchor-label="differenceEz" id="-1916450732%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Calculate the difference ΔEz between this color and <a href="../../com.github.ajalt.colormath.calculate/difference-ez.html">other</a> using the JzAzBz color space.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="855845594%2FExtensions%2F1787990027" anchor-label="firstWithContrast" id="855845594%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/first-with-contrast.html"><span>first</span><wbr></wbr><span>With</span><wbr></wbr><span><span>Contrast</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="855845594%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/first-with-contrast.html"><span class="token function">firstWithContrast</span></a><span class="token punctuation">(</span><span class="token keyword">vararg </span>colors<span class="token operator">: </span><a href="index.html">Color</a><span class="token punctuation">, </span>targetContrast<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="855845594%2FExtensions%2F1787990027" anchor-label="firstWithContrast" id="855845594%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="855845594%2FExtensions%2F1787990027" anchor-label="firstWithContrast" id="855845594%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Return the first <a href="../../com.github.ajalt.colormath.calculate/first-with-contrast.html">color</a> with a <a href="../../com.github.ajalt.colormath.calculate/wcag-contrast-ratio.html">contrast ratio</a> exceeding the <a href="../../com.github.ajalt.colormath.calculate/first-with-contrast.html">targetContrast</a> against this color. If no color meets the target, black or white will be returned, whichever has the most contrast.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="587364164%2FExtensions%2F1787990027" anchor-label="firstWithContrastOrNull" id="587364164%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/first-with-contrast-or-null.html"><span>first</span><wbr></wbr><span>With</span><wbr></wbr><span>Contrast</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Null</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="587364164%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/first-with-contrast-or-null.html"><span class="token function">firstWithContrastOrNull</span></a><span class="token punctuation">(</span><span class="token keyword">vararg </span>colors<span class="token operator">: </span><a href="index.html">Color</a><span class="token punctuation">, </span>targetContrast<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Color</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="587364164%2FExtensions%2F1787990027" anchor-label="firstWithContrastOrNull" id="587364164%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="587364164%2FExtensions%2F1787990027" anchor-label="firstWithContrastOrNull" id="587364164%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Return the first <a href="../../com.github.ajalt.colormath.calculate/first-with-contrast-or-null.html">color</a> with a <a href="../../com.github.ajalt.colormath.calculate/wcag-contrast-ratio.html">contrast ratio</a> greater or equal to the <a href="../../com.github.ajalt.colormath.calculate/first-with-contrast-or-null.html">targetContrast</a> against this color, or <code class="lang-kotlin">null</code> if no color meets the target.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1749029922%2FExtensions%2F1787990027" anchor-label="formatCssString" id="-1749029922%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../format-css-string.html"><span>format</span><wbr></wbr><span>Css</span><wbr></wbr><span><span>String</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1749029922%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../format-css-string.html"><span class="token function">formatCssString</span></a><span class="token punctuation">(</span>hueUnit<span class="token operator">: </span><a href="../-angle-unit/index.html">AngleUnit</a><span class="token operator"> = </span>AngleUnit.AUTO<span class="token punctuation">, </span>renderAlpha<span class="token operator">: </span><a href="../-render-condition/index.html">RenderCondition</a><span class="token operator"> = </span>RenderCondition.AUTO<span class="token punctuation">, </span>unitsPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>alphaPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>legacyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>legacyFormat<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1749029922%2FExtensions%2F1787990027" anchor-label="formatCssString" id="-1749029922%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-1749029922%2FExtensions%2F1787990027" anchor-label="formatCssString" id="-1749029922%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Render this color in CSS functional notation.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="2123276936%2FExtensions%2F1787990027" anchor-label="formatCssStringOrNull" id="2123276936%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../format-css-string-or-null.html"><span>format</span><wbr></wbr><span>Css</span><wbr></wbr><span>String</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Null</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2123276936%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../format-css-string-or-null.html"><span class="token function">formatCssStringOrNull</span></a><span class="token punctuation">(</span>hueUnit<span class="token operator">: </span><a href="../-angle-unit/index.html">AngleUnit</a><span class="token operator"> = </span>AngleUnit.AUTO<span class="token punctuation">, </span>renderAlpha<span class="token operator">: </span><a href="../-render-condition/index.html">RenderCondition</a><span class="token operator"> = </span>RenderCondition.AUTO<span class="token punctuation">, </span>unitsPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>alphaPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>legacyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>legacyFormat<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="2123276936%2FExtensions%2F1787990027" anchor-label="formatCssStringOrNull" id="2123276936%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="2123276936%2FExtensions%2F1787990027" anchor-label="formatCssStringOrNull" id="2123276936%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Render this color in CSS functional notation if this color space is defined in the CSS standard, or return null if this color is in another color space.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1672596991%2FExtensions%2F1787990027" anchor-label="isInSRGBGamut" id="1672596991%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/is-in-s-r-g-b-gamut.html"><span>is</span><wbr></wbr><span>In</span><wbr></wbr><span><span>SRGBGamut</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1672596991%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/is-in-s-r-g-b-gamut.html"><span class="token function">isInSRGBGamut</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1672596991%2FExtensions%2F1787990027" anchor-label="isInSRGBGamut" id="1672596991%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="1672596991%2FExtensions%2F1787990027" anchor-label="isInSRGBGamut" id="1672596991%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Return <code class="lang-kotlin">true</code> if all channels of this color, when converted to sRGB, lie in the range <code class="lang-kotlin">[0, 1]</code></p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="732990257%2FExtensions%2F1787990027" anchor-label="mostContrasting" id="732990257%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/most-contrasting.html"><span>most</span><wbr></wbr><span><span>Contrasting</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="732990257%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/most-contrasting.html"><span class="token function">mostContrasting</span></a><span class="token punctuation">(</span><span class="token keyword">vararg </span>colors<span class="token operator">: </span><a href="index.html">Color</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="732990257%2FExtensions%2F1787990027" anchor-label="mostContrasting" id="732990257%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="732990257%2FExtensions%2F1787990027" anchor-label="mostContrasting" id="732990257%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Return the <a href="../../com.github.ajalt.colormath.calculate/most-contrasting.html">color</a> with the highest <a href="../../com.github.ajalt.colormath.calculate/wcag-contrast-ratio.html">contrast ratio</a> against this color.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-163491395%2FExtensions%2F1787990027" anchor-label="wcagContrastRatio" id="-163491395%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/wcag-contrast-ratio.html"><span>wcag</span><wbr></wbr><span>Contrast</span><wbr></wbr><span><span>Ratio</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-163491395%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/wcag-contrast-ratio.html"><span class="token function">wcagContrastRatio</span></a><span class="token punctuation">(</span>other<span class="token operator">: </span><a href="index.html">Color</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-163491395%2FExtensions%2F1787990027" anchor-label="wcagContrastRatio" id="-163491395%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-163491395%2FExtensions%2F1787990027" anchor-label="wcagContrastRatio" id="-163491395%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Calculate the contrast ration of this color with <a href="../../com.github.ajalt.colormath.calculate/wcag-contrast-ratio.html">other</a> according to the <a href="https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio">Web Content Accessibility Guidelines</a></p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-689841726%2FExtensions%2F1787990027" anchor-label="wcagLuminance" id="-689841726%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.github.ajalt.colormath.calculate/wcag-luminance.html"><span>wcag</span><wbr></wbr><span><span>Luminance</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-689841726%2FExtensions%2F1787990027"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Color</a><span class="token punctuation">.</span><a href="../../com.github.ajalt.colormath.calculate/wcag-luminance.html"><span class="token function">wcagLuminance</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-689841726%2FExtensions%2F1787990027" anchor-label="wcagLuminance" id="-689841726%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><div class="brief "><a data-name="-689841726%2FExtensions%2F1787990027" anchor-label="wcagLuminance" id="-689841726%2FExtensions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a><p class="paragraph">Calculate the relative luminance of this color according to the <a href="https://www.w3.org/TR/WCAG21/#dfn-relative-luminance">Web Content Accessibility Guidelines</a></p></div></div>
 </div>
                     </div>
                   </div>
