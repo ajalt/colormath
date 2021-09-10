@@ -8,7 +8,9 @@ import kotlin.math.pow
  * The color space describing colors in the [XYZ] model.
  */
 interface XYZColorSpace : WhitePointColorSpace<XYZ> {
-    operator fun invoke(x: Number, y: Number, z: Number, alpha: Number = Float.NaN): XYZ
+    operator fun invoke(x: Float, y: Float, z: Float, alpha: Float = Float.NaN): XYZ
+    operator fun invoke(x: Number, y: Number, z: Number, alpha: Number = Float.NaN): XYZ =
+        invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat())
 }
 
 /** Create a new [XYZColorSpace] that will be calculated relative to the given [whitePoint] */
@@ -24,8 +26,7 @@ private data class XYZColorSpaceImpl(override val whitePoint: WhitePoint) : XYZC
     override fun convert(color: Color): XYZ = color.toXYZ().adaptTo(this)
     override fun create(components: FloatArray): XYZ = doCreate(components, ::invoke)
     override fun toString(): String = "XYZColorSpace($whitePoint)"
-    override operator fun invoke(x: Number, y: Number, z: Number, alpha: Number): XYZ =
-        XYZ(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat(), this)
+    override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ = XYZ(x, y, z, alpha, this)
 }
 
 object XYZColorSpaces {

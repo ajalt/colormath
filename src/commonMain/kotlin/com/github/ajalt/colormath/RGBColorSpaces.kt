@@ -214,8 +214,7 @@ object SRGB : RGBColorSpace {
     override fun convert(color: Color): RGB = color.toSRGB()
     override fun create(components: FloatArray): RGB = doCreate(components, ::invoke)
     override fun toString(): String = name
-    override operator fun invoke(r: Number, g: Number, b: Number, alpha: Number): RGB =
-        RGB(r.toFloat(), g.toFloat(), b.toFloat(), alpha.toFloat(), this)
+    override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB = RGB(r, g, b, alpha, this)
 }
 
 private object BT2020Space : RGBColorSpace {
@@ -223,8 +222,7 @@ private object BT2020Space : RGBColorSpace {
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
     override val whitePoint: WhitePoint = Illuminant.D65
     override val transferFunctions: RGBColorSpace.TransferFunctions = BT2020TransferFunctions
-    override operator fun invoke(r: Number, g: Number, b: Number, alpha: Number): RGB =
-        RGB(r.toFloat(), g.toFloat(), b.toFloat(), alpha.toFloat(), this)
+    override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB = RGB(r, g, b, alpha, this)
 
     override fun convert(color: Color): RGB = when (color) {
         is RGB -> color.convertTo(this)
@@ -258,9 +256,7 @@ private data class RGBColorSpaceImpl(
     override val matrixToXyz: FloatArray = rgbToXyzMatrix(whitePoint, r, g, b).rowMajor
     override val matrixFromXyz: FloatArray = Matrix(matrixToXyz).inverse().rowMajor
     override fun toString(): String = name
-    override operator fun invoke(r: Number, g: Number, b: Number, alpha: Number): RGB =
-        RGB(r.toFloat(), g.toFloat(), b.toFloat(), alpha.toFloat(), this)
-
+    override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB = RGB(r, g, b, alpha, this)
 }
 
 private val SRGB_R = xyY(0.6400, 0.3300)
