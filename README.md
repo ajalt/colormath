@@ -50,7 +50,7 @@ Colormath is distributed through [Maven Central](https://search.maven.org/artifa
 
 ```groovy
 dependencies {
-   implementation("com.github.ajalt.colormath:colormath:2.1.0")
+   implementation("com.github.ajalt.colormath:colormath:3.0.0")
 }
 ```
 
@@ -60,6 +60,7 @@ dependencies {
 
 Colormath supports the following targets: `jvm`, `mingwX64`, `linuxX64`, `macosX64`, `ios`,
 `watchos`, `tvos`, and `js` (for both NodeJS and Browsers). You'll need to use Gradle 6 or newer.
+Artifacts for `macosArm64` are also published, but not tested with CI.
 
 #### Snapshots
 

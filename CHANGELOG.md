@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## [3.0.0] - 2021-09-10
 ### Added
 - New color models: `Oklab`, `Oklch`, `HWB`, `HPLuv`, `HSLuv`, `LCHab`, `LCHuv`, `JzAzBz`, `JzCzHz`, `ICtCp`
 - New RGB color spaces: `Linear sRGB`, `ACES`, `ACEScc`, `ACEScct`, `ACEScg`, `Adobe RGB`, `BT.2020`, `BT.709`, `DCI P3`, `Display P3`, `ProPhoto`
