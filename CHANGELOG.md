@@ -3,26 +3,27 @@
 ## Unreleased
 
 ### Added
-- `Oklab` and `Oklch`: perceptual color spaces for image processing
-- `JzAzBz` and `JzCzHz`: perceptually uniform space where euclidean distance predicts perceptual difference
-- `LCH`: the cylindrical representation of `LAB`
+- New color models: `Oklab`, `Oklch`, `HWB`, `HPLuv`, `HSLuv`, `LCHab`, `LCHuv`, `JzAzBz`, `JzCzHz`, `ICtCp`
+- New RGB color spaces: `Linear sRGB`, `ACES`, `ACEScc`, `ACEScct`, `ACEScg`, `Adobe RGB`, `BT.2020`, `BT.709`, `DCI P3`, `Display P3`, `ProPhoto`
+- Other color spaces: `LABColorSpace`, `LCHabColorSpace`, `LCHuvColorSpace`, `LUVColorSpace`, `XYZColorSpace`
+- WCAG contrast: `wcagLuminance`, `wcagContrastRatio`, `mostContrasting`, `firstWithContrast`
+- Color difference: `euclideanDistance`, `differenceCIE76`, `differenceCIE94`, `differenceCIE2000`, `differenceCMC`, `differenceEz`
+- Transforms: `Color.map`, `mix`, `multiplyAlpha`, `divideAlpha`, `createChromaticAdapter`, `RGBColorSpace.converterTo`
+- Interpolation: `Color.interpolate`, `ColorSpace.interpolator`
+- Color metadata: `ColorSpace`, `Color.space`, `Color.toArray`, `ColorSpace.create`
+- CSS parsing and rendering now support all CSS color strings
 - `RGBInt`: an inline class that stores `RGB` colors packed in a single Int. Create instances directly, or convert to it with `RGB.toRGBInt()`
 
 ### Changed
-
-- All `Color` classes now store their colors channels as `Float`
-- All `Color` classes now support HDR colors. Constructors no longer require that color channel values fall in SDR ranges.
-- `RGB` now stores its color components normalized to `[0, 1]` rather than `[0, 255]`. You can read the color components in their old integer representations with `RGB.redInt`, `greenInt`, and `blueInt`.
-- `HSV`, `HSL`, and `HWB` now store their rectangular components (`s`, `v`, `l`, `w`, and `b`) normalized to `[0, 1]` rather than `[0, 100]`.
-- `XYZ` channels are no longer multiplied by 100: their range is now `[-2, 2]` rather than `[-200, 200]`
-- The class name of the cylindrical representation of `LUV` is now `HCL`
-- Renamed `Color.fromCss` to `Color.parse`. The old name has been deprecated.
+- All `Color` classes now store their color components as `Float`
+- `RGB`, `XYZ`, HSV`, `HSL`, and `HWB` now store their rectangular components normalized to `[0, 1]`.
+- Renamed `Color.fromCss` to `Color.parse`.
 - All `Color` constructors now use `alpha` as name of their final parameter.
 - Replace `toCssRgb` and `toCssHsl` with `fromatCssString` that supports all color models.
-- Updated Kotlin to 1.5.21
+- All color models moved from the package `com.github.ajalt.colormath` to `com.github.ajalt.colormath.model`
+- Updated Kotlin to 1.5.30
 
 ### Removed
-
 - Removed the previously deprecated `ConvertibleColor` typealias.
 - Removed the `CssColors` object. Use `Color.fromCss` instead. 
 - Removed `Ansi16` companion object color constants.
