@@ -37,7 +37,6 @@ data class ICtCp(val i: Float, val ct: Float, val cp: Float, override val alpha:
     /** Convert this color to [BT.2020 RGB][RGBColorSpaces.BT2020] */
     fun toBT2020(): RGB {
         val fo = BT2020.transferFunctions
-        val fe = PqNonlinearity
         return ICTCP_ICTCP_to_LMS.dot(i, ct, cp) { l, m, s ->
             ICTCP_LMS_to_RGB.dot(PqNonlinearity.eotf(l), PqNonlinearity.eotf(m), PqNonlinearity.eotf(s)) { r, g, b ->
                 BT2020(fo.oetf(r), fo.oetf(g), fo.oetf(b), alpha)
@@ -46,7 +45,6 @@ data class ICtCp(val i: Float, val ct: Float, val cp: Float, override val alpha:
     }
 
     override fun toXYZ(): XYZ {
-        val fe = PqNonlinearity
         return ICTCP_ICTCP_to_LMS.dot(i, ct, cp) { l, m, s ->
             ICTCP_LMS_TO_XYZ.dot(PqNonlinearity.eotf(l), PqNonlinearity.eotf(m), PqNonlinearity.eotf(s)) { x, y, z ->
                 XYZ65(x, y, z, alpha)
@@ -61,7 +59,6 @@ data class ICtCp(val i: Float, val ct: Float, val cp: Float, override val alpha:
 
 internal fun convertBT2020ToICtCp(rgb: RGB): ICtCp {
     val fe = BT2020.transferFunctions
-    val fo = PqNonlinearity
     return ICTCP_RGB_TO_LMS.dot(fe.eotf(rgb.r), fe.eotf(rgb.g), fe.eotf(rgb.b)) { l, m, s ->
         ICTCP_LMS_TO_ICTCP.dot(PqNonlinearity.oetf(l), PqNonlinearity.oetf(m), PqNonlinearity.oetf(s)) { i, ct, cp ->
             ICtCp(i, ct, cp, rgb.alpha)
@@ -70,7 +67,6 @@ internal fun convertBT2020ToICtCp(rgb: RGB): ICtCp {
 }
 
 internal fun convertXYZToICtCp(xyz: XYZ): ICtCp {
-    val f = PqNonlinearity
     return ICTCP_XYZ_TO_LMS.dot(xyz.x, xyz.y, xyz.z) { l, m, s ->
         ICTCP_LMS_TO_ICTCP.dot(PqNonlinearity.oetf(l), PqNonlinearity.oetf(m), PqNonlinearity.oetf(s)) { i, ct, cp ->
             ICtCp(i, ct, cp, xyz.alpha)
