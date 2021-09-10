@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath
 
-import com.github.ajalt.colormath.LCHuvColorSpaces.LCHuv65
+import com.github.ajalt.colormath.model.*
+import com.github.ajalt.colormath.model.LCHuvColorSpaces.LCHuv65
 
 /**
  * A color that can be converted to other representations.

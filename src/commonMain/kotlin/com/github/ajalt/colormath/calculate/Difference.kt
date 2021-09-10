@@ -2,6 +2,8 @@ package com.github.ajalt.colormath.calculate
 
 import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.internal.*
+import com.github.ajalt.colormath.model.JzCzHz
+import com.github.ajalt.colormath.model.LAB
 import kotlin.jvm.JvmInline
 import kotlin.math.*
 

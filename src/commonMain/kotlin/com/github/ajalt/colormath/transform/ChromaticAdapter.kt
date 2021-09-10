@@ -1,10 +1,12 @@
 package com.github.ajalt.colormath.transform
 
-import com.github.ajalt.colormath.*
-import com.github.ajalt.colormath.RGBColorSpaces.SRGB
-import com.github.ajalt.colormath.XYZColorSpaces.XYZ65
+import com.github.ajalt.colormath.Color
+import com.github.ajalt.colormath.Illuminant
 import com.github.ajalt.colormath.internal.Matrix
 import com.github.ajalt.colormath.internal.dot
+import com.github.ajalt.colormath.model.*
+import com.github.ajalt.colormath.model.RGBColorSpaces.SRGB
+import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ65
 
 /**
  * Create a chromatic adapter that will adapt colors from a given [sourceWhite] to this color space's

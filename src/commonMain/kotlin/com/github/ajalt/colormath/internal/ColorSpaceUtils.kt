@@ -1,7 +1,11 @@
 package com.github.ajalt.colormath.internal
 
-import com.github.ajalt.colormath.*
+import com.github.ajalt.colormath.Color
+import com.github.ajalt.colormath.ColorComponentInfo
+import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.Illuminant.D65
+import com.github.ajalt.colormath.WhitePointColorSpace
+import com.github.ajalt.colormath.model.XYZColorSpace
 
 
 internal inline fun <T : Color> ColorSpace<T>.withValidComps(components: FloatArray, block: (FloatArray) -> T): T {

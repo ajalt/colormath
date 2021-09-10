@@ -1,7 +1,7 @@
 package com.github.ajalt.colormath.transform
 
-import com.github.ajalt.colormath.HSL
-import com.github.ajalt.colormath.RGB
+import com.github.ajalt.colormath.model.HSL
+import com.github.ajalt.colormath.model.RGB
 import com.github.ajalt.colormath.shouldEqualColor
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
