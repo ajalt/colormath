@@ -11,7 +11,9 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * The color space describing colors in the [LCHab] model.
  */
 interface LCHabColorSpace : WhitePointColorSpace<LCHab> {
-    operator fun invoke(l: Number, c: Number, h: Number, alpha: Number = Float.NaN): LCHab
+    operator fun invoke(l: Float, c: Float, h: Float, alpha: Float = Float.NaN): LCHab
+    operator fun invoke(l: Number, c: Number, h: Number, alpha: Number = Float.NaN): LCHab =
+        invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
 }
 
 /** Create a new [LCHabColorSpace] that will be calculated relative to the given [whitePoint] */
@@ -27,8 +29,7 @@ private data class LCHabColorSpaceImpl(override val whitePoint: WhitePoint) : LC
     override fun convert(color: Color): LCHab = adaptToThis(color) { it.toLCHab() }
     override fun create(components: FloatArray): LCHab = doCreate(components, ::invoke)
     override fun toString(): String = "LCHabColorSpace($whitePoint)"
-    override operator fun invoke(l: Number, c: Number, h: Number, alpha: Number): LCHab =
-        LCHab(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat(), this)
+    override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHab = LCHab(l, c, h, alpha, this)
 }
 
 object LCHabColorSpaces {

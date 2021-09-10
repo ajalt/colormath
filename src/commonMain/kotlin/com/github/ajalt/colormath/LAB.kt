@@ -11,7 +11,9 @@ import kotlin.math.pow
  * The color space describing colors in the [LAB] model.
  */
 interface LABColorSpace : WhitePointColorSpace<LAB> {
-    operator fun invoke(l: Number, a: Number, b: Number, alpha: Number = Float.NaN): LAB
+    operator fun invoke(l: Float, a: Float, b: Float, alpha: Float = Float.NaN): LAB
+    operator fun invoke(l: Number, a: Number, b: Number, alpha: Number = Float.NaN): LAB =
+        invoke(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat())
 }
 
 /** Create a new [LABColorSpace] that will be calculated relative to the given [whitePoint] */
@@ -27,8 +29,7 @@ private data class LABColorSpaceImpl(override val whitePoint: WhitePoint) : LABC
     override fun convert(color: Color): LAB = adaptToThis(color) { it.toLAB() }
     override fun create(components: FloatArray): LAB = doCreate(components, ::invoke)
     override fun toString(): String = "LABColorSpace($whitePoint)"
-    override operator fun invoke(l: Number, a: Number, b: Number, alpha: Number): LAB =
-        LAB(l.toFloat(), a.toFloat(), b.toFloat(), alpha.toFloat(), this)
+    override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB = LAB(l, a, b, alpha, this)
 }
 
 object LABColorSpaces {

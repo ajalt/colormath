@@ -10,7 +10,9 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * The color space describing colors in the [LCHuv] model.
  */
 interface LCHuvColorSpace : WhitePointColorSpace<LCHuv> {
-    operator fun invoke(l: Number, c: Number, h: Number, alpha: Number = Float.NaN): LCHuv
+    operator fun invoke(l: Float, c: Float, h: Float, alpha: Float = Float.NaN): LCHuv
+    operator fun invoke(l: Number, c: Number, h: Number, alpha: Number = Float.NaN): LCHuv =
+        invoke(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
 }
 
 /** Create a new [LCHuvColorSpace] that will be calculated relative to the given [whitePoint] */
@@ -26,8 +28,7 @@ private data class LCHuvColorSpaceImpl(override val whitePoint: WhitePoint) : LC
     override fun convert(color: Color): LCHuv = adaptToThis(color) { it.toLCHuv() }
     override fun create(components: FloatArray): LCHuv = doCreate(components, ::invoke)
     override fun toString(): String = "LCHuvColorSpace($whitePoint)"
-    override operator fun invoke(l: Number, c: Number, h: Number, alpha: Number): LCHuv =
-        LCHuv(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat(), this)
+    override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHuv = LCHuv(l, c, h, alpha, this)
 }
 
 object LCHuvColorSpaces {
