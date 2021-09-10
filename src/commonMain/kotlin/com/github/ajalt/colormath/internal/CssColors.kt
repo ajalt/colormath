@@ -159,6 +159,6 @@ internal object CssColors {
         "whitesmoke" to RGB.from255(245, 245, 245),
         "yellowgreen" to RGB.from255(154, 205, 50),
         "rebeccapurple" to RGB.from255(102, 51, 153),
-        "transparent" to RGB.from255(0, 0, 0, 0f),
+        "transparent" to RGB.from255(0, 0, 0, 0),
     )
 }

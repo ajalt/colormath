@@ -13,9 +13,9 @@ import kotlin.test.Test
 class TransformTest {
     @Test
     fun divideAlpha() = forAll(
-        row(RGB.from255(100, 100, 100, 1f), RGB.from255(100, 100, 100, 1f)),
-        row(RGB.from255(50, 50, 50, 0.5f), RGB.from255(100, 100, 100, 0.5f)),
-        row(RGB.from255(100, 100, 100, 0f), RGB.from255(100, 100, 100, 0f)),
+        row(RGB(.1, .1, .1, 1), RGB(.1, .1, .1, 1)),
+        row(RGB(.1, .1, .1, .5), RGB(.2, .2, .2, .5)),
+        row(RGB(.1, .1, .1, 0), RGB(.1, .1, .1, 0)),
     ) { rgb, ex ->
         rgb.divideAlpha().shouldEqualColor(ex)
     }

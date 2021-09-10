@@ -60,7 +60,7 @@ class CssRenderTest {
         row(R(255, 128, 0, .5f, alphaPercent = true), "rgb(255 128 0 / 50%)"),
         row(R(255, 128, 0, .5f, rgbPercent = true, alphaPercent = true), "rgb(100% 50% 0% / 50%)")
     ) { (r, g, b, a, commas, namedRgba, rgbPercent, alphaPercent, renderAlpha), expected ->
-        RGB.from255(r, g, b, a).formatCssString(
+        RGB(r / 255f, g / 255f, b / 255f, a).formatCssString(
             AngleUnit.AUTO,
             renderAlpha,
             rgbPercent,

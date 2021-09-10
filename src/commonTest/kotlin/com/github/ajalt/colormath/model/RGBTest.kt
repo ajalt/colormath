@@ -20,6 +20,15 @@ class RGBTest {
     }
 
     @Test
+    fun ints() {
+        val rgb = RGB.from255(11, 22, 33, 44)
+        rgb.redInt shouldBe 11
+        rgb.greenInt shouldBe 22
+        rgb.blueInt shouldBe 33
+        rgb.alphaInt shouldBe 44
+    }
+
+    @Test
     fun grey() {
         RGB.grey(.1f, .2f) shouldBe RGB(.1, .1, .1, .2)
         ROMM_RGB.grey(.5) shouldBe ROMM_RGB(.5, .5, .5)
@@ -60,12 +69,12 @@ class RGBTest {
         row("000000", RGB.from255(0, 0, 0)),
         row("#8CC864", RGB.from255(140, 200, 100)),
         row("ffffff", RGB.from255(255, 255, 255)),
-        row("ffffff00", RGB.from255(255, 255, 255, 0f)),
-        row("#ffffff00", RGB.from255(255, 255, 255, 0f)),
-        row("#3a30", RGB.from255(51, 170, 51, 0f)),
-        row("#3A3F", RGB.from255(51, 170, 51, 1f)),
-        row("#33aa3300", RGB.from255(51, 170, 51, 0f)),
-        row("#33AA3380", RGB.from255(51, 170, 51, 0x80 / 0xff.toFloat())),
+        row("ffffff00", RGB.from255(255, 255, 255, 0)),
+        row("#ffffff00", RGB.from255(255, 255, 255, 0)),
+        row("#3a30", RGB.from255(51, 170, 51, 0)),
+        row("#3A3F", RGB.from255(51, 170, 51, 255)),
+        row("#33aa3300", RGB.from255(51, 170, 51, 0)),
+        row("#33AA3380", RGB.from255(51, 170, 51, 128)),
     ) { hex, rgb ->
         RGB(hex) shouldBe rgb
     }
