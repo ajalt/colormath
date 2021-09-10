@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation(rootProject)
+                implementation(project(":colormath"))
                 implementation(compose.web.core)
                 implementation(compose.runtime)
             }
