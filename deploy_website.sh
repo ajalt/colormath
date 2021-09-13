@@ -31,7 +31,7 @@ cat README.md \
   | sed '/## License/Q' \
   | sed -e '/## Documentation/,/Gradient generator/d' \
   | sed 's!https://ajalt.github.io/colormath/!/!g' \
-  > docs/index.md
+  >> docs/index.md
 
 # Copy the website js into the docs
 mkdir -p docs/js
