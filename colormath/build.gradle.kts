@@ -5,18 +5,14 @@ import org.jetbrains.dokka.base.DokkaBaseConfiguration
 
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.dokka") version "1.5.30-dev-115"
+    id("org.jetbrains.dokka") version "1.5.30"
     id("maven-publish")
     id("signing")
 }
 
-repositories {
-    maven("https://maven.pkg.jetbrains.space/kotlin/p/dokka/dev")
-}
-
 buildscript {
     dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:1.5.30-dev-115")
+        classpath("org.jetbrains.dokka:dokka-base:1.5.30")
     }
 }
 
