@@ -1,4 +1,4 @@
-package com.github.ajalt.colormath.extensions.android.color
+package com.github.ajalt.colormath.extensions.android.colorint
 
 import androidx.annotation.ColorInt
 import com.github.ajalt.colormath.Color

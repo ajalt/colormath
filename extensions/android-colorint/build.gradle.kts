@@ -29,4 +29,8 @@ android {
 dependencies {
     api(project(":colormath"))
     api("androidx.annotation:annotation:1.2.0")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.4")
 }
+
+apply(from = "../../gradle/publish.gradle.kts")
