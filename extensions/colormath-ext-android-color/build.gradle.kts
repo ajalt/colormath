@@ -14,7 +14,7 @@ repositories {
 android {
     compileSdk = 30
     defaultConfig {
-        minSdk = 16
+        minSdk = 26
         targetSdk = 30
     }
     compileOptions {
@@ -24,13 +24,14 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    useLibrary("android.test.base")
 }
 
 dependencies {
     api(project(":colormath"))
-    api("androidx.annotation:annotation:1.2.0")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.4")
 }
 
+apply(from = "../../gradle/publish-android.gradle")
 apply(from = "../../gradle/publish.gradle.kts")

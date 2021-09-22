@@ -8,7 +8,7 @@ import com.github.ajalt.colormath.model.SRGB
 
 
 /**
- * Convert this color to a packed argb color int.
+ * Convert this color to a packed argb [color int][ColorInt].
  */
 @ColorInt
 fun Color.toColorInt(): Int {
@@ -16,14 +16,14 @@ fun Color.toColorInt(): Int {
 }
 
 /**
- * Create an [SRGB] instance from a packed argb color int.
+ * Create an [SRGB] instance from a packed argb [color int][ColorInt].
  */
 fun RGB.Companion.fromColorInt(@ColorInt argb: Int): RGB {
     return RGBInt(argb.toUInt()).toSRGB()
 }
 
 /**
- * Create an [RGBInt] instance from a packed argb color int.
+ * Create an [RGBInt] instance from a packed argb [color int][ColorInt].
  */
 fun RGBInt.Companion.fromColorInt(@ColorInt argb: Int): RGBInt {
     return RGBInt(argb.toUInt())
