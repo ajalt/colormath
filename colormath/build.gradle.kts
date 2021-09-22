@@ -50,4 +50,5 @@ val jvmJar by tasks.getting(Jar::class) {
     }
 }
 
+apply(from = "../gradle/dokka.gradle")
 apply(from = "../gradle/publish.gradle.kts")

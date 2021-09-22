@@ -50,7 +50,7 @@ fun android.graphics.Color.toColormathSRGB(): RGB {
 }
 
 /**
- * Convert this
+ * Convert this color to an Android [Color][android.graphics.Color]
  */
 fun Color.toAndroidColor(): android.graphics.Color {
     if (this is RGBInt) return android.graphics.Color.valueOf(argb.toInt())

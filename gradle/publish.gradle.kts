@@ -1,41 +1,14 @@
 apply(plugin = "maven-publish")
 apply(plugin = "signing")
-apply(plugin = "org.jetbrains.dokka")
 
 repositories {
     mavenCentral()
-}
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:1.5.30")
-    }
 }
 
 // Hacks for kts
 fun Project.publishing(action: PublishingExtension.() -> Unit) = configure(action)
 fun Project.signing(configure: SigningExtension.() -> Unit): Unit = configure(configure)
 val publications: PublicationContainer = (extensions.getByName("publishing") as PublishingExtension).publications
-
-//
-//tasks.named("dokkaHtml").configure {
-//    outputDirectory.set(rootDir.resolve("docs/api"))
-//    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-//        customStyleSheets = listOf(rootDir.resolve("docs/css/logo-styles.css"))
-//        customAssets = listOf(rootDir.resolve("docs/img/palette_black_36dp.svg"))
-//        footerMessage = "Copyright &copy; 2021 AJ Alt"
-//    }
-//    dokkaSourceSets {
-//        configureEach {
-//            reportUndocumented.set(false)
-//            skipDeprecated.set(true)
-//        }
-//    }
-//}
 
 val emptyJavadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")

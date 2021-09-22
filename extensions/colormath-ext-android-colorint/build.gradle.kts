@@ -1,5 +1,3 @@
-@file:Suppress("UNUSED_VARIABLE", "PropertyName")
-
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -33,5 +31,6 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.4")
 }
 
+apply(from = "../../gradle/dokka.gradle")
 apply(from = "../../gradle/publish-android.gradle")
 apply(from = "../../gradle/publish.gradle.kts")
