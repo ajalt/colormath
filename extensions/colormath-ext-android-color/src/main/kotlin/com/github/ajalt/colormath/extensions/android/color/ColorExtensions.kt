@@ -16,6 +16,7 @@ import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.model.RGBInt
 import com.github.ajalt.colormath.model.SRGB
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
+import android.graphics.Color as AndroidColor
 
 
 /**
@@ -24,7 +25,7 @@ import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
  * If this color's space is built in to Colormath, the returned color will be in the space space.
  * Otherwise, this is equivalent to [toColormathColor].
  */
-fun android.graphics.Color.toColormathColor(): Color {
+fun AndroidColor.toColormathColor(): Color {
     return when (colorSpace) {
         ColorSpace.get(ColorSpace.Named.SRGB) -> RGB(red(), green(), blue(), alpha())
         ColorSpace.get(ColorSpace.Named.LINEAR_SRGB) -> LinearSRGB(red(), green(), blue(), alpha())
@@ -45,15 +46,15 @@ fun android.graphics.Color.toColormathColor(): Color {
 /**
  * Convert this color to a Colormath [SRGB] instance.
  */
-fun android.graphics.Color.toColormathSRGB(): RGB {
+fun AndroidColor.toColormathSRGB(): RGB {
     return SRGB.create(ColorSpace.connect(colorSpace).transform(components))
 }
 
 /**
  * Convert this color to an Android [Color][android.graphics.Color]
  */
-fun Color.toAndroidColor(): android.graphics.Color {
-    if (this is RGBInt) return android.graphics.Color.valueOf(argb.toInt())
+fun Color.toAndroidColor(): AndroidColor {
+    if (this is RGBInt) return AndroidColor.valueOf(argb.toInt())
     val s = when {
         space === SRGB -> ColorSpace.get(ColorSpace.Named.SRGB)
         space === LinearSRGB -> ColorSpace.get(ColorSpace.Named.LINEAR_SRGB)
@@ -72,8 +73,8 @@ fun Color.toAndroidColor(): android.graphics.Color {
 
     return if (s == null) {
         val (r, g, b, a) = toSRGB()
-        android.graphics.Color.valueOf(r, g, b, a)
+        AndroidColor.valueOf(r, g, b, a)
     } else {
-        android.graphics.Color.valueOf(toArray(), s)
+        AndroidColor.valueOf(toArray(), s)
     }
 }
