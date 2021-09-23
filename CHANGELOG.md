@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Added 
+- Optional modules with extensions for converting between Colormath colors and other platform representations.
+
 ## [3.0.0] - 2021-09-10
 ### Added
 - New color models: `Oklab`, `Oklch`, `HWB`, `HPLuv`, `HSLuv`, `LCHab`, `LCHuv`, `JzAzBz`, `JzCzHz`, `ICtCp`

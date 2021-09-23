@@ -2,8 +2,20 @@ import java.io.ByteArrayOutputStream
 
 val VERSION_NAME: String by project
 
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.0.2")
+    }
+}
+
 plugins {
-    kotlin("jvm").version("1.5.30")
+    kotlin("jvm") version "1.5.31"
+    id("org.jetbrains.dokka") version "1.5.30"
 }
 
 allprojects {
