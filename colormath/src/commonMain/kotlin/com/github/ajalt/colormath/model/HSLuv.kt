@@ -20,7 +20,7 @@ import kotlin.math.*
  * ### References
  * - [HSLuv homepage](https://www.hsluv.org/)
  */
-data class HSLuv(override val h: Float, val s: Float, val l: Float, override val alpha: Float = Float.NaN) : HueColor {
+data class HSLuv(override val h: Float, val s: Float, val l: Float, override val alpha: Float = 1f) : HueColor {
     /** Default constructors for the [HSLuv] color model. */
     companion object : ColorSpace<HSLuv> {
         override val name: String get() = "HSLuv"
@@ -29,7 +29,7 @@ data class HSLuv(override val h: Float, val s: Float, val l: Float, override val
         override fun create(components: FloatArray): HSLuv = doCreate(components, ::HSLuv)
     }
 
-    constructor (h: Number, s: Number, l: Number, alpha: Number = Float.NaN)
+    constructor (h: Number, s: Number, l: Number, alpha: Number = 1f)
             : this(h.toFloat(), s.toFloat(), l.toFloat(), alpha.toFloat())
 
     override val space: ColorSpace<HSLuv> get() = HSLuv

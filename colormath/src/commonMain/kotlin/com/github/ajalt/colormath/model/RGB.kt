@@ -10,8 +10,8 @@ import kotlin.math.roundToInt
 
 
 interface RGBColorSpace : WhitePointColorSpace<RGB> {
-    operator fun invoke(r: Float, g: Float, b: Float, alpha: Float = Float.NaN): RGB
-    operator fun invoke(r: Number, g: Number, b: Number, alpha: Number = Float.NaN): RGB =
+    operator fun invoke(r: Float, g: Float, b: Float, alpha: Float = 1f): RGB
+    operator fun invoke(r: Number, g: Number, b: Number, alpha: Number = 1f): RGB =
         invoke(r.toFloat(), g.toFloat(), b.toFloat(), alpha.toFloat())
 
     /**
@@ -20,13 +20,13 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
      * @property r The red channel, an integer in the range `[0, 255]`
      * @property g The green channel, an integer in the range `[0, 255]`
      * @property b The blue channel, an integer in the range `[0, 255]`
-     * @property alpha The alpha channel, an integer in the range `[0, 255]`, or -1 for unspecified alpha
+     * @property alpha The alpha channel, an integer in the range `[0, 255]`
      */
-    fun from255(r: Int, g: Int, b: Int, alpha: Int = -1) = invoke(
+    fun from255(r: Int, g: Int, b: Int, alpha: Int = 255) = invoke(
         r = (r / 255f),
         g = (g / 255f),
         b = (b / 255f),
-        alpha = if (alpha < 0) Float.NaN else (alpha / 255f)
+        alpha = (alpha / 255f)
     )
 
     /**
@@ -43,11 +43,11 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
         r = hex.validateHex().parseHex(0),
         g = hex.parseHex(1),
         b = hex.parseHex(2),
-        alpha = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) else -1
+        alpha = if (hex.hexLength.let { it == 4 || it == 8 }) hex.parseHex(3) else 255
     )
 
     /** Construct an RGB instance with a grey color from a fraction of white in range `[0, 1]` */
-    fun grey(amount: Number, alpha: Number = Float.NaN): RGB = invoke(amount, amount, amount, alpha)
+    fun grey(amount: Number, alpha: Number = 1f): RGB = invoke(amount, amount, amount, alpha)
 
     /** The [TransferFunctions] for this color space */
     val transferFunctions: TransferFunctions

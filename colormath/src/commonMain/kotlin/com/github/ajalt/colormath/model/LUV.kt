@@ -10,8 +10,8 @@ import kotlin.math.pow
  * The color space describing colors in the [LUV] model.
  */
 interface LUVColorSpace : WhitePointColorSpace<LUV> {
-    operator fun invoke(l: Float, u: Float, v: Float, alpha: Float = Float.NaN): LUV
-    operator fun invoke(l: Number, u: Number, v: Number, alpha: Number = Float.NaN): LUV =
+    operator fun invoke(l: Float, u: Float, v: Float, alpha: Float = 1f): LUV
+    operator fun invoke(l: Number, u: Number, v: Number, alpha: Number = 1f): LUV =
         invoke(l.toFloat(), u.toFloat(), v.toFloat(), alpha.toFloat())
 }
 

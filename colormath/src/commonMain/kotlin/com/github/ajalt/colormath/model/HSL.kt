@@ -21,7 +21,7 @@ import kotlin.math.min
  * | [s]        | saturation                                | `[0, 1]`   |
  * | [l]        | lightness                                 | `[0, 1]`   |
  */
-data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = Float.NaN) : HueColor {
+data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = 1f) : HueColor {
     /** Default constructors for the [HSL] color model. */
     companion object : ColorSpace<HSL> {
         override val name: String get() = "HSL"
@@ -30,7 +30,7 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
         override fun create(components: FloatArray): HSL = doCreate(components, ::HSL)
     }
 
-    constructor (h: Number, s: Number, l: Number, alpha: Number = Float.NaN)
+    constructor (h: Number, s: Number, l: Number, alpha: Number = 1f)
             : this(h.toFloat(), s.toFloat(), l.toFloat(), alpha.toFloat())
 
     override val space: ColorSpace<HSL> get() = HSL

@@ -137,7 +137,7 @@ private fun hwb(match: MatchResult): Color {
 private fun percent(str: String) = str.dropLast(1).toFloat() / 100f
 private fun number(str: String) = str.toFloat()
 private fun percentOrNumber(str: String) = if (str.endsWith("%")) percent(str) else number(str)
-private fun alpha(str: String) = (if (str.isEmpty()) Float.NaN else percentOrNumber(str)).clampF()
+private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str)).clampF()
 
 /** return degrees in [0, 360] */
 private fun hue(str: String): Float {

@@ -9,8 +9,8 @@ import kotlin.math.pow
  * The color space describing colors in the [XYZ] model.
  */
 interface XYZColorSpace : WhitePointColorSpace<XYZ> {
-    operator fun invoke(x: Float, y: Float, z: Float, alpha: Float = Float.NaN): XYZ
-    operator fun invoke(x: Number, y: Number, z: Number, alpha: Number = Float.NaN): XYZ =
+    operator fun invoke(x: Float, y: Float, z: Float, alpha: Float = 1f): XYZ
+    operator fun invoke(x: Number, y: Number, z: Number, alpha: Number = 1f): XYZ =
         invoke(x.toFloat(), y.toFloat(), z.toFloat(), alpha.toFloat())
 }
 
