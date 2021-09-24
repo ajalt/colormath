@@ -1,8 +1,11 @@
 # Changelog
 
-## Unreleased
+## [3.1.0] - 2021-09-24
 ### Added 
 - Optional modules with extensions for converting between Colormath colors and other platform representations.
+
+### Changed
+- Unspecified alpha values now default to fully opaque
 
 ## [3.0.0] - 2021-09-10
 ### Added
