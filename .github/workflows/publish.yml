@@ -66,7 +66,7 @@ jobs:
         uses: eskatos/gradle-command-action@v1
         with:
           dependencies-cache-enabled: true
-          arguments: :colormath:publish -PinferVersion=true
+          arguments: publish -PinferVersion=true
 
   deploy-windows:
     needs: [ linux-tests, macos-tests, windows-tests ]
