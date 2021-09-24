@@ -21,7 +21,7 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * M. Safdar, G. Cui, Y. Kim, and M. Luo, "Perceptually uniform color space for image signals including high dynamic
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
-data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = Float.NaN) : Color,
+data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color,
     HueColor {
     /** Default constructors for the [JzCzHz] color model. */
     companion object : ColorSpace<JzCzHz> {
@@ -31,7 +31,7 @@ data class JzCzHz(val j: Float, val c: Float, override val h: Float, override va
         override fun create(components: FloatArray): JzCzHz = doCreate(components, ::JzCzHz)
     }
 
-    constructor(l: Number, c: Number, h: Number, alpha: Number = Float.NaN)
+    constructor(l: Number, c: Number, h: Number, alpha: Number = 1f)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
 
     override val space: ColorSpace<JzCzHz> get() = JzCzHz

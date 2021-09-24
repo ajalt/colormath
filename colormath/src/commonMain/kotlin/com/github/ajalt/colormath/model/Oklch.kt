@@ -17,7 +17,7 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * | [c]        | chroma                                    | `[0, 1]`   |
  * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
  */
-data class Oklch(val l: Float, val c: Float, override val h: Float, override val alpha: Float = Float.NaN) : Color,
+data class Oklch(val l: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color,
     HueColor {
     /** Default constructors for the [Oklch] color model. */
     companion object : ColorSpace<Oklch> {
@@ -27,7 +27,7 @@ data class Oklch(val l: Float, val c: Float, override val h: Float, override val
         override fun create(components: FloatArray): Oklch = doCreate(components, ::Oklch)
     }
 
-    constructor(l: Number, c: Number, h: Number, alpha: Number = Float.NaN)
+    constructor(l: Number, c: Number, h: Number, alpha: Number = 1f)
             : this(l.toFloat(), c.toFloat(), h.toFloat(), alpha.toFloat())
 
     override val space: ColorSpace<Oklch> get() = Oklch

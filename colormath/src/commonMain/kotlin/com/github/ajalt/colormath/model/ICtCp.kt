@@ -20,7 +20,7 @@ import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ65
  * - [Rec. ITU-R BT.2100-2](https://www.itu.int/rec/R-REC-BT.2100-2-201807-I/en)
  * - [Dolby ICtCp whitepaper](https://professional.dolby.com/siteassets/pdfs/ictcp_dolbywhitepaper_v071.pdf)
  */
-data class ICtCp(val i: Float, val ct: Float, val cp: Float, override val alpha: Float = Float.NaN) : Color {
+data class ICtCp(val i: Float, val ct: Float, val cp: Float, override val alpha: Float = 1f) : Color {
     /** Default constructors for the [ICtCp] color model. */
     companion object : ColorSpace<ICtCp> {
         override val name: String get() = "ICtCp"
@@ -29,7 +29,7 @@ data class ICtCp(val i: Float, val ct: Float, val cp: Float, override val alpha:
         override fun create(components: FloatArray): ICtCp = doCreate(components, ::ICtCp)
     }
 
-    constructor (i: Number, ct: Number, cp: Number, alpha: Number = Double.NaN)
+    constructor (i: Number, ct: Number, cp: Number, alpha: Number = 1f)
             : this(i.toFloat(), ct.toFloat(), cp.toFloat(), alpha.toFloat())
 
     override val space: ColorSpace<ICtCp> get() = ICtCp

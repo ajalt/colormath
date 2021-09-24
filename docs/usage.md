@@ -22,8 +22,7 @@ You can optionally specify an alpha value.
 LAB(l=0, a=0, b=0, alpha=0.5)
 ```
 
-If you don't specify an alpha value, it will default to `NaN`. This makes it possible to distinguish
-unspecified alpha values, which can be important for operations like interpolation. 
+If you don't specify an alpha value, it will default to 1, meaning fully opaque. 
 
 sRGB colors can also be constructed from hex strings or integers. All of the following are equivalent:
 

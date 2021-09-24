@@ -104,7 +104,7 @@ class CssParseTest {
     @Test
     @JsName("parseCssColor_alpha")
     fun `parseCssColor alpha`() = forAll(
-        row("#3a3", Float.NaN),
+        row("#3a3", 1f),
         row("#3a30", 0f),
         row("#3A3F", 1f),
         row("#33aa3300", 0f),
@@ -123,12 +123,12 @@ class CssParseTest {
     @Test
     @JsName("parseCssColor_hsl")
     fun `parseCssColor hsl`() = forAll(
-        row("hsl(270,60%,70%)", 270, .6, .7, Float.NaN),
-        row("hsl(270, 60%, 70%)", 270, .6, .7, Float.NaN),
-        row("hsl(270 60% 70%)", 270, .6, .7, Float.NaN),
-        row("hsl(270deg, 60%, 70%)", 270, .6, .7, Float.NaN),
-        row("hsl(4.71239rad, 60%, 70%)", 270, .6, .7, Float.NaN),
-        row("hsl(.75turn, 60%, 70%)", 270, .6, .7, Float.NaN),
+        row("hsl(270,60%,70%)", 270, .6, .7, 1f),
+        row("hsl(270, 60%, 70%)", 270, .6, .7, 1f),
+        row("hsl(270 60% 70%)", 270, .6, .7, 1f),
+        row("hsl(270deg, 60%, 70%)", 270, .6, .7, 1f),
+        row("hsl(4.71239rad, 60%, 70%)", 270, .6, .7, 1f),
+        row("hsl(.75turn, 60%, 70%)", 270, .6, .7, 1f),
         row("hsl(270, 60%, 50%, .15)", 270, .6, .5, .15),
         row("hsl(270, 60%, 50%, 15%)", 270, .6, .5, .15),
         row("hsl(270 60% 50% / .15)", 270, .6, .5, .15),

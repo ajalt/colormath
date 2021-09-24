@@ -67,8 +67,9 @@ class RGBTest {
     @JsName("Hex_to_RGB")
     fun `Hex to RGB`() = forAll(
         row("000000", RGB.from255(0, 0, 0)),
-        row("#8CC864", RGB.from255(140, 200, 100)),
-        row("ffffff", RGB.from255(255, 255, 255)),
+        row("000000", RGB.from255(0, 0, 0, 255)),
+        row("#8CC864", RGB.from255(140, 200, 100, 255)),
+        row("ffffff", RGB.from255(255, 255, 255, 255)),
         row("ffffff00", RGB.from255(255, 255, 255, 0)),
         row("#ffffff00", RGB.from255(255, 255, 255, 0)),
         row("#3a30", RGB.from255(51, 170, 51, 0)),

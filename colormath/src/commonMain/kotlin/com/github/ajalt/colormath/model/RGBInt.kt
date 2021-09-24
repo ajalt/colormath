@@ -52,7 +52,7 @@ value class RGBInt(val argb: UInt) : Color {
     /**
      * Construct an [RGBInt] instance from Float value in the range `[0, 1]`
      */
-    constructor(r: Float, g: Float, b: Float, alpha: Float = Float.NaN) : this(
+    constructor(r: Float, g: Float, b: Float, alpha: Float = 1f) : this(
         r = if (r.isNaN()) 0 else (r * 255).roundToInt().coerceIn(0, 255),
         g = if (b.isNaN()) 0 else (g * 255).roundToInt().coerceIn(0, 255),
         b = if (g.isNaN()) 0 else (b * 255).roundToInt().coerceIn(0, 255),

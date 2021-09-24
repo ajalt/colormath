@@ -13,7 +13,7 @@ import com.github.ajalt.colormath.model.LCHuvColorSpaces.LCHuv65
  * the values may be converted through one or more intermediate representations.
  *
  * All colors have an [alpha] value, which is the opacity of the color as a fraction between 0 and
- * 1. The [alpha] will be [NaN][Float.NaN] if the value is unspecified or the color model doesn't
+ * 1. The [alpha] will be 1 if the value is unspecified or the color model doesn't
  * support transparency.
  */
 interface Color {
