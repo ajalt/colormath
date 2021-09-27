@@ -45,7 +45,7 @@ Colormath includes a number of built-in RGB color spaces, and you can define you
 - [Display P3][DISPLAY_P3]
 - [ROMM RGB / ProPhoto RGB][ROMM_RGB]
 
-### HSL
+## HSL
 
 - [HSL][HSL]
 
@@ -57,7 +57,7 @@ Colormath includes a number of built-in RGB color spaces, and you can define you
 
 A cylindrical representation of sRGB using Hue, Saturation, and Lightness.
 
-### HSV
+## HSV
 
 - [HSV][HSV]
 
@@ -69,7 +69,7 @@ A cylindrical representation of sRGB using Hue, Saturation, and Lightness.
 
 A cylindrical representation of sRGB using Hue, Saturation, and Value / brightness.
 
-### HWB
+## HWB
 
 - [HWB][HWB]
 
@@ -81,7 +81,7 @@ A cylindrical representation of sRGB using Hue, Saturation, and Value / brightne
 
 A cylindrical representation of sRGB using Hue, Whiteness, and Blackness.
 
-### HSLuv and HPLuv
+## HSLuv and HPLuv
 
 - [HSLuv][HSLuv]
 
@@ -232,7 +232,7 @@ The XYZ model has multiple color spaces that are defined relative to a white poi
 white point is D65.
 
 
-### ANSI color codes
+## ANSI color codes
 
 - [ANSI16][ANSI16]
 - [ANSI256][ANSI256]
@@ -240,7 +240,7 @@ white point is D65.
 Based on the VGA color palette, there are models for [4-bit, 16 color codes][ANSI16]
 and [8-bit, 256 color codes][ANSI256]
 
-### CMYK
+## CMYK
 
 - [CMYK][CMYK]
 
