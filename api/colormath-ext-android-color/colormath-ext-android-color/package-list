@@ -1,0 +1,8 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.github.ajalt.colormath.extensions.android.color////PointingToDeclaration/colormath-ext-android-color/com.github.ajalt.colormath.extensions.android.color/index.html
+$dokka.location:com.github.ajalt.colormath.extensions.android.color//toAndroidColor/com.github.ajalt.colormath.Color#/PointingToDeclaration/colormath-ext-android-color/com.github.ajalt.colormath.extensions.android.color/to-android-color.html
+$dokka.location:com.github.ajalt.colormath.extensions.android.color//toColormathColor/android.graphics.Color#/PointingToDeclaration/colormath-ext-android-color/com.github.ajalt.colormath.extensions.android.color/to-colormath-color.html
+$dokka.location:com.github.ajalt.colormath.extensions.android.color//toColormathSRGB/android.graphics.Color#/PointingToDeclaration/colormath-ext-android-color/com.github.ajalt.colormath.extensions.android.color/to-colormath-s-r-g-b.html
+com.github.ajalt.colormath.extensions.android.color
+

@@ -320,18 +320,33 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="extensions/" class="md-nav__link">
+        Extensions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
-      <label class="md-nav__link" for="__nav_4">
+      <label class="md-nav__link" for="__nav_5">
         Try It Online
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Try It Online" data-md-level="1">
-        <label class="md-nav__title" for="__nav_4">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Try It Online
         </label>
@@ -511,7 +526,16 @@
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>Colormath is distributed through <a href="https://search.maven.org/artifact/com.github.ajalt.colormath/colormath/">Maven Central</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
-   <span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;com.github.ajalt.colormath:colormath:3.0.0&quot;</span><span class="o">)</span>
+    <span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;com.github.ajalt.colormath:colormath:3.1.0&quot;</span><span class="o">)</span>
+
+    <span class="c1">// optional extensions for interop with other platforms</span>
+    <span class="c1">//</span>
+    <span class="c1">// android.graphics.Color</span>
+    <span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;com.github.ajalt.colormath.extensions:colormath-ext-android-color:3.1.0&quot;</span><span class="o">)</span>
+    <span class="c1">// androidx.annotation.ColorInt</span>
+    <span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;com.github.ajalt.colormath.extensions:colormath-ext-android-colorint:3.1.0&quot;</span><span class="o">)</span>
+    <span class="c1">// androidx.compose.ui.graphics.Color</span>
+    <span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;com.github.ajalt.colormath.extensions:colormath-ext-jetpack-compose:3.1.0&quot;</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div>
 <h6 id="if-youre-using-maven-instead-of-gradle-use-artifactidcolormath-jvmartifactid">If you&rsquo;re using Maven instead of Gradle, use <code>&lt;artifactId&gt;colormath-jvm&lt;/artifactId&gt;</code><a class="headerlink" href="#if-youre-using-maven-instead-of-gradle-use-artifactidcolormath-jvmartifactid" title="Permanent link">&para;</a></h6>

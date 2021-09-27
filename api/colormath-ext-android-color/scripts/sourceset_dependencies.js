@@ -1,0 +1,1 @@
+sourceset_dependencies='{":extensions:colormath-ext-android-color:dokkaHtml/androidTestRelease":[],":extensions:colormath-ext-android-color:dokkaHtml/debug":[],":extensions:colormath-ext-android-color:dokkaHtml/main":[],":extensions:colormath-ext-android-color:dokkaHtml/release":[]}'

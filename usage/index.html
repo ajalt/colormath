@@ -441,18 +441,33 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../extensions/" class="md-nav__link">
+        Extensions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
-      <label class="md-nav__link" for="__nav_4">
+      <label class="md-nav__link" for="__nav_5">
         Try It Online
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Try It Online" data-md-level="1">
-        <label class="md-nav__title" for="__nav_4">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Try It Online
         </label>
@@ -730,8 +745,7 @@
 <p>You can optionally specify an alpha value.</p>
 <div class="highlight"><pre><span></span><code><span class="n">LAB</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span>
 </code></pre></div>
-<p>If you don&rsquo;t specify an alpha value, it will default to <code>NaN</code>. This makes it possible to distinguish
-unspecified alpha values, which can be important for operations like interpolation. </p>
+<p>If you don&rsquo;t specify an alpha value, it will default to 1, meaning fully opaque. </p>
 <p>sRGB colors can also be constructed from hex strings or integers. All of the following are equivalent:</p>
 <div class="highlight"><pre><span></span><code><span class="n">RGB</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.4</span><span class="p">,</span> <span class="m">0.6</span><span class="p">)</span>
 <span class="n">SRGB</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.4</span><span class="p">,</span> <span class="m">0.6</span><span class="p">)</span>

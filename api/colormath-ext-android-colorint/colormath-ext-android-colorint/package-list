@@ -1,0 +1,8 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.github.ajalt.colormath.extensions.android.colorint////PointingToDeclaration/colormath-ext-android-colorint/com.github.ajalt.colormath.extensions.android.colorint/index.html
+$dokka.location:com.github.ajalt.colormath.extensions.android.colorint//fromColorInt/com.github.ajalt.colormath.model.RGB.Companion#kotlin.Int/PointingToDeclaration/colormath-ext-android-colorint/com.github.ajalt.colormath.extensions.android.colorint/from-color-int.html
+$dokka.location:com.github.ajalt.colormath.extensions.android.colorint//fromColorInt/com.github.ajalt.colormath.model.RGBInt.Companion#kotlin.Int/PointingToDeclaration/colormath-ext-android-colorint/com.github.ajalt.colormath.extensions.android.colorint/from-color-int.html
+$dokka.location:com.github.ajalt.colormath.extensions.android.colorint//toColorInt/com.github.ajalt.colormath.Color#/PointingToDeclaration/colormath-ext-android-colorint/com.github.ajalt.colormath.extensions.android.colorint/to-color-int.html
+com.github.ajalt.colormath.extensions.android.colorint
+
