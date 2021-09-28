@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## [3.1.1] - 2021-09-28
 ### Fixed
 - Fix shared immutability for background threads on Kotlin Native
 
