@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Fixed
+- Fix shared immutability for background threads on Kotlin Native
+
 ## [3.1.0] - 2021-09-24
 ### Added 
 - Optional modules with extensions for converting between Colormath colors and other platform representations.

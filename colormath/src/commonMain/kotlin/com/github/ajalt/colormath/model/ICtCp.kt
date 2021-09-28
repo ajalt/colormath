@@ -6,6 +6,7 @@ import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.model.RGBColorSpaces.BT2020
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ65
+import kotlin.native.concurrent.SharedImmutable
 
 /**
  * The ICtCp color space, designed for high dynamic range and wide color gamut imagery.
@@ -98,34 +99,45 @@ private object PqNonlinearity : RGBColorSpace.TransferFunctions {
     }
 }
 
+@SharedImmutable
 private val ICTCP_RGB_TO_LMS = Matrix(
     1688f, 2146f, 262f,
     683f, 2951f, 462f,
     99f, 309f, 3688f,
 ).scalarDiv(4096f, inPlace = true)
 
+@SharedImmutable
 private val ICTCP_LMS_TO_ICTCP = Matrix(
     2048f, 2048f, 0f,
     6610f, -13613f, 7003f,
     17933f, -17390f, -543f,
 ).scalarDiv(4096f, inPlace = true)
 
+@SharedImmutable
 private val ICTCP_LMS_to_RGB = ICTCP_RGB_TO_LMS.inverse()
+
+@SharedImmutable
 private val ICTCP_ICTCP_to_LMS = ICTCP_LMS_TO_ICTCP.inverse()
 
 // ICtCp defines the XYZ to LMS matrix by multiplying a crosstalk matrix with the old
 // Hunt-Pointer-Estevez transform. It's not clear why they use HPE rather than one of the newer
 // transforms.
+@SharedImmutable
 private val ICTCP_CROSSTALK = Matrix(
     0.92f, 0.04f, 0.04f,
     0.04f, 0.92f, 0.04f,
     0.04f, 0.04f, 0.92f,
 )
+
+@SharedImmutable
 private val HPE_XYZ_TO_LMS = Matrix(
     0.4002f, 0.7076f, -0.0808f,
     -0.2263f, 1.1653f, 0.0457f,
     0f, 0f, 0.9182f,
 )
 
+@SharedImmutable
 private val ICTCP_XYZ_TO_LMS = ICTCP_CROSSTALK.dot(HPE_XYZ_TO_LMS)
+
+@SharedImmutable
 private val ICTCP_LMS_TO_XYZ = ICTCP_XYZ_TO_LMS.inverse()
