@@ -7,6 +7,7 @@ import com.github.ajalt.colormath.internal.dot
 import com.github.ajalt.colormath.model.*
 import com.github.ajalt.colormath.model.RGBColorSpaces.SRGB
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ65
+import kotlin.native.concurrent.SharedImmutable
 
 /**
  * Create a chromatic adapter that will adapt colors from a given [sourceWhite] to this color space's
@@ -68,5 +69,8 @@ private inline fun <T> doAdapt(transform: Matrix, r: Float, g: Float, b: Float, 
     }
 }
 
+@SharedImmutable
 private val xyzToSrgb = Matrix(SRGB.matrixFromXyz)
+
+@SharedImmutable
 private val srgbToXYZ = Matrix(SRGB.matrixToXyz)
