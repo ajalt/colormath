@@ -1,4 +1,5 @@
 import java.io.ByteArrayOutputStream
+import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 
 val VERSION_NAME: String by project
 
