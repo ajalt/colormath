@@ -25,6 +25,11 @@ allprojects {
     repositories {
         mavenCentral()
     }
+
+    // Disable npm install scripts
+    tasks.withType<KotlinNpmInstallTask> {
+        args += "--ignore-scripts"
+    }
 }
 
 fun getPublishVersion(): String {
