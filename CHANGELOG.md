@@ -4,6 +4,9 @@
 ### Added
 - `hueOr` extension to colors like `HSV` that returns the color's hue or a fallback value if the hue is undefined.
 
+### Changed
+- Updated Kotlin to 1.6.0
+
 ## [3.1.1] - 2021-09-28
 ### Fixed
 - Fix shared immutability for background threads on Kotlin Native
