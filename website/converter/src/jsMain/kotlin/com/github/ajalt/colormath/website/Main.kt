@@ -23,9 +23,6 @@ import com.github.ajalt.colormath.parse
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.attributes.step
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.css.selectors.className
-import org.jetbrains.compose.web.css.selectors.hover
-import org.jetbrains.compose.web.css.selectors.plus
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
 import kotlin.js.json
@@ -92,7 +89,7 @@ fun main() {
                 fontSize(.8.cssRem)
                 borderRadius(.1.cssRem)
             }
-            className("input") + hover() style {
+            className("input") + hover style {
                 backgroundColor(rgba(1f, 1f, 1f, .12f))
             }
             className("colorpicker") style {

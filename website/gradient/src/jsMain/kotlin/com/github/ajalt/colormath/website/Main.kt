@@ -11,9 +11,6 @@ import com.github.ajalt.colormath.transform.interpolator
 import com.github.ajalt.colormath.transform.sequence
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.css.selectors.className
-import org.jetbrains.compose.web.css.selectors.hover
-import org.jetbrains.compose.web.css.selectors.plus
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
 import org.w3c.dom.CanvasRenderingContext2D
@@ -55,7 +52,7 @@ fun main() {
                 height(1.8.cssRem)
                 paddingLeft(1.cssRem)
             }
-            className("input") + hover() style {
+            className("input") + hover style {
                 backgroundColor(rgba(1f, 1f, 1f, .12f))
             }
             className("numberinput") style {
