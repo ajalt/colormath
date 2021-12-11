@@ -16,9 +16,8 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 11
-      - uses: eskatos/gradle-command-action@v1
+      - uses: eskatos/gradle-command-action@v2
         with:
-          dependencies-cache-enabled: true
           arguments: :colormath:check :extensions:colormath-ext-jetpack-compose:check :extensions:colormath-ext-android-colorint:check :extensions:colormath-ext-android-color:check --stacktrace
       - name: Bundle the build report
         if: failure()
@@ -36,9 +35,8 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 11
-      - uses: eskatos/gradle-command-action@v1
+      - uses: eskatos/gradle-command-action@v2
         with:
-          dependencies-cache-enabled: true
           arguments: macosX64Test :colormath:compileKotlinMacosArm64 tvosX64Test iosX64Test --stacktrace
   windows-tests:
     runs-on: windows-latest
@@ -47,9 +45,8 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 11
-      - uses: eskatos/gradle-command-action@v1
+      - uses: eskatos/gradle-command-action@v2
         with:
-          dependencies-cache-enabled: true
           arguments: mingwX64Test :colormath:mingwX64BackgroundTest --stacktrace
 
   deploy-mac-and-linux:
@@ -63,9 +60,8 @@ jobs:
       - name: Fetch git tags
         run: git fetch origin +refs/tags/*:refs/tags/*
       - name: Deploy to sonatype
-        uses: eskatos/gradle-command-action@v1
+        uses: eskatos/gradle-command-action@v2
         with:
-          dependencies-cache-enabled: true
           arguments: publish -PinferVersion=true
 
   deploy-windows:
@@ -79,9 +75,8 @@ jobs:
       - name: Fetch git tags
         run: git fetch origin +refs/tags/*:refs/tags/*
       - name: Deploy to sonatype
-        uses: eskatos/gradle-command-action@v1
+        uses: eskatos/gradle-command-action@v2
         with:
-          dependencies-cache-enabled: true
           arguments: :colormath:publishMingwX64PublicationToMavenRepository -PinferVersion=true
 
 env:
