@@ -63,8 +63,11 @@ val converter = SRGB.converterTo(ACES)
 val acesColors = srgbColors.map { converter.convert(it) } 
 ```
 
-When converting to polar spaces like `HSL`, the hue is undefined for grayscale colors. When that's the case,
-the hue value will be `NaN`.
+!!! caution
+    When converting to polar spaces like `HSL`, the hue is undefined for grayscale colors. When that's the case,
+    the hue value will be `NaN`. If you always want a non-NaN hue, you can use [hueOr][hueOr] like `hsl.hueOr(0)`.
+    
+    [Read more about why the hue can be NaN here](#why-can-a-hue-be-nan)
 
 ## Color transforms
 
@@ -302,6 +305,52 @@ RGB(.2, .4, .6).toHex() // "#336699"
     adaptation before rendering. To avoid this, use the D50 versions of the constructors: [LAB50],
     [LCHab50], and [XYZ50]
 
+
+## Why can a hue be `NaN`?
+
+Cylindrical color spaces like `HSL` and `HSV` represent their hue as an angle in a hue circle.
+
+<figure markdown>
+  ![Color Circle](img/color_circle.svg){ width="300" }
+  <figcaption markdown>The HSV hue circle, [from wikimedia][colorCircleCite]</figcaption>
+</figure>
+
+
+But for monochrome colors like white and grey, the hue value is undefined. If the color is grey, we can use any value
+for the hue and the color will be unchanged.
+
+```kotlin
+HSV(0, 0, .5).toSRGB().toHex()   // #808080
+HSV(123, 0, .5).toSRGB().toHex() // #808080
+```
+
+So colormath sets the hue to `NaN` when it's undefined. Why not use a regular number like 0? Let's say we want to make a
+gradient from white to cyan.
+
+0° hue is red, so if we use a value of 0 as the hue for white, the gradient will interpolate the hue from 0 to 180,
+sweeping through the hues from red to cyan:
+
+```kotlin
+HSV.interpolator {
+    stop(HSV(0, 0, 1))
+    stop(HSV(180, 1, 1))
+}
+```
+
+![Gradient with hue 0](img/bad_hue_grad.svg){ width="100%" }
+
+If we instead use `NaN` for the white hue, the gradient will keep the interpolated hue constant, resulting in the
+gradient we expect:
+
+```kotlin
+HSV.interpolator {
+    stop(HSV(NaN, 0, 1))
+    stop(HSV(180, 1, 1))
+}
+```
+
+![Gradient with hue NaN](img/good_hue_grad.svg){ width="100%" }
+
 [Color.map]:                api/colormath/com.github.ajalt.colormath.transform/map.html
 [Color]:                    api/colormath/com.github.ajalt.colormath/-color/index.html
 [D50]:                      api/colormath/com.github.ajalt.colormath/-illuminant/-d50.html
@@ -314,6 +363,7 @@ RGB(.2, .4, .6).toHex() // "#336699"
 [XYZ50]:                    api/colormath/com.github.ajalt.colormath.model/-x-y-z-color-spaces/-x-y-z50.html
 [adaptTo]:                  api/colormath/com.github.ajalt.colormath.model/-x-y-z/adapt-to.html
 [color-mix]:                https://www.w3.org/TR/css-color-5/#color-mix
+[colorCircleCite]:          https://commons.wikimedia.org/wiki/File:Color_circle_(RGB).svg
 [colorspaces]:              colorspaces.md
 [convertTo]:                api/colormath/com.github.ajalt.colormath/convert-to.html
 [createChromaticAdapter]:   api/colormath/com.github.ajalt.colormath.transform/create-chromatic-adapter.html
@@ -328,6 +378,7 @@ RGB(.2, .4, .6).toHex() // "#336699"
 [firstWithContrast]:        api/colormath/com.github.ajalt.colormath.calculate/first-with-contrast.html
 [formatCssStringOrNull]:    api/colormath/com.github.ajalt.colormath/format-css-string-or-null.html
 [formatCssString]:          api/colormath/com.github.ajalt.colormath/format-css-string.html
+[hueOr]:                    api/colormath/com.github.ajalt.colormath/hue-or.html
 [interpolator]:             api/colormath/com.github.ajalt.colormath.transform/interpolator.html
 [isInSRGBGamut]:            api/colormath/com.github.ajalt.colormath.calculate/is-in-s-r-g-b-gamut.html
 [mostContrasting]:          api/colormath/com.github.ajalt.colormath.calculate/most-contrasting.html

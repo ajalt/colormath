@@ -21,7 +21,6 @@ internal fun sinDeg(deg: Double) = sin(deg.degToRad())
 internal fun Float.normalizeDeg(): Float = ((this % 360f) + 360f) % 360f
 internal fun Double.normalizeDeg(): Double = ((this % 360.0) + 360.0) % 360.0
 
-internal fun Double.nanToZero(): Double = if (isNaN()) 0.0 else this
 internal fun Float.nanToOne(): Float = if (isNaN()) 1f else this
 
 // Used for LAB <-> LCHab, LUV <-> LCHuv, Oklab <-> Oklch, JAB <-> JCH
