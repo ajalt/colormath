@@ -36,6 +36,8 @@ markdown_extensions:
   - pymdownx.tabbed
   - tables
   - admonition
+  - md_in_html
+  - attr_list
 
 nav:
   - 'Getting Started': index.md

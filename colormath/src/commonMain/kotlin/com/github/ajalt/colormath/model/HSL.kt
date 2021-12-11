@@ -1,11 +1,7 @@
 package com.github.ajalt.colormath.model
 
-import com.github.ajalt.colormath.Color
-import com.github.ajalt.colormath.ColorComponentInfo
-import com.github.ajalt.colormath.ColorSpace
-import com.github.ajalt.colormath.HueColor
+import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.internal.doCreate
-import com.github.ajalt.colormath.internal.nanToZero
 import com.github.ajalt.colormath.internal.normalizeDeg
 import com.github.ajalt.colormath.internal.polarComponentInfo
 import kotlin.math.min
@@ -38,7 +34,7 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
     override fun toSRGB(): RGB {
         if (s < 1e-7) return RGB(l, l, l, alpha)
 
-        val h = (h.normalizeDeg() / 30.0).nanToZero()
+        val h = (hueOr(0).normalizeDeg() / 30.0)
         val s = s.toDouble()
         val l = l.toDouble()
 
