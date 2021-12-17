@@ -524,6 +524,7 @@ $dokka.location:com.github.ajalt.colormath//formatCssStringOrNull/com.github.aja
 $dokka.location:com.github.ajalt.colormath//hueAsGrad/com.github.ajalt.colormath.HueColor#/PointingToDeclaration/colormath/com.github.ajalt.colormath/hue-as-grad.html
 $dokka.location:com.github.ajalt.colormath//hueAsRad/com.github.ajalt.colormath.HueColor#/PointingToDeclaration/colormath/com.github.ajalt.colormath/hue-as-rad.html
 $dokka.location:com.github.ajalt.colormath//hueAsTurns/com.github.ajalt.colormath.HueColor#/PointingToDeclaration/colormath/com.github.ajalt.colormath/hue-as-turns.html
+$dokka.location:com.github.ajalt.colormath//hueOr/com.github.ajalt.colormath.HueColor#kotlin.Number/PointingToDeclaration/colormath/com.github.ajalt.colormath/hue-or.html
 $dokka.location:com.github.ajalt.colormath//parse/com.github.ajalt.colormath.Color.Companion#kotlin.String/PointingToDeclaration/colormath/com.github.ajalt.colormath/parse.html
 $dokka.location:com.github.ajalt.colormath//parseOrNull/com.github.ajalt.colormath.Color.Companion#kotlin.String/PointingToDeclaration/colormath/com.github.ajalt.colormath/parse-or-null.html
 $dokka.location:com.github.ajalt.colormath/AngleUnit.AUTO///PointingToDeclaration/colormath/com.github.ajalt.colormath/-angle-unit/-a-u-t-o/index.html

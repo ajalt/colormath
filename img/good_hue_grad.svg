@@ -1,0 +1,26 @@
+<svg viewBox="0 0 600 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="a">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="5%" stop-color="#f6ffff"/>
+      <stop offset="11%" stop-color="#ecffff"/>
+      <stop offset="16%" stop-color="#e3ffff"/>
+      <stop offset="22%" stop-color="#d9ffff"/>
+      <stop offset="27%" stop-color="#d0ffff"/>
+      <stop offset="33%" stop-color="#c6ffff"/>
+      <stop offset="38%" stop-color="#bdffff"/>
+      <stop offset="44%" stop-color="#b3ffff"/>
+      <stop offset="50%" stop-color="#aaffff"/>
+      <stop offset="55%" stop-color="#a1ffff"/>
+      <stop offset="61%" stop-color="#97ffff"/>
+      <stop offset="66%" stop-color="#8effff"/>
+      <stop offset="72%" stop-color="#84ffff"/>
+      <stop offset="77%" stop-color="#71ffff"/>
+      <stop offset="83%" stop-color="#55ffff"/>
+      <stop offset="88%" stop-color="#39ffff"/>
+      <stop offset="94%" stop-color="#1cffff"/>
+      <stop offset="100%" stop-color="#00ffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="50" fill="url('#a')" rx="4"/>
+</svg>

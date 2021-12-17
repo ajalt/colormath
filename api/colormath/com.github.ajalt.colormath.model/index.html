@@ -2,24 +2,28 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.github.ajalt.colormath.model</title>
-<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../scripts/main.js" async="async"></script><link href="../../images/palette_black_36dp.svg"><link href="../../styles/logo-styles.css" rel="Stylesheet">  </head>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><link href="../../styles/prism.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../scripts/main.js" async="async"></script><script type="text/javascript" src="../../scripts/prism.js" async="async"></script><link href="../../images/palette_black_36dp.svg"><link href="../../styles/logo-styles.css" rel="Stylesheet">  </head>
   <body>
+    <div class="navigation-wrapper" id="navigation-wrapper">
+      <div id="leftToggler"><span class="icon-toggler"></span></div>
+      <div class="library-name"><a href="../../index.html">colormath</a></div>
+      <div>3.2.0</div>
+      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+      </div>
+    </div>
     <div id="container">
-      <div id="leftColumn"><a href="../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
+      <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="colormath::com.github.ajalt.colormath.model////PointingToDeclaration//1787990027">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../index.html">colormath</a>/<a href="index.html">com.github.ajalt.colormath.model</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
+      <div id="main"><script type="text/javascript" src="../../scripts/main.js"></script>
+        <div class="main-content" id="content" pageIds="colormath::com.github.ajalt.colormath.model////PointingToDeclaration//1787990027">
+          <div class="breadcrumbs"><a href="../../index.html">colormath</a>/<a href="index.html">com.github.ajalt.colormath.model</a></div>
           <div class="cover ">
             <h1 class="cover"><span><span>Package</span></span> <span>com.</span><wbr></wbr><span>github.</span><wbr></wbr><span>ajalt.</span><wbr></wbr><span>colormath.</span><wbr></wbr><span>model</span></h1>
           </div>
@@ -34,13 +38,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-ansi16/index.html">Ansi16</a>(code: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">A 4-bit, 16 color ANSI code</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-ansi16/index.html">Ansi16</a><span class="token punctuation">(</span>code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A 4-bit, 16 color ANSI code</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -51,13 +51,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-ansi256/index.html">Ansi256</a>(code: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">An 8-bit, 256 color ANSI code</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-ansi256/index.html">Ansi256</a><span class="token punctuation">(</span>code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">An 8-bit, 256 color ANSI code</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -68,13 +64,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-c-m-y-k/index.html">CMYK</a>(c: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, m: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, y: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, k: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">A color in the CMYK (cyan, magenta, yellow, and key) color model.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-c-m-y-k/index.html">CMYK</a><span class="token punctuation">(</span>c<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>m<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>y<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>k<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A color in the CMYK (cyan, magenta, yellow, and key) color model.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -85,13 +77,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-h-p-luv/index.html">HPLuv</a>(h: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, p: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, l: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">HPLuv color space, an alternative to <a href="-h-s-luv/index.html">HSLuv</a> that preserves as many colors as it can without distorting chroma.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-h-p-luv/index.html">HPLuv</a><span class="token punctuation">(</span>h<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>p<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>l<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">HPLuv color space, an alternative to <a href="-h-s-luv/index.html">HSLuv</a> that preserves as many colors as it can without distorting chroma.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -102,13 +90,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-h-s-l/index.html">HSL</a>(h: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, s: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, l: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">A color model represented with Hue, Saturation, and Lightness.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-h-s-l/index.html">HSL</a><span class="token punctuation">(</span>h<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>s<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>l<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A color model represented with Hue, Saturation, and Lightness.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -119,13 +103,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-h-s-luv/index.html">HSLuv</a>(h: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, s: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, l: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">HSLuv color space, a human friendly alternative to <a href="-h-s-l/index.html">HSL</a>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-h-s-luv/index.html">HSLuv</a><span class="token punctuation">(</span>h<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>s<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>l<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">HSLuv color space, a human friendly alternative to <a href="-h-s-l/index.html">HSL</a>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -136,13 +116,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-h-s-v/index.html">HSV</a>(h: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, s: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, v: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">A color model represented with Hue, Saturation, and Value.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-h-s-v/index.html">HSV</a><span class="token punctuation">(</span>h<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>s<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>v<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A color model represented with Hue, Saturation, and Value.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -153,13 +129,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-h-w-b/index.html">HWB</a>(h: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, w: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, b: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a>, <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">A color model represented with Hue, Whiteness, and Blackness.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-h-w-b/index.html">HWB</a><span class="token punctuation">(</span>h<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>w<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>b<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a>, <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A color model represented with Hue, Whiteness, and Blackness.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -170,13 +142,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-i-ct-cp/index.html">ICtCp</a>(i: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, ct: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, cp: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The ICtCp color space, designed for high dynamic range and wide color gamut imagery.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-i-ct-cp/index.html">ICtCp</a><span class="token punctuation">(</span>i<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>ct<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>cp<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The ICtCp color space, designed for high dynamic range and wide color gamut imagery.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -187,13 +155,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-jz-az-bz/index.html">JzAzBz</a>(j: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, a: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, b: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The JzAzBz color space: a perceptually uniform space where euclidean distance predicts perceptual difference.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-jz-az-bz/index.html">JzAzBz</a><span class="token punctuation">(</span>j<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>a<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>b<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The JzAzBz color space: a perceptually uniform space where euclidean distance predicts perceptual difference.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -204,13 +168,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-jz-cz-hz/index.html">JzCzHz</a>(j: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, c: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, h: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a>, <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The JzCzHz color model, the cylindrical representation of <a href="-jz-az-bz/index.html">JzAzBz</a>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-jz-cz-hz/index.html">JzCzHz</a><span class="token punctuation">(</span>j<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>c<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>h<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a>, <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The JzCzHz color model, the cylindrical representation of <a href="-jz-az-bz/index.html">JzAzBz</a>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -221,13 +181,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-l-a-b/index.html">LAB</a> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">CIE LAB color space, also referred to as <code>CIE 1976 L*a*b*</code>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-l-a-b/index.html">LAB</a> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">CIE LAB color space, also referred to as <code class="lang-kotlin">CIE 1976 L*a*b*</code>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -238,13 +194,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-l-a-b-color-space/index.html">LABColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a>&lt;<a href="-l-a-b/index.html">LAB</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The color space describing colors in the <a href="-l-a-b/index.html">LAB</a> model.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-l-a-b-color-space/index.html">LABColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-l-a-b/index.html">LAB</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The color space describing colors in the <a href="-l-a-b/index.html">LAB</a> model.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -255,13 +207,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-l-a-b-color-spaces/index.html">LABColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-l-a-b-color-spaces/index.html">LABColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -272,13 +220,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-l-c-hab/index.html">LCHab</a> : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph"><code>CIE LCh(ab)</code> color model, a.k.a. <code>LCH</code>, the cylindrical representation of <a href="-l-a-b/index.html">LAB</a>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-l-c-hab/index.html">LCHab</a> : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">CIE LCh(ab)</code> color model, a.k.a. <code class="lang-kotlin">LCH</code>, the cylindrical representation of <a href="-l-a-b/index.html">LAB</a>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -289,13 +233,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-l-c-hab-color-space/index.html">LCHabColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a>&lt;<a href="-l-c-hab/index.html">LCHab</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The color space describing colors in the <a href="-l-c-hab/index.html">LCHab</a> model.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-l-c-hab-color-space/index.html">LCHabColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-l-c-hab/index.html">LCHab</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The color space describing colors in the <a href="-l-c-hab/index.html">LCHab</a> model.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -306,13 +246,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-l-c-hab-color-spaces/index.html">LCHabColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-l-c-hab-color-spaces/index.html">LCHabColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -323,13 +259,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-l-c-huv/index.html">LCHuv</a> : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">CIE LCh(uv) color model, a.k.a. <code>HCL</code>, the cylindrical representation of <a href="-l-u-v/index.html">LUV</a>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-l-c-huv/index.html">LCHuv</a> : <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">CIE LCh(uv) color model, a.k.a. <code class="lang-kotlin">HCL</code>, the cylindrical representation of <a href="-l-u-v/index.html">LUV</a>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -340,13 +272,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-l-c-huv-color-space/index.html">LCHuvColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a>&lt;<a href="-l-c-huv/index.html">LCHuv</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The color space describing colors in the <a href="-l-c-huv/index.html">LCHuv</a> model.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-l-c-huv-color-space/index.html">LCHuvColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-l-c-huv/index.html">LCHuv</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The color space describing colors in the <a href="-l-c-huv/index.html">LCHuv</a> model.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -357,13 +285,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-l-c-huv-color-spaces/index.html">LCHuvColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-l-c-huv-color-spaces/index.html">LCHuvColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -374,13 +298,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-l-u-v/index.html">LUV</a> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The CIE LUV color space, also referred to as <code>CIE 1976 L*u*v*</code>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-l-u-v/index.html">LUV</a> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The CIE LUV color space, also referred to as <code class="lang-kotlin">CIE 1976 L*u*v*</code>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -391,13 +311,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-l-u-v-color-space/index.html">LUVColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a>&lt;<a href="-l-u-v/index.html">LUV</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The color space describing colors in the <a href="-l-u-v/index.html">LUV</a> model.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-l-u-v-color-space/index.html">LUVColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-l-u-v/index.html">LUV</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The color space describing colors in the <a href="-l-u-v/index.html">LUV</a> model.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -408,13 +324,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-l-u-v-color-spaces/index.html">LUVColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-l-u-v-color-spaces/index.html">LUVColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -425,13 +337,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-oklab/index.html">Oklab</a>(l: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, a: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, b: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The Oklab color space: a perceptual color space for image processing.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-oklab/index.html">Oklab</a><span class="token punctuation">(</span>l<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>a<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>b<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The Oklab color space: a perceptual color space for image processing.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -442,13 +350,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-oklch/index.html">Oklch</a>(l: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, c: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, h: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a>, <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Oklch color model, the cylindrical representation of <a href="-oklab/index.html">Oklab</a>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-oklch/index.html">Oklch</a><span class="token punctuation">(</span>l<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>c<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>h<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a>, <a href="../com.github.ajalt.colormath/-hue-color/index.html">HueColor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Oklch color model, the cylindrical representation of <a href="-oklab/index.html">Oklab</a>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -459,13 +363,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-r-g-b/index.html">RGB</a> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The RGB color model, using the <a href="-s-r-g-b/index.html">sRGB</a> color space by default.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-r-g-b/index.html">RGB</a> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The RGB color model, using the <a href="-s-r-g-b/index.html">sRGB</a> color space by default.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -476,13 +376,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-r-g-b-color-space/index.html">RGBColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a>&lt;<a href="-r-g-b/index.html">RGB</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-r-g-b-color-space/index.html">RGBColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-r-g-b/index.html">RGB</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -493,13 +389,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-r-g-b-color-spaces/index.html">RGBColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-r-g-b-color-spaces/index.html">RGBColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -510,13 +402,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-inline/index.html">JvmInline</a></div></div>value class <a href="-r-g-b-int/index.html">RGBInt</a>(argb: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-int/index.html">UInt</a>) : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">A representation of <a href="-r-g-b/index.html">RGB</a> that packs color components into a single integer.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-inline/index.html"><span class="token annotation">JvmInline</span></a></div></div><span class="token keyword">value </span><span class="token keyword">class </span><a href="-r-g-b-int/index.html">RGBInt</a><span class="token punctuation">(</span>argb<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-int/index.html">UInt</a><span class="token punctuation">)</span> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A representation of <a href="-r-g-b/index.html">RGB</a> that packs color components into a single integer.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -527,13 +415,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-s-r-g-b/index.html">SRGB</a> : <a href="-r-g-b-color-space/index.html">RGBColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The sRGB color space defined in <a href="https://webstore.iec.ch/publication/6169">IEC 61966-2-1</a></p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-s-r-g-b/index.html">SRGB</a> : <a href="-r-g-b-color-space/index.html">RGBColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The sRGB color space defined in <a href="https://webstore.iec.ch/publication/6169">IEC 61966-2-1</a></p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -544,13 +428,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="xy-y/index.html">xyY</a>(x: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, y: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, Y: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The <code>CIE xyY</code> color space, also used to store <code>xy</code> chromaticity coordinates by setting <a href="xy-y/-y.html">Y</a> to 1.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="xy-y/index.html">xyY</a><span class="token punctuation">(</span>x<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>y<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span>Y<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">CIE xyY</code> color space, also used to store <code class="lang-kotlin">xy</code> chromaticity coordinates by setting <a href="xy-y/-y.html">Y</a> to 1.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -561,13 +441,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-x-y-z/index.html">XYZ</a> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The CIEXYZ color model</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-x-y-z/index.html">XYZ</a> : <a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The CIEXYZ color model</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -578,13 +454,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-x-y-z-color-space/index.html">XYZColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a>&lt;<a href="-x-y-z/index.html">XYZ</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">The color space describing colors in the <a href="-x-y-z/index.html">XYZ</a> model.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-x-y-z-color-space/index.html">XYZColorSpace</a> : <a href="../com.github.ajalt.colormath/-white-point-color-space/index.html">WhitePointColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-x-y-z/index.html">XYZ</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The color space describing colors in the <a href="-x-y-z/index.html">XYZ</a> model.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -595,13 +467,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-y-z-color-spaces/index.html">XYZColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-y-z-color-spaces/index.html">XYZColorSpaces</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -614,13 +482,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">fun <a href="-l-a-b-color-space.html">LABColorSpace</a>(whitePoint: <a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a>): <a href="-l-a-b-color-space/index.html">LABColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Create a new <a href="-l-a-b-color-space/index.html">LABColorSpace</a> that will be calculated relative to the given <a href="-l-a-b-color-space.html">whitePoint</a></p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-l-a-b-color-space.html"><span class="token function">LABColorSpace</span></a><span class="token punctuation">(</span>whitePoint<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-l-a-b-color-space/index.html">LABColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create a new <a href="-l-a-b-color-space/index.html">LABColorSpace</a> that will be calculated relative to the given <a href="-l-a-b-color-space.html">whitePoint</a></p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -631,13 +495,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">fun <a href="-l-c-hab-color-space.html">LCHabColorSpace</a>(whitePoint: <a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a>): <a href="-l-c-hab-color-space/index.html">LCHabColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Create a new <a href="-l-c-hab-color-space/index.html">LCHabColorSpace</a> that will be calculated relative to the given <a href="-l-c-hab-color-space.html">whitePoint</a></p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-l-c-hab-color-space.html"><span class="token function">LCHabColorSpace</span></a><span class="token punctuation">(</span>whitePoint<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-l-c-hab-color-space/index.html">LCHabColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create a new <a href="-l-c-hab-color-space/index.html">LCHabColorSpace</a> that will be calculated relative to the given <a href="-l-c-hab-color-space.html">whitePoint</a></p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -648,13 +508,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">fun <a href="-l-c-huv-color-space.html">LCHuvColorSpace</a>(whitePoint: <a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a>): <a href="-l-c-huv-color-space/index.html">LCHuvColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Create a new <a href="-l-c-huv-color-space/index.html">LCHuvColorSpace</a> that will be calculated relative to the given <a href="-l-c-huv-color-space.html">whitePoint</a></p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-l-c-huv-color-space.html"><span class="token function">LCHuvColorSpace</span></a><span class="token punctuation">(</span>whitePoint<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-l-c-huv-color-space/index.html">LCHuvColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create a new <a href="-l-c-huv-color-space/index.html">LCHuvColorSpace</a> that will be calculated relative to the given <a href="-l-c-huv-color-space.html">whitePoint</a></p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -665,13 +521,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">fun <a href="-l-u-v-color-space.html">LUVColorSpace</a>(whitePoint: <a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a>): <a href="-l-u-v-color-space/index.html">LUVColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Create a new <a href="-l-u-v-color-space/index.html">LUVColorSpace</a> that will be calculated relative to the given <a href="-l-u-v-color-space.html">whitePoint</a></p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-l-u-v-color-space.html"><span class="token function">LUVColorSpace</span></a><span class="token punctuation">(</span>whitePoint<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-l-u-v-color-space/index.html">LUVColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create a new <a href="-l-u-v-color-space/index.html">LUVColorSpace</a> that will be calculated relative to the given <a href="-l-u-v-color-space.html">whitePoint</a></p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -682,13 +534,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">fun <a href="-r-g-b-color-space.html">RGBColorSpace</a>(name: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, whitePoint: <a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a>, transferFunctions: <a href="-r-g-b-color-space/-transfer-functions/index.html">RGBColorSpace.TransferFunctions</a>, r: <a href="xy-y/index.html">xyY</a>, g: <a href="xy-y/index.html">xyY</a>, b: <a href="xy-y/index.html">xyY</a>): <a href="-r-g-b-color-space/index.html">RGBColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Create a new <a href="-r-g-b-color-space/index.html">RGBColorSpace</a> implementation with the given <a href="-r-g-b-color-space.html">name</a>, <a href="-r-g-b-color-space.html">whitePoint</a>, <a href="-r-g-b-color-space.html">transferFunctions</a>, and <a href="-r-g-b-color-space.html">r</a><a href="-r-g-b-color-space.html">g</a><a href="-r-g-b-color-space.html">b</a> primaries.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-r-g-b-color-space.html"><span class="token function">RGBColorSpace</span></a><span class="token punctuation">(</span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span>whitePoint<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a><span class="token punctuation">, </span>transferFunctions<span class="token operator">: </span><a href="-r-g-b-color-space/-transfer-functions/index.html">RGBColorSpace.TransferFunctions</a><span class="token punctuation">, </span>r<span class="token operator">: </span><a href="xy-y/index.html">xyY</a><span class="token punctuation">, </span>g<span class="token operator">: </span><a href="xy-y/index.html">xyY</a><span class="token punctuation">, </span>b<span class="token operator">: </span><a href="xy-y/index.html">xyY</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-r-g-b-color-space/index.html">RGBColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create a new <a href="-r-g-b-color-space/index.html">RGBColorSpace</a> implementation with the given <a href="-r-g-b-color-space.html">name</a>, <a href="-r-g-b-color-space.html">whitePoint</a>, <a href="-r-g-b-color-space.html">transferFunctions</a>, and <a href="-r-g-b-color-space.html">r</a><a href="-r-g-b-color-space.html">g</a><a href="-r-g-b-color-space.html">b</a> primaries.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -699,13 +547,9 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace">fun <a href="-x-y-z-color-space.html">XYZColorSpace</a>(whitePoint: <a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a>): <a href="-x-y-z-color-space/index.html">XYZColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Create a new <a href="-x-y-z-color-space/index.html">XYZColorSpace</a> that will be calculated relative to the given <a href="-x-y-z-color-space.html">whitePoint</a></p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-x-y-z-color-space.html"><span class="token function">XYZColorSpace</span></a><span class="token punctuation">(</span>whitePoint<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-white-point/index.html">WhitePoint</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-x-y-z-color-space/index.html">XYZColorSpace</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create a new <a href="-x-y-z-color-space/index.html">XYZColorSpace</a> that will be calculated relative to the given <a href="-x-y-z-color-space.html">whitePoint</a></p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -713,7 +557,7 @@
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>Copyright &copy; 2021 AJ Alt</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Copyright &copy; 2021 AJ Alt</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
   </body>
