@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+### Changed
+- Updated Kotlin to 1.7.10
+
 ## [3.2.0]
 ### Added
 - `hueOr` extension to colors like `HSV` that returns the color's hue or a fallback value if the hue is undefined.

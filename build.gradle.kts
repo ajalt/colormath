@@ -10,13 +10,15 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.2")
+        classpath("com.android.tools.build:gradle:7.2.1")
     }
 }
 
+@Suppress("DSL_SCOPE_VIOLATION") // https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
-    kotlin("jvm") version "1.6.0"
-    id("org.jetbrains.dokka") version "1.6.0"
+    kotlin("multiplatform").version(libs.versions.kotlin).apply(false)
+    alias(libs.plugins.android.library).apply(false)
+    alias(libs.plugins.dokka).apply(false)
 }
 
 allprojects {

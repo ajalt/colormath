@@ -13,7 +13,6 @@ android {
     compileSdk = 31
     defaultConfig {
         minSdk = 21
-        targetSdk = 31
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -26,9 +25,9 @@ android {
 
 dependencies {
     api(project(":colormath"))
-    api("androidx.compose.ui:ui-graphics:1.0.2")
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.robolectric:robolectric:4.4")
+    api(libs.compose.ui.graphics)
+    testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
 }
 
 apply(from = "../../gradle/dokka.gradle")
