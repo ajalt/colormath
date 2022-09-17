@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [3.2.1]
 ### Changed
 - Updated Kotlin to 1.7.10
 
