@@ -26,9 +26,9 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         create("libs") {
-            version("kotlin", "1.7.10")
+            version("kotlin", "1.8.0")
 
-            plugin("dokka", "org.jetbrains.dokka").version("1.7.10")
+            plugin("dokka", "org.jetbrains.dokka").version("1.7.20")
 
             // used in tests
             library("kotest", "io.kotest:kotest-assertions-core:5.4.2")
@@ -43,7 +43,6 @@ dependencyResolutionManagement {
 
             // used in samples
             plugin("compose", "org.jetbrains.compose").version("1.1.1")
-
         }
     }
 }

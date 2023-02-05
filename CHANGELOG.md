@@ -1,28 +1,32 @@
 # Changelog
 
-## [3.2.1]
+## Unreleased
+### Changed
+- Updated Kotlin to 1.8.0
+
+## 3.2.1
 ### Changed
 - Updated Kotlin to 1.7.10
 
-## [3.2.0]
+## 3.2.0
 ### Added
 - `hueOr` extension to colors like `HSV` that returns the color's hue or a fallback value if the hue is undefined.
 
 ### Changed
 - Updated Kotlin to 1.6.0
 
-## [3.1.1]
+## 3.1.1
 ### Fixed
 - Fix shared immutability for background threads on Kotlin Native
 
-## [3.1.0]
+## 3.1.0
 ### Added 
 - Optional modules with extensions for converting between Colormath colors and other platform representations.
 
 ### Changed
 - Unspecified alpha values now default to fully opaque
 
-## [3.0.0]
+## 3.0.0
 ### Added
 - New color models: `Oklab`, `Oklch`, `HWB`, `HPLuv`, `HSLuv`, `LCHab`, `LCHuv`, `JzAzBz`, `JzCzHz`, `ICtCp`
 - New RGB color spaces: `Linear sRGB`, `ACES`, `ACEScc`, `ACEScct`, `ACEScg`, `Adobe RGB`, `BT.2020`, `BT.709`, `DCI P3`, `Display P3`, `ProPhoto`
@@ -51,7 +55,7 @@
 - Removed `Ansi16` companion object color constants.
 - Removed `Color.toHex()`. Use `RGB.toHex()` instead.
 
-## [2.1.0]
+## 2.1.0
 ### Added
 - Added CIE LUV colorspace support
 - Added CIE LCH(uv) colorspace support
@@ -64,7 +68,7 @@
 - `Color.fromCss` now clamps out-of-range values in accordance with the CSS Color Module Level 4 spec
 
 
-## [2.0.0]
+## 2.0.0
 ### Added
 - Added multiplatform support.
 
@@ -74,11 +78,11 @@
 ### Deprecated
 - Renamed `ConvertibleColor` to `Color`. The old name is left as a deprecated type alias.
 
-## [1.4.1]
+## 1.4.1
 ### Fixed
 - Fix `RGB(255,255, 255).toLAB()` throwing an exception due to rounding precision.
 
-## [1.4.0]
+## 1.4.0
 ### Added
 - `hueAsRad()`, `hueAsGrad()`, and `hueAsTurns()` extensions for `HSL` and `HSV` classes.
 - `toHex()` now has a `renderAlpha` parameter that lets you render the color's alpha channel in the hex. By default the alpha will be added if it's < 1.
@@ -90,7 +94,7 @@
 - `ColorMath.parseCssColor()` renamed to `ConvertableColor.fromCss()` and `ColorMath.cssKeywordColors` to `CssColors.colorsByName`
 
 
-## [1.3.0]
+## 1.3.0
 ### Added
 - All colors now have an `alpha` channel, defaulting to 1 (fully opaque). For colorspaces that support transparency, you can pass an alpha value into their constructors.
 - `ColorMath.parseCssColor()` can parse all valid HTML/CSS colors, including rgb, hsl, and named colors.
@@ -100,6 +104,6 @@
 - Switch rounding methods to use `kotlin.math` rounding, which can slightly change conversion results in some cases.
 
 
-## [1.2.0]
+## 1.2.0
 ### Added
 - Add ability to construct RGB instances from packed integers or Bytes

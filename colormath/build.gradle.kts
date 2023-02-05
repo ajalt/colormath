@@ -14,7 +14,7 @@ repositories {
 
 kotlin {
     jvm()
-    js(BOTH) {
+    js(IR) {
         nodejs()
         browser()
     }
@@ -35,28 +35,15 @@ kotlin {
             dependsOn(commonMain)
         }
 
-        listOf("macosX64", "macosArm64", "linuxX64", "mingwX64", "ios", "tvos", "watchos").forEach { target ->
-            getByName(target + "Main").dependsOn(nativeMain)
-        }
+        listOf("macosX64", "macosArm64", "linuxX64", "mingwX64", "ios", "tvos", "watchos")
+            .forEach { target ->
+                getByName(target + "Main").dependsOn(nativeMain)
+            }
 
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.kotest)
-            }
-        }
-    }
-
-    targets.withType<KotlinNativeTargetWithTests<*>> {
-        binaries {
-            // Configure a separate test where code runs in background
-            test("background", setOf(NativeBuildType.DEBUG)) {
-                freeCompilerArgs = freeCompilerArgs + "-trw"
-            }
-        }
-        testRuns {
-            val background by creating {
-                setExecutionSourceFrom(binaries.getByName("backgroundDebugTest") as TestExecutable)
             }
         }
     }
