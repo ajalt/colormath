@@ -25,6 +25,7 @@ kotlin {
     macosArm64()
 
     ios()
+    iosSimulatorArm64()
     tvos()
     watchos()
 
@@ -35,7 +36,7 @@ kotlin {
             dependsOn(commonMain)
         }
 
-        listOf("macosX64", "macosArm64", "linuxX64", "mingwX64", "ios", "tvos", "watchos")
+        listOf("macosX64", "macosArm64", "linuxX64", "mingwX64", "ios", "iosSimulatorArm64", "tvos", "watchos")
             .forEach { target ->
                 getByName(target + "Main").dependsOn(nativeMain)
             }
