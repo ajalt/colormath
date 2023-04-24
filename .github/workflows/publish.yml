@@ -37,7 +37,7 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v2
         with:
-          arguments: macosX64Test :colormath:compileKotlinMacosArm64 tvosX64Test iosX64Test --stacktrace
+          arguments: macosX64Test :colormath:compileKotlinMacosArm64 iosX64Test tvosX64Test iosSimulatorArm64Test tvosSimulatorArm64Test watchosSimulatorArm64Test --stacktrace
   windows-tests:
     runs-on: windows-latest
     steps:
