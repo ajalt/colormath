@@ -15,7 +15,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 11
-      - uses: eskatos/gradle-command-action@v2
+      - uses: gradle/gradle-build-action@v2
         with:
           arguments: :colormath:check :extensions:colormath-ext-jetpack-compose:check :extensions:colormath-ext-android-colorint:check :extensions:colormath-ext-android-color:check --stacktrace
       - name: Bundle the build report
@@ -35,7 +35,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 11
-      - uses: eskatos/gradle-command-action@v2
+      - uses: gradle/gradle-build-action@v2
         with:
           arguments: macosX64Test :colormath:compileKotlinMacosArm64 tvosX64Test iosX64Test --stacktrace
   windows-tests:
@@ -46,7 +46,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 11
-      - uses: eskatos/gradle-command-action@v2
+      - uses: gradle/gradle-build-action@v2
         with:
           arguments: mingwX64Test --stacktrace
 
