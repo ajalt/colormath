@@ -2,7 +2,7 @@
 
 ## Unreleased
 ### Changed
-- Updated Kotlin to 1.8.0
+- Updated Kotlin to 1.8
 
 ## 3.2.1
 ### Changed

@@ -18,6 +18,7 @@ pluginManagement {
     }
 }
 
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
@@ -26,15 +27,15 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         create("libs") {
-            version("kotlin", "1.8.0")
+            version("kotlin", "1.8.20")
 
-            plugin("dokka", "org.jetbrains.dokka").version("1.7.20")
+            plugin("dokka", "org.jetbrains.dokka").version("1.8.10")
 
             // used in tests
             library("kotest", "io.kotest:kotest-assertions-core:5.4.2")
 
             // used in extensions
-            plugin("android-library", "com.android.library").version("7.2.1")
+            plugin("android-library", "com.android.library").version("7.4.0")
 
             library("compose-ui-graphics", "androidx.compose.ui:ui-graphics:1.2.1")
             library("androidx-annotation", "androidx.annotation:annotation:1.4.0")
