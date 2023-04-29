@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE")
+
 plugins {
     kotlin("multiplatform")
     alias(libs.plugins.compose)

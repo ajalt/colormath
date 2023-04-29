@@ -19,8 +19,14 @@ kotlin {
         publishLibraryVariants("release")
     }
 
+    jvm()
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
-        val androidMain by getting {
+        val commonMain by getting {
             dependencies {
                 api(project(":colormath"))
                 api(libs.compose.ui.graphics)
@@ -39,12 +45,17 @@ android {
     namespace = "com.github.ajalt.colormath"
     compileSdk = 33
 
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
     defaultConfig {
         minSdk = 21
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlin {
+        jvmToolchain(11)
     }
 }
 

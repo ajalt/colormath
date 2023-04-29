@@ -4,25 +4,16 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 val VERSION_NAME: String by project
 
 
-@Suppress("DSL_SCOPE_VIOLATION") // https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
     kotlin("multiplatform").version(libs.versions.kotlin).apply(false)
     alias(libs.plugins.android.library).apply(false)
     alias(libs.plugins.dokka).apply(false)
+    alias(libs.plugins.compose).apply(false)
 }
 
 allprojects {
     group = "com.github.ajalt.colormath"
     version = getPublishVersion()
-
-    repositories {
-        mavenCentral()
-    }
-
-    // Disable npm install scripts
-    tasks.withType<KotlinNpmInstallTask> {
-        args += "--ignore-scripts"
-    }
 }
 
 fun getPublishVersion(): String {

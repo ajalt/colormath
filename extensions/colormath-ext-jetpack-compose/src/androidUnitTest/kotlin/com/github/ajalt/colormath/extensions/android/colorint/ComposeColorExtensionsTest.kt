@@ -13,7 +13,7 @@ import com.github.ajalt.colormath.model.RGB
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [26])
 class ComposeColorExtensionsTest {
-    private val colormathBlue = com.github.ajalt.colormath.model.RGB(0, 0, 1, 1)
+    private val colormathBlue = RGB(0, 0, 1, 1)
 
     @org.junit.Test
     fun toColormathColor() {
