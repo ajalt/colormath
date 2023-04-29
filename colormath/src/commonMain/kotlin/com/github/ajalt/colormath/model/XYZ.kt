@@ -3,6 +3,7 @@ package com.github.ajalt.colormath.model
 import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.model.XYZ.Companion.whitePoint
+import kotlin.math.cbrt
 import kotlin.math.pow
 
 /**

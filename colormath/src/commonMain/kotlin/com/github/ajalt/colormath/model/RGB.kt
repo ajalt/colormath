@@ -6,6 +6,7 @@ import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.WhitePointColorSpace
 import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.model.RGBColorSpaces.BT2020
+import kotlin.math.cbrt
 import kotlin.math.roundToInt
 
 
