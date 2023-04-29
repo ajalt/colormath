@@ -8,21 +8,21 @@ import kotlin.test.Test
 
 class HueColorTest {
     @Test
-    fun hueAsRad() = assertSoftly {
+    fun hueAsRad(): Unit = assertSoftly {
         HSL(0, 0, 0).hueAsRad() shouldBe 0f
         HSL(180, 0, 0).hueAsRad() shouldBe PI.toFloat()
         HSL(360, 0, 0).hueAsRad() shouldBe (2 * PI).toFloat()
     }
 
     @Test
-    fun hueAsGrad() = assertSoftly {
+    fun hueAsGrad(): Unit = assertSoftly {
         HSL(0, 0, 0).hueAsGrad() shouldBe 0f
         HSL(180, 0, 0).hueAsGrad() shouldBe 200f
         HSL(360, 0, 0).hueAsGrad() shouldBe 400f
     }
 
     @Test
-    fun hueAsTurns() = assertSoftly {
+    fun hueAsTurns(): Unit = assertSoftly {
         HSL(0, 0, 0).hueAsTurns() shouldBe 0f
         HSL(180, 0, 0).hueAsTurns() shouldBe .5f
         HSL(360, 0, 0).hueAsTurns() shouldBe 1f
