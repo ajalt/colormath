@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.3.0
 ### Added
 - The core module now publishes multiplatform targets for `iosSimulatorArm64`, `tvosSimulatorArm64`, and `watchosSimulatorArm64`. 
 - The Jetpack Compose extensions module `colormath-ext-jetpack-compose` now publishes multiplatform targets for JVM and iOS in addition to the existing android target.
