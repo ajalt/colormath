@@ -66,7 +66,16 @@ jobs:
       - name: Deploy to sonatype
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish -PinferVersion=true
+          arguments: |
+            :colormath:assemble
+            :extensions:colormath-ext-android-color:assemble 
+            :extensions:colormath-ext-android-colorint:assemble 
+            :extensions:colormath-ext-jetpack-compose:assemble 
+            :colormath:publish
+            :extensions:colormath-ext-android-color:publish 
+            :extensions:colormath-ext-android-colorint:publish 
+            :extensions:colormath-ext-jetpack-compose:publish
+            -PinferVersion=true
 
 
 env:

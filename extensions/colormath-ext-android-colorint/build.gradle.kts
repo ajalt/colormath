@@ -64,3 +64,6 @@ tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
 }
 
+
+apply(from = "../../gradle/dokka.gradle")
+apply(from = "../../gradle/publish.gradle.kts")
