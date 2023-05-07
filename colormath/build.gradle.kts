@@ -38,7 +38,18 @@ kotlin {
             dependsOn(commonMain)
         }
 
-        listOf("macosX64", "macosArm64", "linuxX64", "mingwX64", "ios", "iosSimulatorArm64", "tvos", "tvosSimulatorArm64", "watchos", "watchosSimulatorArm64")
+        listOf(
+            "macosX64",
+            "macosArm64",
+            "linuxX64",
+            "mingwX64",
+            "ios",
+            "iosSimulatorArm64",
+            "tvos",
+            "tvosSimulatorArm64",
+            "watchos",
+            "watchosSimulatorArm64"
+        )
             .forEach { target ->
                 getByName(target + "Main").dependsOn(nativeMain)
             }
@@ -73,6 +84,10 @@ tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
 }
 
+// Workaround for KT-46466
+tasks.withType<AbstractPublishToMaven>().configureEach {
+    dependsOn(tasks.withType<Sign>())
+}
 
 apply(from = "../gradle/dokka.gradle")
 apply(from = "../gradle/publish.gradle.kts")
