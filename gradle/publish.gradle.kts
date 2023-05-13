@@ -73,3 +73,8 @@ afterEvaluate {
         }
     }
 }
+
+// Workaround for KT-46466
+project.tasks.withType<AbstractPublishToMaven>().configureEach {
+    dependsOn(tasks.withType<Sign>())
+}

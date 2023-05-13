@@ -74,10 +74,5 @@ tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
 }
 
-// Workaround for KT-46466
-tasks.withType<AbstractPublishToMaven>().configureEach {
-    dependsOn(tasks.withType<Sign>())
-}
-
 apply(from = "../../gradle/dokka.gradle")
 apply(from = "../../gradle/publish.gradle.kts")
