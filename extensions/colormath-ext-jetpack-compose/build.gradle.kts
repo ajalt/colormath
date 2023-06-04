@@ -1,5 +1,5 @@
-@file:Suppress("UNUSED_VARIABLE")
-
+import com.vanniktech.maven.publish.tasks.JavadocJar
+import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    alias(libs.plugins.publish)
 }
 
 repositories {
@@ -74,5 +75,7 @@ tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
 }
 
-apply(from = "../../gradle/dokka.gradle")
-apply(from = "../../gradle/publish.gradle.kts")
+// workaround for https://github.com/Kotlin/dokka/issues/1833
+tasks.withType<JavadocJar>().configureEach {
+    dependsOn(project.tasks.getByPath(":colormath:dokkaHtml"))
+}

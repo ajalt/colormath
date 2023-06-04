@@ -31,6 +31,7 @@ dependencyResolutionManagement {
             version("jbCompose", "1.4.0")
 
             plugin("dokka", "org.jetbrains.dokka").version("1.8.10")
+            plugin("publish", "com.vanniktech.maven.publish").version("0.25.2")
 
             // used in tests
             library("kotest", "io.kotest:kotest-assertions-core:5.6.1")

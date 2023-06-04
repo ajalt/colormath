@@ -1,5 +1,5 @@
-@file:Suppress("UNUSED_VARIABLE")
-
+import com.vanniktech.maven.publish.tasks.JavadocJar
+import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    alias(libs.plugins.publish)
 }
 
 
@@ -49,21 +50,3 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
-
-tasks.withType<KotlinJvmCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_11)
-    }
-}
-
-tasks.withType<JavaCompile>().configureEach {
-    sourceCompatibility = JavaVersion.VERSION_11.toString()
-    targetCompatibility = JavaVersion.VERSION_11.toString()
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
-}
-
-apply(from = "../../gradle/dokka.gradle")
-apply(from = "../../gradle/publish.gradle.kts")

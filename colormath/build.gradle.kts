@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_VARIABLE", "PropertyName")
+@file:Suppress("PropertyName")
 
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
     kotlin("multiplatform")
+    alias(libs.plugins.publish)
 }
 
 repositories {
@@ -68,21 +69,3 @@ tasks.withType<Jar>().configureEach {
         attributes("Automatic-Module-Name" to "com.github.ajalt.colormath")
     }
 }
-
-tasks.withType<KotlinJvmCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_11)
-    }
-}
-
-tasks.withType<JavaCompile>().configureEach {
-    sourceCompatibility = JavaVersion.VERSION_11.toString()
-    targetCompatibility = JavaVersion.VERSION_11.toString()
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
-}
-
-apply(from = "../gradle/dokka.gradle")
-apply(from = "../gradle/publish.gradle.kts")
