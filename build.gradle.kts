@@ -12,8 +12,9 @@ plugins {
 fun getPublishVersion(): String {
     val versionName = project.property("VERSION_NAME") as String
 
-    // Call gradle with -PinferVersion to set the dynamic version name. Otherwise we skip it to save time.
-    if (!project.hasProperty("Extensions")) return versionName
+    // Call gradle with -PinferVersion to set the dynamic version name.
+    // Otherwise, we skip it to save time.
+    if (!project.hasProperty("inferVersion")) return versionName
 
     val stdout = ByteArrayOutputStream()
     project.exec {
