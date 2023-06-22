@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 20
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: :colormath:check :extensions:colormath-ext-jetpack-compose:check :extensions:colormath-ext-android-colorint:check :extensions:colormath-ext-android-color:check --stacktrace
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 20
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: macosX64Test :colormath:compileKotlinMacosArm64 iosX64Test tvosX64Test iosSimulatorArm64Test tvosSimulatorArm64Test watchosSimulatorArm64Test --stacktrace
@@ -47,7 +47,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 20
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: mingwX64Test --stacktrace
@@ -60,7 +60,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 20
       - name: Fetch git tags
         run: git fetch origin +refs/tags/*:refs/tags/*
       - name: Deploy to sonatype
@@ -79,7 +79,7 @@ jobs:
 
 
 env:
-  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx5g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx5g -Dfile.encoding=UTF-8"
   ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralPassword }}
   ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_signingInMemoryKey }}
   ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralUsername }}
