@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Changed
+- Publish JVM artifacts with Java 8 bytecode
+
 ## 3.3.0
 ### Added
 - The core module now publishes multiplatform targets for `iosSimulatorArm64`, `tvosSimulatorArm64`, and `watchosSimulatorArm64`. 

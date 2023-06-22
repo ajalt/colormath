@@ -1,9 +1,3 @@
-import com.vanniktech.maven.publish.tasks.JavadocJar
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
-
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
@@ -39,14 +33,5 @@ kotlin {
 android {
     namespace = "com.github.ajalt.colormath"
     compileSdk = 33
-
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-
-    defaultConfig {
-        minSdk = 21
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+    defaultConfig.minSdk = 21
 }
