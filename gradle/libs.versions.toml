@@ -1,0 +1,20 @@
+[versions]
+kotlin = "1.8.20"
+jbCompose = "1.4.0"
+
+[libraries]
+# used in tests
+kotest =  "io.kotest:kotest-assertions-core:5.6.1"
+compose-ui-graphics = { module = "org.jetbrains.compose.ui:ui-graphics", version.ref = "jbCompose" }
+androidx-annotation =  "androidx.annotation:annotation:1.6.0"
+junit =  "junit:junit:4.13.2"
+robolectric =  "org.robolectric:robolectric:4.10"
+
+[plugins]
+dokka = "org.jetbrains.dokka:1.8.10"
+publish = "com.vanniktech.maven.publish:0.25.2"
+# used in extensions
+android-library = "com.android.library:7.4.0"
+
+# used in samples
+compose = { id = "org.jetbrains.compose", version.ref = "jbCompose" }
