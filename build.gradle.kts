@@ -1,4 +1,7 @@
+import com.android.build.gradle.BaseExtension
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.io.ByteArrayOutputStream
 
 plugins {
@@ -32,14 +35,22 @@ fun getPublishVersion(): String {
 subprojects {
     project.setProperty("VERSION_NAME", getPublishVersion())
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
+    tasks.withType<KotlinJvmCompile>().configureEach {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_1_8)
         }
     }
-    tasks.withType<org.gradle.api.tasks.compile.JavaCompile>().configureEach {
-        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_11.toString()
-        targetCompatibility = org.gradle.api.JavaVersion.VERSION_11.toString()
+    tasks.withType<JavaCompile>().configureEach {
+        options.release.set(8)
+    }
+
+    plugins.withType<com.android.build.gradle.BasePlugin>().configureEach {
+        configure<BaseExtension> {
+            compileOptions {
+                sourceCompatibility = JavaVersion.VERSION_1_8
+                targetCompatibility = JavaVersion.VERSION_1_8
+            }
+        }
     }
 
     pluginManager.withPlugin("com.vanniktech.maven.publish") {
