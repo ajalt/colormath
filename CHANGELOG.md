@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+## Changed
+- Updated Kotlin to 1.9.0
+
 ## 3.3.1
 ### Changed
 - Publish JVM artifacts with Java 8 bytecode
