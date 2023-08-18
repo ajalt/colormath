@@ -17,7 +17,14 @@ jobs:
           java-version: 20
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: :colormath:check :extensions:colormath-ext-jetpack-compose:check :extensions:colormath-ext-android-colorint:check :extensions:colormath-ext-android-color:check --stacktrace
+          arguments: |
+            :colormath:jsNodeTest
+            :colormath:jvmTest
+            :colormath:linuxX64Test
+            :colormath:compileKotlinLinuxArm64
+            :extensions:colormath-ext-jetpack-compose:check 
+            :extensions:colormath-ext-android-colorint:check 
+            :extensions:colormath-ext-android-color:check --stacktrace
       - name: Bundle the build report
         if: failure()
         run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
@@ -37,7 +44,12 @@ jobs:
           java-version: 20
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: macosX64Test :colormath:compileKotlinMacosArm64 tvosX64Test iosX64Test --stacktrace
+          arguments: |
+            macosX64Test
+            :colormath:compileKotlinMacosArm64
+            tvosX64Test
+            iosX64Test
+            --stacktrace
   windows-tests:
     runs-on: windows-latest
     steps:
@@ -51,4 +63,11 @@ jobs:
           arguments: mingwX64Test --stacktrace
 
 env:
-  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx5g -Dfile.encoding=UTF-8"
+  GRADLE_OPTS: >
+    -Dorg.gradle.configureondemand=true
+    -Dorg.gradle.parallel=true
+    -Dkotlin.incremental=false
+    -Dorg.gradle.project.kotlin.incremental.multiplatform=false
+    -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true
+    -Dorg.gradle.jvmargs="-Xmx5g
+    -Dfile.encoding=UTF-8"

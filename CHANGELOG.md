@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+### Added
+- Publish `linuxArm64` target. This target is not tested on CI.
+
 ## Changed
 - Updated Kotlin to 1.9.0
 

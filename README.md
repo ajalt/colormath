@@ -69,7 +69,7 @@ dependencies {
 
 Colormath supports the following targets: `jvm`, `mingwX64`, `linuxX64`, `macosX64`, `ios`,
 `watchos`, `tvos`, and `js` (for both NodeJS and Browsers). You'll need to use Gradle 6 or newer.
-Artifacts for `macosArm64` are also published, but not tested with CI.
+Artifacts for `macosArm64` and `linuxArm64` are also published, but not tested with CI.
 
 #### Snapshots
 
