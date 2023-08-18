@@ -63,11 +63,4 @@ jobs:
           arguments: mingwX64Test --stacktrace
 
 env:
-  GRADLE_OPTS: >
-    -Dorg.gradle.configureondemand=true
-    -Dorg.gradle.parallel=true
-    -Dkotlin.incremental=false
-    -Dorg.gradle.project.kotlin.incremental.multiplatform=false
-    -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true
-    -Dorg.gradle.jvmargs="-Xmx5g
-    -Dfile.encoding=UTF-8"
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx5g -Dfile.encoding=UTF-8"
