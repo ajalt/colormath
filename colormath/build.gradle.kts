@@ -1,8 +1,4 @@
-@file:Suppress("PropertyName")
-
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform")
@@ -15,12 +11,10 @@ repositories {
 
 kotlin {
     jvm()
-    js(IR) {
-        nodejs()
-        browser()
-    }
+    js { nodejs() }
 
     linuxX64()
+    linuxArm64()
     mingwX64()
     macosX64()
     macosArm64()
@@ -50,10 +44,9 @@ kotlin {
             "tvosSimulatorArm64",
             "watchos",
             "watchosSimulatorArm64"
-        )
-            .forEach { target ->
-                getByName(target + "Main").dependsOn(nativeMain)
-            }
+        ).forEach { target ->
+            getByName(target + "Main").dependsOn(nativeMain)
+        }
 
         val commonTest by getting {
             dependencies {
