@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.3.2
 ### Added
 - Publish `linuxArm64` target. This target is not tested on CI.
 
