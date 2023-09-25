@@ -12,8 +12,14 @@
         <meta name="author" content="AJ Alt">
       
       
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../colorspaces/">
+      
       <link rel="icon" href="../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.0">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
     
     
       
@@ -21,31 +27,30 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.82f3c0b9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.9204c3b2.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#7e56c2">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ecc896b0.min.css">
       
+      
+
     
     
     
       
+        
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
+    
     
     
   </head>
@@ -78,7 +83,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="Colormath" class="md-header__button md-logo" aria-label="Colormath" data-md-component="logo">
       
@@ -86,7 +93,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -105,10 +112,12 @@
       </div>
     </div>
     
+      
+    
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -116,13 +125,13 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
       
@@ -133,7 +142,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -142,10 +151,10 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/ajalt/colormath/" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/ajalt/colormath" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Colormath
@@ -186,10 +195,10 @@
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/ajalt/colormath/" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/ajalt/colormath" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Colormath
@@ -225,7 +234,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -468,17 +477,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Try It Online
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Try It Online" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Try It Online
@@ -747,33 +757,34 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-<a href="https://github.com/ajalt/colormath/edit/master/docs/usage.md" title="Edit this page" class="md-content__button md-icon">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-</a>
+                  
+
+  
+  
 
 
 <h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
 <h2 id="creating-colors">Creating colors<a class="headerlink" href="#creating-colors" title="Permanent link">&para;</a></h2>
 <p>Instances of a color are constructed by invoking their color model.</p>
-<div class="highlight"><pre><span></span><code><span class="n">LAB</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">75</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">LAB</span><span class="p">(</span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="m">75</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">)</span>
 </code></pre></div>
 <p>For models with multiple color spaces, you can also invoke the specific color space, or create your own:</p>
-<div class="highlight"><pre><span></span><code><span class="n">LAB50</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">75</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span> <span class="c1">// Uses the D50 illuminant</span>
-<span class="kd">val</span> <span class="nv">LAB55</span> <span class="o">=</span> <span class="n">LabColorSpace</span><span class="p">(</span><span class="n">Illuminant</span><span class="p">.</span><span class="na">D55</span><span class="p">)</span>
-<span class="n">LAB55</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="m">30</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">LAB50</span><span class="p">(</span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="m">75</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="c1">// Uses the D50 illuminant</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">LAB55</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LabColorSpace</span><span class="p">(</span><span class="n">Illuminant</span><span class="p">.</span><span class="na">D55</span><span class="p">)</span>
+<span class="n">LAB55</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">30</span><span class="p">)</span>
 </code></pre></div>
 <p>You can optionally specify an alpha value.</p>
-<div class="highlight"><pre><span></span><code><span class="n">LAB</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">LAB</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span>
 </code></pre></div>
 <p>If you don&rsquo;t specify an alpha value, it will default to 1, meaning fully opaque. </p>
 <p>sRGB colors can also be constructed from hex strings or integers. All of the following are equivalent:</p>
-<div class="highlight"><pre><span></span><code><span class="n">RGB</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.4</span><span class="p">,</span> <span class="m">0.6</span><span class="p">)</span>
-<span class="n">SRGB</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.4</span><span class="p">,</span> <span class="m">0.6</span><span class="p">)</span>
-<span class="n">RGB</span><span class="p">.</span><span class="na">from255</span><span class="p">(</span><span class="m">51</span><span class="p">,</span> <span class="m">102</span><span class="p">,</span> <span class="m">153</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">RGB</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="m">0.6</span><span class="p">)</span>
+<span class="n">SRGB</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="m">0.6</span><span class="p">)</span>
+<span class="n">RGB</span><span class="p">.</span><span class="na">from255</span><span class="p">(</span><span class="m">51</span><span class="p">,</span><span class="w"> </span><span class="m">102</span><span class="p">,</span><span class="w"> </span><span class="m">153</span><span class="p">)</span>
 <span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#369&quot;</span><span class="p">)</span>
 <span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#336699&quot;</span><span class="p">)</span>
 <span class="n">RGBInt</span><span class="p">(</span><span class="m">0</span><span class="n">x336699u</span><span class="p">).</span><span class="na">toSRGB</span><span class="p">()</span>
@@ -782,7 +793,7 @@
 <h2 id="converting-colors">Converting colors<a class="headerlink" href="#converting-colors" title="Permanent link">&para;</a></h2>
 <p>You can convert a color to another color space with any of the <a href="../api/colormath/com.github.ajalt.colormath/-color/">Color.to*()</a> functions:</p>
 <div class="highlight"><pre><span></span><code><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#111&quot;</span><span class="p">).</span><span class="na">toHSL</span><span class="p">()</span>
-<span class="n">XYZ</span><span class="p">(.</span><span class="m">1</span><span class="p">,</span> <span class="p">.</span><span class="m">2</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">).</span><span class="na">toOklab</span><span class="p">()</span>
+<span class="n">XYZ</span><span class="p">(.</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">3</span><span class="p">).</span><span class="na">toOklab</span><span class="p">()</span>
 </code></pre></div>
 <p>You can also convert to a specific color space with <a href="../api/colormath/com.github.ajalt.colormath/convert-to.html">convertTo</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#111&quot;</span><span class="p">).</span><span class="na">convertTo</span><span class="p">(</span><span class="n">LinearSRGB</span><span class="p">)</span>
@@ -791,9 +802,9 @@
 </code></pre></div>
 <p>If you need to convert multiple colors from one RGB color space to another, you can use an
 <a href="../api/colormath/com.github.ajalt.colormath.transform/-r-g-b-to-r-g-b-converter/">RGBToRGBConverter</a>, which is more efficient than using <code>convertTo</code> multiple times:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">srgbColors</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">RGB</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">converter</span> <span class="o">=</span> <span class="n">SRGB</span><span class="p">.</span><span class="na">converterTo</span><span class="p">(</span><span class="n">ACES</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">acesColors</span> <span class="o">=</span> <span class="n">srgbColors</span><span class="p">.</span><span class="na">map</span> <span class="p">{</span> <span class="n">converter</span><span class="p">.</span><span class="na">convert</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">}</span> 
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">srgbColors</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">RGB</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">converter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SRGB</span><span class="p">.</span><span class="na">converterTo</span><span class="p">(</span><span class="n">ACES</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">acesColors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">srgbColors</span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">converter</span><span class="p">.</span><span class="na">convert</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -806,9 +817,9 @@ the hue value will be <code>NaN</code>. If you always want a non-NaN hue, you ca
 built-in transforms.</p>
 <h3 id="mix">Mix<a class="headerlink" href="#mix" title="Permanent link">&para;</a></h3>
 <p>Mix two colors based on a fraction of each, with a syntax that&rsquo;s similar to the CSS <a href="https://www.w3.org/TR/css-color-5/#color-mix">color-mix</a> function.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">purple</span> <span class="o">=</span> <span class="n">LCHab</span><span class="p">(</span><span class="m">29</span><span class="p">,</span> <span class="m">66</span><span class="p">,</span> <span class="m">327</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">plum</span> <span class="o">=</span> <span class="n">LCHab</span><span class="p">(</span><span class="m">73</span><span class="p">,</span> <span class="m">37</span><span class="p">,</span> <span class="m">324</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">mixed</span> <span class="o">=</span> <span class="n">LCHab</span><span class="p">.</span><span class="na">mix</span><span class="p">(</span><span class="n">purple</span><span class="p">,</span> <span class="p">.</span><span class="m">8</span><span class="p">,</span> <span class="n">plum</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">purple</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LCHab</span><span class="p">(</span><span class="m">29</span><span class="p">,</span><span class="w"> </span><span class="m">66</span><span class="p">,</span><span class="w"> </span><span class="m">327</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">plum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LCHab</span><span class="p">(</span><span class="m">73</span><span class="p">,</span><span class="w"> </span><span class="m">37</span><span class="p">,</span><span class="w"> </span><span class="m">324</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">mixed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LCHab</span><span class="p">.</span><span class="na">mix</span><span class="p">(</span><span class="n">purple</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">plum</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">3</span><span class="p">)</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -818,36 +829,36 @@ built-in transforms.</p>
 <p>You can also interpolate between two colors. This is similar to <code>mix</code>, but takes a single parameter
 <code>t</code> indicating the amount to interpolate between the two colors, with <code>t=0</code> returning the first
 color, and <code>t=1</code> returning the second.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">color1</span> <span class="o">=</span> <span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#000&quot;</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">color2</span> <span class="o">=</span> <span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#444&quot;</span><span class="p">)</span>
-<span class="n">color1</span><span class="p">.</span><span class="na">interpolate</span><span class="p">(</span><span class="n">color2</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="m">0.25</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">color1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#000&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">color2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#444&quot;</span><span class="p">)</span>
+<span class="n">color1</span><span class="p">.</span><span class="na">interpolate</span><span class="p">(</span><span class="n">color2</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="o">=</span><span class="m">0.25</span><span class="p">)</span>
 <span class="c1">// RGB(&quot;#111&quot;)</span>
 </code></pre></div>
 <h3 id="premultiply-alpha">Premultiply alpha<a class="headerlink" href="#premultiply-alpha" title="Permanent link">&para;</a></h3>
 <p>Colormath colors aren&rsquo;t normally stored with alpha premultiplied. You can do so with
 <a href="../api/colormath/com.github.ajalt.colormath.transform/multiply-alpha.html">multiplyAlpha</a>, and revert the operation with <a href="../api/colormath/com.github.ajalt.colormath.transform/divide-alpha.html">divideAlpha</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">color</span> <span class="o">=</span> <span class="n">RGB</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.25</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RGB</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.25</span><span class="p">)</span>
 <span class="n">color</span><span class="p">.</span><span class="na">multiplyAlpha</span><span class="p">()</span>
 <span class="c1">// RGB(0.25, 0.25, 0.25, alpha=0.25)</span>
 </code></pre></div>
 <h2 id="color-calculations">Color calculations<a class="headerlink" href="#color-calculations" title="Permanent link">&para;</a></h2>
 <h3 id="color-gamut">Color gamut<a class="headerlink" href="#color-gamut" title="Permanent link">&para;</a></h3>
 <p>You can check if a color is within the sRGB gamut with <a href="../api/colormath/com.github.ajalt.colormath.calculate/is-in-s-r-g-b-gamut.html">isInSRGBGamut</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">XYZ</span><span class="p">(.</span><span class="m">5</span><span class="p">,</span> <span class="p">.</span><span class="m">7</span><span class="p">,</span> <span class="m">1</span><span class="p">).</span><span class="na">isInSRGBGamut</span><span class="p">()</span> <span class="c1">// true</span>
-<span class="n">ICtCp</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="p">.</span><span class="m">5</span><span class="p">,</span> <span class="p">.</span><span class="m">5</span><span class="p">).</span><span class="na">isInSRGBGamut</span><span class="p">()</span> <span class="c1">// false</span>
+<div class="highlight"><pre><span></span><code><span class="n">XYZ</span><span class="p">(.</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">7</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">).</span><span class="na">isInSRGBGamut</span><span class="p">()</span><span class="w"> </span><span class="c1">// true</span>
+<span class="n">ICtCp</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">5</span><span class="p">).</span><span class="na">isInSRGBGamut</span><span class="p">()</span><span class="w"> </span><span class="c1">// false</span>
 </code></pre></div>
 <h3 id="color-contrast">Color contrast<a class="headerlink" href="#color-contrast" title="Permanent link">&para;</a></h3>
 <p>You can calculate the relative luminance of a color, or the contrast between two colors according to
 the <a href="https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio">Web Content Accessibility Guidelines</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#f3a&quot;</span><span class="p">).</span><span class="na">wcagLuminance</span><span class="p">()</span> <span class="c1">// 0.26529932</span>
-<span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#aaa&quot;</span><span class="p">).</span><span class="na">wcagContrastRatio</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#fff&quot;</span><span class="p">))</span> <span class="c1">// 2.323123</span>
+<div class="highlight"><pre><span></span><code><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#f3a&quot;</span><span class="p">).</span><span class="na">wcagLuminance</span><span class="p">()</span><span class="w"> </span><span class="c1">// 0.26529932</span>
+<span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#aaa&quot;</span><span class="p">).</span><span class="na">wcagContrastRatio</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#fff&quot;</span><span class="p">))</span><span class="w"> </span><span class="c1">// 2.323123</span>
 </code></pre></div>
 <p>You can also select the most contrasting color from a list of colors, similar to the CSS <code>color-contrast</code> function.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">wheat</span> <span class="o">=</span> <span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#f5deb3&quot;</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">tan</span> <span class="o">=</span> <span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#d2b48c&quot;</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">sienna</span> <span class="o">=</span> <span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#a0522d&quot;</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">accent</span> <span class="o">=</span> <span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#b22222&quot;</span><span class="p">)</span>
-<span class="n">wheat</span><span class="p">.</span><span class="na">mostContrasting</span><span class="p">(</span><span class="n">tan</span><span class="p">,</span> <span class="n">sienna</span><span class="p">,</span> <span class="n">accent</span><span class="p">)</span> <span class="c1">// returns accent</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">wheat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#f5deb3&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">tan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#d2b48c&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">sienna</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#a0522d&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">accent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#b22222&quot;</span><span class="p">)</span>
+<span class="n">wheat</span><span class="p">.</span><span class="na">mostContrasting</span><span class="p">(</span><span class="n">tan</span><span class="p">,</span><span class="w"> </span><span class="n">sienna</span><span class="p">,</span><span class="w"> </span><span class="n">accent</span><span class="p">)</span><span class="w"> </span><span class="c1">// returns accent</span>
 </code></pre></div>
 <p>In addition to <a href="../api/colormath/com.github.ajalt.colormath.calculate/most-contrasting.html">mostContrasting</a>, you can use <a href="../api/colormath/com.github.ajalt.colormath.calculate/first-with-contrast.html">firstWithContrast</a> or <a href="../api/colormath/com.github.ajalt.colormath.calculate/first-with-contrast-or-null.html">firstWithContrastOrNull</a>,
 depending on your use case.</p>
@@ -864,27 +875,27 @@ depending on your use case.</p>
 <h2 id="gradients-and-interpolation">Gradients and Interpolation<a class="headerlink" href="#gradients-and-interpolation" title="Permanent link">&para;</a></h2>
 <p>For gradients and advanced interpolation, you can use the <a href="../api/colormath/com.github.ajalt.colormath.transform/interpolator.html">interpolator</a> builder. </p>
 <div class="highlight"><pre><span></span><code><span class="c1">// You can interpolate in any color space.</span>
-<span class="kd">val</span> <span class="nv">interp</span> <span class="o">=</span> <span class="n">Oklab</span><span class="p">.</span><span class="na">interpolator</span> <span class="p">{</span> 
-    <span class="c1">// Color stops can be specified in a different space than the interpolator</span>
-    <span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#00f&quot;</span><span class="p">))</span>
-    <span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#fff&quot;</span><span class="p">))</span>
-    <span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#000&quot;</span><span class="p">))</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">interp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Oklab</span><span class="p">.</span><span class="na">interpolator</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">// Color stops can be specified in a different space than the interpolator</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#00f&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#fff&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#000&quot;</span><span class="p">))</span>
 <span class="p">}</span>
 
 <span class="c1">// Get a single color</span>
 <span class="n">interp</span><span class="p">.</span><span class="na">interpolate</span><span class="p">(</span><span class="m">0.25</span><span class="p">)</span>
 
 <span class="c1">// Or a sequence of colors to draw a gradient</span>
-<span class="k">for</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="k">in</span> <span class="n">interp</span><span class="p">.</span><span class="na">sequence</span><span class="p">(</span><span class="n">canvas</span><span class="p">.</span><span class="na">width</span><span class="p">).</span><span class="na">withIndex</span><span class="p">())</span> <span class="p">{</span>
-    <span class="n">canvas</span><span class="p">.</span><span class="na">drawRect</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">canvas</span><span class="p">.</span><span class="na">height</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">interp</span><span class="p">.</span><span class="na">sequence</span><span class="p">(</span><span class="n">canvas</span><span class="p">.</span><span class="na">width</span><span class="p">).</span><span class="na">withIndex</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">canvas</span><span class="p">.</span><span class="na">drawRect</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="o">=</span><span class="n">canvas</span><span class="p">.</span><span class="na">height</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="interpolation-method">Interpolation method<a class="headerlink" href="#interpolation-method" title="Permanent link">&para;</a></h3>
 <p>Interpolators use linear interpolation by default. Colormath also includes an implementation of
 monotone spline interpolation, which produces smoother gradients.</p>
-<div class="highlight"><pre><span></span><code><span class="n">LCHab</span><span class="p">.</span><span class="na">interpolator</span> <span class="p">{</span> 
-    <span class="n">method</span> <span class="o">=</span> <span class="n">InterpolationMethods</span><span class="p">.</span><span class="na">monotoneSpline</span><span class="p">()</span>
-    <span class="c1">// ...</span>
+<div class="highlight"><pre><span></span><code><span class="n">LCHab</span><span class="p">.</span><span class="na">interpolator</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InterpolationMethods</span><span class="p">.</span><span class="na">monotoneSpline</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// ...</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="easing-functions">Easing functions<a class="headerlink" href="#easing-functions" title="Permanent link">&para;</a></h3>
@@ -892,18 +903,18 @@ monotone spline interpolation, which produces smoother gradients.</p>
 easing function changes the speed that the path is traversed.</p>
 <p><a href="../api/colormath/com.github.ajalt.colormath.transform/-easing-functions/">EasingFunctions</a> includes all the CSS easing functions, as well as an easing
 function to set the midpoint of the gradient between two stops.</p>
-<div class="highlight"><pre><span></span><code><span class="n">LCHab</span><span class="p">.</span><span class="na">interpolator</span> <span class="p">{</span>
-    <span class="c1">// Set the easing function for all components</span>
-    <span class="n">easing</span> <span class="o">=</span> <span class="n">EasingFunctions</span><span class="p">.</span><span class="na">easeInOut</span><span class="p">()</span>
-    <span class="c1">// Override the easing function for a specific component</span>
-    <span class="n">componentEasing</span><span class="p">(</span><span class="s">&quot;h&quot;</span><span class="p">,</span> <span class="n">EasingFunctions</span><span class="p">.</span><span class="na">linear</span><span class="p">())</span>
+<div class="highlight"><pre><span></span><code><span class="n">LCHab</span><span class="p">.</span><span class="na">interpolator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Set the easing function for all components</span>
+<span class="w">    </span><span class="n">easing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EasingFunctions</span><span class="p">.</span><span class="na">easeInOut</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// Override the easing function for a specific component</span>
+<span class="w">    </span><span class="n">componentEasing</span><span class="p">(</span><span class="s">&quot;h&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EasingFunctions</span><span class="p">.</span><span class="na">linear</span><span class="p">())</span>
 
-    <span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#00f&quot;</span><span class="p">))</span> <span class="p">{</span>
-        <span class="c1">// Override the easing function between this stop and the next</span>
-        <span class="n">easing</span> <span class="o">=</span> <span class="n">EasingFunctions</span><span class="p">.</span><span class="na">midpoint</span><span class="p">(.</span><span class="m">25</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#fff&quot;</span><span class="p">))</span>
-    <span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#000&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#00f&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Override the easing function between this stop and the next</span>
+<span class="w">        </span><span class="n">easing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EasingFunctions</span><span class="p">.</span><span class="na">midpoint</span><span class="p">(.</span><span class="m">25</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#fff&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#000&quot;</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="component-adjustment">Component adjustment<a class="headerlink" href="#component-adjustment" title="Permanent link">&para;</a></h3>
@@ -916,13 +927,13 @@ alpha will have their alphas set to 1.</p>
 interpolate the hue (do you travel clockwise or counterclockwise around the hue circle?). You can
 pick a strategy from <a href="../api/colormath/com.github.ajalt.colormath.transform/-hue-adjustments/">HueAdjustments</a>, which contains all the methods defined in the CSS standard. By
 default, <a href="../api/colormath/com.github.ajalt.colormath.transform/-hue-adjustments/shorter.html">HueAdjustments.shorter</a> is used.</p>
-<div class="highlight"><pre><span></span><code><span class="n">LCHab</span><span class="p">.</span><span class="na">interpolator</span> <span class="p">{</span>
-    <span class="c1">// set the adjustment for the hue</span>
-    <span class="n">componentAdjustment</span><span class="p">(</span><span class="s">&quot;h&quot;</span><span class="p">,</span> <span class="n">HueAdjustments</span><span class="p">.</span><span class="na">longer</span><span class="p">)</span>
-    <span class="c1">// disable the default alpha adjustment</span>
-    <span class="n">componentAdjustment</span><span class="p">(</span><span class="s">&quot;alpha&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="nb">it</span> <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="n">LCHab</span><span class="p">.</span><span class="na">interpolator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// set the adjustment for the hue</span>
+<span class="w">    </span><span class="n">componentAdjustment</span><span class="p">(</span><span class="s">&quot;h&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">HueAdjustments</span><span class="p">.</span><span class="na">longer</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// disable the default alpha adjustment</span>
+<span class="w">    </span><span class="n">componentAdjustment</span><span class="p">(</span><span class="s">&quot;alpha&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="p">}</span>
 
-    <span class="c1">// ...</span>
+<span class="w">    </span><span class="c1">// ...</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="chromatic-adaptation">Chromatic adaptation<a class="headerlink" href="#chromatic-adaptation" title="Permanent link">&para;</a></h2>
@@ -930,28 +941,28 @@ default, <a href="../api/colormath/com.github.ajalt.colormath.transform/-hue-adj
 adapted using Von Kries&rsquo; method with the CIECAM02 CAT matrix. If you&rsquo;d like to perform chromatic
 adaptation using a different matrix (such as Bradford&rsquo;s), you can convert the color to XYZ and use
 <a href="../api/colormath/com.github.ajalt.colormath.model/-x-y-z/adapt-to.html">adaptTo</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">bradfords</span> <span class="o">=</span> <span class="n">floatArrayOf</span><span class="p">(</span>
-     <span class="m">0.8951f</span><span class="p">,</span>  <span class="m">0.2664f</span><span class="p">,</span> <span class="o">-</span><span class="m">0.1614f</span><span class="p">,</span>
-    <span class="o">-</span><span class="m">0.7502f</span><span class="p">,</span>  <span class="m">1.7135f</span><span class="p">,</span>  <span class="m">0.0367f</span><span class="p">,</span>
-     <span class="m">0.0389f</span><span class="p">,</span> <span class="o">-</span><span class="m">0.0685f</span><span class="p">,</span>  <span class="m">1.0296f</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">bradfords</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">floatArrayOf</span><span class="p">(</span>
+<span class="w">     </span><span class="m">0.8951f</span><span class="p">,</span><span class="w">  </span><span class="m">0.2664f</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">0.1614f</span><span class="p">,</span>
+<span class="w">    </span><span class="o">-</span><span class="m">0.7502f</span><span class="p">,</span><span class="w">  </span><span class="m">1.7135f</span><span class="p">,</span><span class="w">  </span><span class="m">0.0367f</span><span class="p">,</span>
+<span class="w">     </span><span class="m">0.0389f</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">0.0685f</span><span class="p">,</span><span class="w">  </span><span class="m">1.0296f</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="c1">// adapt this color to LAB with a D50 whitepoint using bradford&#39;s matrix</span>
-<span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#f3a&quot;</span><span class="p">).</span><span class="na">toXYZ</span><span class="p">().</span><span class="na">adaptTo</span><span class="p">(</span><span class="n">XYZ50</span><span class="p">,</span> <span class="n">bradfords</span><span class="p">).</span><span class="na">toLAB</span><span class="p">()</span>
+<span class="n">RGB</span><span class="p">(</span><span class="s">&quot;#f3a&quot;</span><span class="p">).</span><span class="na">toXYZ</span><span class="p">().</span><span class="na">adaptTo</span><span class="p">(</span><span class="n">XYZ50</span><span class="p">,</span><span class="w"> </span><span class="n">bradfords</span><span class="p">).</span><span class="na">toLAB</span><span class="p">()</span>
 <span class="c1">// LAB50(l=59.029217, a=79.97541, b=-14.047905)</span>
 </code></pre></div>
 <p>If you want to adapt multiple colors at once based on a source white color, you can use
 <a href="../api/colormath/com.github.ajalt.colormath.transform/create-chromatic-adapter.html">createChromaticAdapter</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">sourceWhite</span> <span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">bitmap</span><span class="p">.</span><span class="na">getWhitestPixel</span><span class="p">()</span>
-<span class="kd">val</span> <span class="nv">adapter</span> <span class="o">=</span> <span class="n">RGBInt</span><span class="p">.</span><span class="na">createChromaticAdapter</span><span class="p">(</span><span class="n">sourceWhite</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">pixels</span> <span class="p">:</span> <span class="n">IntArray</span> <span class="o">=</span> <span class="n">bitmap</span><span class="p">.</span><span class="na">getArgbPixels</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">sourceWhite</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bitmap</span><span class="p">.</span><span class="na">getWhitestPixel</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">adapter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RGBInt</span><span class="p">.</span><span class="na">createChromaticAdapter</span><span class="p">(</span><span class="n">sourceWhite</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">pixels</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IntArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bitmap</span><span class="p">.</span><span class="na">getArgbPixels</span><span class="p">()</span>
 <span class="n">adapter</span><span class="p">.</span><span class="na">adaptAll</span><span class="p">(</span><span class="n">pixels</span><span class="p">)</span>
 <span class="n">bitmap</span><span class="p">.</span><span class="na">setPixels</span><span class="p">(</span><span class="n">pixels</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="parsing-color-strings">Parsing color strings<a class="headerlink" href="#parsing-color-strings" title="Permanent link">&para;</a></h2>
 <p>You can create a <code>Color</code> instance from any CSS color string using <a href="../api/colormath/com.github.ajalt.colormath/parse.html">parse</a> and <a href="../api/colormath/com.github.ajalt.colormath/parse-or-null.html">parseOrNull</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">Color</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">)</span> <span class="c1">// RGB(r=1.0, g=0.0, b=0.0)</span>
-<span class="n">Color</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;rgb(51 102 51 / 40%)&quot;</span><span class="p">)</span> <span class="c1">// RGB(r=0.2, g=0.4, b=0.2, alpha=0.4)</span>
-<span class="n">Color</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;hwb(200grad 20% 45%)&quot;</span><span class="p">)</span> <span class="c1">// HWB(h=180.0, w=0.2, b=0.45)</span>
+<div class="highlight"><pre><span></span><code><span class="n">Color</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// RGB(r=1.0, g=0.0, b=0.0)</span>
+<span class="n">Color</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;rgb(51 102 51 / 40%)&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// RGB(r=0.2, g=0.4, b=0.2, alpha=0.4)</span>
+<span class="n">Color</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;hwb(200grad 20% 45%)&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// HWB(h=180.0, w=0.2, b=0.45)</span>
 </code></pre></div>
 <h2 id="rendering-colors-as-strings">Rendering colors as strings<a class="headerlink" href="#rendering-colors-as-strings" title="Permanent link">&para;</a></h2>
 <p>You can also render any <code>Color</code> as a CSS color string with <a href="../api/colormath/com.github.ajalt.colormath/format-css-string.html">formatCssString</a>. Colormath
@@ -960,10 +971,10 @@ string with a dashed identifier name based on the color space. </p>
 <p>You can also use <a href="../api/colormath/com.github.ajalt.colormath/format-css-string-or-null.html">formatCssStringOrNull</a> which will return null when called on a color space that
 isn&rsquo;t built in to CSS.</p>
 <p>To render a color as a hex string, convert it to sRGB and use <a href="../api/colormath/com.github.ajalt.colormath.model/-r-g-b/to-hex.html">toHex</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">RGB</span><span class="p">(.</span><span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">.</span><span class="m">5</span><span class="p">).</span><span class="na">formatCssString</span><span class="p">()</span> <span class="c1">// &quot;rgb(51 0 255 / 0.5)&quot;</span>
-<span class="n">LCHab50</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">180</span><span class="p">).</span><span class="na">formatCssString</span><span class="p">()</span> <span class="c1">// &quot;lch(50% 10 180)&quot;</span>
-<span class="n">ROMM_RGB</span><span class="p">(.</span><span class="m">1</span><span class="p">,</span> <span class="p">.</span><span class="m">2</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span><span class="p">).</span><span class="na">formatCssString</span><span class="p">()</span> <span class="c1">// &quot;color(prophoto-rgb 0.1 0.2 0.4)&quot;</span>
-<span class="n">RGB</span><span class="p">(.</span><span class="m">2</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span><span class="p">,</span> <span class="p">.</span><span class="m">6</span><span class="p">).</span><span class="na">toHex</span><span class="p">()</span> <span class="c1">// &quot;#336699&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">RGB</span><span class="p">(.</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="m">5</span><span class="p">).</span><span class="na">formatCssString</span><span class="p">()</span><span class="w"> </span><span class="c1">// &quot;rgb(51 0 255 / 0.5)&quot;</span>
+<span class="n">LCHab50</span><span class="p">(</span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">180</span><span class="p">).</span><span class="na">formatCssString</span><span class="p">()</span><span class="w"> </span><span class="c1">// &quot;lch(50% 10 180)&quot;</span>
+<span class="n">ROMM_RGB</span><span class="p">(.</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">4</span><span class="p">).</span><span class="na">formatCssString</span><span class="p">()</span><span class="w"> </span><span class="c1">// &quot;color(prophoto-rgb 0.1 0.2 0.4)&quot;</span>
+<span class="n">RGB</span><span class="p">(.</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">6</span><span class="p">).</span><span class="na">toHex</span><span class="p">()</span><span class="w"> </span><span class="c1">// &quot;#336699&quot;</span>
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -983,71 +994,42 @@ adaptation before rendering. To avoid this, use the D50 versions of the construc
 </figure>
 <p>But for monochrome colors like white and grey, the hue value is undefined. If the color is grey, we can use any value
 for the hue and the color will be unchanged.</p>
-<div class="highlight"><pre><span></span><code><span class="n">HSV</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="p">.</span><span class="m">5</span><span class="p">).</span><span class="na">toSRGB</span><span class="p">().</span><span class="na">toHex</span><span class="p">()</span>   <span class="c1">// #808080</span>
-<span class="n">HSV</span><span class="p">(</span><span class="m">123</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="p">.</span><span class="m">5</span><span class="p">).</span><span class="na">toSRGB</span><span class="p">().</span><span class="na">toHex</span><span class="p">()</span> <span class="c1">// #808080</span>
+<div class="highlight"><pre><span></span><code><span class="n">HSV</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">5</span><span class="p">).</span><span class="na">toSRGB</span><span class="p">().</span><span class="na">toHex</span><span class="p">()</span><span class="w">   </span><span class="c1">// #808080</span>
+<span class="n">HSV</span><span class="p">(</span><span class="m">123</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="m">5</span><span class="p">).</span><span class="na">toSRGB</span><span class="p">().</span><span class="na">toHex</span><span class="p">()</span><span class="w"> </span><span class="c1">// #808080</span>
 </code></pre></div>
 <p>So colormath sets the hue to <code>NaN</code> when it&rsquo;s undefined. Why not use a regular number like 0? Let&rsquo;s say we want to make a
 gradient from white to cyan.</p>
 <p>0° hue is red, so if we use a value of 0 as the hue for white, the gradient will interpolate the hue from 0 to 180,
 sweeping through the hues from red to cyan:</p>
-<div class="highlight"><pre><span></span><code><span class="n">HSV</span><span class="p">.</span><span class="na">interpolator</span> <span class="p">{</span>
-    <span class="n">stop</span><span class="p">(</span><span class="n">HSV</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
-    <span class="n">stop</span><span class="p">(</span><span class="n">HSV</span><span class="p">(</span><span class="m">180</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">HSV</span><span class="p">.</span><span class="na">interpolator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">HSV</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">HSV</span><span class="p">(</span><span class="m">180</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="Gradient with hue 0" src="../img/bad_hue_grad.svg" width="100%" /></p>
 <p>If we instead use <code>NaN</code> for the white hue, the gradient will keep the interpolated hue constant, resulting in the
 gradient we expect:</p>
-<div class="highlight"><pre><span></span><code><span class="n">HSV</span><span class="p">.</span><span class="na">interpolator</span> <span class="p">{</span>
-    <span class="n">stop</span><span class="p">(</span><span class="n">HSV</span><span class="p">(</span><span class="n">NaN</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
-    <span class="n">stop</span><span class="p">(</span><span class="n">HSV</span><span class="p">(</span><span class="m">180</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">HSV</span><span class="p">.</span><span class="na">interpolator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">HSV</span><span class="p">(</span><span class="n">NaN</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span>
+<span class="w">    </span><span class="n">stop</span><span class="p">(</span><span class="n">HSV</span><span class="p">(</span><span class="m">180</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="Gradient with hue NaN" src="../img/good_hue_grad.svg" width="100%" /></p>
 
-              
-            </article>
-          </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting Started" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Getting Started
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../colorspaces/" class="md-footer__link md-footer__link--next" aria-label="Next: Color Spaces" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Color Spaces
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1073,10 +1055,11 @@ gradient we expect:</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.cefbb252.min.js"}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.17f42bbf.min.js"></script>
+      <script src="../assets/javascripts/bundle.a51614de.min.js"></script>
       
     
   </body>

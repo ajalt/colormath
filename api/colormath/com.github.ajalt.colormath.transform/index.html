@@ -1,344 +1,439 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.github.ajalt.colormath.transform</title>
-<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
-<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><link href="../../styles/prism.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../scripts/main.js" async="async"></script><script type="text/javascript" src="../../scripts/prism.js" async="async"></script><link href="../../images/palette_black_36dp.svg"><link href="../../styles/logo-styles.css" rel="Stylesheet">  </head>
-  <body>
-    <div class="navigation-wrapper" id="navigation-wrapper">
-      <div id="leftToggler"><span class="icon-toggler"></span></div>
-      <div class="library-name"><a href="../../index.html">colormath</a></div>
-      <div>3.2.0</div>
-      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
-        <div id="searchBar"></div>
-      </div>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+<link href="../../images/palette_black_36dp.svg">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../index.html">
+                            colormath
+                    </a>
+            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":colormath:dokkaHtml/commonMain">common</button>
+        </div>
     </div>
-    <div id="container">
-      <div id="leftColumn">
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main"><script type="text/javascript" src="../../scripts/main.js"></script>
-        <div class="main-content" id="content" pageIds="colormath::com.github.ajalt.colormath.transform////PointingToDeclaration//1787990027">
-          <div class="breadcrumbs"><a href="../../index.html">colormath</a>/<a href="index.html">com.github.ajalt.colormath.transform</a></div>
-          <div class="cover ">
-            <h1 class="cover"><span><span>Package</span></span> <span>com.</span><wbr></wbr><span>github.</span><wbr></wbr><span>ajalt.</span><wbr></wbr><span>colormath.</span><wbr></wbr><span>transform</span></h1>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="2123349965%2FClasslikes%2F1787990027" anchor-label="ChromaticAdapterRGB" id="2123349965%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-chromatic-adapter-r-g-b/index.html"><span>Chromatic</span><wbr></wbr><span>Adapter</span><wbr></wbr><span><span>RGB</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2123349965%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-chromatic-adapter-r-g-b/index.html">ChromaticAdapterRGB</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1173279194%2FClasslikes%2F1787990027" anchor-label="ChromaticAdapterRGBInt" id="-1173279194%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-chromatic-adapter-r-g-b-int/index.html"><span>Chromatic</span><wbr></wbr><span>Adapter</span><wbr></wbr><span><span>RGBInt</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1173279194%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-chromatic-adapter-r-g-b-int/index.html">ChromaticAdapterRGBInt</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1281557121%2FClasslikes%2F1787990027" anchor-label="ColorMapper" id="-1281557121%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#-1281557121%2FClasslikes%2F1787990027"><span>Color</span><wbr></wbr><span><span>Mapper</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1281557121%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#-1281557121%2FClasslikes%2F1787990027">ColorMapper</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-1281557121%2FClasslikes%2F1787990027">T</a><span class="token operator">&gt;</span><span class="token operator"> = </span><span class="token keyword"></span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-1281557121%2FClasslikes%2F1787990027">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword"></span>components<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html">FloatArray</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html">FloatArray</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A mapping function used with <a href="map.html">map</a>.</p><h3 class=""> Parameters</h3><ul><li><p class="paragraph"><code class="lang-kotlin">space</code>: The <a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a> of the color being mapped</p></li><li><p class="paragraph"><code class="lang-kotlin">components</code>: The <a href="../com.github.ajalt.colormath/-color/to-array.html">components</a> of the color to map.</p></li></ul><h3 class=""> Returns</h3><p class="paragraph">The new color components. You may alter and return <code class="lang-kotlin">components</code> directly, or a new array the same size as <code class="lang-kotlin">components</code>.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1469641863%2FClasslikes%2F1787990027" anchor-label="ComponentAdjustment" id="-1469641863%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#-1469641863%2FClasslikes%2F1787990027"><span>Component</span><wbr></wbr><span><span>Adjustment</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1469641863%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#-1469641863%2FClasslikes%2F1787990027">ComponentAdjustment</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>hues<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A function that takes a list of values for a single component and returns a new list with the value to use for interpolation of that component.</p><p class="paragraph">The returned list must be the same size as the input.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-429993508%2FClasslikes%2F1787990027" anchor-label="EasingFunction" id="-429993508%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-easing-function/index.html"><span>Easing</span><wbr></wbr><span><span>Function</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-429993508%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token keyword">interface </span><a href="-easing-function/index.html">EasingFunction</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A function for use with interpolator <a href="-interpolator-builder/easing.html">easing</a>.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-526014765%2FClasslikes%2F1787990027" anchor-label="EasingFunctions" id="-526014765%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-easing-functions/index.html"><span>Easing</span><wbr></wbr><span><span>Functions</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-526014765%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-easing-functions/index.html">EasingFunctions</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Built-in easing functions for use with interpolator <a href="-interpolator-builder/easing.html">easing</a>.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1347977681%2FClasslikes%2F1787990027" anchor-label="HueAdjustments" id="1347977681%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-hue-adjustments/index.html"><span>Hue</span><wbr></wbr><span><span>Adjustments</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1347977681%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-hue-adjustments/index.html">HueAdjustments</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1871452798%2FClasslikes%2F1787990027" anchor-label="InterpolationMethod" id="1871452798%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-interpolation-method/index.html"><span>Interpolation</span><wbr></wbr><span><span>Method</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1871452798%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-interpolation-method/index.html">InterpolationMethod</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A method used for <a href="-interpolator-builder/method.html">interpolation</a>.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="2099343985%2FClasslikes%2F1787990027" anchor-label="InterpolationMethods" id="2099343985%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-interpolation-methods/index.html"><span>Interpolation</span><wbr></wbr><span><span>Methods</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2099343985%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-interpolation-methods/index.html">InterpolationMethods</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1405781816%2FClasslikes%2F1787990027" anchor-label="Interpolator" id="1405781816%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-interpolator/index.html"><span><span>Interpolator</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1405781816%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-interpolator/index.html">Interpolator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-interpolator/index.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">An interpolator between two or more colors.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="93161519%2FClasslikes%2F1787990027" anchor-label="InterpolatorBuilder" id="93161519%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-interpolator-builder/index.html"><span>Interpolator</span><wbr></wbr><span><span>Builder</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="93161519%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-interpolator-builder/index.html">InterpolatorBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="355452881%2FClasslikes%2F1787990027" anchor-label="InterpolatorStopBuilder" id="355452881%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-interpolator-stop-builder/index.html"><span>Interpolator</span><wbr></wbr><span>Stop</span><wbr></wbr><span><span>Builder</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="355452881%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-interpolator-stop-builder/index.html">InterpolatorStopBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A builder for configuring an <a href="-interpolator-builder/index.html">InterpolatorBuilder</a> stop.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-948563486%2FClasslikes%2F1787990027" anchor-label="InterpolatorStopBuilderContext" id="-948563486%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#-948563486%2FClasslikes%2F1787990027"><span>Interpolator</span><wbr></wbr><span>Stop</span><wbr></wbr><span>Builder</span><wbr></wbr><span><span>Context</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-948563486%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#-948563486%2FClasslikes%2F1787990027">InterpolatorStopBuilderContext</a><span class="token operator"> = </span><span class="token keyword"></span><a href="-interpolator-stop-builder/index.html">InterpolatorStopBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1213157320%2FClasslikes%2F1787990027" anchor-label="RGBToRGBConverter" id="1213157320%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-r-g-b-to-r-g-b-converter/index.html"><span>RGBTo</span><wbr></wbr><span><span>RGBConverter</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1213157320%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-r-g-b-to-r-g-b-converter/index.html">RGBToRGBConverter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A converter that transforms <a href="../com.github.ajalt.colormath.model/-r-g-b/index.html">RGB</a> colors from one <a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a> to another.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="colormath::com.github.ajalt.colormath.transform////PointingToDeclaration//1787990027">
+  <div class="breadcrumbs"><a href="../../index.html">colormath</a><span class="delimiter">/</span><span class="current">com.github.ajalt.colormath.transform</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="2123349965%2FClasslikes%2F1787990027" anchor-label="ChromaticAdapterRGB" id="2123349965%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-chromatic-adapter-r-g-b/index.html"><span>Chromatic</span><wbr></wbr><span>Adapter</span><wbr></wbr><span><span>RGB</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2123349965%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-chromatic-adapter-r-g-b/index.html">ChromaticAdapterRGB</a></div></div></div>
                 </div>
               </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="1230996959%2FFunctions%2F1787990027" anchor-label="converterTo" id="1230996959%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="converter-to.html"><span>converter</span><wbr></wbr><span><span>To</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1230996959%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a><span class="token punctuation">.</span><a href="converter-to.html"><span class="token function">converterTo</span></a><span class="token punctuation">(</span>destination<span class="token operator">: </span><a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-r-g-b-to-r-g-b-converter/index.html">RGBToRGBConverter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create an <a href="-r-g-b-to-r-g-b-converter/index.html">RGBToRGBConverter</a> that transforms <a href="../com.github.ajalt.colormath.model/-r-g-b/index.html">RGB</a> colors from this <a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a> to the <a href="converter-to.html">destination</a> space.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+            </div>
+          </div>
+<a data-name="-1173279194%2FClasslikes%2F1787990027" anchor-label="ChromaticAdapterRGBInt" id="-1173279194%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-chromatic-adapter-r-g-b-int/index.html"><span>Chromatic</span><wbr></wbr><span>Adapter</span><wbr></wbr><span><span>RGBInt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1173279194%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-chromatic-adapter-r-g-b-int/index.html">ChromaticAdapterRGBInt</a></div></div></div>
                 </div>
-<a data-name="-475310638%2FFunctions%2F1787990027" anchor-label="createChromaticAdapter" id="-475310638%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="create-chromatic-adapter.html"><span>create</span><wbr></wbr><span>Chromatic</span><wbr></wbr><span><span>Adapter</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-475310638%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a><span class="token punctuation">.</span><a href="create-chromatic-adapter.html"><span class="token function">createChromaticAdapter</span></a><span class="token punctuation">(</span>sourceWhite<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-chromatic-adapter-r-g-b/index.html">ChromaticAdapterRGB</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a><span class="token punctuation">.</span><a href="create-chromatic-adapter.html"><span class="token function">createChromaticAdapter</span></a><span class="token punctuation">(</span>sourceWhite<span class="token operator">: </span><a href="../com.github.ajalt.colormath.model/xy-y/index.html">xyY</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-chromatic-adapter-r-g-b/index.html">ChromaticAdapterRGB</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create a chromatic adapter that will adapt colors from a given <a href="create-chromatic-adapter.html">sourceWhite</a> to this color space's <span data-unresolved-link="com.github.ajalt.colormath.model/RGBColorSpace/whitePoint/#/PointingToDeclaration/">reference white</span></p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-int/-companion/index.html">RGBInt.Companion</a><span class="token punctuation">.</span><a href="create-chromatic-adapter.html"><span class="token function">createChromaticAdapter</span></a><span class="token punctuation">(</span>sourceWhite<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-chromatic-adapter-r-g-b-int/index.html">ChromaticAdapterRGBInt</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-int/-companion/index.html">RGBInt.Companion</a><span class="token punctuation">.</span><a href="create-chromatic-adapter.html"><span class="token function">createChromaticAdapter</span></a><span class="token punctuation">(</span>sourceWhite<span class="token operator">: </span><a href="../com.github.ajalt.colormath.model/xy-y/index.html">xyY</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-chromatic-adapter-r-g-b-int/index.html">ChromaticAdapterRGBInt</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create a chromatic adapter that will adapt <a href="../com.github.ajalt.colormath.model/-r-g-b-int/index.html">RGBInt</a> colors from a given <a href="create-chromatic-adapter.html">sourceWhite</a> to <a href="../com.github.ajalt.colormath/-illuminant/-d65.html">D65</a></p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1281557121%2FClasslikes%2F1787990027" anchor-label="ColorMapper" id="-1281557121%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-color-mapper/index.html"><span>Color</span><wbr></wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1281557121%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-color-mapper/index.html">ColorMapper</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-color-mapper/index.html">T</a><span class="token operator">&gt;</span><span class="token operator"> = </span><span class="token keyword"></span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-color-mapper/index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword"></span>components<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html">FloatArray</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html">FloatArray</a></div><div class="brief "><p class="paragraph">A mapping function used with <a href="map.html">map</a>.</p></div></div></div>
                 </div>
-<a data-name="1298528509%2FFunctions%2F1787990027" anchor-label="divideAlpha" id="1298528509%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="divide-alpha.html"><span>divide</span><wbr></wbr><span><span>Alpha</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1298528509%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="divide-alpha.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="divide-alpha.html">T</a><span class="token punctuation">.</span><a href="divide-alpha.html"><span class="token function">divideAlpha</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="divide-alpha.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Divide this color's components by its alpha value.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1469641863%2FClasslikes%2F1787990027" anchor-label="ComponentAdjustment" id="-1469641863%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-component-adjustment/index.html"><span>Component</span><wbr></wbr><span><span>Adjustment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1469641863%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-component-adjustment/index.html">ComponentAdjustment</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>hues<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">A function that takes a list of values for a single component and returns a new list with the value to use for interpolation of that component.</p></div></div></div>
                 </div>
-<a data-name="-560912605%2FFunctions%2F1787990027" anchor-label="interpolate" id="-560912605%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="interpolate.html"><span><span>interpolate</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-560912605%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolate.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="interpolate.html">T</a><span class="token punctuation">.</span><a href="interpolate.html"><span class="token function">interpolate</span></a><span class="token punctuation">(</span>other<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>t<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span>premultiplyAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span>hueAdjustment<span class="token operator">: </span><a href="index.html#-1469641863%2FClasslikes%2F1787990027">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter<span class="token punctuation">)</span><span class="token operator">: </span><a href="interpolate.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Interpolate linearly between this color and <a href="interpolate.html">other</a>.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-429993508%2FClasslikes%2F1787990027" anchor-label="EasingFunction" id="-429993508%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-easing-function/index.html"><span>Easing</span><wbr></wbr><span><span>Function</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-429993508%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token keyword">interface </span><a href="-easing-function/index.html">EasingFunction</a></div><div class="brief "><p class="paragraph">A function for use with interpolator <a href="-interpolator-builder/easing.html">easing</a>.</p></div></div></div>
                 </div>
-<a data-name="292471884%2FFunctions%2F1787990027" anchor-label="interpolator" id="292471884%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="interpolator.html"><span><span>interpolator</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="292471884%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="interpolator.html"><span class="token function">interpolator</span></a><span class="token punctuation">(</span>builder<span class="token operator">: </span><span class="token keyword"></span><a href="-interpolator-builder/index.html">InterpolatorBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-interpolator/index.html">Interpolator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Build an interpolator that will produce colors in this color space.</p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="interpolator.html"><span class="token function">interpolator</span></a><span class="token punctuation">(</span><span class="token keyword">vararg </span>stops<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>premultiplyAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-interpolator/index.html">Interpolator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Build a linear interpolator with two or more evenly spaced <a href="interpolator.html">stops</a>.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-526014765%2FClasslikes%2F1787990027" anchor-label="EasingFunctions" id="-526014765%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-easing-functions/index.html"><span>Easing</span><wbr></wbr><span><span>Functions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-526014765%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-easing-functions/index.html">EasingFunctions</a></div><div class="brief "><p class="paragraph">Built-in easing functions for use with interpolator <a href="-interpolator-builder/easing.html">easing</a>.</p></div></div></div>
                 </div>
-<a data-name="925158521%2FFunctions%2F1787990027" anchor-label="map" id="925158521%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="map.html"><span><span>map</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="925158521%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="map.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="map.html">T</a><span class="token punctuation">.</span><a href="map.html"><span class="token function">map</span></a><span class="token punctuation">(</span>transform<span class="token operator">: </span><a href="index.html#-1281557121%2FClasslikes%2F1787990027">ColorMapper</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="map.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="map.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Return an new color in the same color space that is the result of applying <a href="map.html">transform</a> to the components of this color.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1347977681%2FClasslikes%2F1787990027" anchor-label="HueAdjustments" id="1347977681%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hue-adjustments/index.html"><span>Hue</span><wbr></wbr><span><span>Adjustments</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1347977681%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-hue-adjustments/index.html">HueAdjustments</a></div></div></div>
                 </div>
-<a data-name="1311980436%2FFunctions%2F1787990027" anchor-label="mix" id="1311980436%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="mix.html"><span><span>mix</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1311980436%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="mix.html"><span class="token function">mix</span></a><span class="token punctuation">(</span>color1<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>color2<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>hueAdjustment<span class="token operator">: </span><a href="index.html#-1469641863%2FClasslikes%2F1787990027">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter<span class="token punctuation">)</span><span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="mix.html"><span class="token function">mix</span></a><span class="token punctuation">(</span>color1<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>color2<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>amount2<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span>hueAdjustment<span class="token operator">: </span><a href="index.html#-1469641863%2FClasslikes%2F1787990027">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter<span class="token punctuation">)</span><span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="mix.html"><span class="token function">mix</span></a><span class="token punctuation">(</span>color1<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>amount1<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span>color2<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>hueAdjustment<span class="token operator">: </span><a href="index.html#-1469641863%2FClasslikes%2F1787990027">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter<span class="token punctuation">)</span><span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><br><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="mix.html"><span class="token function">mix</span></a><span class="token punctuation">(</span>color1<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>amount1<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span>color2<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span>amount2<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span>hueAdjustment<span class="token operator">: </span><a href="index.html#-1469641863%2FClasslikes%2F1787990027">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter<span class="token punctuation">)</span><span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Mix <a href="mix.html">amount1</a> of <a href="mix.html">color1</a> and <a href="mix.html">amount2</a> of <a href="mix.html">color2</a> in this color space.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1871452798%2FClasslikes%2F1787990027" anchor-label="InterpolationMethod" id="1871452798%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-interpolation-method/index.html"><span>Interpolation</span><wbr></wbr><span><span>Method</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1871452798%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-interpolation-method/index.html">InterpolationMethod</a></div><div class="brief "><p class="paragraph">A method used for <a href="-interpolator-builder/method.html">interpolation</a>.</p></div></div></div>
                 </div>
-<a data-name="1719351976%2FFunctions%2F1787990027" anchor-label="multiplyAlpha" id="1719351976%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="multiply-alpha.html"><span>multiply</span><wbr></wbr><span><span>Alpha</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1719351976%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="multiply-alpha.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="multiply-alpha.html">T</a><span class="token punctuation">.</span><a href="multiply-alpha.html"><span class="token function">multiplyAlpha</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="multiply-alpha.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Multiply this color's components by its alpha value.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2099343985%2FClasslikes%2F1787990027" anchor-label="InterpolationMethods" id="2099343985%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-interpolation-methods/index.html"><span>Interpolation</span><wbr></wbr><span><span>Methods</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2099343985%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-interpolation-methods/index.html">InterpolationMethods</a></div></div></div>
                 </div>
-<a data-name="1734503181%2FFunctions%2F1787990027" anchor-label="sequence" id="1734503181%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="sequence.html"><span><span>sequence</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1734503181%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="sequence.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="-interpolator/index.html">Interpolator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="sequence.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="sequence.html"><span class="token function">sequence</span></a><span class="token punctuation">(</span>length<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="sequence.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Create a sequence of <a href="sequence.html">length</a> colors evenly spaced along this interpolator's values</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1405781816%2FClasslikes%2F1787990027" anchor-label="Interpolator" id="1405781816%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-interpolator/index.html"><span><span>Interpolator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1405781816%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-interpolator/index.html">Interpolator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-interpolator/index.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">An interpolator between two or more colors.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="93161519%2FClasslikes%2F1787990027" anchor-label="InterpolatorBuilder" id="93161519%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-interpolator-builder/index.html"><span>Interpolator</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="93161519%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-interpolator-builder/index.html">InterpolatorBuilder</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="355452881%2FClasslikes%2F1787990027" anchor-label="InterpolatorStopBuilder" id="355452881%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-interpolator-stop-builder/index.html"><span>Interpolator</span><wbr></wbr><span>Stop</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="355452881%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-interpolator-stop-builder/index.html">InterpolatorStopBuilder</a></div><div class="brief "><p class="paragraph">A builder for configuring an <a href="-interpolator-builder/index.html">InterpolatorBuilder</a> stop.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-948563486%2FClasslikes%2F1787990027" anchor-label="InterpolatorStopBuilderContext" id="-948563486%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-interpolator-stop-builder-context/index.html"><span>Interpolator</span><wbr></wbr><span>Stop</span><wbr></wbr><span>Builder</span><wbr></wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-948563486%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-interpolator-stop-builder-context/index.html">InterpolatorStopBuilderContext</a><span class="token operator"> = </span><span class="token keyword"></span><a href="-interpolator-stop-builder/index.html">InterpolatorStopBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1213157320%2FClasslikes%2F1787990027" anchor-label="RGBToRGBConverter" id="1213157320%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-g-b-to-r-g-b-converter/index.html"><span>RGBTo</span><wbr></wbr><span><span>RGBConverter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1213157320%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-r-g-b-to-r-g-b-converter/index.html">RGBToRGBConverter</a></div><div class="brief "><p class="paragraph">A converter that transforms <a href="../com.github.ajalt.colormath.model/-r-g-b/index.html">RGB</a> colors from one <a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a> to another.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Copyright &copy; 2021 AJ Alt</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1230996959%2FFunctions%2F1787990027" anchor-label="converterTo" id="1230996959%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="converter-to.html"><span>converter</span><wbr></wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1230996959%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a><span class="token punctuation">.</span><a href="converter-to.html"><span class="token function">converterTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">destination<span class="token operator">: </span><a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-r-g-b-to-r-g-b-converter/index.html">RGBToRGBConverter</a></div><div class="brief "><p class="paragraph">Create an <a href="-r-g-b-to-r-g-b-converter/index.html">RGBToRGBConverter</a> that transforms <a href="../com.github.ajalt.colormath.model/-r-g-b/index.html">RGB</a> colors from this <a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a> to the <a href="converter-to.html">destination</a> space.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-475310638%2FFunctions%2F1787990027" anchor-label="createChromaticAdapter" id="-475310638%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-chromatic-adapter.html"><span>create</span><wbr></wbr><span>Chromatic</span><wbr></wbr><span><span>Adapter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-475310638%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a><span class="token punctuation">.</span><a href="create-chromatic-adapter.html"><span class="token function">createChromaticAdapter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceWhite<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-chromatic-adapter-r-g-b/index.html">ChromaticAdapterRGB</a></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-color-space/index.html">RGBColorSpace</a><span class="token punctuation">.</span><a href="create-chromatic-adapter.html"><span class="token function">createChromaticAdapter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceWhite<span class="token operator">: </span><a href="../com.github.ajalt.colormath.model/xy-y/index.html">xyY</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-chromatic-adapter-r-g-b/index.html">ChromaticAdapterRGB</a></div><div class="brief "><p class="paragraph">Create a chromatic adapter that will adapt colors from a given <a href="create-chromatic-adapter.html">sourceWhite</a> to this color space's <span data-unresolved-link="com.github.ajalt.colormath.model/RGBColorSpace/whitePoint/#/PointingToDeclaration/">reference white</span></p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-int/-companion/index.html">RGBInt.Companion</a><span class="token punctuation">.</span><a href="create-chromatic-adapter.html"><span class="token function">createChromaticAdapter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceWhite<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-chromatic-adapter-r-g-b-int/index.html">ChromaticAdapterRGBInt</a></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../com.github.ajalt.colormath.model/-r-g-b-int/-companion/index.html">RGBInt.Companion</a><span class="token punctuation">.</span><a href="create-chromatic-adapter.html"><span class="token function">createChromaticAdapter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceWhite<span class="token operator">: </span><a href="../com.github.ajalt.colormath.model/xy-y/index.html">xyY</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-chromatic-adapter-r-g-b-int/index.html">ChromaticAdapterRGBInt</a></div><div class="brief "><p class="paragraph">Create a chromatic adapter that will adapt <a href="../com.github.ajalt.colormath.model/-r-g-b-int/index.html">RGBInt</a> colors from a given <a href="create-chromatic-adapter.html">sourceWhite</a> to <a href="../com.github.ajalt.colormath/-illuminant/-d65.html">D65</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1298528509%2FFunctions%2F1787990027" anchor-label="divideAlpha" id="1298528509%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="divide-alpha.html"><span>divide</span><wbr></wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1298528509%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="divide-alpha.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="divide-alpha.html">T</a><span class="token punctuation">.</span><a href="divide-alpha.html"><span class="token function">divideAlpha</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="divide-alpha.html">T</a></div><div class="brief "><p class="paragraph">Divide this color's components by its alpha value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-560912605%2FFunctions%2F1787990027" anchor-label="interpolate" id="-560912605%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="interpolate.html"><span><span>interpolate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-560912605%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolate.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="interpolate.html">T</a><span class="token punctuation">.</span><a href="interpolate.html"><span class="token function">interpolate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">t<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span></span><span class="parameter ">premultiplyAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">hueAdjustment<span class="token operator">: </span><a href="-component-adjustment/index.html">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="interpolate.html">T</a></div><div class="brief "><p class="paragraph">Interpolate linearly between this color and <a href="interpolate.html">other</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="292471884%2FFunctions%2F1787990027" anchor-label="interpolator" id="292471884%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="interpolator.html"><span><span>interpolator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="292471884%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="interpolator.html"><span class="token function">interpolator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">builder<span class="token operator">: </span><span class="token keyword"></span><a href="-interpolator-builder/index.html">InterpolatorBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-interpolator/index.html">Interpolator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Build an interpolator that will produce colors in this color space.</p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="interpolator.html"><span class="token function">interpolator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>stops<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">premultiplyAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-interpolator/index.html">Interpolator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="interpolator.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Build a linear interpolator with two or more evenly spaced <a href="interpolator.html">stops</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="925158521%2FFunctions%2F1787990027" anchor-label="map" id="925158521%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="map.html"><span><span>map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="925158521%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="map.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="map.html">T</a><span class="token punctuation">.</span><a href="map.html"><span class="token function">map</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><a href="-color-mapper/index.html">ColorMapper</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="map.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="map.html">T</a></div><div class="brief "><p class="paragraph">Return an new color in the same color space that is the result of applying <a href="map.html">transform</a> to the components of this color.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1311980436%2FFunctions%2F1787990027" anchor-label="mix" id="1311980436%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mix.html"><span><span>mix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1311980436%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="mix.html"><span class="token function">mix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">color1<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">color2<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">hueAdjustment<span class="token operator">: </span><a href="-component-adjustment/index.html">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="mix.html"><span class="token function">mix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">color1<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">color2<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">amount2<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span></span><span class="parameter ">hueAdjustment<span class="token operator">: </span><a href="-component-adjustment/index.html">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="mix.html"><span class="token function">mix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">color1<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">amount1<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span></span><span class="parameter ">color2<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">hueAdjustment<span class="token operator">: </span><a href="-component-adjustment/index.html">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a></div><br><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="../com.github.ajalt.colormath/-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="mix.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="mix.html"><span class="token function">mix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">color1<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">amount1<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span></span><span class="parameter ">color2<span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">amount2<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">, </span></span><span class="parameter ">hueAdjustment<span class="token operator">: </span><a href="-component-adjustment/index.html">ComponentAdjustment</a><span class="token operator"> = </span>HueAdjustments.shorter</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a></div><div class="brief "><p class="paragraph">Mix <a href="mix.html">amount1</a> of <a href="mix.html">color1</a> and <a href="mix.html">amount2</a> of <a href="mix.html">color2</a> in this color space.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1719351976%2FFunctions%2F1787990027" anchor-label="multiplyAlpha" id="1719351976%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="multiply-alpha.html"><span>multiply</span><wbr></wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1719351976%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="multiply-alpha.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="multiply-alpha.html">T</a><span class="token punctuation">.</span><a href="multiply-alpha.html"><span class="token function">multiplyAlpha</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="multiply-alpha.html">T</a></div><div class="brief "><p class="paragraph">Multiply this color's components by its alpha value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1734503181%2FFunctions%2F1787990027" anchor-label="sequence" id="1734503181%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sequence.html"><span><span>sequence</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1734503181%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="sequence.html">T</a><span class="token operator"> : </span><a href="../com.github.ajalt.colormath/-color/index.html">Color</a><span class="token operator">&gt; </span><a href="-interpolator/index.html">Interpolator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="sequence.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="sequence.html"><span class="token function">sequence</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">length<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="sequence.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Create a sequence of <a href="sequence.html">length</a> colors evenly spaced along this interpolator's values</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Copyright &copy; 2021 AJ Alt</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-

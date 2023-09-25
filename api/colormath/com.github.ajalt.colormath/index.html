@@ -1,279 +1,364 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.github.ajalt.colormath</title>
-<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
-<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><link href="../../styles/prism.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../scripts/main.js" async="async"></script><script type="text/javascript" src="../../scripts/prism.js" async="async"></script><link href="../../images/palette_black_36dp.svg"><link href="../../styles/logo-styles.css" rel="Stylesheet">  </head>
-  <body>
-    <div class="navigation-wrapper" id="navigation-wrapper">
-      <div id="leftToggler"><span class="icon-toggler"></span></div>
-      <div class="library-name"><a href="../../index.html">colormath</a></div>
-      <div>3.2.0</div>
-      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
-        <div id="searchBar"></div>
-      </div>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+<link href="../../images/palette_black_36dp.svg">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../index.html">
+                            colormath
+                    </a>
+            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":colormath:dokkaHtml/commonMain">common</button>
+        </div>
     </div>
-    <div id="container">
-      <div id="leftColumn">
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main"><script type="text/javascript" src="../../scripts/main.js"></script>
-        <div class="main-content" id="content" pageIds="colormath::com.github.ajalt.colormath////PointingToDeclaration//1787990027">
-          <div class="breadcrumbs"><a href="../../index.html">colormath</a>/<a href="index.html">com.github.ajalt.colormath</a></div>
-          <div class="cover ">
-            <h1 class="cover"><span><span>Package</span></span> <span>com.</span><wbr></wbr><span>github.</span><wbr></wbr><span>ajalt.</span><wbr></wbr><span>colormath</span></h1>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="1505504490%2FClasslikes%2F1787990027" anchor-label="AngleUnit" id="1505504490%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-angle-unit/index.html"><span>Angle</span><wbr></wbr><span><span>Unit</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1505504490%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-angle-unit/index.html">AngleUnit</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-angle-unit/index.html">AngleUnit</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="657710078%2FClasslikes%2F1787990027" anchor-label="Color" id="657710078%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-color/index.html"><span><span>Color</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="657710078%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A color that can be converted to other representations.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-307962695%2FClasslikes%2F1787990027" anchor-label="ColorComponentInfo" id="-307962695%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-color-component-info/index.html"><span>Color</span><wbr></wbr><span>Component</span><wbr></wbr><span><span>Info</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-307962695%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-color-component-info/index.html">ColorComponentInfo</a><span class="token punctuation">(</span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span>isPolar<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-472377762%2FClasslikes%2F1787990027" anchor-label="ColorSpace" id="-472377762%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-color-space/index.html"><span>Color</span><wbr></wbr><span><span>Space</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-472377762%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-color-space/index.html">T</a><span class="token operator"> : </span><a href="-color/index.html">Color</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1213057398%2FClasslikes%2F1787990027" anchor-label="HueColor" id="1213057398%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-hue-color/index.html"><span>Hue</span><wbr></wbr><span><span>Color</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1213057398%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-hue-color/index.html">HueColor</a> : <a href="-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1399755712%2FClasslikes%2F1787990027" anchor-label="Illuminant" id="-1399755712%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-illuminant/index.html"><span><span>Illuminant</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1399755712%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-illuminant/index.html">Illuminant</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Standard CIE Illuminants under the 2° observer</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1506193028%2FClasslikes%2F1787990027" anchor-label="RenderCondition" id="-1506193028%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-render-condition/index.html"><span>Render</span><wbr></wbr><span><span>Condition</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1506193028%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-render-condition/index.html">RenderCondition</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-render-condition/index.html">RenderCondition</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1307213658%2FClasslikes%2F1787990027" anchor-label="WhitePoint" id="1307213658%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-white-point/index.html"><span>White</span><wbr></wbr><span><span>Point</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1307213658%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-white-point/index.html">WhitePoint</a><span class="token punctuation">(</span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span>chromaticity<span class="token operator">: </span><a href="../com.github.ajalt.colormath.model/xy-y/index.html">xyY</a><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A named chromaticity</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="360642039%2FClasslikes%2F1787990027" anchor-label="WhitePointColorSpace" id="360642039%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-white-point-color-space/index.html"><span>White</span><wbr></wbr><span>Point</span><wbr></wbr><span>Color</span><wbr></wbr><span><span>Space</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="360642039%2FClasslikes%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-white-point-color-space/index.html">WhitePointColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-white-point-color-space/index.html">T</a><span class="token operator"> : </span><a href="-color/index.html">Color</a><span class="token operator">&gt;</span> : <a href="-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-white-point-color-space/index.html">T</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A color space that is defined with a reference <a href="-white-point-color-space/white-point.html">whitePoint</a>.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="colormath::com.github.ajalt.colormath////PointingToDeclaration//1787990027">
+  <div class="breadcrumbs"><a href="../../index.html">colormath</a><span class="delimiter">/</span><span class="current">com.github.ajalt.colormath</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1505504490%2FClasslikes%2F1787990027" anchor-label="AngleUnit" id="1505504490%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-angle-unit/index.html"><span>Angle</span><wbr></wbr><span><span>Unit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1505504490%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-angle-unit/index.html">AngleUnit</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-angle-unit/index.html">AngleUnit</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
               </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="1435611220%2FFunctions%2F1787990027" anchor-label="convertTo" id="1435611220%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="convert-to.html"><span>convert</span><wbr></wbr><span><span>To</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1435611220%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="convert-to.html">T</a><span class="token operator"> : </span><a href="-color/index.html">Color</a><span class="token operator">&gt; </span><a href="-color/index.html">Color</a><span class="token punctuation">.</span><a href="convert-to.html"><span class="token function">convertTo</span></a><span class="token punctuation">(</span>space<span class="token operator">: </span><a href="-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="convert-to.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="convert-to.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Convert this color to a given <a href="convert-to.html">space</a>.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+            </div>
+          </div>
+<a data-name="657710078%2FClasslikes%2F1787990027" anchor-label="Color" id="657710078%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-color/index.html"><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="657710078%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-color/index.html">Color</a></div><div class="brief "><p class="paragraph">A color that can be converted to other representations.</p></div></div></div>
                 </div>
-<a data-name="-1749029922%2FFunctions%2F1787990027" anchor-label="formatCssString" id="-1749029922%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="format-css-string.html"><span>format</span><wbr></wbr><span>Css</span><wbr></wbr><span><span>String</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1749029922%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-color/index.html">Color</a><span class="token punctuation">.</span><a href="format-css-string.html"><span class="token function">formatCssString</span></a><span class="token punctuation">(</span>hueUnit<span class="token operator">: </span><a href="-angle-unit/index.html">AngleUnit</a><span class="token operator"> = </span>AngleUnit.AUTO<span class="token punctuation">, </span>renderAlpha<span class="token operator">: </span><a href="-render-condition/index.html">RenderCondition</a><span class="token operator"> = </span>RenderCondition.AUTO<span class="token punctuation">, </span>unitsPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>alphaPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>legacyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>legacyFormat<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Render this color in CSS functional notation.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-307962695%2FClasslikes%2F1787990027" anchor-label="ColorComponentInfo" id="-307962695%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-color-component-info/index.html"><span>Color</span><wbr></wbr><span>Component</span><wbr></wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-307962695%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-color-component-info/index.html">ColorComponentInfo</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>isPolar<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
-<a data-name="2123276936%2FFunctions%2F1787990027" anchor-label="formatCssStringOrNull" id="2123276936%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="format-css-string-or-null.html"><span>format</span><wbr></wbr><span>Css</span><wbr></wbr><span>String</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Null</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2123276936%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-color/index.html">Color</a><span class="token punctuation">.</span><a href="format-css-string-or-null.html"><span class="token function">formatCssStringOrNull</span></a><span class="token punctuation">(</span>hueUnit<span class="token operator">: </span><a href="-angle-unit/index.html">AngleUnit</a><span class="token operator"> = </span>AngleUnit.AUTO<span class="token punctuation">, </span>renderAlpha<span class="token operator">: </span><a href="-render-condition/index.html">RenderCondition</a><span class="token operator"> = </span>RenderCondition.AUTO<span class="token punctuation">, </span>unitsPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>alphaPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>legacyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>legacyFormat<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Render this color in CSS functional notation if this color space is defined in the CSS standard, or return null if this color is in another color space.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-472377762%2FClasslikes%2F1787990027" anchor-label="ColorSpace" id="-472377762%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-color-space/index.html"><span>Color</span><wbr></wbr><span><span>Space</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-472377762%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-color-space/index.html">T</a><span class="token operator"> : </span><a href="-color/index.html">Color</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
-<a data-name="-1710751566%2FFunctions%2F1787990027" anchor-label="hueAsGrad" id="-1710751566%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="hue-as-grad.html"><span>hue</span><wbr></wbr><span>As</span><wbr></wbr><span><span>Grad</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1710751566%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-hue-color/index.html">HueColor</a><span class="token punctuation">.</span><a href="hue-as-grad.html"><span class="token function">hueAsGrad</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Convert this color's hue to gradians (360° == 400 gradians)</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1213057398%2FClasslikes%2F1787990027" anchor-label="HueColor" id="1213057398%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hue-color/index.html"><span>Hue</span><wbr></wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1213057398%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-hue-color/index.html">HueColor</a> : <a href="-color/index.html">Color</a></div></div></div>
                 </div>
-<a data-name="1493857283%2FFunctions%2F1787990027" anchor-label="hueAsRad" id="1493857283%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="hue-as-rad.html"><span>hue</span><wbr></wbr><span>As</span><wbr></wbr><span><span>Rad</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1493857283%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-hue-color/index.html">HueColor</a><span class="token punctuation">.</span><a href="hue-as-rad.html"><span class="token function">hueAsRad</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Convert this color's hue to radians (360° == 2π radians)</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1399755712%2FClasslikes%2F1787990027" anchor-label="Illuminant" id="-1399755712%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-illuminant/index.html"><span><span>Illuminant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1399755712%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-illuminant/index.html">Illuminant</a></div><div class="brief "><p class="paragraph">Standard CIE Illuminants under the 2° observer</p></div></div></div>
                 </div>
-<a data-name="-925668668%2FFunctions%2F1787990027" anchor-label="hueAsTurns" id="-925668668%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="hue-as-turns.html"><span>hue</span><wbr></wbr><span>As</span><wbr></wbr><span><span>Turns</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-925668668%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-hue-color/index.html">HueColor</a><span class="token punctuation">.</span><a href="hue-as-turns.html"><span class="token function">hueAsTurns</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Convert this color's hue to turns (360° == 1 turn)</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1506193028%2FClasslikes%2F1787990027" anchor-label="RenderCondition" id="-1506193028%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-render-condition/index.html"><span>Render</span><wbr></wbr><span><span>Condition</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1506193028%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-render-condition/index.html">RenderCondition</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-render-condition/index.html">RenderCondition</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="-1775805961%2FFunctions%2F1787990027" anchor-label="hueOr" id="-1775805961%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="hue-or.html"><span>hue</span><wbr></wbr><span><span>Or</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1775805961%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-hue-color/index.html">HueColor</a><span class="token punctuation">.</span><a href="hue-or.html"><span class="token function">hueOr</span></a><span class="token punctuation">(</span>whenNaN<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">If this color's hue is <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/-na-n.html">NaN</a> (meaning the hue is undefined), return <a href="hue-or.html">whenNaN</a>. Otherwise, return the hue unchanged.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1307213658%2FClasslikes%2F1787990027" anchor-label="WhitePoint" id="1307213658%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-white-point/index.html"><span>White</span><wbr></wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1307213658%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-white-point/index.html">WhitePoint</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>chromaticity<span class="token operator">: </span><a href="../com.github.ajalt.colormath.model/xy-y/index.html">xyY</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A named chromaticity</p></div></div></div>
                 </div>
-<a data-name="-463129719%2FFunctions%2F1787990027" anchor-label="parse" id="-463129719%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="parse.html"><span><span>parse</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-463129719%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-color/-companion/index.html">Color.Companion</a><span class="token punctuation">.</span><a href="parse.html"><span class="token function">parse</span></a><span class="token punctuation">(</span>color<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-color/index.html">Color</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Parse a string representing a CSS color value.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1824119475%2FFunctions%2F1787990027" anchor-label="parseOrNull" id="1824119475%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="parse-or-null.html"><span>parse</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Null</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1824119475%2FFunctions%2F1787990027"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-color/-companion/index.html">Color.Companion</a><span class="token punctuation">.</span><a href="parse-or-null.html"><span class="token function">parseOrNull</span></a><span class="token punctuation">(</span>color<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="-color/index.html">Color</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Parse a string representing a CSS color value, or return null if the string isn't in a recognized format.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="360642039%2FClasslikes%2F1787990027" anchor-label="WhitePointColorSpace" id="360642039%2FClasslikes%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-white-point-color-space/index.html"><span>White</span><wbr></wbr><span>Point</span><wbr></wbr><span>Color</span><wbr></wbr><span><span>Space</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="360642039%2FClasslikes%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-white-point-color-space/index.html">WhitePointColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-white-point-color-space/index.html">T</a><span class="token operator"> : </span><a href="-color/index.html">Color</a><span class="token operator">&gt;</span> : <a href="-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-white-point-color-space/index.html">T</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">A color space that is defined with a reference <a href="-white-point-color-space/white-point.html">whitePoint</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Copyright &copy; 2021 AJ Alt</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1435611220%2FFunctions%2F1787990027" anchor-label="convertTo" id="1435611220%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="convert-to.html"><span>convert</span><wbr></wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1435611220%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="convert-to.html">T</a><span class="token operator"> : </span><a href="-color/index.html">Color</a><span class="token operator">&gt; </span><a href="-color/index.html">Color</a><span class="token punctuation">.</span><a href="convert-to.html"><span class="token function">convertTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">space<span class="token operator">: </span><a href="-color-space/index.html">ColorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="convert-to.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="convert-to.html">T</a></div><div class="brief "><p class="paragraph">Convert this color to a given <a href="convert-to.html">space</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1749029922%2FFunctions%2F1787990027" anchor-label="formatCssString" id="-1749029922%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="format-css-string.html"><span>format</span><wbr></wbr><span>Css</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1749029922%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-color/index.html">Color</a><span class="token punctuation">.</span><a href="format-css-string.html"><span class="token function">formatCssString</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hueUnit<span class="token operator">: </span><a href="-angle-unit/index.html">AngleUnit</a><span class="token operator"> = </span>AngleUnit.AUTO<span class="token punctuation">, </span></span><span class="parameter ">renderAlpha<span class="token operator">: </span><a href="-render-condition/index.html">RenderCondition</a><span class="token operator"> = </span>RenderCondition.AUTO<span class="token punctuation">, </span></span><span class="parameter ">unitsPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">alphaPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">legacyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">legacyFormat<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Render this color in CSS functional notation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2123276936%2FFunctions%2F1787990027" anchor-label="formatCssStringOrNull" id="2123276936%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="format-css-string-or-null.html"><span>format</span><wbr></wbr><span>Css</span><wbr></wbr><span>String</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2123276936%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-color/index.html">Color</a><span class="token punctuation">.</span><a href="format-css-string-or-null.html"><span class="token function">formatCssStringOrNull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hueUnit<span class="token operator">: </span><a href="-angle-unit/index.html">AngleUnit</a><span class="token operator"> = </span>AngleUnit.AUTO<span class="token punctuation">, </span></span><span class="parameter ">renderAlpha<span class="token operator">: </span><a href="-render-condition/index.html">RenderCondition</a><span class="token operator"> = </span>RenderCondition.AUTO<span class="token punctuation">, </span></span><span class="parameter ">unitsPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">alphaPercent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">legacyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">legacyFormat<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Render this color in CSS functional notation if this color space is defined in the CSS standard, or return null if this color is in another color space.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1710751566%2FFunctions%2F1787990027" anchor-label="hueAsGrad" id="-1710751566%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hue-as-grad.html"><span>hue</span><wbr></wbr><span>As</span><wbr></wbr><span><span>Grad</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1710751566%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-hue-color/index.html">HueColor</a><span class="token punctuation">.</span><a href="hue-as-grad.html"><span class="token function">hueAsGrad</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Convert this color's hue to gradians (360° == 400 gradians)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1493857283%2FFunctions%2F1787990027" anchor-label="hueAsRad" id="1493857283%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hue-as-rad.html"><span>hue</span><wbr></wbr><span>As</span><wbr></wbr><span><span>Rad</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1493857283%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-hue-color/index.html">HueColor</a><span class="token punctuation">.</span><a href="hue-as-rad.html"><span class="token function">hueAsRad</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Convert this color's hue to radians (360° == 2π radians)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-925668668%2FFunctions%2F1787990027" anchor-label="hueAsTurns" id="-925668668%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hue-as-turns.html"><span>hue</span><wbr></wbr><span>As</span><wbr></wbr><span><span>Turns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-925668668%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-hue-color/index.html">HueColor</a><span class="token punctuation">.</span><a href="hue-as-turns.html"><span class="token function">hueAsTurns</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Convert this color's hue to turns (360° == 1 turn)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1775805961%2FFunctions%2F1787990027" anchor-label="hueOr" id="-1775805961%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hue-or.html"><span>hue</span><wbr></wbr><span><span>Or</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1775805961%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-hue-color/index.html">HueColor</a><span class="token punctuation">.</span><a href="hue-or.html"><span class="token function">hueOr</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">whenNaN<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">If this color's hue is <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/-na-n.html">NaN</a> (meaning the hue is undefined), return <a href="hue-or.html">whenNaN</a>. Otherwise, return the hue unchanged.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-463129719%2FFunctions%2F1787990027" anchor-label="parse" id="-463129719%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="parse.html"><span><span>parse</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-463129719%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-color/-companion/index.html">Color.Companion</a><span class="token punctuation">.</span><a href="parse.html"><span class="token function">parse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">color<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-color/index.html">Color</a></div><div class="brief "><p class="paragraph">Parse a string representing a CSS color value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1824119475%2FFunctions%2F1787990027" anchor-label="parseOrNull" id="1824119475%2FFunctions%2F1787990027" data-filterable-set=":colormath:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":colormath:dokkaHtml/commonMain" data-filterable-set=":colormath:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="parse-or-null.html"><span>parse</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1824119475%2FFunctions%2F1787990027"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":colormath:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-color/-companion/index.html">Color.Companion</a><span class="token punctuation">.</span><a href="parse-or-null.html"><span class="token function">parseOrNull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">color<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-color/index.html">Color</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Parse a string representing a CSS color value, or return null if the string isn't in a recognized format.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Copyright &copy; 2021 AJ Alt</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-
