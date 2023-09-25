@@ -35,8 +35,8 @@ cat README.md \
 
 # Copy the website js into the docs
 mkdir -p docs/js
-cp website/converter/build/distributions/converter.js docs/js/converter.js
-cp website/gradient/build/distributions/gradient.js docs/js/gradient.js
+cp website/converter/build/dist/js/productionExecutable/converter.js docs/js/converter.js
+cp website/gradient/build/dist/js/productionExecutable/gradient.js docs/js/gradient.js
 
 # Build and deploy the new site to github pages
 mkdocs gh-deploy
