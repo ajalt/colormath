@@ -11,7 +11,7 @@ repositories {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release")
     }
 

@@ -3,6 +3,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.io.ByteArrayOutputStream
+import java.net.URL
 
 plugins {
     kotlin("multiplatform").version(libs.versions.kotlin).apply(false)
@@ -65,10 +66,10 @@ subprojects {
             pluginsMapConfiguration.set(
                 mapOf(
                     "org.jetbrains.dokka.base.DokkaBase" to """{
-                "customStyleSheets": ["$logoCss"],
-                "customAssets": ["$paletteSvg"],
-                "footerMessage": "Copyright &copy; 2021 AJ Alt"
-            }"""
+                    "customStyleSheets": ["$logoCss"],
+                    "customAssets": ["$paletteSvg"],
+                    "footerMessage": "Copyright &copy; 2021 AJ Alt"
+                }"""
                 )
             )
             dokkaSourceSets.configureEach {
