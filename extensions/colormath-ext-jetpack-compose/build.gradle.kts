@@ -39,9 +39,10 @@ kotlin {
 }
 
 android {
-    namespace = "com.github.ajalt.colormath"
+    namespace = "com.github.ajalt.colormath.extensions.android.composecolor"
     compileSdk = 33
     defaultConfig.minSdk = 21
+    buildFeatures.buildConfig = false
 }
 
 // workaround for https://github.com/Kotlin/dokka/issues/1833
