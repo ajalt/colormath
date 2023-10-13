@@ -34,4 +34,5 @@ android {
     namespace = "com.github.ajalt.colormath.extensions.android.colorint"
     compileSdk = 33
     defaultConfig.minSdk = 21
+    buildFeatures.buildConfig = false
 }
