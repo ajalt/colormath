@@ -31,7 +31,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.github.ajalt.colormath"
+    namespace = "com.github.ajalt.colormath.extensions.android.colorint"
     compileSdk = 33
     defaultConfig.minSdk = 21
 }
