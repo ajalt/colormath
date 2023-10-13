@@ -2,7 +2,7 @@
 
 ## 3.3.3
 ### Changed
-- Use unique namespace for all android extensions and disable BuildConfig generation. Thanks to @frett for the contribution ([#45](https://github.com/ajalt/clikt/issues/45))
+- Use unique namespace for all android extensions and disable BuildConfig generation. Thanks to @frett for the contribution ([#45](https://github.com/ajalt/colormath/issues/45))
 
 ## 3.3.2
 ### Added
