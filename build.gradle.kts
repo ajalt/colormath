@@ -3,7 +3,6 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.io.ByteArrayOutputStream
-import java.net.URL
 
 plugins {
     kotlin("multiplatform").version(libs.versions.kotlin).apply(false)
