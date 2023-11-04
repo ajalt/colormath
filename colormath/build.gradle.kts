@@ -18,36 +18,17 @@ kotlin {
     mingwX64()
     macosX64()
     macosArm64()
-
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
-    tvos()
+    tvosX64()
+    tvosArm64()
     tvosSimulatorArm64()
-    watchos()
+    watchosX64()
+    watchosArm64()
     watchosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting
-
-        val nativeMain by creating {
-            dependsOn(commonMain)
-        }
-
-        listOf(
-            "macosX64",
-            "macosArm64",
-            "linuxX64",
-            "mingwX64",
-            "ios",
-            "iosSimulatorArm64",
-            "tvos",
-            "tvosSimulatorArm64",
-            "watchos",
-            "watchosSimulatorArm64"
-        ).forEach { target ->
-            getByName(target + "Main").dependsOn(nativeMain)
-        }
-
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
