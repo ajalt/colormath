@@ -1,4 +1,6 @@
-# Colormath
+<h1 align="center">
+    <img src="docs/img/colormath_wordmark.svg">
+</h1>
 
 Colormath is a Kotlin Multiplatform library for color manipulation and conversion.
 
