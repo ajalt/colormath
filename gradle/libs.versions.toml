@@ -1,10 +1,10 @@
 [versions]
-kotlin = "1.9.20"
-jbCompose = "1.5.10"
+kotlin = "1.9.21"
+jbCompose = "1.5.11"
 
 [libraries]
 # used in tests
-kotest =  "io.kotest:kotest-assertions-core:5.7.2"
+kotest =  "io.kotest:kotest-assertions-core:5.8.0"
 compose-ui-graphics = { module = "org.jetbrains.compose.ui:ui-graphics", version.ref = "jbCompose" }
 androidx-annotation =  "androidx.annotation:annotation:1.7.0"
 junit =  "junit:junit:4.13.2"

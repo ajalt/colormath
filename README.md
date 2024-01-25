@@ -69,9 +69,11 @@ dependencies {
 
 #### Multiplatform
 
-Colormath supports the following targets: `jvm`, `mingwX64`, `linuxX64`, `macosX64`, `ios`,
-`watchos`, `tvos`, and `js` (for both NodeJS and Browsers). You'll need to use Gradle 6 or newer.
-Artifacts for `macosArm64` and `linuxArm64` are also published, but not tested with CI.
+Colormath publishes artifacts for all 
+[Tier 1 and Tier 2](https://kotlinlang.org/docs/native-target-support.html)
+targets, as well as `mingwX64` and `wasm`. 
+
+`wasm` and the `arm64` targets are not tested on CI.
 
 #### Snapshots
 

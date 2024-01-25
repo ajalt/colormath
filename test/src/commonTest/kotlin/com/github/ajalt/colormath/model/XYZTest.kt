@@ -1,7 +1,5 @@
 package com.github.ajalt.colormath.model
 
-import com.github.ajalt.colormath.internal.CAT02_LMS_TO_XYZ
-import com.github.ajalt.colormath.internal.CAT02_XYZ_TO_LMS
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.model.LUVColorSpaces.LUV50
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
@@ -51,10 +49,13 @@ class XYZTest {
         XYZ(0.40, 0.50, 0.60) to Oklab(0.78539542, -0.06758384, -0.01449969),
         XYZ(1.00, 1.00, 1.00) to Oklab(1.00324405, 0.02673522, 0.0147436),
         XYZ(0.18, 0.18, 0.18).adaptTo(XYZ50) to Oklab(0.56645328, 0.01509528, 0.00832456),
-        XYZ(0.18, 0.18, 0.18).adaptTo(XYZ50, CAT02_XYZ_TO_LMS.rowMajor) to Oklab(0.56645328, 0.01509528, 0.00832456),
-        XYZ(0.18, 0.18, 0.18).adaptTo(XYZ50, CAT02_XYZ_TO_LMS.rowMajor, CAT02_LMS_TO_XYZ.rowMajor) to Oklab(0.56645328,
-            0.01509528,
-            0.00832456),
+        // TODO(kotest): reenable this when kotest supports wasm
+        //        XYZ(0.18, 0.18, 0.18).adaptTo(XYZ50, CAT02_XYZ_TO_LMS) to Oklab(
+//            0.56645328, 0.01509528, 0.00832456
+//        ),
+//        XYZ(0.18, 0.18, 0.18).adaptTo(XYZ50, CAT02_XYZ_TO_LMS, CAT02_LMS_TO_XYZ.rowMajor) to Oklab(
+//            0.56645328, 0.01509528, 0.00832456
+//        ),
     )
 
     @Test

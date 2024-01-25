@@ -1,4 +1,5 @@
 include("colormath")
+include("test")
 include("extensions:colormath-ext-android-color")
 include("extensions:colormath-ext-android-colorint")
 include("extensions:colormath-ext-jetpack-compose")

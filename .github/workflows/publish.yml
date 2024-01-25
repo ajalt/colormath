@@ -16,16 +16,17 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 20
+          java-version: 21
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: |
-            :colormath:jsNodeTest
-            :colormath:jvmTest
-            :colormath:linuxX64Test
+            :test:jsNodeTest
+            :test:jvmTest
+            :test:linuxX64Test
             :colormath:compileKotlinLinuxArm64
-            :extensions:colormath-ext-jetpack-compose:check
-            :extensions:colormath-ext-android-colorint:check
+            :colormath:wasmJsTest
+            :extensions:colormath-ext-jetpack-compose:check 
+            :extensions:colormath-ext-android-colorint:check 
             :extensions:colormath-ext-android-color:check
             --stacktrace
       - name: Bundle the build report
@@ -44,7 +45,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 20
+          java-version: 21
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: |
@@ -63,7 +64,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 20
+          java-version: 21
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: mingwX64Test --stacktrace
@@ -76,7 +77,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 20
+          java-version: 21
       - name: Fetch git tags
         run: git fetch origin +refs/tags/*:refs/tags/*
       - name: Deploy to sonatype
