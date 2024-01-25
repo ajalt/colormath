@@ -13,9 +13,6 @@ kotlin {
     jvm()
     js { nodejs() }
 
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs { nodejs() }
-
     linuxX64()
     linuxArm64()
     mingwX64()
@@ -34,6 +31,8 @@ kotlin {
     sourceSets {
         val commonTest by getting {
             dependencies {
+                api(project(":colormath"))
+                implementation(libs.kotest)
                 implementation(kotlin("test"))
             }
         }

@@ -7,7 +7,6 @@ import com.github.ajalt.colormath.WhitePoint
 import com.github.ajalt.colormath.internal.*
 import kotlin.math.log2
 import kotlin.math.pow
-import kotlin.native.concurrent.SharedImmutable
 
 object RGBColorSpaces {
     /**
@@ -264,13 +263,10 @@ private data class RGBColorSpaceImpl(
     override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB = RGB(r, g, b, alpha, this)
 }
 
-@SharedImmutable
 private val SRGB_R = xyY(0.6400, 0.3300)
 
-@SharedImmutable
 private val SRGB_G = xyY(0.3000, 0.6000)
 
-@SharedImmutable
 private val SRGB_B = xyY(0.1500, 0.0600)
 
 private object SRGBTransferFunctions : RGBColorSpace.TransferFunctions {
@@ -289,27 +285,20 @@ private object SRGBTransferFunctions : RGBColorSpace.TransferFunctions {
     }
 }
 
-@SharedImmutable
 private val ACES_WHITE_POINT = WhitePoint("ACES", xyY(0.32168, 0.33767))
 
 // values from [Academy TB-2014-004]
-@SharedImmutable
 private val ACES_AP0_R = xyY(0.73470, 0.26530)
 
-@SharedImmutable
 private val ACES_AP0_G = xyY(0.00000, 1.00000)
 
-@SharedImmutable
 private val ACES_AP0_B = xyY(0.00010, -0.0770)
 
 // values from [Academy S-2014-004]
-@SharedImmutable
 private val ACES_AP1_R = xyY(0.713, 0.293)
 
-@SharedImmutable
 private val ACES_AP1_G = xyY(0.165, 0.830)
 
-@SharedImmutable
 private val ACES_AP1_B = xyY(0.128, 0.044)
 
 // from [Academy S-2014-003]

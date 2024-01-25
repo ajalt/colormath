@@ -14,17 +14,19 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 20
+          java-version: 21
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: |
-            :colormath:jsNodeTest
-            :colormath:jvmTest
-            :colormath:linuxX64Test
+            :test:jsNodeTest
+            :test:jvmTest
+            :test:linuxX64Test
             :colormath:compileKotlinLinuxArm64
+            :colormath:compileKotlinWasmJs
             :extensions:colormath-ext-jetpack-compose:check 
             :extensions:colormath-ext-android-colorint:check 
-            :extensions:colormath-ext-android-color:check --stacktrace
+            :extensions:colormath-ext-android-color:check
+            --stacktrace
       - name: Bundle the build report
         if: failure()
         run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
@@ -41,14 +43,17 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 20
+          java-version: 21
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: |
             macosX64Test
             :colormath:compileKotlinMacosArm64
-            tvosX64Test
             iosX64Test
+            tvosX64Test
+            iosSimulatorArm64Test
+            tvosSimulatorArm64Test
+            watchosSimulatorArm64Test
             --stacktrace
   windows-tests:
     runs-on: windows-latest
@@ -57,7 +62,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 20
+          java-version: 21
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: mingwX64Test --stacktrace

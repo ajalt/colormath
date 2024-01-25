@@ -1,8 +1,8 @@
 package com.github.ajalt.colormath.internal
 
-import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class MatrixTest {
     @Test
@@ -54,5 +54,12 @@ class MatrixTest {
             7f, 8f, 9f,
         )
         l.dot(10f, 20f, 30f).values shouldBe floatArrayOf(140f, 320f, 500f)
+    }
+}
+
+// TODO(kotest): go back to kotest once is supports wasm
+private infix fun FloatArray.shouldBe(other: FloatArray) {
+    for (i in indices) {
+        assertEquals(this[i], other[i], 0.00000001f, "index $i")
     }
 }
