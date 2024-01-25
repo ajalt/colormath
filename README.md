@@ -52,16 +52,16 @@ Colormath is distributed through [Maven Central](https://search.maven.org/artifa
 
 ```groovy
 dependencies {
-    implementation("com.github.ajalt.colormath:colormath:3.3.3")
+    implementation("com.github.ajalt.colormath:colormath:3.4.0")
     
     // optional extensions for interop with other platforms
     //
     // android.graphics.Color
-    implementation("com.github.ajalt.colormath:colormath-ext-android-color:3.3.3")
+    implementation("com.github.ajalt.colormath:colormath-ext-android-color:3.4.0")
     // androidx.annotation.ColorInt
-    implementation("com.github.ajalt.colormath:colormath-ext-android-colorint:3.3.3")
+    implementation("com.github.ajalt.colormath:colormath-ext-android-colorint:3.4.0")
     // androidx.compose.ui.graphics.Color
-    implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:3.3.3")
+    implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:3.4.0")
 }
 ```
 
@@ -80,7 +80,7 @@ targets, as well as `mingwX64` and `wasm`.
 <details>
 <summary>Snapshot builds are also available</summary>
 
-<a href="https://oss.sonatype.org/content/repositories/snapshots/com/github/ajalt/colormath/colormath"><img src="https://img.shields.io/nexus/s/com.github.ajalt.colormath/colormath?color=blue&label=latest%20shapshot&server=https%3A%2F%2Foss.sonatype.org"/></a>
+<a href="https://oss.sonatype.org/content/repositories/snapshots/com/github/ajalt/colormath/colormath/"><img src="https://img.shields.io/nexus/s/com.github.ajalt.colormath/colormath?color=blue&label=latest%20shapshot&server=https%3A%2F%2Foss.sonatype.org"/></a>
 
 <p>
 You'll need to add the Sonatype snapshots repository:

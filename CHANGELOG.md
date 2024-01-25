@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.4.0
+### Added
+- Publish artifacts for the `wasmJs` target. This target is experimental and not tested on CI.
+
 ## 3.3.3
 ### Changed
 - Use unique namespace for all android extensions and disable BuildConfig generation. Thanks to @frett for the contribution ([#45](https://github.com/ajalt/colormath/issues/45))
