@@ -58,6 +58,8 @@ class MatrixTest {
 }
 
 // TODO(kotest): go back to kotest once is supports wasm
-private infix fun Any?.shouldBe(other: Any?) {
-    assertEquals(other, this)
+private infix fun FloatArray.shouldBe(other: FloatArray) {
+    for (i in indices) {
+        assertEquals(this[i], other[i], 0.00000001f, "index $i")
+    }
 }

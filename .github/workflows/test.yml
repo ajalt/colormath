@@ -22,7 +22,7 @@ jobs:
             :test:jvmTest
             :test:linuxX64Test
             :colormath:compileKotlinLinuxArm64
-            :colormath:wasmJsTest
+            :colormath:compileKotlinWasmJs
             :extensions:colormath-ext-jetpack-compose:check 
             :extensions:colormath-ext-android-colorint:check 
             :extensions:colormath-ext-android-color:check
