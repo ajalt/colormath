@@ -5,7 +5,6 @@ import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.internal.scaleRange
 import com.github.ajalt.colormath.transform.InterpolationMethod.Point
-import kotlin.native.concurrent.SharedImmutable
 
 /**
  * Interpolate linearly between this color and [other].
@@ -373,7 +372,6 @@ private fun requireComponentName(space: ColorSpace<*>, name: String): String {
     return name.lowercase()
 }
 
-@SharedImmutable
 private val alphaAdjustment: ComponentAdjustment = { l ->
     when {
         l.all { it.isNaN() } -> l
