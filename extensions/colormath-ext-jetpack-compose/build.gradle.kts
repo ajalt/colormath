@@ -18,6 +18,17 @@ kotlin {
 
     jvm()
 
+    js {
+        browser()
+        nodejs()
+    }
+
+    @Suppress("OPT_IN_USAGE")
+    wasmJs {
+        browser()
+        nodejs()
+    }
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
