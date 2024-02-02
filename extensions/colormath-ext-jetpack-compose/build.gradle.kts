@@ -1,4 +1,5 @@
 import com.vanniktech.maven.publish.tasks.JavadocJar
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     id("com.android.library")
@@ -17,17 +18,10 @@ kotlin {
     }
 
     jvm()
+    js { nodejs() }
 
-    js {
-        browser()
-        nodejs()
-    }
-
-    @Suppress("OPT_IN_USAGE")
-    wasmJs {
-        browser()
-        nodejs()
-    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs { nodejs() }
 
     iosX64()
     iosArm64()
