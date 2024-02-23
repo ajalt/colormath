@@ -6,6 +6,8 @@ import com.github.ajalt.colormath.shouldEqualColor
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.shouldBe
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -93,6 +95,15 @@ class InterpolateTest {
         )).forAll { (a, ex) ->
             a.shouldEqualColor(ex)
         }
+    }
+
+    @Test
+    @JsName("empty_sequence")
+    fun `empty sequence`() {
+        val lerp = RGB.interpolator(RGB("#000"), RGB("#888"))
+        lerp.sequence(1).toList() shouldBe listOf(RGB("#000"))
+        lerp.sequence(0).toList().shouldBeEmpty()
+        lerp.sequence(-1).toList().shouldBeEmpty()
     }
 
     @Test
