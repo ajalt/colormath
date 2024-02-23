@@ -14,6 +14,8 @@ import com.github.ajalt.colormath.transform.InterpolationMethod.Point
  * @param premultiplyAlpha If true, multiply each color's components be the color's alpha value
  *   before interpolating, and divide the result by its alpha.
  * @param hueAdjustment How to interpolate the hue component, if there is one.
+ *
+ * @see interpolator
  */
 fun <T : Color> T.interpolate(
     other: Color,
@@ -29,6 +31,19 @@ fun <T : Color> T.interpolate(
 
 /**
  * Build an interpolator that will produce colors in this color space.
+ *
+ *
+ * ## Example
+ *
+ * ```
+ * RGB.interpolator {
+ *   stop(RGB("#f00"))
+ *   stop(RGB("#0f0"), 0.25)
+ *   stop(RGB("#00f"))
+ * }
+ * ```
+ *
+ * @see interpolate
  */
 fun <T : Color> ColorSpace<T>.interpolator(builder: InterpolatorBuilder.() -> Unit): Interpolator<T> {
     return InterpolatorBuilderImpl(this).apply(builder).build()
@@ -37,8 +52,15 @@ fun <T : Color> ColorSpace<T>.interpolator(builder: InterpolatorBuilder.() -> Un
 /**
  * Build a linear interpolator with two or more evenly spaced [stops].
  *
+ * ## Example
+ *
+ * ```
+ * RGB.interpolator(RGB("#f00"), RGB("#00f"))
+ * ```
+ *
  * @param premultiplyAlpha If true, multiply each color's components be the color's alpha value
  *   before interpolating, and divide the result by its alpha.
+ * @see interpolate
  */
 fun <T : Color> ColorSpace<T>.interpolator(
     vararg stops: Color,
@@ -154,14 +176,15 @@ interface InterpolatorBuilder {
 
 /** Create a sequence of [length] colors evenly spaced along this interpolator's values */
 fun <T : Color> Interpolator<T>.sequence(length: Int): Sequence<T> {
-    require(length > 1) { "length must be 2 or greater, was $length" }
-    return (0 until length).asSequence().map { interpolate(it / (length - 1).toFloat()) }
+    return (0..<length).asSequence()
+        .map { interpolate(it / (length - 1).coerceAtLeast(1).toFloat()) }
 }
 
 
 //region: implementations
 
-private class InterpolatorStopBuilderImpl(private val space: ColorSpace<*>) : InterpolatorStopBuilder {
+private class InterpolatorStopBuilderImpl(private val space: ColorSpace<*>) :
+    InterpolatorStopBuilder {
     private val fns = mutableMapOf<String, EasingFunction>()
     override var easing: EasingFunction? = null
 
@@ -169,7 +192,10 @@ private class InterpolatorStopBuilderImpl(private val space: ColorSpace<*>) : In
         fns[requireComponentName(space, component)] = easingFn
     }
 
-    fun build(easingFns: Map<String, EasingFunction>, defEasingFn: EasingFunction): List<EasingFunction> {
+    fun build(
+        easingFns: Map<String, EasingFunction>,
+        defEasingFn: EasingFunction,
+    ): List<EasingFunction> {
         return space.components.map {
             val n = it.name.lowercase()
             fns.getOrElse(n) { easingFns.getOrElse(n) { easing ?: defEasingFn } }
@@ -232,8 +258,13 @@ private class InterpolatorImpl<T : Color>(
     }
 }
 
-private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T>) : InterpolatorBuilder {
-    private data class Entry(val color: Color, val pos: Float?, val builder: InterpolatorStopBuilderImpl)
+private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T>) :
+    InterpolatorBuilder {
+    private data class Entry(
+        val color: Color,
+        val pos: Float?,
+        val builder: InterpolatorStopBuilderImpl,
+    )
 
     override var premultiplyAlpha: Boolean = true
     override var method: InterpolationMethod = InterpolationMethods.linear()
@@ -312,8 +343,14 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
                 val prevPos = entries[runStart - 1].pos!!
                 val nextPos = entry.pos
                 var fixed = 0
-                for (j in runStart until i) {
-                    entries[j] = entries[j].copy(pos = lerp(prevPos, nextPos, (1 + fixed).toFloat() / (1 + runLen)))
+                for (j in runStart..<i) {
+                    entries[j] = entries[j].copy(
+                        pos = lerp(
+                            prevPos,
+                            nextPos,
+                            (1 + fixed).toFloat() / (1 + runLen)
+                        )
+                    )
                     fixed += 1
                 }
 
@@ -341,7 +378,11 @@ private class InterpolatorBuilderImpl<T : Color>(private val space: ColorSpace<T
     }
 }
 
-private fun fixupHues(space: ColorSpace<*>, hueAdjustment: ComponentAdjustment, entries: List<Stop>) {
+private fun fixupHues(
+    space: ColorSpace<*>,
+    hueAdjustment: ComponentAdjustment,
+    entries: List<Stop>,
+) {
     for ((i, c) in space.components.withIndex()) {
         if (!c.isPolar) continue
         hueAdjustment(entries.map { it.components[i] }).forEachIndexed { j, hue ->
@@ -379,12 +420,20 @@ private val alphaAdjustment: ComponentAdjustment = { l ->
     }
 }
 
-private fun mult(space: ColorSpace<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
+private fun mult(
+    space: ColorSpace<*>,
+    premultiplyAlpha: Boolean,
+    components: FloatArray,
+): FloatArray {
     if (premultiplyAlpha) multiplyAlphaInPlace(space, components)
     return components
 }
 
-private fun div(space: ColorSpace<*>, premultiplyAlpha: Boolean, components: FloatArray): FloatArray {
+private fun div(
+    space: ColorSpace<*>,
+    premultiplyAlpha: Boolean,
+    components: FloatArray,
+): FloatArray {
     if (premultiplyAlpha) divideAlphaInPlace(space, components)
     return components
 }
