@@ -1,8 +1,12 @@
 # Changelog
 
+## Unreleased
+### Added
+- Publish artifacts for the `JS` and `wasmJs` targets for the jetpack-compose extensions.
+
 ## 3.4.0
 ### Added
-- Publish artifacts for the `wasmJs` target. This target is experimental and not tested on CI.
+- Publish artifacts for the `wasmJs` target. This target is experimental.
 
 ## 3.3.3
 ### Changed

@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.9.21"
-compose = "1.6.0-beta01"
+compose = "1.6.0"
 
 [libraries]
 
@@ -12,13 +12,6 @@ compose-ui-graphics = { module = "org.jetbrains.compose.ui:ui-graphics", version
 kotest =  "io.kotest:kotest-assertions-core:5.8.0"
 junit =  "junit:junit:4.13.2"
 robolectric =  "org.robolectric:robolectric:4.10"
-
-# used in samples
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 
 [plugins]
 dokka = "org.jetbrains.dokka:1.9.10"
