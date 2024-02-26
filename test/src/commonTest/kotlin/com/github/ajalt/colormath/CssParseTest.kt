@@ -98,7 +98,12 @@ class CssParseTest {
     @Test
     @JsName("parseCssColor_float_exponents")
     fun `parseCssColor float exponents`() {
-        Color.parse("rgb(1e2, .5e1, .5e0, +.25e2%)") shouldBe RGB(100 / 255f, 5 / 255f, 1 / 255f, .25)
+        Color.parse("rgb(1e2, .5e1, .5e0, +.25e2%)") shouldBe RGB(
+            100 / 255f,
+            5 / 255f,
+            1 / 255f,
+            .25
+        )
     }
 
     @Test
@@ -208,6 +213,34 @@ class CssParseTest {
         row("hwb(3.1416rad 23.4% 45.6%)", HWB(180.0, .234, .456)),
     ) { str, hwb ->
         Color.parse(str).shouldEqualColor(hwb)
+    }
+
+    @Test
+    @JsName("parseCssColor_oklab")
+    // https://www.w3.org/TR/css-color-4/#ex-oklab-samples
+    fun `parseCssColor oklab`() = forAll(
+        row("oklab(40.101%  0.1147  0.0453)", Oklab(0.40101, 0.1147, 0.0453)),
+        row("oklab(59.686%  0.1009  0.1192)", Oklab(0.59686, 0.1009, 0.1192)),
+        row("oklab(0.65125 -0.0320  0.1274)", Oklab(0.65125, -0.0320, 0.1274)),
+        row("oklab(66.016% -0.1084  0.1114)", Oklab(0.66016, -0.1084, 0.1114)),
+        row("oklab(72.322% -0.0465 -0.1150)", Oklab(0.72322, -0.0465, -0.1150)),
+//        row("oklab(42.1% 41% -25%)", Oklab()), TODO: a/b percentage scaling
+    ) { str, lab ->
+        Color.parse(str).shouldEqualColor(lab)
+    }
+
+    @Test
+    @JsName("parseCssColor_oklch")
+    // https://www.w3.org/TR/css-color-4/#ex-oklch-samples
+    fun `parseCssColor oklch`() = forAll(
+        row("oklch(40.101% 0.12332 21.555)", Oklch(0.40101, 0.12332, 21.555)),
+        row("oklch(59.686% 0.15619 49.7694)", Oklch(0.59686, 0.15619, 49.7694)),
+        row("oklch(0.65125 0.13138 104.097)", Oklch(0.65125, 0.13138, 104.097)),
+        row("oklch(0.66016 0.15546 134.231)", Oklch(0.66016, 0.15546, 134.231)),
+        row("oklch(72.322% 0.12403 247.996)", Oklch(0.72322, 0.12403, 247.996)),
+//        row("oklch(42.1% 48.25% 328.4)", Oklch()), TODO: c percentage scaling
+    ) { str, lch ->
+        Color.parse(str).shouldEqualColor(lch)
     }
 
     @Test

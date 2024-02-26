@@ -2,11 +2,16 @@ package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.model.*
+import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
+import com.github.ajalt.colormath.model.LCHabColorSpaces.LCHab50
 import com.github.ajalt.colormath.model.RGBColorSpaces.AdobeRGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.BT2020
 import com.github.ajalt.colormath.model.RGBColorSpaces.DisplayP3
+import com.github.ajalt.colormath.model.RGBColorSpaces.LinearSRGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
+import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ65
+import kotlin.jvm.JvmOverloads
 import kotlin.math.roundToInt
 
 /**
@@ -16,15 +21,26 @@ import kotlin.math.roundToInt
  *
  * @throws IllegalArgumentException if the value cannot be parsed
  */
-fun Color.Companion.parse(color: String): Color {
-    return parseOrNull(color) ?: throw IllegalArgumentException("Invalid color: $color")
+@JvmOverloads // TODO(4.0) remove this
+fun Color.Companion.parse(
+    color: String,
+): Color {
+    return parseOrNull(color, customColorSpaces)
+        ?: throw IllegalArgumentException("Invalid color: $color")
 }
 
 /**
  * Parse a string representing a CSS color value, or return null if the string isn't in a recognized
  * format.
+ *
+ * @param color The color string to parse
+ * @param customColorSpaces A list of custom color spaces to recognize in the `color()` function.
+ * Each pair should be the identifier of the color and its [ColorSpace].
  */
-fun Color.Companion.parseOrNull(color: String): Color? {
+@JvmOverloads // TODO(4.0) remove this
+fun Color.Companion.parseOrNull(
+    color: String,
+): Color? {
     val keywordColor = CssColors.colorsByName[color]
     return when {
         keywordColor != null -> keywordColor
@@ -39,10 +55,13 @@ fun Color.Companion.parseOrNull(color: String): Color? {
                 ?: PATTERNS.LAB.matchEntire(color)?.let { lab(it) }
                 ?: PATTERNS.LCH.matchEntire(color)?.let { lch(it) }
                 ?: PATTERNS.HWB.matchEntire(color)?.let { hwb(it) }
+                ?: PATTERNS.OKLAB.matchEntire(color)?.let { oklab(it) }
+                ?: PATTERNS.OKLCH.matchEntire(color)?.let { oklch(it) }
                 ?: PATTERNS.COLOR.matchEntire(color)?.let { color(it) }
         }
     }
 }
+
 
 // https://www.w3.org/TR/css-color-4/#color-syntax
 private object PATTERNS {
@@ -65,27 +84,33 @@ private object PATTERNS {
     val LCH = Regex("""lch\(($PERCENT)\s+($NUMBER)\s+($HUE)$SLASH_ALPHA\)""")
     val HWB = Regex("""hwb\(($HUE)\s+($PERCENT)\s+($PERCENT)$SLASH_ALPHA\)""")
 
-    val COLOR = Regex("""color\(([\w\-]+)\s+($NUMBER_OR_PERCENT(?:\s+$NUMBER_OR_PERCENT)*)$SLASH_ALPHA\)""")
+    val OKLAB = Regex("""oklab\(($NUMBER_OR_PERCENT)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
+    val OKLCH = Regex("""oklch\(($NUMBER_OR_PERCENT)\s+($NUMBER)\s+($HUE)$SLASH_ALPHA\)""")
+
+    val COLOR = Regex(
+        """color\(([\w\-]+)\s+($NUMBER_OR_PERCENT(?:\s+$NUMBER_OR_PERCENT)*)$SLASH_ALPHA\)"""
+    )
 }
 
-private fun color(match: MatchResult): Color? {
-    val space = when (match.groupValues[1]) {
+private fun color(
+    match: MatchResult,
+): Color? {
+    val space = when (val name = match.groupValues[1]) {
         "srgb" -> SRGB
+        "srgb-linear" -> LinearSRGB
         "display-p3" -> DisplayP3
         "a98-rgb" -> AdobeRGB
         "prophoto-rgb" -> ROMM_RGB
         "rec2020" -> BT2020
-        "xyz" -> XYZ50
-        else -> return null
-    }
+        "xyz", "xyz-d50" -> XYZ50
+        "xyz-d65" -> XYZ65
+        else -> null
+    } ?: return null
 
     val values = match.groupValues[2].split(Regex("\\s+")).map { percentOrNumber(it).clampF() }
-    return space.create(floatArrayOf(
-        values.getOrElse(0) { 0f },
-        values.getOrElse(1) { 0f },
-        values.getOrElse(2) { 0f },
-        alpha(match.groupValues[3])
-    ))
+    val components = FloatArray(space.components.size) { values.getOrElse(it) { 0f } }
+    components[components.lastIndex] = alpha(match.groupValues[3])
+    return space.create(components)
 }
 
 
@@ -115,7 +140,7 @@ private fun lab(match: MatchResult): Color {
     val a = number(match.groupValues[2])
     val b = number(match.groupValues[3])
     val alpha = alpha(match.groupValues[4])
-    return LAB(l.coerceAtLeast(0f) * 100f, a, b, alpha)
+    return LAB50(l.coerceAtLeast(0f) * 100f, a, b, alpha)
 }
 
 private fun lch(match: MatchResult): Color {
@@ -123,7 +148,7 @@ private fun lch(match: MatchResult): Color {
     val c = number(match.groupValues[2])
     val h = hue(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return LCHab(l.coerceAtLeast(0f) * 100f, c.coerceAtLeast(0f), h, a)
+    return LCHab50(l.coerceAtLeast(0f) * 100f, c.coerceAtLeast(0f), h, a)
 }
 
 private fun hwb(match: MatchResult): Color {
@@ -133,6 +158,25 @@ private fun hwb(match: MatchResult): Color {
     val a = alpha(match.groupValues[4])
     return HWB(h, w.clampF(), b.clampF(), a)
 }
+
+
+private fun oklab(match: MatchResult): Color {
+    val l = percentOrNumber(match.groupValues[1])
+    val a = number(match.groupValues[2])
+    val b = number(match.groupValues[3])
+    val alpha = alpha(match.groupValues[4])
+    return Oklab(l, a, b, alpha)
+
+}
+
+private fun oklch(match: MatchResult): Color {
+    val l = percentOrNumber(match.groupValues[1])
+    val c = number(match.groupValues[2])
+    val h = hue(match.groupValues[3])
+    val a = alpha(match.groupValues[4])
+    return Oklch(l, c, h, a)
+}
+
 
 private fun percent(str: String) = str.dropLast(1).toFloat() / 100f
 private fun number(str: String) = str.toFloat()
