@@ -3,6 +3,7 @@ package com.github.ajalt.colormath.model
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
+import com.github.ajalt.colormath.Illuminant
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import com.github.ajalt.colormath.internal.toPolarModel
@@ -20,7 +21,7 @@ import com.github.ajalt.colormath.internal.toPolarModel
  */
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     /** Default constructors for the [Oklab] color model. */
-    companion object : ColorSpace<Oklab> {
+    companion object : ColorSpace<Oklab>{
         override val name: String get() = "Oklab"
         override val components: List<ColorComponentInfo> = rectangularComponentInfo("LAB")
         override fun convert(color: Color): Oklab = color.toOklab()

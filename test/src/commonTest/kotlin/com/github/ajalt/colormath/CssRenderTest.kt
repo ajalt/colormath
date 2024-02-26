@@ -3,21 +3,18 @@ package com.github.ajalt.colormath
 import com.github.ajalt.colormath.AngleUnit.*
 import com.github.ajalt.colormath.RenderCondition.*
 import com.github.ajalt.colormath.RenderCondition.AUTO
-import com.github.ajalt.colormath.model.HSL
-import com.github.ajalt.colormath.model.HSV
-import com.github.ajalt.colormath.model.HWB
-import com.github.ajalt.colormath.model.JzAzBz
+import com.github.ajalt.colormath.model.*
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.model.LCHabColorSpaces.LCHab50
-import com.github.ajalt.colormath.model.Oklch
-import com.github.ajalt.colormath.model.RGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.ACES
 import com.github.ajalt.colormath.model.RGBColorSpaces.ACEScc
 import com.github.ajalt.colormath.model.RGBColorSpaces.AdobeRGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.BT2020
 import com.github.ajalt.colormath.model.RGBColorSpaces.DisplayP3
+import com.github.ajalt.colormath.model.RGBColorSpaces.LinearSRGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
+import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ65
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
@@ -136,10 +133,15 @@ class CssRenderTest {
         row(LAB50(1.0, 20.0, 30.0), "lab(1% 20 30)"),
         row(LCHab50(1.0, 20.0, 30.0), "lch(1% 20 30)"),
         row(HWB(1.0, .2, .3), "hwb(1 20% 30%)"),
+        row(Oklab(1.0, .2, .3), "oklab(100% 0.2 0.3)"),
+        row(Oklch(1.0, .2, .3), "oklch(100% 0.2 0.3)"),
         row(XYZ50(.1, .2, .3), "color(xyz 0.1 0.2 0.3)"),
+        row(XYZ65(.1, .2, .3), "color(xyz-d65 0.1 0.2 0.3)"),
+        row(LinearSRGB(.1, .2, .3), "color(srgb-linear 0.1 0.2 0.3)"),
         row(JzAzBz(.1, .2, .3), "color(--jzazbz 0.1 0.2 0.3)"),
     ) { color, expected ->
         color.formatCssString() shouldBe expected
+        if ("--" !in expected) Color.parse(color.formatCssString()).shouldEqualColor(color)
     }
 
     @Test

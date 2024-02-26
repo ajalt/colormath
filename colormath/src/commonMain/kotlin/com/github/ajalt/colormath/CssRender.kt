@@ -4,6 +4,11 @@ import com.github.ajalt.colormath.internal.nanToOne
 import com.github.ajalt.colormath.model.*
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.model.LCHabColorSpaces.LCHab50
+import com.github.ajalt.colormath.model.RGBColorSpaces.AdobeRGB
+import com.github.ajalt.colormath.model.RGBColorSpaces.BT2020
+import com.github.ajalt.colormath.model.RGBColorSpaces.DisplayP3
+import com.github.ajalt.colormath.model.RGBColorSpaces.LinearSRGB
+import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
 import kotlin.math.roundToInt
 
@@ -82,17 +87,25 @@ fun Color.formatCssStringOrNull(
     return when (this) {
         is RGB -> when (space) {
             SRGB -> renderSRGB(legacyFormat, legacyName, unitsPercent, alphaPercent, renderAlpha)
-            RGBColorSpaces.DisplayP3 -> renderColorFunction("display-p3", unitsPercent, alphaPercent, renderAlpha)
-            RGBColorSpaces.AdobeRGB -> renderColorFunction("a98-rgb", unitsPercent, alphaPercent, renderAlpha)
-            RGBColorSpaces.ROMM_RGB -> renderColorFunction("prophoto-rgb", unitsPercent, alphaPercent, renderAlpha)
-            RGBColorSpaces.BT2020 -> renderColorFunction("rec2020", unitsPercent, alphaPercent, renderAlpha)
+            DisplayP3 -> renderFn("display-p3", unitsPercent, alphaPercent, renderAlpha)
+            AdobeRGB -> renderFn("a98-rgb", unitsPercent, alphaPercent, renderAlpha)
+            ROMM_RGB -> renderFn("prophoto-rgb", unitsPercent, alphaPercent, renderAlpha)
+            BT2020 -> renderFn("rec2020", unitsPercent, alphaPercent, renderAlpha)
+            LinearSRGB -> renderFn("srgb-linear", unitsPercent, alphaPercent, renderAlpha)
             else -> null
         }
+
         is HSL -> renderHsl(legacyFormat, legacyName, hueUnit, alphaPercent, renderAlpha)
         is LAB -> convertTo(LAB50).renderLab(alphaPercent, renderAlpha)
         is LCHab -> convertTo(LCHab50).renderLCH(hueUnit, alphaPercent, renderAlpha)
         is HWB -> renderHWB(hueUnit, alphaPercent, renderAlpha)
-        is XYZ -> adaptTo(XYZ50).renderColorFunction("xyz", unitsPercent, alphaPercent, renderAlpha)
+        is Oklab -> renderOklab(alphaPercent, renderAlpha)
+        is Oklch -> renderOklch(hueUnit, alphaPercent, renderAlpha)
+        is XYZ -> when (space.whitePoint) {
+            Illuminant.D65 -> renderFn("xyz-d65", unitsPercent, alphaPercent, renderAlpha)
+            else -> adaptTo(XYZ50).renderFn("xyz", unitsPercent, alphaPercent, renderAlpha)
+        }
+
         else -> null
     }
 }
@@ -105,10 +118,11 @@ fun Color.formatCssStringOrNull(
  * Otherwise, the `color()` syntax will be used. For color spaces not predefined by CSS, a dashed
  * identifier based on the [space's name][ColorSpace.name] will be used.
  *
- * Note that for [XYZ], [LAB], and [LCHab], the CSS standard requires that the [D50][Illuminant.D50]
- * white point be used, colors using other white points will be adapted to D50 before being
- * serialized. Those color models default to [D65][Illuminant.D65], so you should use [XYZ50],
- * [LAB50], and [LCHab50], respectively, if you're specifying a color to be serialized.
+ * Note that for [LAB], and [LCHab], the CSS standard requires that the [D50][Illuminant.D50] white
+ * point be used. For [XYZ], [D50][Illuminant.D50] and [D65][Illuminant.D65] are supported. Colors
+ * using other white points will be adapted to D50 before being serialized. Most color models
+ * default to [D65][Illuminant.D65], so you should use [XYZ50], [XYZ], [LAB50], and [LCHab50] if
+ * you're serializing a color in those models.
  *
  * ## Examples
  * ```
@@ -141,8 +155,14 @@ fun Color.formatCssString(
     legacyName: Boolean = false,
     legacyFormat: Boolean = false,
 ): String {
-    return formatCssStringOrNull(hueUnit, renderAlpha, unitsPercent, alphaPercent, legacyName, legacyFormat)
-        ?: renderColorFunction(dashName, unitsPercent, alphaPercent, renderAlpha)
+    return formatCssStringOrNull(
+        hueUnit,
+        renderAlpha,
+        unitsPercent,
+        alphaPercent,
+        legacyName,
+        legacyFormat
+    ) ?: renderFn(dashName, unitsPercent, alphaPercent, renderAlpha)
 }
 
 private fun RGB.renderSRGB(
@@ -151,8 +171,8 @@ private fun RGB.renderSRGB(
     rgbPercent: Boolean,
     alphaPercent: Boolean,
     renderAlpha: RenderCondition,
-): String =
-    renderFunction(
+): String {
+    return renderColorFn(
         if (namedRgba) "rgba" else "rgb",
         if (rgbPercent) r.render(true) else toRGBInt().r.toString(),
         if (rgbPercent) g.render(true) else toRGBInt().g.toString(),
@@ -161,6 +181,7 @@ private fun RGB.renderSRGB(
         renderAlpha = renderAlpha,
         commas = commas,
     )
+}
 
 private fun HSL.renderHsl(
     commas: Boolean,
@@ -168,8 +189,8 @@ private fun HSL.renderHsl(
     hueUnit: AngleUnit,
     alphaPercent: Boolean,
     renderAlpha: RenderCondition,
-): String =
-    renderFunction(
+): String {
+    return renderColorFn(
         if (namedHsla) "hsla" else "hsl",
         renderHue(hueUnit),
         s.render(true),
@@ -178,9 +199,10 @@ private fun HSL.renderHsl(
         renderAlpha = renderAlpha,
         commas = commas
     )
+}
 
-private fun LAB.renderLab(alphaPercent: Boolean, renderAlpha: RenderCondition): String =
-    renderFunction(
+private fun LAB.renderLab(alphaPercent: Boolean, renderAlpha: RenderCondition): String {
+    return renderColorFn(
         "lab",
         (l / 100).render(percent = true),
         a.render(),
@@ -188,9 +210,14 @@ private fun LAB.renderLab(alphaPercent: Boolean, renderAlpha: RenderCondition): 
         alphaPercent = alphaPercent,
         renderAlpha = renderAlpha,
     )
+}
 
-private fun LCHab.renderLCH(hueUnit: AngleUnit, alphaPercent: Boolean, renderAlpha: RenderCondition): String =
-    renderFunction(
+private fun LCHab.renderLCH(
+    hueUnit: AngleUnit,
+    alphaPercent: Boolean,
+    renderAlpha: RenderCondition,
+): String {
+    return renderColorFn(
         "lch",
         (l / 100).render(percent = true),
         c.render(),
@@ -198,9 +225,14 @@ private fun LCHab.renderLCH(hueUnit: AngleUnit, alphaPercent: Boolean, renderAlp
         alphaPercent = alphaPercent,
         renderAlpha = renderAlpha,
     )
+}
 
-private fun HWB.renderHWB(hueUnit: AngleUnit, alphaPercent: Boolean, renderAlpha: RenderCondition): String =
-    renderFunction(
+private fun HWB.renderHWB(
+    hueUnit: AngleUnit,
+    alphaPercent: Boolean,
+    renderAlpha: RenderCondition,
+): String {
+    return renderColorFn(
         "hwb",
         renderHue(hueUnit),
         w.render(percent = true),
@@ -208,8 +240,35 @@ private fun HWB.renderHWB(hueUnit: AngleUnit, alphaPercent: Boolean, renderAlpha
         alphaPercent = alphaPercent,
         renderAlpha = renderAlpha,
     )
+}
 
-private fun Color.renderFunction(
+private fun Oklab.renderOklab(alphaPercent: Boolean, renderAlpha: RenderCondition): String {
+    return renderColorFn(
+        "oklab",
+        l.render(percent = true),
+        a.render(),
+        b.render(),
+        alphaPercent = alphaPercent,
+        renderAlpha = renderAlpha,
+    )
+}
+
+private fun Oklch.renderOklch(
+    hueUnit: AngleUnit,
+    alphaPercent: Boolean,
+    renderAlpha: RenderCondition,
+): String {
+    return renderColorFn(
+        "oklch",
+        l.render(percent = true),
+        c.render(),
+        renderHue(hueUnit),
+        alphaPercent = alphaPercent,
+        renderAlpha = renderAlpha,
+    )
+}
+
+private fun Color.renderColorFn(
     name: String,
     vararg components: String,
     alphaPercent: Boolean,
@@ -232,7 +291,7 @@ private fun HueColor.renderHue(hueUnit: AngleUnit): String = when (hueUnit) {
     AngleUnit.TURNS -> "${hueAsTurns().render()}turn"
 }
 
-private fun Color.renderColorFunction(
+private fun Color.renderFn(
     name: String,
     unitsPercent: Boolean,
     alphaPercent: Boolean,
@@ -244,11 +303,17 @@ private fun Color.renderColorFunction(
     append(")")
 }
 
-private fun Color.renderAlpha(commas: Boolean, renderAlpha: RenderCondition, alphaPercent: Boolean): String {
+private fun Color.renderAlpha(
+    commas: Boolean,
+    renderAlpha: RenderCondition,
+    alphaPercent: Boolean,
+): String {
     return when {
-        renderAlpha == RenderCondition.ALWAYS || renderAlpha == RenderCondition.AUTO && !alpha.isNaN() && alpha != 1f -> {
+        renderAlpha == RenderCondition.ALWAYS ||
+                renderAlpha == RenderCondition.AUTO && !alpha.isNaN() && alpha != 1f -> {
             (if (commas) ", " else " / ") + alpha.nanToOne().render(alphaPercent)
         }
+
         else -> ""
     }
 }
