@@ -1,6 +1,8 @@
 package com.github.ajalt.colormath
 
 import com.github.ajalt.colormath.model.*
+import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
+import com.github.ajalt.colormath.model.LCHabColorSpaces.LCHab50
 import com.github.ajalt.colormath.model.RGBColorSpaces.AdobeRGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.BT2020
 import com.github.ajalt.colormath.model.RGBColorSpaces.DisplayP3
@@ -19,6 +21,15 @@ class CssParseTest {
     @Test
     @JsName("parseCssColor_named")
     fun `parseCssColor named`() {
+        Color.parse(
+            "color(jzazbz 0.1 0.2 0.3)",
+            customColorSpaces = listOf("jzazbz" to JzAzBz)
+        ).shouldEqualColor(JzAzBz(.1, .2, .3))
+    }
+
+    @Test
+    @JsName("parseCssColor_custom_space")
+    fun `parseCssColor custom space`() {
         Color.parse("rebeccapurple") shouldBe RGB("#663399")
     }
 
@@ -180,11 +191,11 @@ class CssParseTest {
     @JsName("parseCssColor_lab")
     // https://www.w3.org/TR/css-color-4/#funcdef-lab
     fun `parseCssColor lab`() = forAll(
-        row("lab(29.2345% 39.3825 20.0664)", LAB(29.2345, 39.3825, 20.0664)),
-        row("lab(52.2345% 40.1645 59.9971)", LAB(52.2345, 40.1645, 59.9971)),
-        row("lab(60.2345% -5.3654 58.956)", LAB(60.2345, -5.3654, 58.956)),
-        row("lab(62.2345% -34.9638 47.7721)", LAB(62.2345, -34.9638, 47.7721)),
-        row("lab(67.5345% -8.6911 -41.6019)", LAB(67.5345, -8.6911, -41.6019)),
+        row("lab(29.2345% 39.3825 20.0664)", LAB50(29.2345, 39.3825, 20.0664)),
+        row("lab(52.2345% 40.1645 59.9971)", LAB50(52.2345, 40.1645, 59.9971)),
+        row("lab(60.2345% -5.3654 58.956)", LAB50(60.2345, -5.3654, 58.956)),
+        row("lab(62.2345% -34.9638 47.7721)", LAB50(62.2345, -34.9638, 47.7721)),
+        row("lab(67.5345% -8.6911 -41.6019)", LAB50(67.5345, -8.6911, -41.6019)),
     ) { str, lab ->
         Color.parse(str).shouldEqualColor(lab)
     }
@@ -193,11 +204,11 @@ class CssParseTest {
     @JsName("parseCssColor_lch")
     // https://www.w3.org/TR/css-color-4/#funcdef-lch
     fun `parseCssColor lch`() = forAll(
-        row("lch(29.2345% 44.2 27)", LCHab(29.2345, 44.2, 27.0)),
-        row("lch(52.2345% 72.2 56.2)", LCHab(52.2345, 72.2, 56.2)),
-        row("lch(60.2345% 59.2 95.2)", LCHab(60.2345, 59.2, 95.2)),
-        row("lch(62.2345% 59.2 126.2)", LCHab(62.2345, 59.2, 126.2)),
-        row("lch(67.5345% 42.5 258.2)", LCHab(67.5345, 42.5, 258.2)),
+        row("lch(29.2345% 44.2 27)", LCHab50(29.2345, 44.2, 27.0)),
+        row("lch(52.2345% 72.2 56.2)", LCHab50(52.2345, 72.2, 56.2)),
+        row("lch(60.2345% 59.2 95.2)", LCHab50(60.2345, 59.2, 95.2)),
+        row("lch(62.2345% 59.2 126.2)", LCHab50(62.2345, 59.2, 126.2)),
+        row("lch(67.5345% 42.5 258.2)", LCHab50(67.5345, 42.5, 258.2)),
     ) { str, lch ->
         Color.parse(str).shouldEqualColor(lch)
     }

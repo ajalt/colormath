@@ -19,11 +19,15 @@ import kotlin.math.roundToInt
  *
  * Custom color spaces with dashed identifiers are not currently supported.
  *
+ * @param color The CSS color string to parse
+ * @param customColorSpaces A list of custom color spaces to recognize in the `color()` function.
+ * Each pair should be the identifier of the color and its [ColorSpace].
  * @throws IllegalArgumentException if the value cannot be parsed
  */
 @JvmOverloads // TODO(4.0) remove this
 fun Color.Companion.parse(
     color: String,
+    customColorSpaces: List<Pair<String, ColorSpace<*>>> = emptyList(),
 ): Color {
     return parseOrNull(color, customColorSpaces)
         ?: throw IllegalArgumentException("Invalid color: $color")
@@ -40,6 +44,7 @@ fun Color.Companion.parse(
 @JvmOverloads // TODO(4.0) remove this
 fun Color.Companion.parseOrNull(
     color: String,
+    customColorSpaces: List<Pair<String, ColorSpace<*>>> = emptyList(),
 ): Color? {
     val keywordColor = CssColors.colorsByName[color]
     return when {
@@ -57,7 +62,7 @@ fun Color.Companion.parseOrNull(
                 ?: PATTERNS.HWB.matchEntire(color)?.let { hwb(it) }
                 ?: PATTERNS.OKLAB.matchEntire(color)?.let { oklab(it) }
                 ?: PATTERNS.OKLCH.matchEntire(color)?.let { oklch(it) }
-                ?: PATTERNS.COLOR.matchEntire(color)?.let { color(it) }
+                ?: PATTERNS.COLOR.matchEntire(color)?.let { color(it, customColorSpaces) }
         }
     }
 }
@@ -94,6 +99,7 @@ private object PATTERNS {
 
 private fun color(
     match: MatchResult,
+    customColorSpaces: List<Pair<String, ColorSpace<*>>>,
 ): Color? {
     val space = when (val name = match.groupValues[1]) {
         "srgb" -> SRGB
@@ -104,7 +110,7 @@ private fun color(
         "rec2020" -> BT2020
         "xyz", "xyz-d50" -> XYZ50
         "xyz-d65" -> XYZ65
-        else -> null
+        else -> customColorSpaces.firstOrNull { it.first == name }?.second
     } ?: return null
 
     val values = match.groupValues[2].split(Regex("\\s+")).map { percentOrNumber(it).clampF() }
