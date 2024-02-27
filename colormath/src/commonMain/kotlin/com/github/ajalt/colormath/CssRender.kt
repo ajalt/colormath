@@ -10,6 +10,7 @@ import com.github.ajalt.colormath.model.RGBColorSpaces.DisplayP3
 import com.github.ajalt.colormath.model.RGBColorSpaces.LinearSRGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
+import kotlin.jvm.JvmOverloads
 import kotlin.math.roundToInt
 
 enum class RenderCondition {
@@ -48,10 +49,11 @@ enum class AngleUnit {
  * If CSS defines a color function syntax for this color's model (e.g. `lab()`), it will be used.
  * Otherwise, the `color()` syntax will be used.
  *
- * Note that for [XYZ], [LAB], and [LCHab], the CSS standard requires that the [D50][Illuminant.D50]
- * white point be used, colors using other white points will be adapted to D50 before being
- * serialized. Those color models default to [D65][Illuminant.D65], so you should use [XYZ50],
- * [LAB50], and [LCHab50], respectively, if you're specifying a color to be serialized.
+ * Note that for [LAB], and [LCHab], the CSS standard requires that the [D50][Illuminant.D50] white
+ * point be used. For [XYZ], [D50][Illuminant.D50] and [D65][Illuminant.D65] are supported. Colors
+ * using other white points will be adapted to D50 before being serialized. Most color models
+ * default to [D65][Illuminant.D65], so you should use [XYZ50], [XYZ], [LAB50], and [LCHab50] if
+ * you're serializing a color in those models.
  *
  * ## Examples
  * ```
@@ -69,12 +71,19 @@ enum class AngleUnit {
  * "color(--jzazbz 0.1 0.2 0.3)"
  * ```
  *
+ * ```
+ * > JzAzBz(0.1, 0.2, 0.3).formatCssString(customColorSpaces= listOf("jzazbz" to JzAzBz))
+ * "color(jzazbz 0.1 0.2 0.3)"
+ * ```
+ *
  * @param hueUnit The unit to use to render hue values, if this color has any.
  * @param renderAlpha Whether to render the alpha value.
  * @param unitsPercent If true, render this color's components as percentages if the color syntax supports it.
  * @param alphaPercent If true, render the alpha as a percentage. By default, it's rendered as a float.
  * @param legacyName If true, use the legacy names `hsla` or `rgba` instead of `hsl` or `rgb for those functions.
  * @param legacyFormat If true, use commas instead of spaces as separators for `rgb` and `hsl` functions. Other colors are unaffected.
+ * @param customColorSpaces A list of custom color spaces to use in the `color()` function.
+ * Each pair should be the identifier of the color and its [ColorSpace].
  */
 fun Color.formatCssStringOrNull(
     hueUnit: AngleUnit = AngleUnit.AUTO,
@@ -83,8 +92,11 @@ fun Color.formatCssStringOrNull(
     alphaPercent: Boolean = false,
     legacyName: Boolean = false,
     legacyFormat: Boolean = false,
+    customColorSpaces: List<Pair<String, ColorSpace<*>>> = emptyList(),
 ): String? {
-    return when (this) {
+    return customColorSpaces.firstOrNull { it.second == space }?.first?.let { spaceName ->
+        renderFn(spaceName, unitsPercent, alphaPercent, renderAlpha)
+    } ?: when (this) {
         is RGB -> when (space) {
             SRGB -> renderSRGB(legacyFormat, legacyName, unitsPercent, alphaPercent, renderAlpha)
             DisplayP3 -> renderFn("display-p3", unitsPercent, alphaPercent, renderAlpha)
@@ -115,8 +127,9 @@ fun Color.formatCssStringOrNull(
  * Render this color in CSS functional notation.
  *
  * If CSS defines a color function syntax for this color's model (e.g. `lab()`), it will be used.
- * Otherwise, the `color()` syntax will be used. For color spaces not predefined by CSS, a dashed
- * identifier based on the [space's name][ColorSpace.name] will be used.
+ * Otherwise, the `color()` syntax will be used. For color spaces not predefined by CSS, you can
+ * pass them in [customColorSpaces]. Other color spaces will use a dashed identifier based on the
+ * [space's name][ColorSpace.name].
  *
  * Note that for [LAB], and [LCHab], the CSS standard requires that the [D50][Illuminant.D50] white
  * point be used. For [XYZ], [D50][Illuminant.D50] and [D65][Illuminant.D65] are supported. Colors
@@ -140,13 +153,21 @@ fun Color.formatCssStringOrNull(
  * "color(--jzazbz 0.1 0.2 0.3)"
  * ```
  *
+ * ```
+ * > JzAzBz(0.1, 0.2, 0.3).formatCssString(customColorSpaces= listOf("jzazbz" to JzAzBz))
+ * "color(jzazbz 0.1 0.2 0.3)"
+ * ```
+ *
  * @param hueUnit The unit to use to render hue values, if this color has any.
  * @param renderAlpha Whether to render the alpha value.
  * @param unitsPercent If true, render this color's components as percentages if the color syntax supports it.
  * @param alphaPercent If true, render the alpha as a percentage. By default, it's rendered as a float.
  * @param legacyName If true, use the legacy names `hsla` or `rgba` instead of `hsl` or `rgb for those functions.
  * @param legacyFormat If true, use commas instead of spaces as separators for `rgb` and `hsl` functions. Other colors are unaffected.
+ * @param customColorSpaces A list of custom color spaces to use in the `color()` function.
+ * Each pair should be the identifier of the color and its [ColorSpace].
  */
+@JvmOverloads // TODO(4.0) remove this
 fun Color.formatCssString(
     hueUnit: AngleUnit = AngleUnit.AUTO,
     renderAlpha: RenderCondition = RenderCondition.AUTO,
@@ -154,6 +175,7 @@ fun Color.formatCssString(
     alphaPercent: Boolean = false,
     legacyName: Boolean = false,
     legacyFormat: Boolean = false,
+    customColorSpaces: List<Pair<String, ColorSpace<*>>> = emptyList(),
 ): String {
     return formatCssStringOrNull(
         hueUnit,
@@ -161,7 +183,8 @@ fun Color.formatCssString(
         unitsPercent,
         alphaPercent,
         legacyName,
-        legacyFormat
+        legacyFormat,
+        customColorSpaces
     ) ?: renderFn(dashName, unitsPercent, alphaPercent, renderAlpha)
 }
 

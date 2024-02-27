@@ -18,6 +18,7 @@ import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ65
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
+import kotlin.js.JsName
 import kotlin.test.Test
 
 class CssRenderTest {
@@ -142,6 +143,17 @@ class CssRenderTest {
     ) { color, expected ->
         color.formatCssString() shouldBe expected
         if ("--" !in expected) Color.parse(color.formatCssString()).shouldEqualColor(color)
+    }
+
+    @Test
+    @JsName("formatCssString_custom_space")
+    fun `formatCssString custom space`() = forAll(
+        row(ACEScc(.1, .2, .3), "color(acescc 0.1 0.2 0.3)"),
+        row(JzAzBz(.1, .2, .3), "color(jzazbz 0.1 0.2 0.3)"),
+    ) { color, expected ->
+        color.formatCssString(
+            customColorSpaces = listOf("acescc" to ACEScc, "jzazbz" to JzAzBz)
+        ) shouldBe expected
     }
 
     @Test
