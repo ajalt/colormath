@@ -1,12 +1,15 @@
 [versions]
 kotlin = "1.9.21"
-jbCompose = "1.5.11"
+compose = "1.6.0"
 
 [libraries]
+
+# used in extensions
+androidx-annotation =  "androidx.annotation:annotation:1.7.0"
+compose-ui-graphics = { module = "org.jetbrains.compose.ui:ui-graphics", version.ref = "compose" }
+
 # used in tests
 kotest =  "io.kotest:kotest-assertions-core:5.8.0"
-compose-ui-graphics = { module = "org.jetbrains.compose.ui:ui-graphics", version.ref = "jbCompose" }
-androidx-annotation =  "androidx.annotation:annotation:1.7.0"
 junit =  "junit:junit:4.13.2"
 robolectric =  "org.robolectric:robolectric:4.10"
 
@@ -17,4 +20,4 @@ publish = "com.vanniktech.maven.publish:0.25.3"
 android-library = "com.android.library:7.4.0"
 
 # used in samples
-compose = { id = "org.jetbrains.compose", version.ref = "jbCompose" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
