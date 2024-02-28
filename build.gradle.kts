@@ -1,4 +1,7 @@
 import com.android.build.gradle.BaseExtension
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
+import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
@@ -17,15 +20,7 @@ fun getPublishVersion(): String {
 
     // Call gradle with -PinferVersion to set the dynamic version name.
     // Otherwise, we skip it to save time.
-    if (!project.hasProperty("inferVersion")) return versionName
-
-    val stdout = ByteArrayOutputStream()
-    project.exec {
-        commandLine = listOf("git", "tag", "--points-at", "master")
-        standardOutput = stdout
-    }
-    val tag = String(stdout.toByteArray()).trim()
-    if (tag.isNotEmpty()) return tag
+    if (!project.hasProperty("snapshotVersion")) return versionName
 
     val buildNumber = System.getenv("GITHUB_RUN_NUMBER") ?: "0"
     return "$versionName.$buildNumber-SNAPSHOT"
@@ -55,6 +50,10 @@ subprojects {
 
     pluginManager.withPlugin("com.vanniktech.maven.publish") {
         apply(plugin = "org.jetbrains.dokka")
+        extensions.configure<MavenPublishBaseExtension>("mavenPublishing") {
+            @Suppress("UnstableApiUsage")
+            configure(KotlinMultiplatform(JavadocJar.Empty()))
+        }
         tasks.named<DokkaTask>("dokkaHtml") {
             val dir = if (project.name == "colormath") "" else "/${project.name}"
             outputDirectory.set(rootProject.rootDir.resolve("docs/api$dir"))

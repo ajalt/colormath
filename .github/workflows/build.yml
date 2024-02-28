@@ -1,0 +1,89 @@
+name: Build
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - 'samples/**'
+      - '*.md'
+  push:
+    branches:
+      - 'master'
+    paths-ignore:
+      - 'docs/**'
+      - 'samples/**'
+      - '*.md'
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [macos-14, windows-latest, ubuntu-latest]
+        include:
+          - os: ubuntu-latest
+            GRADLE_ARGS: |
+              :test:check
+              :colormath:compileKotlinLinuxArm64
+              :colormath:compileKotlinWasmJs
+              :extensions:colormath-ext-jetpack-compose:check
+              :extensions:colormath-ext-android-colorint:check
+              :extensions:colormath-ext-android-color:check
+              --stacktrace
+          - os: macos-14
+            GRADLE_ARGS: |
+              macosX64Test
+              :colormath:compileKotlinMacosArm64
+              iosX64Test
+              tvosX64Test
+              iosSimulatorArm64Test
+              tvosSimulatorArm64Test
+              watchosSimulatorArm64Test
+              --stacktrace
+          - os: windows-latest
+            GRADLE_ARGS: mingwX64Test --stacktrace
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: 17
+          distribution: 'graalvm-community'
+          set-java-home: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v3
+        with:
+          arguments: ${{matrix.GRADLE_ARGS}}
+      - name: Bundle the build report
+        if: failure()
+        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
+      - name: Upload the build report
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: error-report
+          path: build-reports.zip
+  publish:
+    needs: test
+    runs-on: macos-latest
+    if: ${{ github.ref == 'refs/heads/master' && github.repository == 'ajalt/colormath' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch git tags
+        run: git fetch origin +refs/tags/*:refs/tags/*
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 21
+      - name: Deploy to sonatype
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          # disable configuration cache due to https://github.com/gradle/gradle/issues/22779
+          arguments: publishToMavenCentral -PinferVersion=true --no-configuration-cache
+    env:
+      ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralPassword }}
+      ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_signingInMemoryKey }}
+      ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralUsername }}
+env:
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Dfile.encoding=UTF-8"
