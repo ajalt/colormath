@@ -5,11 +5,13 @@
 # It requires Python to run.
 # Install the packages with the following command:
 # pip install mkdocs mkdocs-material
+# Build the samples and api docs with
+# ./gradlew dokkaHtml jsBrowserDistribution
+# Then run this script to prepare the docs for the website.
+# Finally, run `mkdocs serve` to preview the site locally or `mkdocs build` to build the site.
+
 
 set -ex
-
-# Generate API docs and picker js
-./gradlew dokkaHtml jsBrowserDistribution
 
 # Copy the changelog into the site, omitting the unreleased section
 cat CHANGELOG.md \
@@ -38,9 +40,3 @@ cat README.md \
 mkdir -p docs/js
 cp website/converter/build/dist/js/productionExecutable/converter.js docs/js/converter.js
 cp website/gradient/build/dist/js/productionExecutable/gradient.js docs/js/gradient.js
-
-# Build and deploy the new site to github pages
-mkdocs gh-deploy
-
-# Remove the file copies
-rm docs/index.md docs/changelog.md
