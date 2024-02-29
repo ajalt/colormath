@@ -1,0 +1,6 @@
+public final class com/github/ajalt/colormath/extensions/android/colorint/ColorIntExtensionsKt {
+	public static final fun fromColorInt (Lcom/github/ajalt/colormath/model/RGB$Companion;I)Lcom/github/ajalt/colormath/model/RGB;
+	public static final fun fromColorInt (Lcom/github/ajalt/colormath/model/RGBInt$Companion;I)I
+	public static final fun toColorInt (Lcom/github/ajalt/colormath/Color;)I
+}
+
