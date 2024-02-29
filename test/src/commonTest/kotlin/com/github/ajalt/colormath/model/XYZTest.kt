@@ -1,8 +1,10 @@
 package com.github.ajalt.colormath.model
 
+import com.github.ajalt.colormath.companionTest
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.model.LUVColorSpaces.LUV50
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
+import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ65
 import com.github.ajalt.colormath.roundtripTest
 import com.github.ajalt.colormath.testColorConversions
 import kotlin.js.JsName
@@ -11,6 +13,9 @@ import kotlin.test.Test
 class XYZTest {
     @Test
     fun roundtrip() = roundtripTest(XYZ(0.01, 0.02, 0.03, 0.04))
+
+    @Test
+    fun companion() = companionTest(XYZ, XYZ65)
 
     @Test
     @JsName("XYZ_to_RGB")

@@ -29,6 +29,10 @@ private data class LUVColorSpaceImpl(override val whitePoint: WhitePoint) : LUVC
     override fun create(components: FloatArray): LUV = doCreate(components, ::invoke)
     override fun toString(): String = "LUVColorSpace($whitePoint)"
     override operator fun invoke(l: Float, u: Float, v: Float, alpha: Float): LUV = LUV(l, u, v, alpha, this)
+    override fun hashCode(): Int = whitePoint.hashCode()
+    override fun equals(other: Any?): Boolean {
+        return other is LUVColorSpace && whitePoint == other.whitePoint
+    }
 }
 
 object LUVColorSpaces {
@@ -58,7 +62,10 @@ data class LUV internal constructor(
     override val space: LUVColorSpace,
 ) : Color {
     /** Default constructors for the [LUV] color model: the [LCHab65][LCHabColorSpaces.LCHab65] space. */
-    companion object : LUVColorSpace by LUVColorSpaces.LUV65
+    companion object : LUVColorSpace by LUVColorSpaces.LUV65 {
+        override fun equals(other: Any?): Boolean = LUVColorSpaces.LUV65 == other
+        override fun hashCode(): Int = LUVColorSpaces.LUV65.hashCode()
+    }
 
     override fun toSRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)

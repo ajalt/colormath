@@ -29,7 +29,13 @@ private data class LCHuvColorSpaceImpl(override val whitePoint: WhitePoint) : LC
     override fun convert(color: Color): LCHuv = adaptToThis(color) { it.toLCHuv() }
     override fun create(components: FloatArray): LCHuv = doCreate(components, ::invoke)
     override fun toString(): String = "LCHuvColorSpace($whitePoint)"
-    override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHuv = LCHuv(l, c, h, alpha, this)
+    override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHuv =
+        LCHuv(l, c, h, alpha, this)
+
+    override fun hashCode(): Int = whitePoint.hashCode()
+    override fun equals(other: Any?): Boolean {
+        return other is LCHuvColorSpace && whitePoint == other.whitePoint
+    }
 }
 
 object LCHuvColorSpaces {
@@ -57,7 +63,10 @@ data class LCHuv internal constructor(
     override val space: LCHuvColorSpace,
 ) : HueColor {
     /** Default constructors for the [LCHuv] color model: the [LCHLCHuv65ab65][LCHuvColorSpaces.LCHuv65] space. */
-    companion object : LCHuvColorSpace by LCHuvColorSpaces.LCHuv65
+    companion object : LCHuvColorSpace by LCHuvColorSpaces.LCHuv65 {
+        override fun equals(other: Any?): Boolean = LCHuvColorSpaces.LCHuv65 == other
+        override fun hashCode(): Int = LCHuvColorSpaces.LCHuv65.hashCode()
+    }
 
     override fun toHSLuv(): HSLuv {
         if (l > 99.9999) return HSLuv(h, 0f, 100f, alpha)
@@ -77,7 +86,9 @@ data class LCHuv internal constructor(
 
     override fun toSRGB(): RGB = toLUV().toSRGB()
     override fun toXYZ(): XYZ = toLUV().toXYZ()
-    override fun toLUV(): LUV = fromPolarModel(c, h) { u, v -> LUVColorSpace(space.whitePoint)(l, u, v, alpha) }
+    override fun toLUV(): LUV =
+        fromPolarModel(c, h) { u, v -> LUVColorSpace(space.whitePoint)(l, u, v, alpha) }
+
     override fun toLCHuv(): LCHuv = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
 }

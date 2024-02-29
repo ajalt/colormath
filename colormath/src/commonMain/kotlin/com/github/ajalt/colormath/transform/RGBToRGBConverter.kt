@@ -31,7 +31,7 @@ private class RGBToRGBConverterImpl(
     private val transform: Matrix,
 ) : RGBToRGBConverter {
     override fun convert(rgb: RGB): RGB {
-        require(rgb.space === src) { "invalid rgb space: ${rgb.space}, expected $src" }
+        require(rgb.space == src) { "invalid rgb space: ${rgb.space}, expected $src" }
         val fsrc = src.transferFunctions
         val fdst = dst.transferFunctions
         return transform.dot(fsrc.eotf(rgb.r), fsrc.eotf(rgb.g), fsrc.eotf(rgb.b)) { rr, gg, bb ->

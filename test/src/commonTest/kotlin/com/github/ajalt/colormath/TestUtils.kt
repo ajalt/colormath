@@ -33,13 +33,26 @@ fun <T : Color> roundtripTest(vararg colors: T, intermediate: ColorSpace<*> = SR
     }
 }
 
+// Test both directions to ensure that equals is symmetric
+fun companionTest(companion: ColorSpace<*>, actual: ColorSpace<*>) = forAll(
+    row(companion, actual),
+    row(actual, companion),
+) { l, r ->
+    l shouldBe r
+    l.create(FloatArray(companion.components.size)).space shouldBe r
+}
+
 fun convertToSpaceTest(vararg spaces: ColorSpace<*>, to: ColorSpace<*>) {
     forAll(*spaces.map { row(it) }.toTypedArray()) {
         it.create(floatArrayOf(.1f, .2f, .3f)).convertTo(to).space shouldBe to
     }
 }
 
-fun Color?.shouldEqualColor(expected: Color?, tolerance: Double = 5e-4, ignorePolar: Boolean = false) {
+fun Color?.shouldEqualColor(
+    expected: Color?,
+    tolerance: Double = 5e-4,
+    ignorePolar: Boolean = false,
+) {
     if (expected == null) {
         this.shouldBeNull()
         return

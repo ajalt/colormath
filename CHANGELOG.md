@@ -9,6 +9,9 @@
 ### Changed
 - `Color.parse` now parses `lch()` and `lab()` functions with the with D50 white points instead of D65 in order to comply with the CSS color spec.
 
+### Fixed
+- `ColorSpace.equals` will now properly return true when comparing color companions with the space they represent e.g. `XYZ == XYZ65`
+
 ## 3.4.0
 ### Added
 - Publish artifacts for the `wasmJs` target. This target is experimental.

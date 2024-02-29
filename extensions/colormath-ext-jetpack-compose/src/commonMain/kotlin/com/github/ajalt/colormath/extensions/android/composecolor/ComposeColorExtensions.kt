@@ -53,7 +53,7 @@ fun ComposeColor.toColormathSRGB(): RGB {
 fun Color.toComposeColor(): ComposeColor {
     if (this is RGBInt) return ComposeColor(argb.toInt())
     val s = when {
-        space === SRGB -> ColorSpaces.Srgb
+        space == SRGB -> ColorSpaces.Srgb
         space === ACES -> ColorSpaces.Aces
         space === ACEScg -> ColorSpaces.Acescg
         space === AdobeRGB -> ColorSpaces.AdobeRgb

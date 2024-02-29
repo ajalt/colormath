@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath.model
 
+import com.github.ajalt.colormath.companionTest
 import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.roundtripTest
 import com.github.ajalt.colormath.testColorConversions
@@ -12,6 +13,9 @@ import kotlin.test.Test
 class RGBTest {
     @Test
     fun roundtrip() = roundtripTest(RGB(0.01, 0.02, 0.03, 0.04), intermediate = XYZ)
+
+    @Test
+    fun companion() = companionTest(RGB, SRGB)
 
     @Test
     fun clamp() {

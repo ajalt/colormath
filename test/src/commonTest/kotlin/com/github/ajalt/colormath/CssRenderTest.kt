@@ -150,9 +150,13 @@ class CssRenderTest {
     fun `formatCssString custom space`() = forAll(
         row(ACEScc(.1, .2, .3), "color(acescc 0.1 0.2 0.3)"),
         row(JzAzBz(.1, .2, .3), "color(jzazbz 0.1 0.2 0.3)"),
+        row(XYZ55(.1, .2, .3), "color(xyz-d55 0.1 0.2 0.3)"),
+        row(LUV(.1, .2, .3).toSRGB().toLUV(), "color(luv 0.1 0.2 0.3)"),
     ) { color, expected ->
         color.formatCssString(
-            customColorSpaces = listOf("acescc" to ACEScc, "jzazbz" to JzAzBz)
+            customColorSpaces = listOf(
+                "acescc" to ACEScc, "jzazbz" to JzAzBz, "luv" to LUV, "xyz-d55" to XYZ55,
+            )
         ) shouldBe expected
     }
 
@@ -197,3 +201,5 @@ class CssRenderTest {
         ) shouldBe expected
     }
 }
+
+private val XYZ55 = XYZColorSpace(Illuminant.D55)

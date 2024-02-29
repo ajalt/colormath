@@ -156,7 +156,10 @@ data class RGB internal constructor(
     override val space: RGBColorSpace,
 ) : Color {
     /** Default constructors for the [RGB] color model: the [SRGB] space. */
-    companion object : RGBColorSpace by RGBColorSpaces.SRGB
+    companion object : RGBColorSpace by RGBColorSpaces.SRGB {
+        override fun equals(other: Any?): Boolean = RGBColorSpaces.SRGB == other
+        override fun hashCode(): Int = RGBColorSpaces.SRGB.hashCode()
+    }
 
     /** The red channel scaled to [0, 255]. */
     val redInt: Int get() = (r * 255).roundToInt()
@@ -200,8 +203,20 @@ data class RGB internal constructor(
         val f = SRGB.transferFunctions
         return when {
             this.space == space -> this
-            this.space == SRGB && space == RGBColorSpaces.LinearSRGB -> space(f.eotf(r), f.eotf(g), f.eotf(b), alpha)
-            this.space == RGBColorSpaces.LinearSRGB && space == SRGB -> space(f.oetf(r), f.oetf(g), f.oetf(b), alpha)
+            this.space == SRGB && space == RGBColorSpaces.LinearSRGB -> space(
+                f.eotf(r),
+                f.eotf(g),
+                f.eotf(b),
+                alpha
+            )
+
+            this.space == RGBColorSpaces.LinearSRGB && space == SRGB -> space(
+                f.oetf(r),
+                f.oetf(g),
+                f.oetf(b),
+                alpha
+            )
+
             else -> toXYZ().toRGB(space)
         }
     }

@@ -28,7 +28,14 @@ private data class XYZColorSpaceImpl(override val whitePoint: WhitePoint) : XYZC
     override fun convert(color: Color): XYZ = color.toXYZ().adaptTo(this)
     override fun create(components: FloatArray): XYZ = doCreate(components, ::invoke)
     override fun toString(): String = "XYZColorSpace($whitePoint)"
-    override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ = XYZ(x, y, z, alpha, this)
+    override operator fun invoke(x: Float, y: Float, z: Float, alpha: Float): XYZ {
+        return XYZ(x, y, z, alpha, this)
+    }
+
+    override fun hashCode(): Int = whitePoint.hashCode()
+    override fun equals(other: Any?): Boolean {
+        return other is XYZColorSpace && whitePoint == other.whitePoint
+    }
 }
 
 object XYZColorSpaces {
@@ -58,7 +65,10 @@ data class XYZ internal constructor(
     override val space: XYZColorSpace,
 ) : Color {
     /** Default constructors for the [XYZ] color model: the [XYZ65][XYZColorSpaces.XYZ65] space. */
-    companion object : XYZColorSpace by XYZColorSpaces.XYZ65
+    companion object : XYZColorSpace by XYZColorSpaces.XYZ65 {
+        override fun hashCode(): Int = XYZColorSpaces.XYZ65.hashCode()
+        override fun equals(other: Any?): Boolean = XYZColorSpaces.XYZ65 == other
+    }
 
     /**
      * Apply chromatic adaptation to adapt this color to the white point in the given [space].
@@ -83,7 +93,11 @@ data class XYZ internal constructor(
      *
      * The Von Kries method is used with the given [transformationMatrix] and its [inverseTransformationMatrix].
      */
-    fun adaptTo(space: XYZColorSpace, transformationMatrix: FloatArray, inverseTransformationMatrix: FloatArray): XYZ {
+    fun adaptTo(
+        space: XYZColorSpace,
+        transformationMatrix: FloatArray,
+        inverseTransformationMatrix: FloatArray,
+    ): XYZ {
         return adaptToM(space, Matrix(transformationMatrix), Matrix(inverseTransformationMatrix))
     }
 

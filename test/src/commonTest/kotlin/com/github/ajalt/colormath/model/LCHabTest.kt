@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath.model
 
+import com.github.ajalt.colormath.companionTest
 import com.github.ajalt.colormath.convertToSpaceTest
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB65
@@ -17,6 +18,9 @@ class LCHabTest {
 
     @Test
     fun conversion() = convertToSpaceTest(LAB65, LCHab65, LAB50, HSL, to = LCHab50)
+
+    @Test
+    fun companion() = companionTest(LCHab, LCHab65)
 
     @Test
     @JsName("LCHab_to_LAB")

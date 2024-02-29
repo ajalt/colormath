@@ -1,5 +1,6 @@
 package com.github.ajalt.colormath.model
 
+import com.github.ajalt.colormath.companionTest
 import com.github.ajalt.colormath.convertToSpaceTest
 import com.github.ajalt.colormath.model.LCHuvColorSpaces.LCHuv50
 import com.github.ajalt.colormath.model.LCHuvColorSpaces.LCHuv65
@@ -16,6 +17,9 @@ class LUVTest {
 
     @Test
     fun conversion() = convertToSpaceTest(LUV65, LCHuv65, LCHuv50, HSL, to = LUV50)
+
+    @Test
+    fun companion() = companionTest(LUV, LUV65)
 
     @Test
     @JsName("LUV_to_XYZ")

@@ -31,6 +31,10 @@ private data class LABColorSpaceImpl(override val whitePoint: WhitePoint) : LABC
     override fun create(components: FloatArray): LAB = doCreate(components, ::invoke)
     override fun toString(): String = "LABColorSpace($whitePoint)"
     override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB = LAB(l, a, b, alpha, this)
+    override fun hashCode(): Int = whitePoint.hashCode()
+    override fun equals(other: Any?): Boolean {
+        return other is LABColorSpace && whitePoint == other.whitePoint
+    }
 }
 
 object LABColorSpaces {
@@ -62,7 +66,10 @@ data class LAB internal constructor(
     override val space: LABColorSpace,
 ) : Color {
     /** Default constructors for the [LAB] color model: the [LAB65][LABColorSpaces.LAB65] space. */
-    companion object : LABColorSpace by LABColorSpaces.LAB65
+    companion object : LABColorSpace by LABColorSpaces.LAB65 {
+        override fun equals(other: Any?): Boolean = LABColorSpaces.LAB65 == other
+        override fun hashCode(): Int = LABColorSpaces.LAB65.hashCode()
+    }
 
     override fun toSRGB(): RGB = when (l) {
         0f -> RGB(0f, 0f, 0f, alpha)
