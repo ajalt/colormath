@@ -109,7 +109,7 @@ class CssRenderTest {
         row(H(180, .5, .5), "hsl(180 50% 50%)"),
         row(H(180, .5, .5, hueUnit = DEGREES), "hsl(180deg 50% 50%)"),
         row(H(180, .5, .5, hueUnit = GRADIANS), "hsl(200grad 50% 50%)"),
-        row(H(180, .5, .5, hueUnit = RADIANS), "hsl(3.1415rad 50% 50%)"),
+        row(H(180, .5, .5, hueUnit = RADIANS), "hsl(3.1416rad 50% 50%)"),
         row(H(180, .5, .5, hueUnit = TURNS), "hsl(0.5turn 50% 50%)"),
     ) { (h, s, l, a, commas, namedHsla, hueUnit, alphaPercent, renderAlpha), expected ->
         HSL(h, s, l, a).formatCssString(

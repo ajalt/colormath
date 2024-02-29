@@ -11,6 +11,8 @@ import com.github.ajalt.colormath.model.RGBColorSpaces.LinearSRGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
 import kotlin.jvm.JvmOverloads
+import kotlin.math.pow
+import kotlin.math.round
 import kotlin.math.roundToInt
 
 enum class RenderCondition {
@@ -341,21 +343,15 @@ private fun Color.renderAlpha(
     }
 }
 
-private fun Float.render(percent: Boolean = false): String = when (percent) {
-    true -> when {
-        this.isNaN() -> "NaN"
-        else -> {
-            "${(this * 100).roundToInt()}%"
-        }
-    }
+private fun Float.render(percent: Boolean = false, precision: Int = 4): String = when (percent) {
+    true -> "${(this * 100).roundToInt()}%"
     false -> when (this) {
         0f -> "0"
         1f -> "1"
         else -> {
-            val str = toString()
-            val s = if (str.startsWith(".")) "0$str" else str
-            val i = s.indexOf('.')
-            if (i < 0) s else s.take(i + 5).trimEnd('0').trimEnd('.')
+            val i = toInt()
+            val d = ((this - i) * (10.0.pow(precision))).roundToInt()
+            if (d == 0) i.toString() else "$i.$d".trimEnd('0')
         }
     }
 }
