@@ -56,7 +56,7 @@ fun AndroidColor.toColormathSRGB(): RGB {
 fun Color.toAndroidColor(): AndroidColor {
     if (this is RGBInt) return AndroidColor.valueOf(argb.toInt())
     val s = when {
-        space === SRGB -> ColorSpace.get(ColorSpace.Named.SRGB)
+        space == SRGB -> ColorSpace.get(ColorSpace.Named.SRGB)
         space === LinearSRGB -> ColorSpace.get(ColorSpace.Named.LINEAR_SRGB)
         space === BT709 -> ColorSpace.get(ColorSpace.Named.BT709)
         space === BT2020 -> ColorSpace.get(ColorSpace.Named.BT2020)

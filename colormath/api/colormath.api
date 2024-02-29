@@ -78,14 +78,25 @@ public abstract interface class com/github/ajalt/colormath/ColorSpace {
 
 public final class com/github/ajalt/colormath/CssParseKt {
 	public static final fun parse (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;)Lcom/github/ajalt/colormath/Color;
+	public static final fun parse (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/List;)Lcom/github/ajalt/colormath/Color;
+	public static synthetic fun parse$default (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
 	public static final fun parseOrNull (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;)Lcom/github/ajalt/colormath/Color;
+	public static final fun parseOrNull (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/List;)Lcom/github/ajalt/colormath/Color;
+	public static synthetic fun parseOrNull$default (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
 }
 
 public final class com/github/ajalt/colormath/CssRenderKt {
+	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;)Ljava/lang/String;
+	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;)Ljava/lang/String;
+	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;)Ljava/lang/String;
+	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;Z)Ljava/lang/String;
+	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZ)Ljava/lang/String;
+	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZ)Ljava/lang/String;
 	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZ)Ljava/lang/String;
-	public static synthetic fun formatCssString$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZILjava/lang/Object;)Ljava/lang/String;
-	public static final fun formatCssStringOrNull (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZ)Ljava/lang/String;
-	public static synthetic fun formatCssStringOrNull$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZILjava/lang/Object;)Ljava/lang/String;
+	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/List;)Ljava/lang/String;
+	public static synthetic fun formatCssString$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/List;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun formatCssStringOrNull (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/List;)Ljava/lang/String;
+	public static synthetic fun formatCssStringOrNull$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/List;ILjava/lang/Object;)Ljava/lang/String;
 }
 
 public abstract interface class com/github/ajalt/colormath/HueColor : com/github/ajalt/colormath/Color {
@@ -776,9 +787,11 @@ public final class com/github/ajalt/colormath/model/LAB$Companion : com/github/a
 	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LAB;
 	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
 	public fun create ([F)Lcom/github/ajalt/colormath/model/LAB;
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getComponents ()Ljava/util/List;
 	public fun getName ()Ljava/lang/String;
 	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun hashCode ()I
 	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LAB;
 	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LAB;
 }
@@ -849,9 +862,11 @@ public final class com/github/ajalt/colormath/model/LCHab$Companion : com/github
 	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LCHab;
 	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
 	public fun create ([F)Lcom/github/ajalt/colormath/model/LCHab;
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getComponents ()Ljava/util/List;
 	public fun getName ()Ljava/lang/String;
 	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun hashCode ()I
 	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LCHab;
 	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHab;
 }
@@ -922,9 +937,11 @@ public final class com/github/ajalt/colormath/model/LCHuv$Companion : com/github
 	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LCHuv;
 	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
 	public fun create ([F)Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getComponents ()Ljava/util/List;
 	public fun getName ()Ljava/lang/String;
 	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun hashCode ()I
 	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LCHuv;
 	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHuv;
 }
@@ -995,9 +1012,11 @@ public final class com/github/ajalt/colormath/model/LUV$Companion : com/github/a
 	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LUV;
 	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
 	public fun create ([F)Lcom/github/ajalt/colormath/model/LUV;
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getComponents ()Ljava/util/List;
 	public fun getName ()Ljava/lang/String;
 	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun hashCode ()I
 	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LUV;
 	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LUV;
 }
@@ -1179,6 +1198,7 @@ public final class com/github/ajalt/colormath/model/RGB$Companion : com/github/a
 	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/RGB;
 	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
 	public fun create ([F)Lcom/github/ajalt/colormath/model/RGB;
+	public fun equals (Ljava/lang/Object;)Z
 	public fun from255 (IIII)Lcom/github/ajalt/colormath/model/RGB;
 	public fun getComponents ()Ljava/util/List;
 	public fun getMatrixFromXyz ()[F
@@ -1187,6 +1207,7 @@ public final class com/github/ajalt/colormath/model/RGB$Companion : com/github/a
 	public fun getTransferFunctions ()Lcom/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions;
 	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
 	public fun grey (Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun hashCode ()I
 	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/RGB;
 	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
 	public fun invoke (Ljava/lang/String;)Lcom/github/ajalt/colormath/model/RGB;
@@ -1351,6 +1372,7 @@ public final class com/github/ajalt/colormath/model/SRGB : com/github/ajalt/colo
 	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/RGB;
 	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
 	public fun create ([F)Lcom/github/ajalt/colormath/model/RGB;
+	public fun equals (Ljava/lang/Object;)Z
 	public fun from255 (IIII)Lcom/github/ajalt/colormath/model/RGB;
 	public fun getComponents ()Ljava/util/List;
 	public fun getMatrixFromXyz ()[F
@@ -1359,6 +1381,7 @@ public final class com/github/ajalt/colormath/model/SRGB : com/github/ajalt/colo
 	public fun getTransferFunctions ()Lcom/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions;
 	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
 	public fun grey (Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun hashCode ()I
 	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/RGB;
 	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
 	public fun invoke (Ljava/lang/String;)Lcom/github/ajalt/colormath/model/RGB;
@@ -1415,9 +1438,11 @@ public final class com/github/ajalt/colormath/model/XYZ$Companion : com/github/a
 	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/XYZ;
 	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
 	public fun create ([F)Lcom/github/ajalt/colormath/model/XYZ;
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getComponents ()Ljava/util/List;
 	public fun getName ()Ljava/lang/String;
 	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun hashCode ()I
 	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/XYZ;
 	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/XYZ;
 }

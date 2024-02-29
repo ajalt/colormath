@@ -8,6 +8,10 @@ import com.github.ajalt.colormath.internal.*
 import kotlin.math.log2
 import kotlin.math.pow
 
+private val SRGB_R = xyY(0.6400, 0.3300)
+private val SRGB_G = xyY(0.3000, 0.6000)
+private val SRGB_B = xyY(0.1500, 0.0600)
+
 object RGBColorSpaces {
     /**
      * sRGB color space
@@ -15,7 +19,15 @@ object RGBColorSpaces {
      * ### References
      * - [IEC 61966-2-1](https://webstore.iec.ch/publication/6169)
      */
-    val SRGB: RGBColorSpace = com.github.ajalt.colormath.model.SRGB
+    val SRGB: RGBColorSpace = RGBColorSpaceImpl(
+        "sRGB",
+        Illuminant.D65,
+        SRGBTransferFunctions,
+        SRGB_R,
+        SRGB_G,
+        SRGB_B,
+    ) { it.toSRGB() }
+
 
     /**
      * Linear sRGB color space
@@ -122,7 +134,20 @@ object RGBColorSpaces {
      * ### References
      * - [ITU-R BT.2020-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf)
      */
-    val BT2020: RGBColorSpace = BT2020Space
+    val BT2020: RGBColorSpace = RGBColorSpaceImpl(
+        "BT.2020",
+        Illuminant.D65,
+        BT2020TransferFunctions,
+        xyY(0.708, 0.292),
+        xyY(0.170, 0.797),
+        xyY(0.131, 0.046),
+    ) { color ->
+        when (color) {
+            is RGB -> color.convertTo(this)
+            is ICtCp -> color.toBT2020()
+            else -> color.toXYZ().toRGB(this)
+        }
+    }
 
     /**
      * ITU-R Recommendation BT.709, also known as BT.709 or REC.709
@@ -203,47 +228,17 @@ fun RGBColorSpace(
     r: xyY,
     g: xyY,
     b: xyY,
-): RGBColorSpace = RGBColorSpaceImpl(name, whitePoint, transferFunctions, r, g, b)
+): RGBColorSpace = RGBColorSpaceImpl(name, whitePoint, transferFunctions, r, g, b) { color ->
+    if (color is RGB) color.convertTo(this) else color.toXYZ().toRGB(this)
+}
 
 /**
  * The sRGB color space defined in [IEC 61966-2-1](https://webstore.iec.ch/publication/6169)
  */
-object SRGB : RGBColorSpace {
-    override val name: String = "sRGB"
-    override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
-    override val whitePoint: WhitePoint = Illuminant.D65
-    override val transferFunctions: RGBColorSpace.TransferFunctions = SRGBTransferFunctions
-    override val matrixToXyz: FloatArray = rgbToXyzMatrix(whitePoint, SRGB_R, SRGB_G, SRGB_B).rowMajor
-    override val matrixFromXyz: FloatArray = Matrix(matrixToXyz).inverse().rowMajor
-    override fun convert(color: Color): RGB = color.toSRGB()
-    override fun create(components: FloatArray): RGB = doCreate(components, ::invoke)
-    override fun toString(): String = name
-    override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB = RGB(r, g, b, alpha, this)
-}
-
-private object BT2020Space : RGBColorSpace {
-    override val name: String = "BT.2020"
-    override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
-    override val whitePoint: WhitePoint = Illuminant.D65
-    override val transferFunctions: RGBColorSpace.TransferFunctions = BT2020TransferFunctions
-    override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB = RGB(r, g, b, alpha, this)
-
-    override fun convert(color: Color): RGB = when (color) {
-        is RGB -> color.convertTo(this)
-        is ICtCp -> color.toBT2020()
-        else -> color.toXYZ().toRGB(this)
-    }
-
-    override fun create(components: FloatArray): RGB = doCreate(components, ::invoke)
-
-    override val matrixToXyz: FloatArray = rgbToXyzMatrix(
-        whitePoint = whitePoint,
-        r = xyY(0.708, 0.292),
-        g = xyY(0.170, 0.797),
-        b = xyY(0.131, 0.046)
-    ).rowMajor
-    override val matrixFromXyz: FloatArray = Matrix(matrixToXyz).inverse().rowMajor
-    override fun toString(): String = name
+object SRGB : RGBColorSpace by RGBColorSpaces.SRGB {
+    override fun equals(other: Any?): Boolean = RGBColorSpaces.SRGB == other
+    override fun hashCode(): Int = RGBColorSpaces.SRGB.hashCode()
+    override fun toString(): String = "sRGB"
 }
 
 private data class RGBColorSpaceImpl(
@@ -253,21 +248,45 @@ private data class RGBColorSpaceImpl(
     private val r: xyY,
     private val g: xyY,
     private val b: xyY,
+    private val convertImpl: RGBColorSpaceImpl.(Color) -> RGB,
 ) : RGBColorSpace {
     override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
-    override fun convert(color: Color): RGB = if (color is RGB) color.convertTo(this) else color.toXYZ().toRGB(this)
+    override fun convert(color: Color): RGB = convertImpl(color)
     override fun create(components: FloatArray): RGB = doCreate(components, ::invoke)
     override val matrixToXyz: FloatArray = rgbToXyzMatrix(whitePoint, r, g, b).rowMajor
     override val matrixFromXyz: FloatArray = Matrix(matrixToXyz).inverse().rowMajor
     override fun toString(): String = name
-    override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB = RGB(r, g, b, alpha, this)
+    override operator fun invoke(r: Float, g: Float, b: Float, alpha: Float): RGB =
+        RGB(r, g, b, alpha, this)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RGBColorSpace) return false
+        if (name != other.name) return false
+        if (whitePoint != other.whitePoint) return false
+        if (transferFunctions != other.transferFunctions) return false
+        if (other is RGBColorSpaceImpl) {
+            if (r != other.r) return false
+            if (g != other.g) return false
+            if (b != other.b) return false
+        } else {
+            if (!matrixToXyz.contentEquals(other.matrixToXyz)) return false
+            if (!matrixFromXyz.contentEquals(other.matrixFromXyz)) return false
+        }
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + whitePoint.hashCode()
+        result = 31 * result + transferFunctions.hashCode()
+        result = 31 * result + r.hashCode()
+        result = 31 * result + g.hashCode()
+        result = 31 * result + b.hashCode()
+        return result
+    }
+
 }
-
-private val SRGB_R = xyY(0.6400, 0.3300)
-
-private val SRGB_G = xyY(0.3000, 0.6000)
-
-private val SRGB_B = xyY(0.1500, 0.0600)
 
 private object SRGBTransferFunctions : RGBColorSpace.TransferFunctions {
     override fun oetf(x: Float): Float {

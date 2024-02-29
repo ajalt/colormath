@@ -31,6 +31,10 @@ private data class LCHabColorSpaceImpl(override val whitePoint: WhitePoint) : LC
     override fun create(components: FloatArray): LCHab = doCreate(components, ::invoke)
     override fun toString(): String = "LCHabColorSpace($whitePoint)"
     override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHab = LCHab(l, c, h, alpha, this)
+    override fun hashCode(): Int = whitePoint.hashCode()
+    override fun equals(other: Any?): Boolean {
+        return other is LCHabColorSpace && whitePoint == other.whitePoint
+    }
 }
 
 object LCHabColorSpaces {
@@ -58,7 +62,10 @@ data class LCHab internal constructor(
     override val space: LCHabColorSpace,
 ) : HueColor {
     /** Default constructors for the [LCHab] color model: the [LCHab65][LCHabColorSpaces.LCHab65] space. */
-    companion object : LCHabColorSpace by LCHabColorSpaces.LCHab65
+    companion object : LCHabColorSpace by LCHabColorSpaces.LCHab65 {
+        override fun equals(other: Any?): Boolean = LCHabColorSpaces.LCHab65 == other
+        override fun hashCode(): Int = LCHabColorSpaces.LCHab65.hashCode()
+    }
 
     override fun toSRGB(): RGB = toLAB().toSRGB()
     override fun toXYZ(): XYZ = toLAB().toXYZ()
