@@ -1,0 +1,6 @@
+public final class com/github/ajalt/colormath/extensions/android/color/ColorExtensionsKt {
+	public static final fun toAndroidColor (Lcom/github/ajalt/colormath/Color;)Landroid/graphics/Color;
+	public static final fun toColormathColor (Landroid/graphics/Color;)Lcom/github/ajalt/colormath/Color;
+	public static final fun toColormathSRGB (Landroid/graphics/Color;)Lcom/github/ajalt/colormath/model/RGB;
+}
+

@@ -1,0 +1,6 @@
+public final class com/github/ajalt/colormath/extensions/android/composecolor/ComposeColorExtensionsKt {
+	public static final fun toColormathColor-8_81llA (J)Lcom/github/ajalt/colormath/Color;
+	public static final fun toColormathSRGB-8_81llA (J)Lcom/github/ajalt/colormath/model/RGB;
+	public static final fun toComposeColor (Lcom/github/ajalt/colormath/Color;)J
+}
+

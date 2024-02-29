@@ -1,0 +1,1602 @@
+public final class com/github/ajalt/colormath/AngleUnit : java/lang/Enum {
+	public static final field AUTO Lcom/github/ajalt/colormath/AngleUnit;
+	public static final field DEGREES Lcom/github/ajalt/colormath/AngleUnit;
+	public static final field GRADIANS Lcom/github/ajalt/colormath/AngleUnit;
+	public static final field RADIANS Lcom/github/ajalt/colormath/AngleUnit;
+	public static final field TURNS Lcom/github/ajalt/colormath/AngleUnit;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/github/ajalt/colormath/AngleUnit;
+	public static fun values ()[Lcom/github/ajalt/colormath/AngleUnit;
+}
+
+public abstract interface class com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/Color$Companion;
+	public abstract fun getAlpha ()F
+	public abstract fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public abstract fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public abstract fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public abstract fun toArray ()[F
+	public abstract fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public abstract fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public abstract fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public abstract fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public abstract fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public abstract fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public abstract fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public abstract fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public abstract fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public abstract fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public abstract fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public abstract fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public abstract fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public abstract fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public abstract fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public abstract fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public abstract fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/Color$Companion {
+}
+
+public final class com/github/ajalt/colormath/Color$DefaultImpls {
+	public static fun toAnsi16 (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Ansi16;
+	public static fun toAnsi256 (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Ansi256;
+	public static fun toCMYK (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/CMYK;
+	public static fun toHPLuv (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HPLuv;
+	public static fun toHSL (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HSL;
+	public static fun toHSLuv (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HSLuv;
+	public static fun toHSV (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HSV;
+	public static fun toHWB (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HWB;
+	public static fun toICtCp (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/ICtCp;
+	public static fun toJzAzBz (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/JzAzBz;
+	public static fun toJzCzHz (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/JzCzHz;
+	public static fun toLAB (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LAB;
+	public static fun toLCHab (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LCHab;
+	public static fun toLCHuv (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public static fun toLUV (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LUV;
+	public static fun toOklab (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Oklab;
+	public static fun toOklch (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Oklch;
+	public static fun toXYZ (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/ColorComponentInfo {
+	public fun <init> (Ljava/lang/String;Z)V
+	public final fun getName ()Ljava/lang/String;
+	public final fun isPolar ()Z
+}
+
+public final class com/github/ajalt/colormath/ColorKt {
+	public static final fun convertTo (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/ColorSpace;)Lcom/github/ajalt/colormath/Color;
+}
+
+public abstract interface class com/github/ajalt/colormath/ColorSpace {
+	public abstract fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public abstract fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public abstract fun getComponents ()Ljava/util/List;
+	public abstract fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/CssParseKt {
+	public static final fun parse (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;)Lcom/github/ajalt/colormath/Color;
+	public static final fun parseOrNull (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;)Lcom/github/ajalt/colormath/Color;
+}
+
+public final class com/github/ajalt/colormath/CssRenderKt {
+	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZ)Ljava/lang/String;
+	public static synthetic fun formatCssString$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZILjava/lang/Object;)Ljava/lang/String;
+	public static final fun formatCssStringOrNull (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZ)Ljava/lang/String;
+	public static synthetic fun formatCssStringOrNull$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZILjava/lang/Object;)Ljava/lang/String;
+}
+
+public abstract interface class com/github/ajalt/colormath/HueColor : com/github/ajalt/colormath/Color {
+	public abstract fun getH ()F
+}
+
+public final class com/github/ajalt/colormath/HueColor$DefaultImpls {
+	public static fun toAnsi16 (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/Ansi16;
+	public static fun toAnsi256 (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/Ansi256;
+	public static fun toCMYK (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/CMYK;
+	public static fun toHPLuv (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/HPLuv;
+	public static fun toHSL (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/HSL;
+	public static fun toHSLuv (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/HSLuv;
+	public static fun toHSV (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/HSV;
+	public static fun toHWB (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/HWB;
+	public static fun toICtCp (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/ICtCp;
+	public static fun toJzAzBz (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/JzAzBz;
+	public static fun toJzCzHz (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/JzCzHz;
+	public static fun toLAB (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/LAB;
+	public static fun toLCHab (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/LCHab;
+	public static fun toLCHuv (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public static fun toLUV (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/LUV;
+	public static fun toOklab (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/Oklab;
+	public static fun toOklch (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/Oklch;
+	public static fun toXYZ (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/HueColorKt {
+	public static final fun hueAsGrad (Lcom/github/ajalt/colormath/HueColor;)F
+	public static final fun hueAsRad (Lcom/github/ajalt/colormath/HueColor;)F
+	public static final fun hueAsTurns (Lcom/github/ajalt/colormath/HueColor;)F
+	public static final fun hueOr (Lcom/github/ajalt/colormath/HueColor;Ljava/lang/Number;)F
+}
+
+public final class com/github/ajalt/colormath/Illuminant {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/Illuminant;
+	public final fun getA ()Lcom/github/ajalt/colormath/WhitePoint;
+	public final fun getB ()Lcom/github/ajalt/colormath/WhitePoint;
+	public final fun getC ()Lcom/github/ajalt/colormath/WhitePoint;
+	public final fun getD50 ()Lcom/github/ajalt/colormath/WhitePoint;
+	public final fun getD55 ()Lcom/github/ajalt/colormath/WhitePoint;
+	public final fun getD65 ()Lcom/github/ajalt/colormath/WhitePoint;
+	public final fun getD75 ()Lcom/github/ajalt/colormath/WhitePoint;
+	public final fun getE ()Lcom/github/ajalt/colormath/WhitePoint;
+}
+
+public final class com/github/ajalt/colormath/RenderCondition : java/lang/Enum {
+	public static final field ALWAYS Lcom/github/ajalt/colormath/RenderCondition;
+	public static final field AUTO Lcom/github/ajalt/colormath/RenderCondition;
+	public static final field NEVER Lcom/github/ajalt/colormath/RenderCondition;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/github/ajalt/colormath/RenderCondition;
+	public static fun values ()[Lcom/github/ajalt/colormath/RenderCondition;
+}
+
+public final class com/github/ajalt/colormath/WhitePoint {
+	public fun <init> (Ljava/lang/String;Lcom/github/ajalt/colormath/model/xyY;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lcom/github/ajalt/colormath/model/xyY;
+	public final fun copy (Ljava/lang/String;Lcom/github/ajalt/colormath/model/xyY;)Lcom/github/ajalt/colormath/WhitePoint;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/WhitePoint;Ljava/lang/String;Lcom/github/ajalt/colormath/model/xyY;ILjava/lang/Object;)Lcom/github/ajalt/colormath/WhitePoint;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChromaticity ()Lcom/github/ajalt/colormath/model/xyY;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/ajalt/colormath/WhitePointColorSpace : com/github/ajalt/colormath/ColorSpace {
+	public abstract fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+}
+
+public final class com/github/ajalt/colormath/calculate/ContrastKt {
+	public static final fun firstWithContrast (Lcom/github/ajalt/colormath/Color;[Lcom/github/ajalt/colormath/Color;F)Lcom/github/ajalt/colormath/Color;
+	public static final fun firstWithContrastOrNull (Lcom/github/ajalt/colormath/Color;[Lcom/github/ajalt/colormath/Color;F)Lcom/github/ajalt/colormath/Color;
+	public static final fun mostContrasting (Lcom/github/ajalt/colormath/Color;[Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public static final fun wcagContrastRatio (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;)F
+	public static final fun wcagLuminance (Lcom/github/ajalt/colormath/Color;)F
+}
+
+public final class com/github/ajalt/colormath/calculate/DifferenceKt {
+	public static final fun differenceCIE2000 (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;)F
+	public static final fun differenceCIE76 (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;)F
+	public static final fun differenceCIE94 (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;Z)F
+	public static synthetic fun differenceCIE94$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;ZILjava/lang/Object;)F
+	public static final fun differenceCMC (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;FF)F
+	public static synthetic fun differenceCMC$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;FFILjava/lang/Object;)F
+	public static final fun differenceEz (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;)F
+	public static final fun euclideanDistance (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;)F
+}
+
+public final class com/github/ajalt/colormath/calculate/GamutKt {
+	public static final fun isInSRGBGamut (Lcom/github/ajalt/colormath/Color;)Z
+}
+
+public final class com/github/ajalt/colormath/model/Ansi16 : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/Ansi16$Companion;
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lcom/github/ajalt/colormath/model/Ansi16;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/Ansi16;IILjava/lang/Object;)Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getCode ()I
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/Ansi16$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Ansi16;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/Ansi256 : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/Ansi256$Companion;
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lcom/github/ajalt/colormath/model/Ansi256;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/Ansi256;IILjava/lang/Object;)Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getCode ()I
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/Ansi256$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Ansi256;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/CMYK : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/CMYK$Companion;
+	public fun <init> (FFFFF)V
+	public synthetic fun <init> (FFFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (IIIIF)V
+	public synthetic fun <init> (IIIIFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()F
+	public final fun copy (FFFFF)Lcom/github/ajalt/colormath/model/CMYK;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/CMYK;FFFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/CMYK;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getC ()F
+	public final fun getK ()F
+	public final fun getM ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public final fun getY ()F
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/CMYK$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/CMYK;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/CMYK;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/HPLuv : com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/HPLuv$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/HPLuv;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/HPLuv;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public fun getH ()F
+	public final fun getL ()F
+	public final fun getP ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/HPLuv$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HPLuv;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/HSL : com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/HSL$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/HSL;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/HSL;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/HSL;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public fun getH ()F
+	public final fun getL ()F
+	public final fun getS ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/HSL$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HSL;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/HSL;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/HSLuv : com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/HSLuv$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/HSLuv;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/HSLuv;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public fun getH ()F
+	public final fun getL ()F
+	public final fun getS ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/HSLuv$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HSLuv;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/HSV : com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/HSV$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/HSV;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/HSV;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/HSV;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public fun getH ()F
+	public final fun getS ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public final fun getV ()F
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/HSV$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HSV;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/HSV;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/HWB : com/github/ajalt/colormath/Color, com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/HWB$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/HWB;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/HWB;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/HWB;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getB ()F
+	public fun getH ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public final fun getW ()F
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/HWB$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HWB;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/HWB;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/ICtCp : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/ICtCp$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/ICtCp;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/ICtCp;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getCp ()F
+	public final fun getCt ()F
+	public final fun getI ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public final fun toBT2020 ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/ICtCp$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/ICtCp;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/JzAzBz : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/JzAzBz$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/JzAzBz;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/JzAzBz;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()F
+	public fun getAlpha ()F
+	public final fun getB ()F
+	public final fun getJ ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/JzAzBz$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/JzAzBz;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/JzCzHz : com/github/ajalt/colormath/Color, com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/JzCzHz$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/JzCzHz;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/JzCzHz;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getC ()F
+	public fun getH ()F
+	public final fun getJ ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/JzCzHz$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/JzCzHz;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/LAB : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/LAB$Companion;
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()Lcom/github/ajalt/colormath/model/LABColorSpace;
+	public final fun copy (FFFFLcom/github/ajalt/colormath/model/LABColorSpace;)Lcom/github/ajalt/colormath/model/LAB;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/LAB;FFFFLcom/github/ajalt/colormath/model/LABColorSpace;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LAB;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()F
+	public fun getAlpha ()F
+	public final fun getB ()F
+	public final fun getL ()F
+	public synthetic fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun getSpace ()Lcom/github/ajalt/colormath/model/LABColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/LAB$Companion : com/github/ajalt/colormath/model/LABColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LAB;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/LAB;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LAB;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LAB;
+}
+
+public abstract interface class com/github/ajalt/colormath/model/LABColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
+	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LAB;
+	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LAB;
+}
+
+public final class com/github/ajalt/colormath/model/LABColorSpace$DefaultImpls {
+	public static fun invoke (Lcom/github/ajalt/colormath/model/LABColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LAB;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LABColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LAB;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LABColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LAB;
+}
+
+public final class com/github/ajalt/colormath/model/LABColorSpaces {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/model/LABColorSpaces;
+	public final fun getLAB50 ()Lcom/github/ajalt/colormath/model/LABColorSpace;
+	public final fun getLAB65 ()Lcom/github/ajalt/colormath/model/LABColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/LABKt {
+	public static final fun LABColorSpace (Lcom/github/ajalt/colormath/WhitePoint;)Lcom/github/ajalt/colormath/model/LABColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/LCHab : com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/LCHab$Companion;
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()Lcom/github/ajalt/colormath/model/LCHabColorSpace;
+	public final fun copy (FFFFLcom/github/ajalt/colormath/model/LCHabColorSpace;)Lcom/github/ajalt/colormath/model/LCHab;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/LCHab;FFFFLcom/github/ajalt/colormath/model/LCHabColorSpace;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHab;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getC ()F
+	public fun getH ()F
+	public final fun getL ()F
+	public synthetic fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun getSpace ()Lcom/github/ajalt/colormath/model/LCHabColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/LCHab$Companion : com/github/ajalt/colormath/model/LCHabColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LCHab;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/LCHab;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LCHab;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHab;
+}
+
+public abstract interface class com/github/ajalt/colormath/model/LCHabColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
+	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LCHab;
+	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHab;
+}
+
+public final class com/github/ajalt/colormath/model/LCHabColorSpace$DefaultImpls {
+	public static fun invoke (Lcom/github/ajalt/colormath/model/LCHabColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHab;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LCHabColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHab;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LCHabColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHab;
+}
+
+public final class com/github/ajalt/colormath/model/LCHabColorSpaces {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/model/LCHabColorSpaces;
+	public final fun getLCHab50 ()Lcom/github/ajalt/colormath/model/LCHabColorSpace;
+	public final fun getLCHab65 ()Lcom/github/ajalt/colormath/model/LCHabColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/LCHabKt {
+	public static final fun LCHabColorSpace (Lcom/github/ajalt/colormath/WhitePoint;)Lcom/github/ajalt/colormath/model/LCHabColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/LCHuv : com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/LCHuv$Companion;
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()Lcom/github/ajalt/colormath/model/LCHuvColorSpace;
+	public final fun copy (FFFFLcom/github/ajalt/colormath/model/LCHuvColorSpace;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/LCHuv;FFFFLcom/github/ajalt/colormath/model/LCHuvColorSpace;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getC ()F
+	public fun getH ()F
+	public final fun getL ()F
+	public synthetic fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun getSpace ()Lcom/github/ajalt/colormath/model/LCHuvColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/LCHuv$Companion : com/github/ajalt/colormath/model/LCHuvColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHuv;
+}
+
+public abstract interface class com/github/ajalt/colormath/model/LCHuvColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
+	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LCHuv;
+	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHuv;
+}
+
+public final class com/github/ajalt/colormath/model/LCHuvColorSpace$DefaultImpls {
+	public static fun invoke (Lcom/github/ajalt/colormath/model/LCHuvColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LCHuvColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LCHuvColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHuv;
+}
+
+public final class com/github/ajalt/colormath/model/LCHuvColorSpaces {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/model/LCHuvColorSpaces;
+	public final fun getLCHuv50 ()Lcom/github/ajalt/colormath/model/LCHuvColorSpace;
+	public final fun getLCHuv65 ()Lcom/github/ajalt/colormath/model/LCHuvColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/LCHuvKt {
+	public static final fun LCHuvColorSpace (Lcom/github/ajalt/colormath/WhitePoint;)Lcom/github/ajalt/colormath/model/LCHuvColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/LUV : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/LUV$Companion;
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()Lcom/github/ajalt/colormath/model/LUVColorSpace;
+	public final fun copy (FFFFLcom/github/ajalt/colormath/model/LUVColorSpace;)Lcom/github/ajalt/colormath/model/LUV;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/LUV;FFFFLcom/github/ajalt/colormath/model/LUVColorSpace;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LUV;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getL ()F
+	public synthetic fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun getSpace ()Lcom/github/ajalt/colormath/model/LUVColorSpace;
+	public final fun getU ()F
+	public final fun getV ()F
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/LUV$Companion : com/github/ajalt/colormath/model/LUVColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/LUV;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/LUV;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LUV;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LUV;
+}
+
+public abstract interface class com/github/ajalt/colormath/model/LUVColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
+	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LUV;
+	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LUV;
+}
+
+public final class com/github/ajalt/colormath/model/LUVColorSpace$DefaultImpls {
+	public static fun invoke (Lcom/github/ajalt/colormath/model/LUVColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LUV;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LUVColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LUV;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LUVColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LUV;
+}
+
+public final class com/github/ajalt/colormath/model/LUVColorSpaces {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/model/LUVColorSpaces;
+	public final fun getLUV50 ()Lcom/github/ajalt/colormath/model/LUVColorSpace;
+	public final fun getLUV65 ()Lcom/github/ajalt/colormath/model/LUVColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/LUVKt {
+	public static final fun LUVColorSpace (Lcom/github/ajalt/colormath/WhitePoint;)Lcom/github/ajalt/colormath/model/LUVColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/Oklab : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/Oklab$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/Oklab;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/Oklab;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/Oklab;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()F
+	public fun getAlpha ()F
+	public final fun getB ()F
+	public final fun getL ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/Oklab$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Oklab;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/Oklab;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/Oklch : com/github/ajalt/colormath/Color, com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/Oklch$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/Oklch;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/Oklch;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/Oklch;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getC ()F
+	public fun getH ()F
+	public final fun getL ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/Oklch$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Oklch;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/Oklch;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/RGB : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/RGB$Companion;
+	public final fun clamp ()Lcom/github/ajalt/colormath/model/RGB;
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun convertTo (Lcom/github/ajalt/colormath/model/RGBColorSpace;)Lcom/github/ajalt/colormath/model/RGB;
+	public final fun copy (FFFFLcom/github/ajalt/colormath/model/RGBColorSpace;)Lcom/github/ajalt/colormath/model/RGB;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/RGB;FFFFLcom/github/ajalt/colormath/model/RGBColorSpace;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getAlphaInt ()I
+	public final fun getB ()F
+	public final fun getBlueInt ()I
+	public final fun getG ()F
+	public final fun getGreenInt ()I
+	public final fun getR ()F
+	public final fun getRedInt ()I
+	public synthetic fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun getSpace ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public final fun toHex (ZLcom/github/ajalt/colormath/RenderCondition;)Ljava/lang/String;
+	public static synthetic fun toHex$default (Lcom/github/ajalt/colormath/model/RGB;ZLcom/github/ajalt/colormath/RenderCondition;ILjava/lang/Object;)Ljava/lang/String;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public final fun toRGBInt-RGiG7fk ()I
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/RGB$Companion : com/github/ajalt/colormath/model/RGBColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/RGB;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/RGB;
+	public fun from255 (IIII)Lcom/github/ajalt/colormath/model/RGB;
+	public fun getComponents ()Ljava/util/List;
+	public fun getMatrixFromXyz ()[F
+	public fun getMatrixToXyz ()[F
+	public fun getName ()Ljava/lang/String;
+	public fun getTransferFunctions ()Lcom/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions;
+	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun grey (Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/RGB;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun invoke (Ljava/lang/String;)Lcom/github/ajalt/colormath/model/RGB;
+}
+
+public abstract interface class com/github/ajalt/colormath/model/RGBColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
+	public abstract fun from255 (IIII)Lcom/github/ajalt/colormath/model/RGB;
+	public abstract fun getMatrixFromXyz ()[F
+	public abstract fun getMatrixToXyz ()[F
+	public abstract fun getTransferFunctions ()Lcom/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions;
+	public abstract fun grey (Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/RGB;
+	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public abstract fun invoke (Ljava/lang/String;)Lcom/github/ajalt/colormath/model/RGB;
+}
+
+public final class com/github/ajalt/colormath/model/RGBColorSpace$DefaultImpls {
+	public static fun from255 (Lcom/github/ajalt/colormath/model/RGBColorSpace;IIII)Lcom/github/ajalt/colormath/model/RGB;
+	public static synthetic fun from255$default (Lcom/github/ajalt/colormath/model/RGBColorSpace;IIIIILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGB;
+	public static fun grey (Lcom/github/ajalt/colormath/model/RGBColorSpace;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public static synthetic fun grey$default (Lcom/github/ajalt/colormath/model/RGBColorSpace;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGB;
+	public static fun invoke (Lcom/github/ajalt/colormath/model/RGBColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public static fun invoke (Lcom/github/ajalt/colormath/model/RGBColorSpace;Ljava/lang/String;)Lcom/github/ajalt/colormath/model/RGB;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/RGBColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGB;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/RGBColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGB;
+}
+
+public final class com/github/ajalt/colormath/model/RGBColorSpace$GammaTransferFunctions : com/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions {
+	public fun <init> (D)V
+	public final fun copy (D)Lcom/github/ajalt/colormath/model/RGBColorSpace$GammaTransferFunctions;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/RGBColorSpace$GammaTransferFunctions;DILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGBColorSpace$GammaTransferFunctions;
+	public fun eotf (F)F
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun oetf (F)F
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/RGBColorSpace$LinearTransferFunctions : com/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/model/RGBColorSpace$LinearTransferFunctions;
+	public fun eotf (F)F
+	public fun oetf (F)F
+}
+
+public abstract interface class com/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions {
+	public abstract fun eotf (F)F
+	public abstract fun oetf (F)F
+}
+
+public final class com/github/ajalt/colormath/model/RGBColorSpaces {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/model/RGBColorSpaces;
+	public final fun getACES ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getACEScc ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getACEScct ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getACEScg ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getAdobeRGB ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getBT2020 ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getBT709 ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getDCI_P3 ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getDisplayP3 ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getLinearSRGB ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getROMM_RGB ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+	public final fun getSRGB ()Lcom/github/ajalt/colormath/model/RGBColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/RGBColorSpacesKt {
+	public static final fun RGBColorSpace (Ljava/lang/String;Lcom/github/ajalt/colormath/WhitePoint;Lcom/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions;Lcom/github/ajalt/colormath/model/xyY;Lcom/github/ajalt/colormath/model/xyY;Lcom/github/ajalt/colormath/model/xyY;)Lcom/github/ajalt/colormath/model/RGBColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/RGBInt : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/RGBInt$Companion;
+	public static final synthetic fun box-impl (I)Lcom/github/ajalt/colormath/model/RGBInt;
+	public static final fun component1-w2LRezQ (I)B
+	public static final fun component2-w2LRezQ (I)B
+	public static final fun component3-w2LRezQ (I)B
+	public static final fun component4-w2LRezQ (I)B
+	public static fun constructor-impl (BBBB)I
+	public static fun constructor-impl (FFFF)I
+	public static fun constructor-impl (I)I
+	public static fun constructor-impl (IIII)I
+	public static synthetic fun constructor-impl$default (BBBBILkotlin/jvm/internal/DefaultConstructorMarker;)I
+	public static synthetic fun constructor-impl$default (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)I
+	public static synthetic fun constructor-impl$default (IIIIILkotlin/jvm/internal/DefaultConstructorMarker;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public static final fun getA-w2LRezQ (I)B
+	public fun getAlpha ()F
+	public static fun getAlpha-impl (I)F
+	public final fun getArgb-pVg5ArA ()I
+	public static final fun getB-w2LRezQ (I)B
+	public static final fun getBlueFloat-impl (I)F
+	public static final fun getG-w2LRezQ (I)B
+	public static final fun getGreenFloat-impl (I)F
+	public static final fun getR-w2LRezQ (I)B
+	public static final fun getRedFloat-impl (I)F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public static fun getSpace-impl (I)Lcom/github/ajalt/colormath/ColorSpace;
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public static fun toAnsi16-impl (I)Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public static fun toAnsi256-impl (I)Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public static fun toArray-impl (I)[F
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public static fun toCMYK-impl (I)Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public static fun toHPLuv-impl (I)Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public static fun toHSL-impl (I)Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public static fun toHSLuv-impl (I)Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public static fun toHSV-impl (I)Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public static fun toHWB-impl (I)Lcom/github/ajalt/colormath/model/HWB;
+	public static final fun toHex-impl (IZLcom/github/ajalt/colormath/RenderCondition;)Ljava/lang/String;
+	public static synthetic fun toHex-impl$default (IZLcom/github/ajalt/colormath/RenderCondition;ILjava/lang/Object;)Ljava/lang/String;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public static fun toICtCp-impl (I)Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public static fun toJzAzBz-impl (I)Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public static fun toJzCzHz-impl (I)Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public static fun toLAB-impl (I)Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public static fun toLCHab-impl (I)Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public static fun toLCHuv-impl (I)Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public static fun toLUV-impl (I)Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public static fun toOklab-impl (I)Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public static fun toOklch-impl (I)Lcom/github/ajalt/colormath/model/Oklch;
+	public static final fun toRGBA-pVg5ArA (I)I
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public static fun toSRGB-impl (I)Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+	public static fun toXYZ-impl (I)Lcom/github/ajalt/colormath/model/XYZ;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class com/github/ajalt/colormath/model/RGBInt$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert-JboGd8M (Lcom/github/ajalt/colormath/Color;)I
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create-JboGd8M ([F)I
+	public final fun fromRGBA-7ZnqOmU (I)I
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/SRGB : com/github/ajalt/colormath/model/RGBColorSpace {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/model/SRGB;
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/RGB;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/RGB;
+	public fun from255 (IIII)Lcom/github/ajalt/colormath/model/RGB;
+	public fun getComponents ()Ljava/util/List;
+	public fun getMatrixFromXyz ()[F
+	public fun getMatrixToXyz ()[F
+	public fun getName ()Ljava/lang/String;
+	public fun getTransferFunctions ()Lcom/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions;
+	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun grey (Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/RGB;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun invoke (Ljava/lang/String;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/XYZ : com/github/ajalt/colormath/Color {
+	public static final field Companion Lcom/github/ajalt/colormath/model/XYZ$Companion;
+	public final fun adaptTo (Lcom/github/ajalt/colormath/model/XYZColorSpace;)Lcom/github/ajalt/colormath/model/XYZ;
+	public final fun adaptTo (Lcom/github/ajalt/colormath/model/XYZColorSpace;[F)Lcom/github/ajalt/colormath/model/XYZ;
+	public final fun adaptTo (Lcom/github/ajalt/colormath/model/XYZColorSpace;[F[F)Lcom/github/ajalt/colormath/model/XYZ;
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()Lcom/github/ajalt/colormath/model/XYZColorSpace;
+	public final fun copy (FFFFLcom/github/ajalt/colormath/model/XYZColorSpace;)Lcom/github/ajalt/colormath/model/XYZ;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/XYZ;FFFFLcom/github/ajalt/colormath/model/XYZColorSpace;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/XYZ;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public synthetic fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun getSpace ()Lcom/github/ajalt/colormath/model/XYZColorSpace;
+	public final fun getX ()F
+	public final fun getY ()F
+	public final fun getZ ()F
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public final fun toCIExyY ()Lcom/github/ajalt/colormath/model/xyY;
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public final fun toRGB (Lcom/github/ajalt/colormath/model/RGBColorSpace;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/XYZ$Companion : com/github/ajalt/colormath/model/XYZColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/XYZ;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/XYZ;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+	public fun getWhitePoint ()Lcom/github/ajalt/colormath/WhitePoint;
+	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/XYZ;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public abstract interface class com/github/ajalt/colormath/model/XYZColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
+	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/XYZ;
+	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/XYZColorSpace$DefaultImpls {
+	public static fun invoke (Lcom/github/ajalt/colormath/model/XYZColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/XYZ;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/XYZColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/XYZ;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/XYZColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/XYZColorSpaces {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/model/XYZColorSpaces;
+	public final fun getXYZ50 ()Lcom/github/ajalt/colormath/model/XYZColorSpace;
+	public final fun getXYZ65 ()Lcom/github/ajalt/colormath/model/XYZColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/XYZKt {
+	public static final fun XYZColorSpace (Lcom/github/ajalt/colormath/WhitePoint;)Lcom/github/ajalt/colormath/model/XYZColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/xyY {
+	public fun <init> (FFF)V
+	public synthetic fun <init> (FFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun copy (FFF)Lcom/github/ajalt/colormath/model/xyY;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/xyY;FFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/xyY;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAbsoluteX ()F
+	public final fun getAbsoluteY ()F
+	public final fun getAbsoluteZ ()F
+	public final fun getX ()F
+	public final fun getY ()F
+	public final fun getZ ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/transform/ChromaticAdapterKt {
+	public static final fun createChromaticAdapter (Lcom/github/ajalt/colormath/model/RGBColorSpace;Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/transform/ChromaticAdapterRGB;
+	public static final fun createChromaticAdapter (Lcom/github/ajalt/colormath/model/RGBColorSpace;Lcom/github/ajalt/colormath/model/xyY;)Lcom/github/ajalt/colormath/transform/ChromaticAdapterRGB;
+	public static final fun createChromaticAdapter (Lcom/github/ajalt/colormath/model/RGBInt$Companion;Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/transform/ChromaticAdapterRGBInt;
+	public static final fun createChromaticAdapter (Lcom/github/ajalt/colormath/model/RGBInt$Companion;Lcom/github/ajalt/colormath/model/xyY;)Lcom/github/ajalt/colormath/transform/ChromaticAdapterRGBInt;
+}
+
+public final class com/github/ajalt/colormath/transform/ChromaticAdapterRGB {
+	public final fun adapt (Lcom/github/ajalt/colormath/model/RGB;)Lcom/github/ajalt/colormath/model/RGB;
+}
+
+public final class com/github/ajalt/colormath/transform/ChromaticAdapterRGBInt {
+	public final fun adapt-VXga8Gg (I)I
+	public final fun adaptAll ([I)V
+}
+
+public abstract interface class com/github/ajalt/colormath/transform/EasingFunction {
+	public abstract fun ease (F)F
+}
+
+public final class com/github/ajalt/colormath/transform/EasingFunctions {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/transform/EasingFunctions;
+	public final fun cubicBezier (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/transform/EasingFunction;
+	public final fun ease ()Lcom/github/ajalt/colormath/transform/EasingFunction;
+	public final fun easeIn ()Lcom/github/ajalt/colormath/transform/EasingFunction;
+	public final fun easeInOut ()Lcom/github/ajalt/colormath/transform/EasingFunction;
+	public final fun easeOut ()Lcom/github/ajalt/colormath/transform/EasingFunction;
+	public final fun linear ()Lcom/github/ajalt/colormath/transform/EasingFunction;
+	public final fun midpoint (Ljava/lang/Number;)Lcom/github/ajalt/colormath/transform/EasingFunction;
+}
+
+public final class com/github/ajalt/colormath/transform/HueAdjustments {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/transform/HueAdjustments;
+	public final fun getDecreasing ()Lkotlin/jvm/functions/Function1;
+	public final fun getIncreasing ()Lkotlin/jvm/functions/Function1;
+	public final fun getLonger ()Lkotlin/jvm/functions/Function1;
+	public final fun getShorter ()Lkotlin/jvm/functions/Function1;
+	public final fun getSpecified ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/ajalt/colormath/transform/InterpolateKt {
+	public static final fun interpolate (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;ZLkotlin/jvm/functions/Function1;)Lcom/github/ajalt/colormath/Color;
+	public static synthetic fun interpolate$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
+	public static final fun interpolator (Lcom/github/ajalt/colormath/ColorSpace;Lkotlin/jvm/functions/Function1;)Lcom/github/ajalt/colormath/transform/Interpolator;
+	public static final fun interpolator (Lcom/github/ajalt/colormath/ColorSpace;[Lcom/github/ajalt/colormath/Color;Z)Lcom/github/ajalt/colormath/transform/Interpolator;
+	public static synthetic fun interpolator$default (Lcom/github/ajalt/colormath/ColorSpace;[Lcom/github/ajalt/colormath/Color;ZILjava/lang/Object;)Lcom/github/ajalt/colormath/transform/Interpolator;
+	public static final fun sequence (Lcom/github/ajalt/colormath/transform/Interpolator;I)Lkotlin/sequences/Sequence;
+}
+
+public abstract interface class com/github/ajalt/colormath/transform/InterpolationMethod {
+	public abstract fun build (Ljava/util/List;)Lcom/github/ajalt/colormath/transform/InterpolationMethod$ComponentInterpolator;
+}
+
+public abstract interface class com/github/ajalt/colormath/transform/InterpolationMethod$ComponentInterpolator {
+	public abstract fun interpolate (F)F
+}
+
+public final class com/github/ajalt/colormath/transform/InterpolationMethod$Point {
+	public fun <init> (FF)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun copy (FF)Lcom/github/ajalt/colormath/transform/InterpolationMethod$Point;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/transform/InterpolationMethod$Point;FFILjava/lang/Object;)Lcom/github/ajalt/colormath/transform/InterpolationMethod$Point;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getX ()F
+	public final fun getY ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/transform/InterpolationMethods {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/transform/InterpolationMethods;
+	public final fun linear ()Lcom/github/ajalt/colormath/transform/InterpolationMethod;
+	public final fun monotoneSpline (Z)Lcom/github/ajalt/colormath/transform/InterpolationMethod;
+	public static synthetic fun monotoneSpline$default (Lcom/github/ajalt/colormath/transform/InterpolationMethods;ZILjava/lang/Object;)Lcom/github/ajalt/colormath/transform/InterpolationMethod;
+}
+
+public abstract interface class com/github/ajalt/colormath/transform/Interpolator {
+	public abstract fun interpolate (Ljava/lang/Number;)Lcom/github/ajalt/colormath/Color;
+}
+
+public abstract interface class com/github/ajalt/colormath/transform/InterpolatorBuilder {
+	public abstract fun componentAdjustment (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public abstract fun componentEasing (Ljava/lang/String;Lcom/github/ajalt/colormath/transform/EasingFunction;)V
+	public abstract fun getEasing ()Lcom/github/ajalt/colormath/transform/EasingFunction;
+	public abstract fun getMethod ()Lcom/github/ajalt/colormath/transform/InterpolationMethod;
+	public abstract fun getPremultiplyAlpha ()Z
+	public abstract fun setEasing (Lcom/github/ajalt/colormath/transform/EasingFunction;)V
+	public abstract fun setMethod (Lcom/github/ajalt/colormath/transform/InterpolationMethod;)V
+	public abstract fun setPremultiplyAlpha (Z)V
+	public abstract fun stop (Lcom/github/ajalt/colormath/Color;DLkotlin/jvm/functions/Function1;)V
+	public abstract fun stop (Lcom/github/ajalt/colormath/Color;FLkotlin/jvm/functions/Function1;)V
+	public abstract fun stop (Lcom/github/ajalt/colormath/Color;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class com/github/ajalt/colormath/transform/InterpolatorBuilder$DefaultImpls {
+	public static fun stop (Lcom/github/ajalt/colormath/transform/InterpolatorBuilder;Lcom/github/ajalt/colormath/Color;DLkotlin/jvm/functions/Function1;)V
+	public static synthetic fun stop$default (Lcom/github/ajalt/colormath/transform/InterpolatorBuilder;Lcom/github/ajalt/colormath/Color;DLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static synthetic fun stop$default (Lcom/github/ajalt/colormath/transform/InterpolatorBuilder;Lcom/github/ajalt/colormath/Color;FLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static synthetic fun stop$default (Lcom/github/ajalt/colormath/transform/InterpolatorBuilder;Lcom/github/ajalt/colormath/Color;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public abstract interface class com/github/ajalt/colormath/transform/InterpolatorStopBuilder {
+	public abstract fun componentEasing (Ljava/lang/String;Lcom/github/ajalt/colormath/transform/EasingFunction;)V
+	public abstract fun getEasing ()Lcom/github/ajalt/colormath/transform/EasingFunction;
+	public abstract fun setEasing (Lcom/github/ajalt/colormath/transform/EasingFunction;)V
+}
+
+public final class com/github/ajalt/colormath/transform/MixKt {
+	public static final fun mix (Lcom/github/ajalt/colormath/ColorSpace;Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;Lkotlin/jvm/functions/Function1;)Lcom/github/ajalt/colormath/Color;
+	public static final fun mix (Lcom/github/ajalt/colormath/ColorSpace;Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;Lkotlin/jvm/functions/Function1;)Lcom/github/ajalt/colormath/Color;
+	public static final fun mix (Lcom/github/ajalt/colormath/ColorSpace;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;Lkotlin/jvm/functions/Function1;)Lcom/github/ajalt/colormath/Color;
+	public static final fun mix (Lcom/github/ajalt/colormath/ColorSpace;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;Lcom/github/ajalt/colormath/Color;Lkotlin/jvm/functions/Function1;)Lcom/github/ajalt/colormath/Color;
+	public static synthetic fun mix$default (Lcom/github/ajalt/colormath/ColorSpace;Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
+	public static synthetic fun mix$default (Lcom/github/ajalt/colormath/ColorSpace;Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/Color;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
+	public static synthetic fun mix$default (Lcom/github/ajalt/colormath/ColorSpace;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
+	public static synthetic fun mix$default (Lcom/github/ajalt/colormath/ColorSpace;Lcom/github/ajalt/colormath/Color;Ljava/lang/Number;Lcom/github/ajalt/colormath/Color;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
+}
+
+public final class com/github/ajalt/colormath/transform/PremultiplyKt {
+	public static final fun divideAlpha (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public static final fun multiplyAlpha (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+}
+
+public abstract interface class com/github/ajalt/colormath/transform/RGBToRGBConverter {
+	public abstract fun convert (Lcom/github/ajalt/colormath/model/RGB;)Lcom/github/ajalt/colormath/model/RGB;
+}
+
+public final class com/github/ajalt/colormath/transform/RGBToRGBConverterKt {
+	public static final fun converterTo (Lcom/github/ajalt/colormath/model/RGBColorSpace;Lcom/github/ajalt/colormath/model/RGBColorSpace;)Lcom/github/ajalt/colormath/transform/RGBToRGBConverter;
+}
+
+public final class com/github/ajalt/colormath/transform/TransformKt {
+	public static final fun map (Lcom/github/ajalt/colormath/Color;Lkotlin/jvm/functions/Function2;)Lcom/github/ajalt/colormath/Color;
+}
+
