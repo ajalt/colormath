@@ -75,7 +75,11 @@ fun App() {
 
 @Composable
 private fun ColumnScope.ControlPanel(vm: ColorPickerViewModel) {
-    Image(painterResource(Res.drawable.colormath_wordmark), null)
+    Image(
+        painter = painterResource(Res.drawable.colormath_wordmark),
+        contentDescription = null,
+        modifier = Modifier.clickable(onClick = ::navigateToColormathWebsite)
+    )
     Spacer(Modifier.height(24.dp))
     NavigationDrawerItem(
         icon = { Icon(Icons.Filled.Add, contentDescription = "Add Gradient") },
@@ -576,4 +580,9 @@ private fun gradTextColor(color: ColormathColor): Color {
 private fun contrastString(c1: ColormathColor, c2: ColormathColor): String {
     val s = c1.wcagContrastRatio(c2).toString()
     return s.take(s.indexOf('.') + 3)
+}
+
+// js() calls need to be in a separate function in wasm
+private fun navigateToColormathWebsite() {
+    js("window.location.href = 'https://github.com/ajalt/colormath'")
 }

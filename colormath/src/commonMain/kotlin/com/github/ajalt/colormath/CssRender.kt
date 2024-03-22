@@ -11,8 +11,8 @@ import com.github.ajalt.colormath.model.RGBColorSpaces.LinearSRGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
 import kotlin.jvm.JvmOverloads
+import kotlin.math.absoluteValue
 import kotlin.math.pow
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 enum class RenderCondition {
@@ -94,9 +94,9 @@ fun Color.formatCssStringOrNull(
     alphaPercent: Boolean = false,
     legacyName: Boolean = false,
     legacyFormat: Boolean = false,
-    customColorSpaces: List<Pair<String, ColorSpace<*>>> = emptyList(),
+    customColorSpaces: Map<String, ColorSpace<*>> = emptyMap(),
 ): String? {
-    return customColorSpaces.firstOrNull { it.second == space }?.first?.let { spaceName ->
+    return customColorSpaces.entries.firstOrNull { it.value == space }?.key?.let { spaceName ->
         renderFn(spaceName, unitsPercent, alphaPercent, renderAlpha)
     } ?: when (this) {
         is RGB -> when (space) {
@@ -156,7 +156,7 @@ fun Color.formatCssStringOrNull(
  * ```
  *
  * ```
- * > JzAzBz(0.1, 0.2, 0.3).formatCssString(customColorSpaces= listOf("jzazbz" to JzAzBz))
+ * > JzAzBz(0.1, 0.2, 0.3).formatCssString(customColorSpaces=listOf("jzazbz" to JzAzBz))
  * "color(jzazbz 0.1 0.2 0.3)"
  * ```
  *
@@ -177,7 +177,7 @@ fun Color.formatCssString(
     alphaPercent: Boolean = false,
     legacyName: Boolean = false,
     legacyFormat: Boolean = false,
-    customColorSpaces: List<Pair<String, ColorSpace<*>>> = emptyList(),
+    customColorSpaces: Map<String, ColorSpace<*>> = emptyMap(),
 ): String {
     return formatCssStringOrNull(
         hueUnit,
@@ -345,14 +345,13 @@ private fun Color.renderAlpha(
 
 private fun Float.render(percent: Boolean = false, precision: Int = 4): String = when (percent) {
     true -> "${(this * 100).roundToInt()}%"
-    false -> when (this) {
-        0f -> "0"
-        1f -> "1"
-        else -> {
-            val i = toInt()
-            val d = ((this - i) * (10.0.pow(precision))).roundToInt()
-            if (d == 0) i.toString() else "$i.$d".trimEnd('0')
-        }
+    false -> {
+        val abs = absoluteValue
+        val i = abs.toInt()
+        val sgn = if (this < 0) "-" else ""
+        val d = ((abs - i) * (10.0.pow(precision))).roundToInt()
+        if (d == 0) toInt().toString()
+        else "$sgn$i.${d.toString().padStart(precision, '0').trimEnd('0')}"
     }
 }
 

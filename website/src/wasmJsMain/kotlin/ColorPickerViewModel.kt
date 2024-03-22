@@ -201,7 +201,7 @@ class ColorPickerViewModel {
         menuText = colorString
         menuExpanded = false
         val newColor = parseColorOrNull(colorString) ?: return
-        changeColor(newColor, skipMenu = true)
+        changeColor(newColor.convertTo(selectedColor.space), skipMenu = true)
     }
 
     private fun changeColor(
@@ -303,7 +303,7 @@ class ColorPickerViewModel {
         var s = colorString.trim()
         if ('(' in s && !s.endsWith(')')) s = "$s)"
         return try {
-            Color.parse(s)
+            Color.parse(s, customColorSpaces = customColorSpaces)
         } catch (e: IllegalArgumentException) {
             null
         }
@@ -342,7 +342,7 @@ private val menuSpacesToString = listOf<(Color) -> String>(
     { it.toAnsi16().formatCssString(customColorSpaces = customColorSpaces) },
     { it.toAnsi256().formatCssString(customColorSpaces = customColorSpaces) },
 )
-private val customColorSpaces = listOf(
+private val customColorSpaces = mapOf(
     "hsv" to HSV,
     "luv" to LUV,
     "lch-uv" to LCHuv,

@@ -21,16 +21,16 @@ class CssParseTest {
     @Test
     @JsName("parseCssColor_named")
     fun `parseCssColor named`() {
-        Color.parse(
-            "color(jzazbz 0.1 0.2 0.3)",
-            customColorSpaces = listOf("jzazbz" to JzAzBz)
-        ).shouldEqualColor(JzAzBz(.1, .2, .3))
+        Color.parse("rebeccapurple") shouldBe RGB("#663399")
     }
 
     @Test
     @JsName("parseCssColor_custom_space")
     fun `parseCssColor custom space`() {
-        Color.parse("rebeccapurple") shouldBe RGB("#663399")
+        Color.parse(
+            "color(jzazbz 0.1 0.2 0.3)",
+            customColorSpaces = mapOf("jzazbz" to JzAzBz)
+        ).shouldEqualColor(JzAzBz(.1, .2, .3))
     }
 
     @Test
