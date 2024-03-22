@@ -17,8 +17,6 @@ import kotlin.math.roundToInt
 /**
  * Parse a string representing a CSS color value.
  *
- * Custom color spaces with dashed identifiers are not currently supported.
- *
  * @param color The CSS color string to parse
  * @param customColorSpaces A list of custom color spaces to recognize in the `color()` function.
  * Each pair should be the identifier of the color and its [ColorSpace].
@@ -27,7 +25,7 @@ import kotlin.math.roundToInt
 @JvmOverloads // TODO(4.0) remove this
 fun Color.Companion.parse(
     color: String,
-    customColorSpaces: List<Pair<String, ColorSpace<*>>> = emptyList(),
+    customColorSpaces: Map<String, ColorSpace<*>> = emptyMap(),
 ): Color {
     return parseOrNull(color, customColorSpaces)
         ?: throw IllegalArgumentException("Invalid color: $color")
@@ -44,7 +42,7 @@ fun Color.Companion.parse(
 @JvmOverloads // TODO(4.0) remove this
 fun Color.Companion.parseOrNull(
     color: String,
-    customColorSpaces: List<Pair<String, ColorSpace<*>>> = emptyList(),
+    customColorSpaces: Map<String, ColorSpace<*>> = emptyMap(),
 ): Color? {
     val keywordColor = CssColors.colorsByName[color]
     return when {
@@ -99,7 +97,7 @@ private object PATTERNS {
 
 private fun color(
     match: MatchResult,
-    customColorSpaces: List<Pair<String, ColorSpace<*>>>,
+    customColorSpaces: Map<String, ColorSpace<*>>,
 ): Color? {
     val space = when (val name = match.groupValues[1]) {
         "srgb" -> SRGB
@@ -110,7 +108,7 @@ private fun color(
         "rec2020" -> BT2020
         "xyz", "xyz-d50" -> XYZ50
         "xyz-d65" -> XYZ65
-        else -> customColorSpaces.firstOrNull { it.first == name }?.second
+        else -> customColorSpaces.entries.firstOrNull { it.key == name }?.value
     } ?: return null
 
     val values = match.groupValues[2].split(Regex("\\s+")).map { percentOrNumber(it).clampF() }

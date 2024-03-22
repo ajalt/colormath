@@ -149,12 +149,13 @@ class CssRenderTest {
     @JsName("formatCssString_custom_space")
     fun `formatCssString custom space`() = forAll(
         row(ACEScc(.1, .2, .3), "color(acescc 0.1 0.2 0.3)"),
-        row(JzAzBz(.1, .2, .3), "color(jzazbz 0.1 0.2 0.3)"),
+        row(JzAzBz(1, -1, -0.5), "color(jzazbz 1 -1 -0.5)"),
+        row(JzAzBz(0.0162790, -2.91842E-4, -0.00161363), "color(jzazbz 0.0163 -0.0003 -0.0016)"),
         row(XYZ55(.1, .2, .3), "color(xyz-d55 0.1 0.2 0.3)"),
         row(LUV(.1, .2, .3).toSRGB().toLUV(), "color(luv 0.1 0.2 0.3)"),
     ) { color, expected ->
         color.formatCssString(
-            customColorSpaces = listOf(
+            customColorSpaces = mapOf(
                 "acescc" to ACEScc, "jzazbz" to JzAzBz, "luv" to LUV, "xyz-d55" to XYZ55,
             )
         ) shouldBe expected
