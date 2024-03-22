@@ -6,7 +6,7 @@
 # Install the packages with the following command:
 # pip install mkdocs mkdocs-material
 # Build the samples and api docs with
-# ./gradlew dokkaHtml jsBrowserDistribution
+# ./gradlew dokkaHtml :website:wasmJsBrowserDistribution
 # Then run this script to prepare the docs for the website.
 # Finally, run `mkdocs serve` to preview the site locally or `mkdocs build` to build the site.
 
@@ -37,6 +37,5 @@ cat README.md \
   >> docs/index.md
 
 # Copy the website js into the docs
-mkdir -p docs/js
-cp website/converter/build/dist/js/productionExecutable/converter.js docs/js/converter.js
-cp website/gradient/build/dist/js/productionExecutable/gradient.js docs/js/gradient.js
+mkdir -p docs/tryit
+cp -r website/build/dist/wasmJs/productionExecutable/* docs/tryit/

@@ -12,7 +12,7 @@ plugins {
     alias(libs.plugins.android.library).apply(false)
     alias(libs.plugins.dokka).apply(false)
     alias(libs.plugins.publish).apply(false)
-    alias(libs.plugins.compose).apply(false)
+    alias(libs.plugins.jetbrainsCompose).apply(false)
     alias(libs.plugins.kotlinBinaryCompatibilityValidator)
 }
 
@@ -20,7 +20,7 @@ apiValidation {
     // https://github.com/Kotlin/binary-compatibility-validator/issues/3
     project("scripts").subprojects.mapTo(ignoredProjects) { it.name }
     project("test").subprojects.mapTo(ignoredProjects) { it.name }
-    project("website").subprojects.mapTo(ignoredProjects) { it.name }
+    ignoredProjects.add("website")
 }
 
 
