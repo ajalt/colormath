@@ -32,7 +32,7 @@ jobs:
       - name: Dokka
         uses: gradle/actions/setup-gradle@v3
         with:
-          arguments: dokkaHtml jsBrowserDistribution
+          arguments: dokkaHtml :website:wasmJsBrowserDistribution
       - run: ./prepare_docs.sh
       - name: Build mkdocs
         run: |

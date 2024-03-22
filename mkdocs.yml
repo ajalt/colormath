@@ -44,8 +44,6 @@ nav:
   - 'Usage': usage.md
   - 'Color Spaces': colorspaces.md
   - 'Extensions': extensions.md
-  - 'Try It Online':
-    - 'Color converter': converter.md
-    - 'Gradient generator': gradient.md
+  - 'Try It Online': tryit/index.html
   - 'API Reference': api/colormath/com.github.ajalt.colormath/index.html
   - 'Releases': changelog.md
