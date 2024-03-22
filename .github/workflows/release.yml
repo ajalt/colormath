@@ -33,6 +33,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
         with:
           arguments: dokkaHtml jsBrowserDistribution
+      - run: ./prepare_docs.sh
       - name: Build mkdocs
         run: |
           pip install mkdocs-material

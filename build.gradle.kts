@@ -26,11 +26,9 @@ apiValidation {
 
 fun getPublishVersion(): String {
     val versionName = project.property("VERSION_NAME") as String
-
-    // Call gradle with -PinferVersion to set the dynamic version name.
+    // Call gradle with -PsnapshotVersion to set the version as a snapshot.
     // Otherwise, we skip it to save time.
     if (!project.hasProperty("snapshotVersion")) return versionName
-
     val buildNumber = System.getenv("GITHUB_RUN_NUMBER") ?: "0"
     return "$versionName.$buildNumber-SNAPSHOT"
 }
