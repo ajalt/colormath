@@ -254,7 +254,12 @@ private fun Color.renderAlpha(commas: Boolean, renderAlpha: RenderCondition, alp
 }
 
 private fun Float.render(percent: Boolean = false): String = when (percent) {
-    true -> "${(this * 100).roundToInt()}%"
+    true -> when {
+        this.isNaN() -> "NaN"
+        else -> {
+            "${(this * 100).roundToInt()}%"
+        }
+    }
     false -> when (this) {
         0f -> "0"
         1f -> "1"
