@@ -78,11 +78,11 @@ public abstract interface class com/github/ajalt/colormath/ColorSpace {
 
 public final class com/github/ajalt/colormath/CssParseKt {
 	public static final fun parse (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;)Lcom/github/ajalt/colormath/Color;
-	public static final fun parse (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/List;)Lcom/github/ajalt/colormath/Color;
-	public static synthetic fun parse$default (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
+	public static final fun parse (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/Map;)Lcom/github/ajalt/colormath/Color;
+	public static synthetic fun parse$default (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
 	public static final fun parseOrNull (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;)Lcom/github/ajalt/colormath/Color;
-	public static final fun parseOrNull (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/List;)Lcom/github/ajalt/colormath/Color;
-	public static synthetic fun parseOrNull$default (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
+	public static final fun parseOrNull (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/Map;)Lcom/github/ajalt/colormath/Color;
+	public static synthetic fun parseOrNull$default (Lcom/github/ajalt/colormath/Color$Companion;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/github/ajalt/colormath/Color;
 }
 
 public final class com/github/ajalt/colormath/CssRenderKt {
@@ -93,10 +93,10 @@ public final class com/github/ajalt/colormath/CssRenderKt {
 	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZ)Ljava/lang/String;
 	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZ)Ljava/lang/String;
 	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZ)Ljava/lang/String;
-	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/List;)Ljava/lang/String;
-	public static synthetic fun formatCssString$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/List;ILjava/lang/Object;)Ljava/lang/String;
-	public static final fun formatCssStringOrNull (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/List;)Ljava/lang/String;
-	public static synthetic fun formatCssStringOrNull$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/List;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun formatCssString (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/Map;)Ljava/lang/String;
+	public static synthetic fun formatCssString$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/Map;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun formatCssStringOrNull (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/Map;)Ljava/lang/String;
+	public static synthetic fun formatCssStringOrNull$default (Lcom/github/ajalt/colormath/Color;Lcom/github/ajalt/colormath/AngleUnit;Lcom/github/ajalt/colormath/RenderCondition;ZZZZLjava/util/Map;ILjava/lang/Object;)Ljava/lang/String;
 }
 
 public abstract interface class com/github/ajalt/colormath/HueColor : com/github/ajalt/colormath/Color {

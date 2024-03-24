@@ -67,10 +67,12 @@ fun Color.Companion.parseOrNull(
 
 
 // https://www.w3.org/TR/css-color-4/#color-syntax
+@Suppress("RegExpUnnecessaryNonCapturingGroup")
 private object PATTERNS {
-    private const val NUMBER = """[+-]?(?:\d+|\d*\.\d+)(?:[eE][+-]?\d+)?"""
-    private const val PERCENT = "$NUMBER%"
-    private const val NUMBER_OR_PERCENT = "$NUMBER%?"
+    private const val FLOAT = """[+-]?(?:\d+|\d*\.\d+)(?:[eE][+-]?\d+)?"""
+    private const val NUMBER = """(?:none|$FLOAT)"""
+    private const val PERCENT = "$FLOAT%"
+    private const val NUMBER_OR_PERCENT = "(?:none|$FLOAT%?)"
     private const val SLASH_ALPHA = """\s*(?:/\s*($NUMBER_OR_PERCENT))?\s*"""
     private const val COMMA_ALPHA = """(?:\s*,\s*($NUMBER_OR_PERCENT))?\s*"""
     private const val HUE = "$NUMBER(?:deg|grad|rad|turn)?"
@@ -182,21 +184,21 @@ private fun oklch(match: MatchResult): Color {
 }
 
 
+// CSS uses the "none" keyword for NaN https://www.w3.org/TR/css-color-4/#missing
+private fun number(str: String) = if(str == "none") Float.NaN else str.toFloat()
 private fun percent(str: String) = str.dropLast(1).toFloat() / 100f
-private fun number(str: String) = str.toFloat()
 private fun percentOrNumber(str: String) = if (str.endsWith("%")) percent(str) else number(str)
 private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str)).clampF()
 
 /** return degrees in [0, 360] */
 private fun hue(str: String): Float {
-    val deg = when {
+    return when {
         str.endsWith("deg") -> str.dropLast(3).toFloat()
         str.endsWith("grad") -> str.dropLast(4).toFloat().gradToDeg()
         str.endsWith("rad") -> str.dropLast(3).toFloat().radToDeg()
         str.endsWith("turn") -> str.dropLast(4).toFloat().turnToDeg()
-        else -> str.toFloat()
-    }
-    return deg.normalizeDeg()
+        else -> number(str)
+    }.normalizeDeg()
 }
 
 private fun Float.clampInt(min: Int = 0, max: Int = 255) = roundToInt().coerceIn(min, max)

@@ -308,13 +308,14 @@ private fun Color.renderColorFn(
 }
 
 
-private fun HueColor.renderHue(hueUnit: AngleUnit): String = when (hueUnit) {
-    AngleUnit.AUTO -> h.render()
-    AngleUnit.DEGREES -> "${h.render()}deg"
-    AngleUnit.RADIANS -> "${hueAsRad().render()}rad"
-    AngleUnit.GRADIANS -> "${hueAsGrad().render()}grad"
-    AngleUnit.TURNS -> "${hueAsTurns().render()}turn"
-}
+private fun HueColor.renderHue(hueUnit: AngleUnit): String = if (h.isNaN()) "none" else
+    when (hueUnit) {
+        AngleUnit.AUTO -> h.render()
+        AngleUnit.DEGREES -> "${h.render()}deg"
+        AngleUnit.RADIANS -> "${hueAsRad().render()}rad"
+        AngleUnit.GRADIANS -> "${hueAsGrad().render()}grad"
+        AngleUnit.TURNS -> "${hueAsTurns().render()}turn"
+    }
 
 private fun Color.renderFn(
     name: String,
@@ -343,9 +344,10 @@ private fun Color.renderAlpha(
     }
 }
 
-private fun Float.render(percent: Boolean = false, precision: Int = 4): String = when (percent) {
-    true -> "${(this * 100).roundToInt()}%"
-    false -> {
+private fun Float.render(percent: Boolean = false, precision: Int = 4): String = when {
+    isNaN() -> "none"
+    percent -> "${(this * 100).roundToInt()}%"
+    else -> {
         val abs = absoluteValue
         val i = abs.toInt()
         val sgn = if (this < 0) "-" else ""
