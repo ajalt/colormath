@@ -4,13 +4,14 @@
 ### Added
 - Publish artifacts for the `JS` and `wasmJs` targets for the jetpack-compose extensions.
 - Added support to `formatCssString` and `Color.parse` for color spaces added in recent updates to the CSS color spec: `oklab`, `oklch`, `srgb-linear`, `xyz-d50` and `xyz-d65`. 
-- Added `customColorSpaces` for `Color.parse` and `formatCssString` to allow non-standard color spaces to be used in color strings.
+- Added `customColorSpaces` for `Color.parse` and `Color.formatCssString` to allow non-standard color spaces to be used in color strings.
 
 ### Changed
 - `Color.parse` now parses `lch()` and `lab()` functions with the with D50 white points instead of D65 in order to comply with the CSS color spec.
 
 ### Fixed
 - `ColorSpace.equals` will now properly return true when comparing color companions with the space they represent e.g. `XYZ == XYZ65`
+- Support the CSS "none" keyword for `NaN` values in `Color.parse` and `Color.formatCssString` 
 
 ## 3.4.0
 ### Added

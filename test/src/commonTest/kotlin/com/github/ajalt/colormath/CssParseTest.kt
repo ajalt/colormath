@@ -13,6 +13,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
+import kotlin.Float.Companion.NaN
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -182,7 +183,8 @@ class CssParseTest {
         row("0deg", 0),
         row("0grad", 0),
         row("0turn", 0),
-        row("0rad", 0)
+        row("0rad", 0),
+        row("none", NaN),
     ) { angle, degrees ->
         Color.parse("hsl($angle, 0%, 0%)").shouldEqualColor(HSL(degrees, 0, 0))
     }
@@ -249,6 +251,7 @@ class CssParseTest {
         row("oklch(0.65125 0.13138 104.097)", Oklch(0.65125, 0.13138, 104.097)),
         row("oklch(0.66016 0.15546 134.231)", Oklch(0.66016, 0.15546, 134.231)),
         row("oklch(72.322% 0.12403 247.996)", Oklch(0.72322, 0.12403, 247.996)),
+        row("oklch(0% 0 none)", Oklch(0, 0, NaN)),
 //        row("oklch(42.1% 48.25% 328.4)", Oklch()), TODO: c percentage scaling
     ) { str, lch ->
         Color.parse(str).shouldEqualColor(lch)
