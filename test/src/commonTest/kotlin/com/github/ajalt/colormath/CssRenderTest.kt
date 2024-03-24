@@ -4,10 +4,12 @@ import com.github.ajalt.colormath.AngleUnit.*
 import com.github.ajalt.colormath.RenderCondition.*
 import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.model.HSL
+import com.github.ajalt.colormath.model.HSV
 import com.github.ajalt.colormath.model.HWB
 import com.github.ajalt.colormath.model.JzAzBz
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.model.LCHabColorSpaces.LCHab50
+import com.github.ajalt.colormath.model.Oklch
 import com.github.ajalt.colormath.model.RGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.ACES
 import com.github.ajalt.colormath.model.RGBColorSpaces.ACEScc
@@ -44,6 +46,32 @@ class CssRenderTest {
         val hueUnit: AngleUnit = AngleUnit.AUTO,
         val alphaPercent: Boolean = false,
         val renderAlpha: RenderCondition = AUTO,
+    )
+
+    private data class H2(
+        val h: Number,
+        val s: Number,
+        val v: Number,
+        val a: Float = 1f,
+        val commas: Boolean = false,
+        val namedHsla: Boolean = false,
+        val hueUnit: AngleUnit = AngleUnit.AUTO,
+        val alphaPercent: Boolean = false,
+        val renderAlpha: RenderCondition = AUTO,
+        val unitsPercent: Boolean = false
+    )
+
+    private data class O(
+        val l: Number,
+        val c: Number,
+        val h: Number,
+        val a: Float = 1f,
+        val commas: Boolean = false,
+        val namedHsla: Boolean = false,
+        val hueUnit: AngleUnit = AngleUnit.AUTO,
+        val alphaPercent: Boolean = false,
+        val renderAlpha: RenderCondition = AUTO,
+        val unitsPercent: Boolean = false
     )
 
     @Test
@@ -121,5 +149,37 @@ class CssRenderTest {
         row(JzAzBz(.1, .2, .3), null),
     ) { color, expected ->
         color.formatCssStringOrNull() shouldBe expected
+    }
+
+    @Test
+    fun formatCssHsv() = forAll(
+        row(H2(0, 1, 1, unitsPercent = false), "color(--hsv 0 1 1)"),
+        row(H2(0, 1, 1, unitsPercent = true), "color(--hsv 0% 100% 100%)"),
+        row(H2(Float.NaN, 0, 1, unitsPercent = false), "color(--hsv NaN 0 1)"),
+        row(H2(Float.NaN, 0, 1, unitsPercent = true), "color(--hsv NaN 0% 100%)"),
+    ) { (h, s, v, a, commas, namedHsla, hueUnit, alphaPercent, renderAlpha, unitsPercent), expected ->
+        HSV(h, s, v, a).formatCssString(
+            hueUnit,
+            renderAlpha,
+            unitsPercent,
+            alphaPercent,
+            namedHsla,
+            commas
+        ) shouldBe expected
+    }
+
+    @Test
+    fun formatCssOklch() = forAll(
+        row(O(0, 0, Float.NaN, unitsPercent = false), "color(--oklch 0 0 NaN)"),
+        row(O(0, 0, Float.NaN, unitsPercent = true), "color(--oklch 0% 0% NaN)"),
+    ) { (l, c, h, a, commas, namedHsla, hueUnit, alphaPercent, renderAlpha, unitsPercent), expected ->
+        Oklch(l, c, h, a).formatCssString(
+            hueUnit,
+            renderAlpha,
+            unitsPercent,
+            alphaPercent,
+            namedHsla,
+            commas
+        ) shouldBe expected
     }
 }
