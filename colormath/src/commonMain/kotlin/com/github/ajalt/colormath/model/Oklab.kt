@@ -5,7 +5,7 @@ import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.Illuminant
 import com.github.ajalt.colormath.internal.doCreate
-import com.github.ajalt.colormath.internal.rectangularComponentInfo
+import com.github.ajalt.colormath.internal.threeComponentInfo
 import com.github.ajalt.colormath.internal.toPolarModel
 
 /**
@@ -13,17 +13,20 @@ import com.github.ajalt.colormath.internal.toPolarModel
  *
  * This color space is always calculated relative to [Illuminant.D65].
  *
- * | Component  | Description | Range     |
- * | ---------- | ----------- | --------- |
- * | [l]        | lightness   | `[0, 1]`  |
- * | [a]        | green-red   | `[-1, 1]` |
- * | [b]        | blue-yellow | `[-1, 1]` |
+ * | Component | Description | Range         |
+ * |-----------|-------------|---------------|
+ * | L         | lightness   | `[0, 1]`      |
+ * | a         | green-red   | `[-0.4, 0.4]` |
+ * | b         | blue-yellow | `[-0.4, 0.4]` |
  */
 data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
     /** Default constructors for the [Oklab] color model. */
-    companion object : ColorSpace<Oklab>{
+    companion object : ColorSpace<Oklab> {
         override val name: String get() = "Oklab"
-        override val components: List<ColorComponentInfo> = rectangularComponentInfo("LAB")
+        override val components: List<ColorComponentInfo> = threeComponentInfo(
+            "l", 0f, 1f, "a", -1f, 1f, "b", -1f, 1f
+        )
+
         override fun convert(color: Color): Oklab = color.toOklab()
         override fun create(components: FloatArray): Oklab = doCreate(components, ::Oklab)
     }

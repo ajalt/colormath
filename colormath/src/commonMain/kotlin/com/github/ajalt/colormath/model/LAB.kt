@@ -26,11 +26,16 @@ fun LABColorSpace(whitePoint: WhitePoint): LABColorSpace = when (whitePoint) {
 
 private data class LABColorSpaceImpl(override val whitePoint: WhitePoint) : LABColorSpace {
     override val name: String get() = "LAB"
-    override val components: List<ColorComponentInfo> = rectangularComponentInfo("LAB")
+    override val components: List<ColorComponentInfo> = threeComponentInfo(
+        "L", 0f, 100f, "A", -125f, 125f, "B", -125f, 125f
+    )
+
     override fun convert(color: Color): LAB = adaptToThis(color) { it.toLAB() }
     override fun create(components: FloatArray): LAB = doCreate(components, ::invoke)
     override fun toString(): String = "LABColorSpace($whitePoint)"
-    override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB = LAB(l, a, b, alpha, this)
+    override operator fun invoke(l: Float, a: Float, b: Float, alpha: Float): LAB =
+        LAB(l, a, b, alpha, this)
+
     override fun hashCode(): Int = whitePoint.hashCode()
     override fun equals(other: Any?): Boolean {
         return other is LABColorSpace && whitePoint == other.whitePoint
@@ -52,11 +57,11 @@ object LABColorSpaces {
  *
  * [LAB] is calculated relative to a [given][space] [whitePoint], which defaults to [Illuminant.D65].
  *
- * | Component  | Description | Range         |
- * | ---------- | ----------- | ------------- |
- * | [l]        | lightness   | `[0, 100]`    |
- * | [a]        | green-red   | `[-100, 100]` |
- * | [b]        | blue-yellow | `[-100, 100]` |
+ * | Component | Description | Range         |
+ * |-----------|-------------|---------------|
+ * | L         | lightness   | `[0, 100]`    |
+ * | a*        | green-red   | `[-125, 125]` |
+ * | b*        | blue-yellow | `[-125, 125]` |
  */
 data class LAB internal constructor(
     val l: Float,
@@ -93,7 +98,9 @@ data class LAB internal constructor(
         return xyzSpace(xr * wp.X, yr * wp.Y, zr * wp.Z, alpha)
     }
 
-    override fun toLCHab(): LCHab = toPolarModel(a, b) { c, h -> LCHabColorSpace(space.whitePoint)(l, c, h, alpha) }
+    override fun toLCHab(): LCHab =
+        toPolarModel(a, b) { c, h -> LCHabColorSpace(space.whitePoint)(l, c, h, alpha) }
+
     override fun toLAB(): LAB = this
 
     override fun toArray(): FloatArray = floatArrayOf(l, a, b, alpha)

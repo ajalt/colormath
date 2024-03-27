@@ -6,7 +6,7 @@ import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.internal.adaptToThis
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.polarComponentInfo
+import com.github.ajalt.colormath.internal.threeComponentInfo
 
 /**
  * The color space describing colors in the [LCHab] model.
@@ -26,11 +26,16 @@ fun LCHabColorSpace(whitePoint: WhitePoint): LCHabColorSpace = when (whitePoint)
 
 private data class LCHabColorSpaceImpl(override val whitePoint: WhitePoint) : LCHabColorSpace {
     override val name: String get() = "LCHab"
-    override val components: List<ColorComponentInfo> = polarComponentInfo("LCH")
+    override val components: List<ColorComponentInfo> = threeComponentInfo(
+        "L", 0f, 100f, "C", 0f, 150f, "H", 0f, 360f
+    )
+
     override fun convert(color: Color): LCHab = adaptToThis(color) { it.toLCHab() }
     override fun create(components: FloatArray): LCHab = doCreate(components, ::invoke)
     override fun toString(): String = "LCHabColorSpace($whitePoint)"
-    override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHab = LCHab(l, c, h, alpha, this)
+    override operator fun invoke(l: Float, c: Float, h: Float, alpha: Float): LCHab =
+        LCHab(l, c, h, alpha, this)
+
     override fun hashCode(): Int = whitePoint.hashCode()
     override fun equals(other: Any?): Boolean {
         return other is LCHabColorSpace && whitePoint == other.whitePoint
@@ -48,11 +53,11 @@ object LCHabColorSpaces {
 /**
  * `CIE LCh(ab)` color model, a.k.a. `LCH`, the cylindrical representation of [LAB].
  *
- * | Component  | Description                               | Range      |
- * | ---------- | ----------------------------------------- | ---------- |
- * | [l]        | lightness                                 | `[0, 100]` |
- * | [c]        | chroma                                    | `[0, 100]` |
- * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+ * | Component | Description                               | Range      |
+ * |-----------|-------------------------------------------|------------|
+ * | L         | lightness                                 | `[0, 100]` |
+ * | c         | chroma                                    | `[0, 150]` |
+ * | h         | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
  */
 data class LCHab internal constructor(
     val l: Float,
@@ -69,7 +74,9 @@ data class LCHab internal constructor(
 
     override fun toSRGB(): RGB = toLAB().toSRGB()
     override fun toXYZ(): XYZ = toLAB().toXYZ()
-    override fun toLAB(): LAB = fromPolarModel(c, h) { a, b -> LABColorSpace(space.whitePoint)(l, a, b, alpha) }
+    override fun toLAB(): LAB =
+        fromPolarModel(c, h) { a, b -> LABColorSpace(space.whitePoint)(l, a, b, alpha) }
+
     override fun toLCHab(): LCHab = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
 }

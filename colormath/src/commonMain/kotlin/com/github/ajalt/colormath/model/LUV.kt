@@ -24,11 +24,16 @@ fun LUVColorSpace(whitePoint: WhitePoint): LUVColorSpace = when (whitePoint) {
 
 private data class LUVColorSpaceImpl(override val whitePoint: WhitePoint) : LUVColorSpace {
     override val name: String get() = "LUV"
-    override val components: List<ColorComponentInfo> = rectangularComponentInfo("LUV")
+    override val components: List<ColorComponentInfo> = threeComponentInfo(
+        "L", 0f, 100f, "U", -100f, 100f, "V", -100f, 100f
+    )
+
     override fun convert(color: Color): LUV = adaptToThis(color) { it.toLUV() }
     override fun create(components: FloatArray): LUV = doCreate(components, ::invoke)
     override fun toString(): String = "LUVColorSpace($whitePoint)"
-    override operator fun invoke(l: Float, u: Float, v: Float, alpha: Float): LUV = LUV(l, u, v, alpha, this)
+    override operator fun invoke(l: Float, u: Float, v: Float, alpha: Float): LUV =
+        LUV(l, u, v, alpha, this)
+
     override fun hashCode(): Int = whitePoint.hashCode()
     override fun equals(other: Any?): Boolean {
         return other is LUVColorSpace && whitePoint == other.whitePoint
@@ -95,7 +100,9 @@ data class LUV internal constructor(
         return xyzSpace(x, y, z, alpha)
     }
 
-    override fun toLCHuv(): LCHuv = toPolarModel(u, v) { c, h -> LCHuvColorSpace(space.whitePoint)(l, c, h, alpha) }
+    override fun toLCHuv(): LCHuv =
+        toPolarModel(u, v) { c, h -> LCHuvColorSpace(space.whitePoint)(l, c, h, alpha) }
+
     override fun toLUV(): LUV = this
     override fun toArray(): FloatArray = floatArrayOf(l, u, v, alpha)
 }

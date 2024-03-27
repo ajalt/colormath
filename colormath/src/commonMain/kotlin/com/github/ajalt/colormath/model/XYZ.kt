@@ -24,7 +24,7 @@ fun XYZColorSpace(whitePoint: WhitePoint): XYZColorSpace = when (whitePoint) {
 
 private data class XYZColorSpaceImpl(override val whitePoint: WhitePoint) : XYZColorSpace {
     override val name: String get() = "XYZ"
-    override val components: List<ColorComponentInfo> = rectangularComponentInfo("XYZ")
+    override val components: List<ColorComponentInfo> = zeroOneComponentInfo("XYZ")
     override fun convert(color: Color): XYZ = color.toXYZ().adaptTo(this)
     override fun create(components: FloatArray): XYZ = doCreate(components, ::invoke)
     override fun toString(): String = "XYZColorSpace($whitePoint)"
