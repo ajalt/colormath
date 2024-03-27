@@ -29,7 +29,33 @@ class ColorComponentInfo(
     val name: String,
     /** `true` if this component uses polar coordinates (e.g. a hue), and `false` if it's rectangular. */
     val isPolar: Boolean,
-)
+
+    /**
+     * The minimum of the reference range for this component.
+     *
+     * Note that some color models have components with no strict limits. For those components, this
+     * is the limit of typical values.
+     */
+    val min: Float,
+
+    /**
+     * The maximum of the reference range for this component.
+     *
+     * Note that some color models have components with no strict limits. For those components, this
+     * is the limit of typical values.
+     */
+    val max: Float,
+) {
+    @Deprecated(
+        "Use the constructor with a max and min",
+        ReplaceWith("ColorComponentInfo(name, isPolar, 0f, 1f)")
+    )
+    constructor(name: String, isPolar: Boolean) : this(name, isPolar, 0f, 1f)
+
+    init {
+        require(min <= max) { "min must be less than or equal to max" }
+    }
+}
 
 /** A color space that is defined with a reference [whitePoint]. */
 interface WhitePointColorSpace<T : Color> : ColorSpace<T> {

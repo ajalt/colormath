@@ -19,12 +19,13 @@ import kotlin.math.roundToInt
  * | [w]        | whiteness    | `[0, 1]`   |
  * | [b]        | blackness    | `[0, 1]`   |
  */
-data class HWB(override val h: Float, val w: Float, val b: Float, override val alpha: Float = 1f) : Color,
+data class HWB(override val h: Float, val w: Float, val b: Float, override val alpha: Float = 1f) :
+    Color,
     HueColor {
     /** Default constructors for the [HWB] color model. */
     companion object : ColorSpace<HWB> {
         override val name: String get() = "HWB"
-        override val components: List<ColorComponentInfo> = polarComponentInfo("HWB")
+        override val components: List<ColorComponentInfo> = polarComponentInfo("HWB", 0f, 1f)
         override fun convert(color: Color): HWB = color.toHWB()
         override fun create(components: FloatArray): HWB = doCreate(components, ::HWB)
     }

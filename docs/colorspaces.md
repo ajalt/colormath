@@ -16,11 +16,11 @@ Colormath has a number of built-in color spaces and models.
 
 - [RGB][RGB]
 
-| Component  | Description | Range    |
-| ---------- | ----------- | -------- |
-| r          | red         | `[0, 1]` |
-| g          | green       | `[0, 1]` |
-| b          | blue        | `[0, 1]` |
+| Component | Description | Range    |
+|-----------|-------------|----------|
+| r         | red         | `[0, 1]` |
+| g         | green       | `[0, 1]` |
+| b         | blue        | `[0, 1]` |
 
 The RGB color model defines colors with the additive combination of reg, green, and blue lights. RGB
 components are stored as floating point numbers in the range `[0, 1]`. You can also represent sRGB
@@ -49,11 +49,11 @@ Colormath includes a number of built-in RGB color spaces, and you can define you
 
 - [HSL][HSL]
 
-| Component  | Description                               | Range      |
-| ---------- | ----------------------------------------- | ---------- |
-| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
-| s          | saturation                                | `[0, 1]`   |
-| l          | lightness                                 | `[0, 1]`   |
+| Component | Description                               | Range      |
+|-----------|-------------------------------------------|------------|
+| h         | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| s         | saturation                                | `[0, 1]`   |
+| l         | lightness                                 | `[0, 1]`   |
 
 A cylindrical representation of sRGB using Hue, Saturation, and Lightness.
 
@@ -61,11 +61,11 @@ A cylindrical representation of sRGB using Hue, Saturation, and Lightness.
 
 - [HSV][HSV]
 
-| Component  | Description                               | Range      |
-| ---------- | ----------------------------------------- | ---------- |
-| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
-| s          | saturation                                | `[0, 1]`   |
-| v          | value                                     | `[0, 1]`   |
+| Component | Description                               | Range      |
+|-----------|-------------------------------------------|------------|
+| h         | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| s         | saturation                                | `[0, 1]`   |
+| v         | value                                     | `[0, 1]`   |
 
 A cylindrical representation of sRGB using Hue, Saturation, and Value / brightness.
 
@@ -73,11 +73,11 @@ A cylindrical representation of sRGB using Hue, Saturation, and Value / brightne
 
 - [HWB][HWB]
 
-| Component  | Description  | Range      |
-| ---------- | ------------ | ---------- |
-| h          | hue, degrees | `[0, 360)` |
-| w          | whiteness    | `[0, 1]`   |
-| b          | blackness    | `[0, 1]`   |
+| Component | Description  | Range      |
+|-----------|--------------|------------|
+| h         | hue, degrees | `[0, 360)` |
+| w         | whiteness    | `[0, 1]`   |
+| b         | blackness    | `[0, 1]`   |
 
 A cylindrical representation of sRGB using Hue, Whiteness, and Blackness.
 
@@ -85,19 +85,19 @@ A cylindrical representation of sRGB using Hue, Whiteness, and Blackness.
 
 - [HSLuv][HSLuv]
 
-| Component  | Description                               | Range      |
-| ---------- | ----------------------------------------- | ---------- |
-| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
-| s          | saturation                                | `[0, 100]` |
-| l          | lightness                                 | `[0, 100]` |
+| Component | Description                               | Range      |
+|-----------|-------------------------------------------|------------|
+| h         | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| s         | saturation                                | `[0, 100]` |
+| l         | lightness                                 | `[0, 100]` |
 
 - [HPLuv][HPLuv]
 
-| Component  | Description                               | Range      |
-| ---------- | ----------------------------------------- | ---------- |
-| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
-| p          | percentage saturation                     | `[0, 100]` |
-| l          | lightness                                 | `[0, 100]` |
+| Component | Description                               | Range      |
+|-----------|-------------------------------------------|------------|
+| h         | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| p         | percentage saturation                     | `[0, 100]` |
+| l         | lightness                                 | `[0, 100]` |
 
 HSLuv and HPLuv are color spaces designed as a human friendly alternative to HSL.
 
@@ -105,9 +105,9 @@ HSLuv and HPLuv are color spaces designed as a human friendly alternative to HSL
 
 - [ICtCp][ICtCp]
 
-| Component  | Description          | Range         |
-| ---------- | -------------------- | ------------- |
-| I          | intensity            | `[0, 1]`      |
+| Component     | Description          | Range         |
+|---------------|----------------------|---------------|
+| I             | intensity            | `[0, 1]`      |
 | C<sub>t</sub> | Tritan (blue-yellow) | `[-0.5, 0.5]` |
 | C<sub>p</sub> | Protan (red-green)   | `[-0.5, 0.5]` |
   
@@ -117,16 +117,16 @@ IC<sub>t</sub>C<sub>p</sub> is a color space designed for high dynamic range and
 
 - [JzAzBz][JzAzBz]
 
-| Component | Description | Range     |
-| --------- | ----------- | --------- |
+| Component     | Description | Range     |
+|---------------|-------------|-----------|
 | J<sub>z</sub> | lightness   | `[0, 1]`  |
 | A<sub>z</sub> | green-red   | `[-1, 1]` |
 | B<sub>z</sub> | blue-yellow | `[-1, 1]` |
 
 - [JzCzHz][JzCzHz]
 
-| Component  | Description                               | Range      |
-| ---------- | ----------------------------------------- | ---------- |
+| Component     | Description                               | Range      |
+|---------------|-------------------------------------------|------------|
 | J<sub>z</sub> | lightness                                 | `[0, 1]`   |
 | C<sub>z</sub> | chroma                                    | `[-1, 1]`  |
 | H<sub>z</sub> | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
@@ -139,19 +139,19 @@ representation.
 
 - [LAB][LAB]
 
-| Component  | Description | Range         |
-| ---------- | ----------- | ------------- |
-| L          | lightness   | `[0, 100]`    |
-| a*         | green-red   | `[-100, 100]` |
-| b*         | blue-yellow | `[-100, 100]` |
+| Component | Description | Range         |
+|-----------|-------------|---------------|
+| L         | lightness   | `[0, 100]`    |
+| a*        | green-red   | `[-125, 125]` |
+| b*        | blue-yellow | `[-125, 125]` |
 
 - [LCHab][LCHab]
 
-| Component  | Description                               | Range      |
-| ---------- | ----------------------------------------- | ---------- |
-| L          | lightness                                 | `[0, 100]` |
-| c          | chroma                                    | `[0, 100]` |
-| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| Component | Description                               | Range      |
+|-----------|-------------------------------------------|------------|
+| L         | lightness                                 | `[0, 100]` |
+| c         | chroma                                    | `[0, 150]` |
+| h         | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
 
 LAB is a color model intended to be perceptually uniform. Its cylindrical representation is LCH<sub>ab</sub>.
 
@@ -195,20 +195,20 @@ default white point is D65.
 
 - [Oklab][Oklab]
 
-| Component  | Description | Range     |
-| ---------- | ----------- | --------- |
-| L          | lightness   | `[0, 1]`  |
-| a          | green-red   | `[-1, 1]` |
-| b          | blue-yellow | `[-1, 1]` |
+| Component | Description | Range         |
+|-----------|-------------|---------------|
+| L         | lightness   | `[0, 1]`      |
+| a         | green-red   | `[-0.4, 0.4]` |
+| b         | blue-yellow | `[-0.4, 0.4]` |
 
 
 - [Oklch][Oklch]
 
-| Component  | Description                               | Range      |
-| ---------- | ----------------------------------------- | ---------- |
-| L          | lightness                                 | `[0, 1]`   |
-| c          | chroma                                    | `[0, 1]`   |
-| h          | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+| Component | Description                               | Range      |
+|-----------|-------------------------------------------|------------|
+| L         | lightness                                 | `[0, 1]`   |
+| c         | chroma                                    | `[0, 0.4]` |
+| h         | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
 
 Oklab is a perceptual color space for image processing. Its cylindrical representation is Oklch.
 
@@ -216,11 +216,11 @@ Oklab is a perceptual color space for image processing. Its cylindrical represen
 
 - [XYZ][XYZ]
 
-| Component  | Range    |
-| ---------- | -------- |
-| X          | `[0, 1]` |
-| Y          | `[0, 1]` |
-| Z          | `[0, 1]` |
+| Component | Range    |
+|-----------|----------|
+| X         | `[0, 1]` |
+| Y         | `[0, 1]` |
+| Z         | `[0, 1]` |
 
 The XYZ color model is common used as a profile connection space when converting between other models.
 
@@ -244,12 +244,12 @@ and [8-bit, 256 color codes][ANSI256]
 
 - [CMYK][CMYK]
 
-| Component  | Description | Range    |
-| ---------- | ----------- | -------- |
-| c          | cyan        | `[0, 1]` |
-| m          | magenta     | `[0, 1]` |
-| y          | yellow      | `[0, 1]` |
-| k          | key / black | `[0, 1]` |
+| Component | Description | Range    |
+|-----------|-------------|----------|
+| c         | cyan        | `[0, 1]` |
+| m         | magenta     | `[0, 1]` |
+| y         | yellow      | `[0, 1]` |
+| k         | key / black | `[0, 1]` |
 
 Colormath's CMYK model uses device-independent conversions. Device CMYK profiles are not currently
 supported.

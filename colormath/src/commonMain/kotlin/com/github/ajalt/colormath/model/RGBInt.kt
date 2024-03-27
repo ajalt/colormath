@@ -6,7 +6,7 @@ import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.RenderCondition
 import com.github.ajalt.colormath.RenderCondition.AUTO
 import com.github.ajalt.colormath.internal.doCreate
-import com.github.ajalt.colormath.internal.rectangularComponentInfo
+import com.github.ajalt.colormath.internal.threeComponentInfo
 import kotlin.jvm.JvmInline
 import kotlin.math.roundToInt
 
@@ -31,7 +31,10 @@ value class RGBInt(val argb: UInt) : Color {
     /** Default constructors for [RGBInt]. */
     companion object : ColorSpace<RGBInt> {
         override val name: String get() = "RGBInt"
-        override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
+        override val components: List<ColorComponentInfo> = threeComponentInfo(
+            "R", 0f, 255f, "G", 0f, 255f, "B", 0f, 255f
+        )
+
         override fun convert(color: Color): RGBInt = color.toSRGB().toRGBInt()
         override fun create(components: FloatArray): RGBInt = doCreate(components) { r, g, b, a ->
             RGBInt(r.toInt(), g.toInt(), b.toInt(), a.toInt())
@@ -98,19 +101,21 @@ value class RGBInt(val argb: UInt) : Color {
      * @return A string in the form `"#ffffff"` if [withNumberSign] is true,
      *     or in the form `"ffffff"` otherwise.
      */
-    fun toHex(withNumberSign: Boolean = true, renderAlpha: RenderCondition = AUTO): String = buildString(9) {
-        if (withNumberSign) append('#')
-        append(r.renderHex()).append(g.renderHex()).append(b.renderHex())
-        if (renderAlpha == RenderCondition.ALWAYS || renderAlpha == AUTO && a < 255u) {
-            append(a.renderHex())
+    fun toHex(withNumberSign: Boolean = true, renderAlpha: RenderCondition = AUTO): String =
+        buildString(9) {
+            if (withNumberSign) append('#')
+            append(r.renderHex()).append(g.renderHex()).append(b.renderHex())
+            if (renderAlpha == RenderCondition.ALWAYS || renderAlpha == AUTO && a < 255u) {
+                append(a.renderHex())
+            }
         }
-    }
 
     operator fun component1() = r
     operator fun component2() = g
     operator fun component3() = b
     operator fun component4() = a
-    override fun toArray(): FloatArray = floatArrayOf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
+    override fun toArray(): FloatArray =
+        floatArrayOf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
 
     private fun UByte.renderHex() = toString(16).padStart(2, '0')
 }

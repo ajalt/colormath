@@ -17,11 +17,12 @@ import kotlin.math.min
  * | [s]        | saturation                                | `[0, 1]`   |
  * | [l]        | lightness                                 | `[0, 1]`   |
  */
-data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = 1f) : HueColor {
+data class HSL(override val h: Float, val s: Float, val l: Float, override val alpha: Float = 1f) :
+    HueColor {
     /** Default constructors for the [HSL] color model. */
     companion object : ColorSpace<HSL> {
         override val name: String get() = "HSL"
-        override val components: List<ColorComponentInfo> = polarComponentInfo("HSL")
+        override val components: List<ColorComponentInfo> = polarComponentInfo("HSL", 0f, 1f)
         override fun convert(color: Color): HSL = color.toHSL()
         override fun create(components: FloatArray): HSL = doCreate(components, ::HSL)
     }

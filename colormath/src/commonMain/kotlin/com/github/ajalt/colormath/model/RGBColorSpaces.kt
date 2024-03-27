@@ -250,7 +250,7 @@ private data class RGBColorSpaceImpl(
     private val b: xyY,
     private val convertImpl: RGBColorSpaceImpl.(Color) -> RGB,
 ) : RGBColorSpace {
-    override val components: List<ColorComponentInfo> = rectangularComponentInfo("RGB")
+    override val components: List<ColorComponentInfo> = zeroOneComponentInfo("RGB")
     override fun convert(color: Color): RGB = convertImpl(color)
     override fun create(components: FloatArray): RGB = doCreate(components, ::invoke)
     override val matrixToXyz: FloatArray = rgbToXyzMatrix(whitePoint, r, g, b).rowMajor

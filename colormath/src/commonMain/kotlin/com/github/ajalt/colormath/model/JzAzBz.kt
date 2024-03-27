@@ -5,7 +5,7 @@ import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.calculate.differenceEz
 import com.github.ajalt.colormath.internal.doCreate
-import com.github.ajalt.colormath.internal.rectangularComponentInfo
+import com.github.ajalt.colormath.internal.threeComponentInfo
 import com.github.ajalt.colormath.internal.toPolarModel
 import kotlin.math.pow
 
@@ -26,11 +26,15 @@ import kotlin.math.pow
  * M. Safdar, G. Cui, Y. Kim, and M. Luo, "Perceptually uniform color space for image signals including high dynamic
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
-data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: Float = 1f) : Color {
+data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: Float = 1f) :
+    Color {
     /** Default constructors for the [JzAzBz] color model. */
     companion object : ColorSpace<JzAzBz> {
         override val name: String get() = "JzAzBz"
-        override val components: List<ColorComponentInfo> = rectangularComponentInfo("Jz", "Az", "Bz")
+        override val components: List<ColorComponentInfo> = threeComponentInfo(
+            "Jz", 0f, 1f, "Az", -1f, 1f, "Bz", -1f, 1f
+        )
+
         override fun convert(color: Color): JzAzBz = color.toJzAzBz()
         override fun create(components: FloatArray): JzAzBz = doCreate(components, ::JzAzBz)
 

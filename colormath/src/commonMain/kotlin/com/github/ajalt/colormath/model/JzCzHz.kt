@@ -6,7 +6,7 @@ import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.HueColor
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.polarComponentInfo
+import com.github.ajalt.colormath.internal.threeComponentInfo
 
 /**
  * The JzCzHz color model, the cylindrical representation of [JzAzBz].
@@ -21,12 +21,20 @@ import com.github.ajalt.colormath.internal.polarComponentInfo
  * M. Safdar, G. Cui, Y. Kim, and M. Luo, "Perceptually uniform color space for image signals including high dynamic
  * range and wide gamut," Opt. Express  25, 15131-15151 (2017).
  */
-data class JzCzHz(val j: Float, val c: Float, override val h: Float, override val alpha: Float = 1f) : Color,
+data class JzCzHz(
+    val j: Float,
+    val c: Float,
+    override val h: Float,
+    override val alpha: Float = 1f,
+) : Color,
     HueColor {
     /** Default constructors for the [JzCzHz] color model. */
     companion object : ColorSpace<JzCzHz> {
         override val name: String get() = "JzCzHz"
-        override val components: List<ColorComponentInfo> = polarComponentInfo("JCH")
+        override val components: List<ColorComponentInfo> = threeComponentInfo(
+            "J", 0f, 1f, "C", -1f, 1f, "H", 0f, 360f,
+        )
+
         override fun convert(color: Color): JzCzHz = color.toJzCzHz()
         override fun create(components: FloatArray): JzCzHz = doCreate(components, ::JzCzHz)
     }

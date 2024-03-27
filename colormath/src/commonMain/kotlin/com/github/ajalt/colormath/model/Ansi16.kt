@@ -30,7 +30,7 @@ data class Ansi16(val code: Int) : Color {
     companion object : ColorSpace<Ansi16> {
         override val name: String get() = "Ansi16"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("code", false),
+            ColorComponentInfo("code", false, 0f, 107f),
         )
 
         override fun convert(color: Color): Ansi16 = color.toAnsi16()

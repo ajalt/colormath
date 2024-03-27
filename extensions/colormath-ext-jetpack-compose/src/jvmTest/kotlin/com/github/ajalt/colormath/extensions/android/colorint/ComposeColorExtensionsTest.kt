@@ -9,7 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ComposeColorExtensionsTest {
-    private val colormathBlue = RGB(0, 0, 1, 1)
+    private val colormathBlue = RGB(0, 0, 2, 1)
 
     @Test
     fun toColormathColor() {

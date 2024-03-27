@@ -3,8 +3,8 @@ package com.github.ajalt.colormath.model
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
-import com.github.ajalt.colormath.internal.rectangularComponentInfo
 import com.github.ajalt.colormath.internal.withValidComps
+import com.github.ajalt.colormath.internal.zeroOneComponentInfo
 
 /**
  * A color in the CMYK (cyan, magenta, yellow, and key) color model.
@@ -18,11 +18,17 @@ import com.github.ajalt.colormath.internal.withValidComps
  * | [y]        | yellow      | `[0, 1]` |
  * | [k]        | key / black | `[0, 1]` |
  */
-data class CMYK(val c: Float, val m: Float, val y: Float, val k: Float, override val alpha: Float = 1f) : Color {
+data class CMYK(
+    val c: Float,
+    val m: Float,
+    val y: Float,
+    val k: Float,
+    override val alpha: Float = 1f,
+) : Color {
     /** Default constructors for the [CMYK] color model. */
     companion object : ColorSpace<CMYK> {
         override val name: String get() = "CMYK"
-        override val components: List<ColorComponentInfo> = rectangularComponentInfo("CMYK")
+        override val components: List<ColorComponentInfo> = zeroOneComponentInfo("CMYK")
         override fun convert(color: Color): CMYK = color.toCMYK()
         override fun create(components: FloatArray): CMYK = withValidComps(components) {
             CMYK(it[0], it[1], it[2], it[3], it.getOrElse(4) { 1f })
