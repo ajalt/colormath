@@ -28,21 +28,17 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(project(":colormath"))
-                api(libs.compose.ui.graphics)
-            }
+        commonMain.dependencies {
+            api(project(":colormath"))
+            api(libs.compose.ui.graphics)
         }
-        val androidUnitTest by getting {
-            dependencies {
-                implementation(libs.junit)
-                implementation(libs.robolectric)
-            }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
     }
 }
 
+@Suppress("UnstableApiUsage")
 android {
     namespace = "com.github.ajalt.colormath.extensions.android.composecolor"
     compileSdk = 33
