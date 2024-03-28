@@ -51,8 +51,6 @@ fun Color.Companion.parseOrNull(
         else -> {
             PATTERNS.RGB_1.matchEntire(color)?.let { rgb(it) }
                 ?: PATTERNS.RGB_2.matchEntire(color)?.let { rgb(it) }
-                ?: PATTERNS.RGB_3.matchEntire(color)?.let { rgb(it) }
-                ?: PATTERNS.RGB_4.matchEntire(color)?.let { rgb(it) }
                 ?: PATTERNS.HSL_1.matchEntire(color)?.let { hsl(it) }
                 ?: PATTERNS.HSL_2.matchEntire(color)?.let { hsl(it) }
                 ?: PATTERNS.LAB.matchEntire(color)?.let { lab(it) }
@@ -70,31 +68,26 @@ fun Color.Companion.parseOrNull(
 @Suppress("RegExpUnnecessaryNonCapturingGroup")
 private object PATTERNS {
     private const val FLOAT = """[+-]?(?:\d+|\d*\.\d+)(?:[eE][+-]?\d+)?"""
-    private const val NUMBER = """(?:none|$FLOAT)"""
-    private const val PERCENT = "$FLOAT%"
-    private const val NUMBER_OR_PERCENT = "(?:none|$FLOAT%?)"
-    private const val SLASH_ALPHA = """\s*(?:/\s*($NUMBER_OR_PERCENT))?\s*"""
-    private const val COMMA_ALPHA = """(?:\s*,\s*($NUMBER_OR_PERCENT))?\s*"""
-    private const val HUE = "$NUMBER(?:deg|grad|rad|turn)?"
+    private const val NUMBER = "(?:none|$FLOAT%?)"
+    private const val ALPHA = "$FLOAT%?"
+    private const val SLASH_ALPHA = """\s*(?:/\s*($ALPHA))?\s*"""
+    private const val COMMA_ALPHA = """\s*(?:,\s*($ALPHA))?\s*"""
+    private const val HUE = "(?:none|$FLOAT(?:deg|grad|rad|turn)?)"
 
-    val RGB_1 = Regex("""rgba?\(($PERCENT)\s+($PERCENT)\s+($PERCENT)$SLASH_ALPHA\)""")
-    val RGB_2 = Regex("""rgba?\(($PERCENT)\s*,\s*($PERCENT)\s*,\s*($PERCENT)$COMMA_ALPHA\)""")
-    val RGB_3 = Regex("""rgba?\(($NUMBER)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
-    val RGB_4 = Regex("""rgba?\(($NUMBER)\s*,\s*($NUMBER)\s*,\s*($NUMBER)$COMMA_ALPHA\)""")
+    val RGB_1 = Regex("""rgba?\(($NUMBER)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
+    val RGB_2 = Regex("""rgba?\(($NUMBER)\s*,\s*($NUMBER)\s*,\s*($NUMBER)$COMMA_ALPHA\)""")
 
-    val HSL_1 = Regex("""hsla?\(($HUE)\s+($PERCENT)\s+($PERCENT)$SLASH_ALPHA\)""")
-    val HSL_2 = Regex("""hsla?\(($HUE)\s*,\s*($PERCENT)\s*,\s*($PERCENT)$COMMA_ALPHA\)""")
+    val HSL_1 = Regex("""hsla?\(($HUE)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
+    val HSL_2 = Regex("""hsla?\(($HUE)\s*,\s*($NUMBER)\s*,\s*($NUMBER)$COMMA_ALPHA\)""")
 
-    val LAB = Regex("""lab\(($PERCENT)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
-    val LCH = Regex("""lch\(($PERCENT)\s+($NUMBER)\s+($HUE)$SLASH_ALPHA\)""")
-    val HWB = Regex("""hwb\(($HUE)\s+($PERCENT)\s+($PERCENT)$SLASH_ALPHA\)""")
+    val LAB = Regex("""lab\(($NUMBER)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
+    val LCH = Regex("""lch\(($NUMBER)\s+($NUMBER)\s+($HUE)$SLASH_ALPHA\)""")
+    val HWB = Regex("""hwb\(($HUE)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
 
-    val OKLAB = Regex("""oklab\(($NUMBER_OR_PERCENT)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
-    val OKLCH = Regex("""oklch\(($NUMBER_OR_PERCENT)\s+($NUMBER)\s+($HUE)$SLASH_ALPHA\)""")
+    val OKLAB = Regex("""oklab\(($NUMBER)\s+($NUMBER)\s+($NUMBER)$SLASH_ALPHA\)""")
+    val OKLCH = Regex("""oklch\(($NUMBER)\s+($NUMBER)\s+($HUE)$SLASH_ALPHA\)""")
 
-    val COLOR = Regex(
-        """color\(([\w\-]+)\s+($NUMBER_OR_PERCENT(?:\s+$NUMBER_OR_PERCENT)*)$SLASH_ALPHA\)"""
-    )
+    val COLOR = Regex("""color\(([\w\-]+)\s+($NUMBER(?:\s+$NUMBER)*)$SLASH_ALPHA\)""")
 }
 
 private fun color(
@@ -113,21 +106,22 @@ private fun color(
         else -> customColorSpaces.entries.firstOrNull { it.key == name }?.value
     } ?: return null
 
-    val values = match.groupValues[2].split(Regex("\\s+")).map { percentOrNumber(it).clampF() }
+    val values = match.groupValues[2].split(Regex("\\s+")).mapIndexed { i, str ->
+        percentOrNumber(str, space.components[i].max)
+    }
     val components = FloatArray(space.components.size) { values.getOrElse(it) { 0f } }
     components[components.lastIndex] = alpha(match.groupValues[3])
     return space.create(components)
 }
 
-
 private fun rgb(match: MatchResult): Color {
-    val r = percentOrNumber(match.groupValues[1])
-    val g = percentOrNumber(match.groupValues[2])
-    val b = percentOrNumber(match.groupValues[3])
+    val r = percentOrNumber(match.groupValues[1], RGB.components[0].max)
+    val g = percentOrNumber(match.groupValues[2], RGB.components[1].max)
+    val b = percentOrNumber(match.groupValues[3], RGB.components[2].max)
     val a = alpha(match.groupValues[4])
 
     return if (match.groupValues[1].endsWith("%")) {
-        RGB(r.clampF(), g.clampF(), b.clampF(), a)
+        RGB(r.clampF(), g.clampF(), b.clampF(), a) // TODO: remove clamping and coerceAtLeast
     } else {
         RGB(r.clampInt() / 255f, g.clampInt() / 255f, b.clampInt() / 255f, a)
     }
@@ -135,49 +129,49 @@ private fun rgb(match: MatchResult): Color {
 
 private fun hsl(match: MatchResult): Color {
     val h = hue(match.groupValues[1])
-    val s = percent(match.groupValues[2])
-    val l = percent(match.groupValues[3])
+    val s = percentOrNumber(match.groupValues[2], HSL.components[1].max)
+    val l = percentOrNumber(match.groupValues[3], HSL.components[2].max)
     val a = alpha(match.groupValues[4])
     return HSL(h, s.clampF(), l.clampF(), a.clampF())
 }
 
 private fun lab(match: MatchResult): Color {
-    val l = percent(match.groupValues[1])
-    val a = number(match.groupValues[2])
-    val b = number(match.groupValues[3])
+    val l = percentOrNumber(match.groupValues[1], LAB.components[0].max)
+    val a = percentOrNumber(match.groupValues[2], LAB.components[1].max)
+    val b = percentOrNumber(match.groupValues[3], LAB.components[2].max)
     val alpha = alpha(match.groupValues[4])
-    return LAB50(l.coerceAtLeast(0f) * 100f, a, b, alpha)
+    return LAB50(l.coerceAtLeast(0f), a, b, alpha)
 }
 
 private fun lch(match: MatchResult): Color {
-    val l = percent(match.groupValues[1])
-    val c = number(match.groupValues[2])
+    val l = percentOrNumber(match.groupValues[1], LCHab.components[0].max)
+    val c = percentOrNumber(match.groupValues[2], LCHab.components[1].max)
     val h = hue(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return LCHab50(l.coerceAtLeast(0f) * 100f, c.coerceAtLeast(0f), h, a)
+    return LCHab50(l.coerceAtLeast(0f), c.coerceAtLeast(0f), h, a)
 }
 
 private fun hwb(match: MatchResult): Color {
     val h = hue(match.groupValues[1])
-    val w = percent(match.groupValues[2])
-    val b = percent(match.groupValues[3])
+    val w = percentOrNumber(match.groupValues[2], HWB.components[1].max)
+    val b = percentOrNumber(match.groupValues[3], HWB.components[2].max)
     val a = alpha(match.groupValues[4])
     return HWB(h, w.clampF(), b.clampF(), a)
 }
 
 
 private fun oklab(match: MatchResult): Color {
-    val l = percentOrNumber(match.groupValues[1])
-    val a = number(match.groupValues[2])
-    val b = number(match.groupValues[3])
+    val l = percentOrNumber(match.groupValues[1], Oklab.components[0].max)
+    val a = percentOrNumber(match.groupValues[2], Oklab.components[1].max)
+    val b = percentOrNumber(match.groupValues[3], Oklab.components[2].max)
     val alpha = alpha(match.groupValues[4])
     return Oklab(l, a, b, alpha)
 
 }
 
 private fun oklch(match: MatchResult): Color {
-    val l = percentOrNumber(match.groupValues[1])
-    val c = number(match.groupValues[2])
+    val l = percentOrNumber(match.groupValues[1], Oklch.components[0].max)
+    val c = percentOrNumber(match.groupValues[2], Oklch.components[1].max)
     val h = hue(match.groupValues[3])
     val a = alpha(match.groupValues[4])
     return Oklch(l, c, h, a)
@@ -185,10 +179,15 @@ private fun oklch(match: MatchResult): Color {
 
 
 // CSS uses the "none" keyword for NaN https://www.w3.org/TR/css-color-4/#missing
-private fun number(str: String) = if(str == "none") Float.NaN else str.toFloat()
-private fun percent(str: String) = str.dropLast(1).toFloat() / 100f
-private fun percentOrNumber(str: String) = if (str.endsWith("%")) percent(str) else number(str)
-private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str)).clampF()
+private fun number(str: String) = if (str == "none") Float.NaN else str.toFloat()
+private fun percentOrNumber(str: String, max: Float): Float {
+    return when {
+        str.endsWith("%") -> str.dropLast(1).toFloat() * max / 100f
+        else -> number(str)
+    }
+}
+
+private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str, 1f)).clampF()
 
 /** return degrees in [0, 360] */
 private fun hue(str: String): Float {

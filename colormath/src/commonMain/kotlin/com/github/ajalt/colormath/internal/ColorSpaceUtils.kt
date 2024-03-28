@@ -71,8 +71,8 @@ internal fun polarComponentInfo(
             ColorComponentInfo(
                 name = it.toString(),
                 isPolar = it == 'H',
-                max = if (it == 'H') 0f else l,
-                min = if (it == 'H') 1f else r
+                min = if (it == 'H') 0f else l,
+                max = if (it == 'H') 1f else r
             )
         }
         add(alphaInfo)
