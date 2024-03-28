@@ -5,29 +5,35 @@ interface ColorSpace<T : Color> {
     val name: String
 
     /**
-     * Information about the components of this color.
+     * Information about the components (sometimes called channels) of this color.
      *
-     * The components are the same size and order as the values returned from [Color.toArray]
+     * The list of components is the same size and order as the values returned from [Color.toArray]
      */
     val components: List<ColorComponentInfo>
 
-    /** Convert a [color] this space */
+    /** Convert a [color] to this space */
     fun convert(color: Color): T
 
     /**
      * Create a new instance of a color in this space from an array of [components].
      *
      * The [components] array must have a size equal to either the size of this
-     * [space's components][ColorSpace.components], or one less, in which case alpha will default to
-     * 1.
+     * [space's components][ColorSpace.components], or one less,
+     * in which case alpha will default to 1.
      */
     fun create(components: FloatArray): T
 }
 
 class ColorComponentInfo(
-    /** The name of this component */
+    /**
+     * The name of this component
+     */
     val name: String,
-    /** `true` if this component uses polar coordinates (e.g. a hue), and `false` if it's rectangular. */
+
+    /**
+     * `true` if this component uses polar coordinates (e.g. a hue), and `false` if it's
+     * rectangular.
+     */
     val isPolar: Boolean,
 
     /**
@@ -48,7 +54,7 @@ class ColorComponentInfo(
 ) {
     @Deprecated(
         "Use the constructor with a max and min",
-        ReplaceWith("ColorComponentInfo(name, isPolar, 0f, 1f)")
+        ReplaceWith("ColorComponentInfo(name, isPolar, 0f, 1f)"),
     )
     constructor(name: String, isPolar: Boolean) : this(name, isPolar, 0f, 1f)
 

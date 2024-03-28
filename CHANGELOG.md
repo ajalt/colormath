@@ -6,6 +6,7 @@
 - Added support to `formatCssString` and `Color.parse` for color spaces added in recent updates to the CSS color spec: `oklab`, `oklch`, `srgb-linear`, `xyz-d50` and `xyz-d65`. 
 - Added `customColorSpaces` for `Color.parse` and `Color.formatCssString` to allow non-standard color spaces to be used in color strings.
 - Added `min` and `max` properties to `ColorComponentInfo` to get the reference range for the component.
+- Support percentage format for all values in `Color.parse` with reference range scaling added to the new drafts of CSS Color Module 4.
 
 ### Changed
 - `Color.parse` now parses `lch()` and `lab()` functions with the with D50 white points instead of D65 in order to comply with the CSS color spec.
