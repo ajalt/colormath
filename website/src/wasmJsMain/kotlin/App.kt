@@ -20,6 +20,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.IntOffset
@@ -75,10 +76,13 @@ fun App() {
 
 @Composable
 private fun ColumnScope.ControlPanel(vm: ColorPickerViewModel) {
+    val uriHandler = LocalUriHandler.current
     Image(
         painter = painterResource(Res.drawable.colormath_wordmark),
         contentDescription = null,
-        modifier = Modifier.clickable(onClick = ::navigateToColormathWebsite)
+        modifier = Modifier.clickable {
+            uriHandler.openUri("https://ajalt.github.io/colormath/")
+        }
     )
     Spacer(Modifier.height(24.dp))
     NavigationDrawerItem(
@@ -580,9 +584,4 @@ private fun gradTextColor(color: ColormathColor): Color {
 private fun contrastString(c1: ColormathColor, c2: ColormathColor): String {
     val s = c1.wcagContrastRatio(c2).toString()
     return s.take(s.indexOf('.') + 3)
-}
-
-// js() calls need to be in a separate function in wasm
-private fun navigateToColormathWebsite() {
-    js("window.location.href = 'https://github.com/ajalt/colormath'")
 }
