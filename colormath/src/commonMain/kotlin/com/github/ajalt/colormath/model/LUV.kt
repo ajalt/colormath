@@ -105,4 +105,5 @@ data class LUV internal constructor(
 
     override fun toLUV(): LUV = this
     override fun toArray(): FloatArray = floatArrayOf(l, u, v, alpha)
+    override fun clamp(): LUV = clamp3(l, u, v, alpha, ::copy)
 }

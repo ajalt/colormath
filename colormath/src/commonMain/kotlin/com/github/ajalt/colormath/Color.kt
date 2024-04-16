@@ -83,6 +83,24 @@ interface Color {
     /** Create a [FloatArray] containing all components of this color, with the [alpha] as the last component */
     fun toArray(): FloatArray
 
+    /**
+     * Return a copy of this color with all component values in their reference range.
+     *
+     * No gamut mapping is performed: out-of-gamut values are truncated.
+     */
+    fun clamp(): Color {
+        val values = toArray()
+        var clamped = false
+        for (i in values.indices) {
+            val info = space.components[i]
+            if (values[i] !in info.min..info.max) {
+                clamped = true
+                values[i] = values[i].coerceIn(info.min, info.max)
+            }
+        }
+        return if (clamped) space.create(values) else this
+    }
+
     companion object // enables extensions on the interface
 }
 

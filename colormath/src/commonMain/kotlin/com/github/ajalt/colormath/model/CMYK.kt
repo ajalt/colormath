@@ -55,4 +55,16 @@ data class CMYK(
 
     override fun toCMYK() = this
     override fun toArray(): FloatArray = floatArrayOf(c, m, y, k, alpha)
+    override fun clamp(): Color {
+        return when {
+            c in 0f..1f && m in 0f..1f && y in 0f..1f && k in 0f..1f && alpha in 0f..1f -> this
+            else -> copy(
+                c = c.coerceIn(0f, 1f),
+                m = m.coerceIn(0f, 1f),
+                y = y.coerceIn(0f, 1f),
+                k = k.coerceIn(0f, 1f),
+                alpha = alpha.coerceIn(0f, 1f)
+            )
+        }
+    }
 }

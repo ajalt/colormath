@@ -52,6 +52,7 @@ data class HSLuv(
     override fun toXYZ(): XYZ = toLCHuv().toXYZ()
     override fun toHSLuv(): HSLuv = this
     override fun toArray(): FloatArray = floatArrayOf(h, s, l, alpha)
+    override fun clamp(): HSLuv = clamp3(h, s, l, alpha, ::copy)
 }
 
 

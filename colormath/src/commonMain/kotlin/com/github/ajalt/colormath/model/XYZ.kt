@@ -219,6 +219,7 @@ data class XYZ internal constructor(
 
     override fun toXYZ(): XYZ = this
     override fun toArray(): FloatArray = floatArrayOf(x, y, z, alpha)
+    override fun clamp(): XYZ = clamp3(x, y, z, alpha, ::copy)
 }
 
 /** Create the transform matrix to adapt [srcWp] to this color space */

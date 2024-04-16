@@ -3,6 +3,7 @@ package com.github.ajalt.colormath.extensions.android.composecolor
 import androidx.compose.ui.graphics.colorspace.ColorSpaces
 import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
+import com.github.ajalt.colormath.model.Oklab
 import com.github.ajalt.colormath.model.RGB
 import com.github.ajalt.colormath.model.RGBColorSpaces.ACES
 import com.github.ajalt.colormath.model.RGBColorSpaces.ACEScg
@@ -16,6 +17,7 @@ import com.github.ajalt.colormath.model.RGBColorSpaces.ROMM_RGB
 import com.github.ajalt.colormath.model.RGBInt
 import com.github.ajalt.colormath.model.SRGB
 import com.github.ajalt.colormath.model.XYZColorSpaces.XYZ50
+import kotlin.jvm.JvmOverloads
 import androidx.compose.ui.graphics.Color as ComposeColor
 
 
@@ -65,6 +67,7 @@ fun Color.toComposeColor(): ComposeColor {
         space === DisplayP3 -> ColorSpaces.DisplayP3
         space === LinearSRGB -> ColorSpaces.LinearSrgb
         space === ROMM_RGB -> ColorSpaces.ProPhotoRgb
+        space == Oklab -> ColorSpaces.Oklab
         else -> null
     }
 

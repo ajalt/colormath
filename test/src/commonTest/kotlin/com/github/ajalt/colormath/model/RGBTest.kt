@@ -7,6 +7,7 @@ import com.github.ajalt.colormath.testColorConversions
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -19,7 +20,8 @@ class RGBTest {
 
     @Test
     fun clamp() {
-        RGB(.1, .2, .3).clamp() shouldBe RGB(.1, .2, .3)
+        val inGamut = RGB(.1, .2, .3)
+        inGamut.clamp() shouldBeSameInstanceAs inGamut
         ROMM_RGB(.5, -1.0, 1.1, 3.0).clamp() shouldBe ROMM_RGB(.5, 0.0, 1.0, 1.0)
     }
 

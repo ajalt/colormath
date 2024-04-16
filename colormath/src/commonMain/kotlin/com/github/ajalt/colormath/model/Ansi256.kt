@@ -66,4 +66,11 @@ data class Ansi256(val code: Int) : Color {
 
     override fun toAnsi256() = this
     override fun toArray(): FloatArray = floatArrayOf(code.toFloat(), alpha)
+    override fun clamp(): Color {
+        return when {
+            code < 0 -> Ansi256(0)
+            code > 255 -> Ansi256(255)
+            else -> this
+        }
+    }
 }
