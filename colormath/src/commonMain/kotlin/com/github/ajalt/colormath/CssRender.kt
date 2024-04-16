@@ -344,7 +344,6 @@ private fun Color.renderAlpha(
     }
 }
 
-// TODO: HSL, HWB have different ref ranges
 private fun Float.render(percent: Boolean = false, precision: Int = 4): String = when {
     isNaN() -> "none"
     percent -> "${(this * 100).roundToInt()}%"

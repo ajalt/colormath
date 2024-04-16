@@ -67,17 +67,17 @@ class CssParseTest {
     }
 
     @Test
-    @JsName("parseCssColor_clamp")
-    fun `parseCssColor clamp`() = doTest(
-        row("rgb(-1,2,3)", RGB.from255(0, 2, 3)),
-        row("rgb(256,2,3)", RGB.from255(255, 2, 3)),
-        row("rgb(1,256,3)", RGB.from255(1, 255, 3)),
-        row("rgb(1,2,256)", RGB.from255(1, 2, 255)),
-        row("rgb(1,-2,3)", RGB.from255(1, 0, 3)),
-        row("rgb(1,2,-3)", RGB.from255(1, 2, 0)),
+    @JsName("parseCssColor_out_of_gamut")
+    fun `parseCssColor out of gamut`() = doTest(
+        row("rgb(-1,2,3)", RGB.from255(-1, 2, 3)),
+        row("rgb(256,2,3)", RGB.from255(256, 2, 3)),
+        row("rgb(1,256,3)", RGB.from255(1, 256, 3)),
+        row("rgb(1,2,256)", RGB.from255(1, 2, 256)),
+        row("rgb(1,-2,3)", RGB.from255(1, -2, 3)),
+        row("rgb(1,2,-3)", RGB.from255(1, 2, -3)),
         row("rgb(1,2,3,-1)", RGB.from255(1, 2, 3, 0)),
-        row("hsl(1,-2%,3%)", HSL(1, 0, .03)),
-        row("hsl(1,2%,-3%)", HSL(1, .02, 0)),
+        row("hsl(1,-2%,3%)", HSL(1, -.02, .03)),
+        row("hsl(1,2%,-3%)", HSL(1, .02, -.03)),
         row("hsl(1,2%,3%,-4%)", HSL(1, .02, .03, 0f)),
     )
 
@@ -104,7 +104,7 @@ class CssParseTest {
     @JsName("parseCssColor_float_exponents")
     fun `parseCssColor float exponents`() {
         Color.parse("rgb(1e2, .5e1, .5e0, +.25e2%)")
-            .shouldBe(RGB(100 / 255f, 5 / 255f, 1 / 255f, .25))
+            .shouldBe(RGB(100 / 255f, 5 / 255f, 0.5 / 255f, .25))
     }
 
     @Test
@@ -121,7 +121,6 @@ class CssParseTest {
         row("rgba(51, 170, 51,  1)", 1f),
         row("rgba(51 170 51 / 0.4)", .4f),
         row("rgba(51 170 51 / 40%)", .4f),
-        row("rgba(51, 170, 50.6, 1)", 1f)
     ) { color, alpha ->
         Color.parse(color) shouldBe RGB(51 / 255f, 170 / 255f, 51 / 255f, alpha)
     }
@@ -134,10 +133,10 @@ class CssParseTest {
         row("#FEDCBA", RGB.from255(254, 220, 186)),
         row("rgb(100%, 0%, 0%)", RGB.from255(255, 0, 0)),
         row("rgba(2, 3, 4, 50%)", RGB.from255(2, 3, 4).copy(alpha = .5f)),
-        row("rgb(-2, 3, 4)", RGB.from255(0, 3, 4)),
-        row("rgb(100, 200, 300)", RGB.from255(100, 200, 255)),
+        row("rgb(-2, 3, 4)", RGB.from255(-2, 3, 4)),
+        row("rgb(100, 200, 300)", RGB.from255(100, 200, 300)),
         row("rgb(20, 10, 0, -10)", RGB.from255(20, 10, 0, 0)),
-        row("rgb(100%, 200%, 300%)", RGB.from255(255, 255, 255)),
+        row("rgb(100%, 200%, 300%)", RGB(1, 2, 3)),
     )
 
     @Test

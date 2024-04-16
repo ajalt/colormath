@@ -11,6 +11,7 @@
 
 ### Changed
 - `Color.parse` now parses `lch()` and `lab()` functions with the with D50 white points instead of D65 in order to comply with the latest draft of CSS Color Module 4.
+- `Color.parse` no longer clamps out-of-gamut values by default. Use the new `clamp` method on the returned color if desired.
 
 ### Fixed
 - `ColorSpace.equals` will now properly return true when comparing color companions with the space they represent e.g. `XYZ == XYZ65`
