@@ -23,8 +23,10 @@ fun LCHabColorSpace(whitePoint: WhitePoint): LCHabColorSpace = when (whitePoint)
 
 private data class LCHabColorSpaceImpl(override val whitePoint: WhitePoint) : LCHabColorSpace {
     override val name: String get() = "LCHab"
-    override val components: List<ColorComponentInfo> = threeComponentInfo(
-        "L", 0f, 100f, "C", 0f, 150f, "H", 0f, 360f
+    override val components: List<ColorComponentInfo> = componentInfoList(
+        ColorComponentInfo("L", false, 0f, 100f),
+        ColorComponentInfo("C", false, 0f, 150f),
+        ColorComponentInfo("H", true, 0f, 360f),
     )
 
     override fun convert(color: Color): LCHab = adaptToThis(color) { it.toLCHab() }

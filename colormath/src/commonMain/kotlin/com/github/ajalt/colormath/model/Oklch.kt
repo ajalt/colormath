@@ -5,9 +5,9 @@ import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.HueColor
 import com.github.ajalt.colormath.internal.clamp3
+import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.threeComponentInfo
 
 /**
  * Oklch color model, the cylindrical representation of [Oklab].
@@ -25,8 +25,10 @@ data class Oklch(
     /** Default constructors for the [Oklch] color model. */
     companion object : ColorSpace<Oklch> {
         override val name: String get() = "Oklch"
-        override val components: List<ColorComponentInfo> = threeComponentInfo(
-            "l", 0f, 1f, "c", 0f, 0.4f, "h", 0f, 360f
+        override val components: List<ColorComponentInfo> = componentInfoList(
+            ColorComponentInfo("l", false, 0f, 1f),
+            ColorComponentInfo("c", false, 0f, 0.4f),
+            ColorComponentInfo("h", true, 0f, 360f),
         )
 
         override fun convert(color: Color): Oklch = color.toOklch()
