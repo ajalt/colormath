@@ -142,8 +142,8 @@ representation.
 | Component | Description | Range         |
 |-----------|-------------|---------------|
 | L         | lightness   | `[0, 100]`    |
-| a*        | green-red   | `[-125, 125]` |
-| b*        | blue-yellow | `[-125, 125]` |
+| a*        | green-red   | `[-128, 128]` |
+| b*        | blue-yellow | `[-128, 128]` |
 
 - [LCHab][LCHab]
 

@@ -1,6 +1,7 @@
 package com.github.ajalt.colormath.model
 
 import com.github.ajalt.colormath.*
+import com.github.ajalt.colormath.internal.clamp3
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.normalizeDeg
 import com.github.ajalt.colormath.internal.polarComponentInfo
@@ -65,4 +66,5 @@ data class HSL(override val h: Float, val s: Float, val l: Float, override val a
 
     override fun toHSL() = this
     override fun toArray(): FloatArray = floatArrayOf(h, s, l, alpha)
+    override fun clamp(): HSL = clamp3(h, s, l, alpha, ::copy)
 }

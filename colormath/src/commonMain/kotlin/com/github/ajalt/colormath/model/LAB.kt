@@ -27,7 +27,7 @@ fun LABColorSpace(whitePoint: WhitePoint): LABColorSpace = when (whitePoint) {
 private data class LABColorSpaceImpl(override val whitePoint: WhitePoint) : LABColorSpace {
     override val name: String get() = "LAB"
     override val components: List<ColorComponentInfo> = threeComponentInfo(
-        "L", 0f, 100f, "A", -125f, 125f, "B", -125f, 125f
+        "L", 0f, 100f, "A", -128f, 128f, "B", -128f, 128f
     )
 
     override fun convert(color: Color): LAB = adaptToThis(color) { it.toLAB() }
@@ -60,8 +60,8 @@ object LABColorSpaces {
  * | Component | Description | Range         |
  * |-----------|-------------|---------------|
  * | L         | lightness   | `[0, 100]`    |
- * | a*        | green-red   | `[-125, 125]` |
- * | b*        | blue-yellow | `[-125, 125]` |
+ * | a*        | green-red   | `[-128, 128]` |
+ * | b*        | blue-yellow | `[-128, 128]` |
  */
 data class LAB internal constructor(
     val l: Float,
@@ -104,4 +104,5 @@ data class LAB internal constructor(
     override fun toLAB(): LAB = this
 
     override fun toArray(): FloatArray = floatArrayOf(l, a, b, alpha)
+    override fun clamp(): LAB = clamp3(l, a, b, alpha, ::copy)
 }

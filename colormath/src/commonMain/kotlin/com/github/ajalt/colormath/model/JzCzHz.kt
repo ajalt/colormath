@@ -4,6 +4,7 @@ import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.HueColor
+import com.github.ajalt.colormath.internal.clamp3
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
 import com.github.ajalt.colormath.internal.threeComponentInfo
@@ -53,4 +54,5 @@ data class JzCzHz(
     override fun toJzAzBz(): JzAzBz = fromPolarModel(c, h) { a, b -> return JzAzBz(j, a, b, alpha) }
     override fun toJzCzHz(): JzCzHz = this
     override fun toArray(): FloatArray = floatArrayOf(j, c, h, alpha)
+    override fun clamp(): JzCzHz = clamp3(j, c, h, alpha, ::copy)
 }

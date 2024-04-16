@@ -78,3 +78,26 @@ internal fun polarComponentInfo(
         add(alphaInfo)
     }
 }
+
+internal inline fun <T : Color> T.clamp3(
+    v1: Float,
+    v2: Float,
+    v3: Float,
+    alpha: Float,
+    copy: (v1: Float, v2: Float, v3: Float, alpha: Float) -> T,
+): T {
+    val (c1, c2, c3) = space.components
+    return when {
+        v1 >= c1.min && v1 <= c1.max
+                && v2 >= c2.min && v2 <= c2.max
+                && v3 >= c3.min && v3 <= c3.max
+                && alpha in 0f..1f -> this
+
+        else -> copy(
+            v1.coerceIn(c1.min, c1.max),
+            v2.coerceIn(c2.min, c2.max),
+            v3.coerceIn(c3.min, c3.max),
+            alpha.coerceIn(0f, 1f)
+        )
+    }
+}

@@ -3,10 +3,7 @@
 package com.github.ajalt.colormath.model
 
 import com.github.ajalt.colormath.*
-import com.github.ajalt.colormath.internal.adaptToThis
-import com.github.ajalt.colormath.internal.doCreate
-import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.threeComponentInfo
+import com.github.ajalt.colormath.internal.*
 
 /**
  * The color space describing colors in the [LCHab] model.
@@ -79,4 +76,5 @@ data class LCHab internal constructor(
 
     override fun toLCHab(): LCHab = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
+    override fun clamp(): LCHab = clamp3(l, c, h, alpha, ::copy)
 }

@@ -67,6 +67,7 @@ data class ICtCp(val i: Float, val ct: Float, val cp: Float, override val alpha:
     override fun toSRGB(): RGB = toXYZ().toSRGB()
     override fun toICtCp(): ICtCp = this
     override fun toArray(): FloatArray = floatArrayOf(i, ct, cp, alpha)
+    override fun clamp(): ICtCp = clamp3(i, ct, cp, alpha, ::copy)
 }
 
 internal fun convertBT2020ToICtCp(rgb: RGB): ICtCp {

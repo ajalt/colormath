@@ -4,6 +4,7 @@ import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.Illuminant
+import com.github.ajalt.colormath.internal.clamp3
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.threeComponentInfo
 import com.github.ajalt.colormath.internal.toPolarModel
@@ -72,4 +73,5 @@ data class Oklab(val l: Float, val a: Float, val b: Float, override val alpha: F
     override fun toOklch(): Oklch = toPolarModel(a, b) { c, h -> Oklch(l, c, h, alpha) }
     override fun toOklab(): Oklab = this
     override fun toArray(): FloatArray = floatArrayOf(l, a, b, alpha)
+    override fun clamp(): Oklab = clamp3(l, a, b, alpha, ::copy)
 }

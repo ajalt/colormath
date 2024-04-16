@@ -4,6 +4,7 @@ import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.calculate.differenceEz
+import com.github.ajalt.colormath.internal.clamp3
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.threeComponentInfo
 import com.github.ajalt.colormath.internal.toPolarModel
@@ -38,7 +39,7 @@ data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: 
         override fun convert(color: Color): JzAzBz = color.toJzAzBz()
         override fun create(components: FloatArray): JzAzBz = doCreate(components, ::JzAzBz)
 
-        internal const val d0 = 1.6295499532821566e-11
+        internal const val d0: Double = 1.6295499532821566e-11
     }
 
     constructor (j: Number, a: Number, b: Number, alpha: Number = 1f)
@@ -76,4 +77,5 @@ data class JzAzBz(val j: Float, val a: Float, val b: Float, override val alpha: 
     override fun toJzCzHz(): JzCzHz = toPolarModel(a, b) { c, h -> JzCzHz(j, c, h, alpha) }
     override fun toJzAzBz(): JzAzBz = this
     override fun toArray(): FloatArray = floatArrayOf(j, a, b, alpha)
+    override fun clamp(): JzAzBz = clamp3(j, a, b, alpha, ::copy)
 }

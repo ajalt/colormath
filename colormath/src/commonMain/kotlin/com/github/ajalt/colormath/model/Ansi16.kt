@@ -30,7 +30,7 @@ data class Ansi16(val code: Int) : Color {
     companion object : ColorSpace<Ansi16> {
         override val name: String get() = "Ansi16"
         override val components: List<ColorComponentInfo> = componentInfoList(
-            ColorComponentInfo("code", false, 0f, 107f),
+            ColorComponentInfo("code", false, 30f, 107f),
         )
 
         override fun convert(color: Color): Ansi16 = color.toAnsi16()
@@ -68,4 +68,14 @@ data class Ansi16(val code: Int) : Color {
 
     override fun toAnsi16() = this
     override fun toArray(): FloatArray = floatArrayOf(code.toFloat(), alpha)
+    override fun clamp(): Color {
+        return when {
+            code < 30 -> Ansi16(30)
+            code in 38..39 -> Ansi16(40)
+            code in 48..89 -> Ansi16(40)
+            code in 98..99 -> Ansi16(100)
+            code > 107 -> Ansi16(107)
+            else -> this
+        }
+    }
 }

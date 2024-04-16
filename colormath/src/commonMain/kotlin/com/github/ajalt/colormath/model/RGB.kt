@@ -221,18 +221,6 @@ data class RGB internal constructor(
         }
     }
 
-    /**
-     * Return a copy of this color with all component values in the range `[0, 1]`.
-     *
-     * No gamut mapping is performed: out-of-gamut values are truncated.
-     */
-    fun clamp(): RGB = copy(
-        r = r.coerceIn(0f, 1f),
-        g = g.coerceIn(0f, 1f),
-        b = b.coerceIn(0f, 1f),
-        alpha = alpha.coerceIn(0f, 1f)
-    )
-
     override fun toHSL(): HSL {
         return srgbHueMinMaxChroma { h, min, max, chroma ->
             val l = (min + max) / 2.0
@@ -340,6 +328,7 @@ data class RGB internal constructor(
 
     override fun toSRGB() = convertTo(RGBColorSpaces.SRGB)
     override fun toArray(): FloatArray = floatArrayOf(r, g, b, alpha)
+    override fun clamp(): RGB = clamp3(r, g, b, alpha, ::copy)
 
     /**
      * Call [block] with the hue, min of color channels, max of color channels, and the

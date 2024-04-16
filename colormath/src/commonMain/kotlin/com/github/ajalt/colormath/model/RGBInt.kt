@@ -117,5 +117,7 @@ value class RGBInt(val argb: UInt) : Color {
     override fun toArray(): FloatArray =
         floatArrayOf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
 
+    override fun clamp(): RGBInt = this
+
     private fun UByte.renderHex() = toString(16).padStart(2, '0')
 }

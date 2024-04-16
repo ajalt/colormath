@@ -285,7 +285,6 @@ private data class RGBColorSpaceImpl(
         result = 31 * result + b.hashCode()
         return result
     }
-
 }
 
 private object SRGBTransferFunctions : RGBColorSpace.TransferFunctions {

@@ -1,10 +1,7 @@
 package com.github.ajalt.colormath.model
 
 import com.github.ajalt.colormath.*
-import com.github.ajalt.colormath.internal.adaptToThis
-import com.github.ajalt.colormath.internal.doCreate
-import com.github.ajalt.colormath.internal.fromPolarModel
-import com.github.ajalt.colormath.internal.polarComponentInfo
+import com.github.ajalt.colormath.internal.*
 
 
 /**
@@ -91,4 +88,5 @@ data class LCHuv internal constructor(
 
     override fun toLCHuv(): LCHuv = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
+    override fun clamp(): LCHuv = clamp3(l, c, h, alpha, ::copy)
 }

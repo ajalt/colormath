@@ -197,7 +197,7 @@ private fun HuePicker(
                 for (x in 0 until maxPx.toInt()) {
                     val h = x / maxPx * 360f
                     drawRect(
-                        color = HSL(h, 0.8f, 0.5f).toSRGB().clamp().toComposeColor(),
+                        color = HSL(h, 0.8f, 0.5f).clamp().toComposeColor(),
                         topLeft = Offset(x.toFloat(), 0f),
                         size = Size(1f, size.height)
                     )
@@ -223,8 +223,7 @@ private fun HuePicker(
                 .background(Color.White, CircleShape)
                 .padding(3.dp)
                 .background(
-                    HSL(vm.pickerHueOffsetFraction * 360, 0.8, 0.5).toSRGB().clamp()
-                        .toComposeColor(),
+                    HSL(vm.pickerHueOffsetFraction * 360, 0.8, 0.5).clamp().toComposeColor(),
                     CircleShape
                 )
         )
@@ -279,7 +278,7 @@ private fun SatLightnessPicker(
                     .padding(1.dp)
                     .background(Color.White, CircleShape)
                     .padding(3.dp)
-                    .background(vm.selectedColor.toSRGB().clamp().toComposeColor(), CircleShape)
+                    .background(vm.selectedColor.clamp().toComposeColor(), CircleShape)
             )
         }
     }
@@ -480,7 +479,7 @@ fun GradientStepsEntry(
                     .padding(4.dp)
             }
             boxModifier = boxModifier
-                .background(color.toSRGB().clamp().toComposeColor())
+                .background(color.clamp().toComposeColor())
                 .clickable(onClick = {
                     vm.selectStep(index, stepIndex)
                 })
@@ -525,7 +524,7 @@ fun GradientEntry(
                 drawLine(
                     start = Offset(0f, y.toFloat() + 0.5f),
                     end = Offset(size.width, y.toFloat() + 0.5f),
-                    color = color.toSRGB().clamp().toComposeColor(),
+                    color = color.clamp().toComposeColor(),
                 )
             }
         }
