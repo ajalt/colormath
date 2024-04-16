@@ -74,7 +74,7 @@ data class HWB(override val h: Float, val w: Float, val b: Float, override val a
         val b = this.b / 100
         val s = 1 - w / (1 - b)
         val v = 1 - b
-        return HSV(h.roundToInt(), (s * 100).roundToInt(), (v * 100).roundToInt(), alpha)
+        return HSV(h, s * 100, v * 100, alpha)
     }
 
     override fun toHWB(): HWB = this

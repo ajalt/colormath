@@ -121,9 +121,9 @@ private fun rgb(match: MatchResult): Color {
     val a = alpha(match.groupValues[4])
 
     return if (match.groupValues[1].endsWith("%")) {
-        RGB(r.clampF(), g.clampF(), b.clampF(), a) // TODO: remove clamping and coerceAtLeast
+        RGB(r, g, b, a)
     } else {
-        RGB(r.clampInt() / 255f, g.clampInt() / 255f, b.clampInt() / 255f, a)
+        RGB(r / 255f, g / 255f, b / 255f, a)
     }
 }
 
@@ -132,7 +132,7 @@ private fun hsl(match: MatchResult): Color {
     val s = percentOrNumber(match.groupValues[2], HSL.components[1].max)
     val l = percentOrNumber(match.groupValues[3], HSL.components[2].max)
     val a = alpha(match.groupValues[4])
-    return HSL(h, s.clampF(), l.clampF(), a.clampF())
+    return HSL(h, s, l, a)
 }
 
 private fun lab(match: MatchResult): Color {
@@ -140,7 +140,7 @@ private fun lab(match: MatchResult): Color {
     val a = percentOrNumber(match.groupValues[2], LAB.components[1].max)
     val b = percentOrNumber(match.groupValues[3], LAB.components[2].max)
     val alpha = alpha(match.groupValues[4])
-    return LAB50(l.coerceAtLeast(0f), a, b, alpha)
+    return LAB50(l, a, b, alpha)
 }
 
 private fun lch(match: MatchResult): Color {
@@ -148,7 +148,7 @@ private fun lch(match: MatchResult): Color {
     val c = percentOrNumber(match.groupValues[2], LCHab.components[1].max)
     val h = hue(match.groupValues[3])
     val a = alpha(match.groupValues[4])
-    return LCHab50(l.coerceAtLeast(0f), c.coerceAtLeast(0f), h, a)
+    return LCHab50(l, c, h, a)
 }
 
 private fun hwb(match: MatchResult): Color {
@@ -156,7 +156,7 @@ private fun hwb(match: MatchResult): Color {
     val w = percentOrNumber(match.groupValues[2], HWB.components[1].max)
     val b = percentOrNumber(match.groupValues[3], HWB.components[2].max)
     val a = alpha(match.groupValues[4])
-    return HWB(h, w.clampF(), b.clampF(), a)
+    return HWB(h, w, b, a)
 }
 
 
@@ -187,7 +187,9 @@ private fun percentOrNumber(str: String, max: Float): Float {
     }
 }
 
-private fun alpha(str: String) = (if (str.isEmpty()) 1f else percentOrNumber(str, 1f)).clampF()
+private fun alpha(str: String): Float {
+    return (if (str.isEmpty()) 1f else percentOrNumber(str, 1f)).coerceIn(0f, 1f)
+}
 
 /** return degrees in [0, 360] */
 private fun hue(str: String): Float {
@@ -199,6 +201,3 @@ private fun hue(str: String): Float {
         else -> number(str)
     }.normalizeDeg()
 }
-
-private fun Float.clampInt(min: Int = 0, max: Int = 255) = roundToInt().coerceIn(min, max)
-private fun Float.clampF(min: Float = 0f, max: Float = 1f) = coerceIn(min, max)

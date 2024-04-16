@@ -11,6 +11,7 @@ public final class com/github/ajalt/colormath/AngleUnit : java/lang/Enum {
 
 public abstract interface class com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/Color$Companion;
+	public abstract fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public abstract fun getAlpha ()F
 	public abstract fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
 	public abstract fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
@@ -39,6 +40,7 @@ public final class com/github/ajalt/colormath/Color$Companion {
 }
 
 public final class com/github/ajalt/colormath/Color$DefaultImpls {
+	public static fun clamp (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
 	public static fun toAnsi16 (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Ansi16;
 	public static fun toAnsi256 (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Ansi256;
 	public static fun toCMYK (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/CMYK;
@@ -61,6 +63,9 @@ public final class com/github/ajalt/colormath/Color$DefaultImpls {
 
 public final class com/github/ajalt/colormath/ColorComponentInfo {
 	public fun <init> (Ljava/lang/String;Z)V
+	public fun <init> (Ljava/lang/String;ZFF)V
+	public final fun getMax ()F
+	public final fun getMin ()F
 	public final fun getName ()Ljava/lang/String;
 	public final fun isPolar ()Z
 }
@@ -104,6 +109,7 @@ public abstract interface class com/github/ajalt/colormath/HueColor : com/github
 }
 
 public final class com/github/ajalt/colormath/HueColor$DefaultImpls {
+	public static fun clamp (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/Color;
 	public static fun toAnsi16 (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/Ansi16;
 	public static fun toAnsi256 (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/Ansi256;
 	public static fun toCMYK (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/CMYK;
@@ -195,6 +201,7 @@ public final class com/github/ajalt/colormath/calculate/GamutKt {
 public final class com/github/ajalt/colormath/model/Ansi16 : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/Ansi16$Companion;
 	public fun <init> (I)V
+	public fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public final fun component1 ()I
 	public final fun copy (I)Lcom/github/ajalt/colormath/model/Ansi16;
 	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/Ansi16;IILjava/lang/Object;)Lcom/github/ajalt/colormath/model/Ansi16;
@@ -238,6 +245,7 @@ public final class com/github/ajalt/colormath/model/Ansi16$Companion : com/githu
 public final class com/github/ajalt/colormath/model/Ansi256 : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/Ansi256$Companion;
 	public fun <init> (I)V
+	public fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public final fun component1 ()I
 	public final fun copy (I)Lcom/github/ajalt/colormath/model/Ansi256;
 	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/Ansi256;IILjava/lang/Object;)Lcom/github/ajalt/colormath/model/Ansi256;
@@ -286,6 +294,7 @@ public final class com/github/ajalt/colormath/model/CMYK : com/github/ajalt/colo
 	public synthetic fun <init> (IIIIFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -339,6 +348,8 @@ public final class com/github/ajalt/colormath/model/HPLuv : com/github/ajalt/col
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -390,6 +401,8 @@ public final class com/github/ajalt/colormath/model/HSL : com/github/ajalt/color
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/HSL;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -441,6 +454,8 @@ public final class com/github/ajalt/colormath/model/HSLuv : com/github/ajalt/col
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/HSLuv;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -492,6 +507,8 @@ public final class com/github/ajalt/colormath/model/HSV : com/github/ajalt/color
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/HSV;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -543,6 +560,8 @@ public final class com/github/ajalt/colormath/model/HWB : com/github/ajalt/color
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/HWB;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -594,6 +613,8 @@ public final class com/github/ajalt/colormath/model/ICtCp : com/github/ajalt/col
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/ICtCp;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -646,6 +667,8 @@ public final class com/github/ajalt/colormath/model/JzAzBz : com/github/ajalt/co
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/JzAzBz;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -697,6 +720,8 @@ public final class com/github/ajalt/colormath/model/JzCzHz : com/github/ajalt/co
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/JzCzHz;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -744,6 +769,8 @@ public final class com/github/ajalt/colormath/model/JzCzHz$Companion : com/githu
 
 public final class com/github/ajalt/colormath/model/LAB : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/LAB$Companion;
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/LAB;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -819,6 +846,8 @@ public final class com/github/ajalt/colormath/model/LABKt {
 
 public final class com/github/ajalt/colormath/model/LCHab : com/github/ajalt/colormath/HueColor {
 	public static final field Companion Lcom/github/ajalt/colormath/model/LCHab$Companion;
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/LCHab;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -894,6 +923,8 @@ public final class com/github/ajalt/colormath/model/LCHabKt {
 
 public final class com/github/ajalt/colormath/model/LCHuv : com/github/ajalt/colormath/HueColor {
 	public static final field Companion Lcom/github/ajalt/colormath/model/LCHuv$Companion;
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/LCHuv;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -969,6 +1000,8 @@ public final class com/github/ajalt/colormath/model/LCHuvKt {
 
 public final class com/github/ajalt/colormath/model/LUV : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/LUV$Companion;
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/LUV;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -1048,6 +1081,8 @@ public final class com/github/ajalt/colormath/model/Oklab : com/github/ajalt/col
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/Oklab;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -1099,6 +1134,8 @@ public final class com/github/ajalt/colormath/model/Oklch : com/github/ajalt/col
 	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
 	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/Oklch;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -1146,7 +1183,8 @@ public final class com/github/ajalt/colormath/model/Oklch$Companion : com/github
 
 public final class com/github/ajalt/colormath/model/RGB : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/RGB$Companion;
-	public final fun clamp ()Lcom/github/ajalt/colormath/model/RGB;
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/RGB;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
@@ -1280,6 +1318,9 @@ public final class com/github/ajalt/colormath/model/RGBColorSpacesKt {
 public final class com/github/ajalt/colormath/model/RGBInt : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/RGBInt$Companion;
 	public static final synthetic fun box-impl (I)Lcom/github/ajalt/colormath/model/RGBInt;
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp-RGiG7fk ()I
+	public static fun clamp-RGiG7fk (I)I
 	public static final fun component1-w2LRezQ (I)B
 	public static final fun component2-w2LRezQ (I)B
 	public static final fun component3-w2LRezQ (I)B
@@ -1393,6 +1434,8 @@ public final class com/github/ajalt/colormath/model/XYZ : com/github/ajalt/color
 	public final fun adaptTo (Lcom/github/ajalt/colormath/model/XYZColorSpace;)Lcom/github/ajalt/colormath/model/XYZ;
 	public final fun adaptTo (Lcom/github/ajalt/colormath/model/XYZColorSpace;[F)Lcom/github/ajalt/colormath/model/XYZ;
 	public final fun adaptTo (Lcom/github/ajalt/colormath/model/XYZColorSpace;[F[F)Lcom/github/ajalt/colormath/model/XYZ;
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/XYZ;
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
