@@ -72,10 +72,10 @@ fun Color.toComposeColor(): ComposeColor {
     }
 
     return if (s == null) {
-        val (r, g, b, a) = toSRGB()
+        val (r, g, b, a) = toSRGB().clamp()
         ComposeColor(r, g, b, a)
     } else {
-        val (r, g, b, a) = toArray()
+        val (r, g, b, a) = clamp().toArray()
         ComposeColor(r, g, b, a, s)
     }
 }
