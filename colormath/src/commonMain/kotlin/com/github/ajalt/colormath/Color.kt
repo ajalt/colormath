@@ -95,7 +95,10 @@ interface Color {
             val info = space.components[i]
             if (values[i] !in info.min..info.max) {
                 clamped = true
-                values[i] = values[i].coerceIn(info.min, info.max)
+                values[i] = when {
+                    info.isPolar -> values[i] % 360
+                    else -> values[i].coerceIn(info.min, info.max)
+                }
             }
         }
         return if (clamped) space.create(values) else this

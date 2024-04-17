@@ -72,7 +72,7 @@ internal fun polarComponentInfo(
                 name = it.toString(),
                 isPolar = it == 'H',
                 min = if (it == 'H') 0f else l,
-                max = if (it == 'H') 1f else r
+                max = if (it == 'H') 360f else r
             )
         }
         add(alphaInfo)
@@ -88,15 +88,61 @@ internal inline fun <T : Color> T.clamp3(
 ): T {
     val (c1, c2, c3) = space.components
     return when {
-        v1 >= c1.min && v1 <= c1.max
-                && v2 >= c2.min && v2 <= c2.max
-                && v3 >= c3.min && v3 <= c3.max
+        v1 in c1.min..c1.max
+                && v2 in c2.min..c2.max
+                && v3 in c3.min..c3.max
                 && alpha in 0f..1f -> this
 
         else -> copy(
             v1.coerceIn(c1.min, c1.max),
             v2.coerceIn(c2.min, c2.max),
             v3.coerceIn(c3.min, c3.max),
+            alpha.coerceIn(0f, 1f)
+        )
+    }
+}
+
+internal inline fun <T : Color> T.clampLeadingHue(
+    v1: Float,
+    v2: Float,
+    v3: Float,
+    alpha: Float,
+    copy: (v1: Float, v2: Float, v3: Float, alpha: Float) -> T,
+): T {
+    val (c1, c2, c3) = space.components
+    return when {
+        v1 in c1.min..c1.max
+                && v2 in c2.min..c2.max
+                && v3 in c3.min..c3.max
+                && alpha in 0f..1f -> this
+
+        else -> copy(
+            v1 % 360,
+            v2.coerceIn(c2.min, c2.max),
+            v3.coerceIn(c3.min, c3.max),
+            alpha.coerceIn(0f, 1f)
+        )
+    }
+}
+
+internal inline fun <T : Color> T.clampTrailingHue(
+    v1: Float,
+    v2: Float,
+    v3: Float,
+    alpha: Float,
+    copy: (v1: Float, v2: Float, v3: Float, alpha: Float) -> T,
+): T {
+    val (c1, c2, c3) = space.components
+    return when {
+        v1 in c1.min..c1.max
+                && v2 in c2.min..c2.max
+                && v3 in c3.min..c3.max
+                && alpha in 0f..1f -> this
+
+        else -> copy(
+            v1.coerceIn(c1.min, c1.max),
+            v2.coerceIn(c2.min, c2.max),
+            v3 % 360,
             alpha.coerceIn(0f, 1f)
         )
     }

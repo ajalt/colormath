@@ -88,5 +88,5 @@ data class LCHuv internal constructor(
 
     override fun toLCHuv(): LCHuv = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
-    override fun clamp(): LCHuv = clamp3(l, c, h, alpha, ::copy)
+    override fun clamp(): LCHuv = clampTrailingHue(l, c, h, alpha, ::copy)
 }
