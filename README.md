@@ -41,10 +41,7 @@ println(lab50.formatCssString())
 
 The full documentation can be found on [the website](https://ajalt.github.io/colormath).
 
-There are also some online examples:
-
-- [Color space converter](https://ajalt.github.io/colormath/converter/)
-- [Gradient generator](https://ajalt.github.io/colormath/gradient/)
+You can also [try it online](https://ajalt.github.io/colormath/tryit/)
 
 ## Installation
 
@@ -52,16 +49,16 @@ Colormath is distributed through [Maven Central](https://search.maven.org/artifa
 
 ```groovy
 dependencies {
-    implementation("com.github.ajalt.colormath:colormath:3.4.0")
+    implementation("com.github.ajalt.colormath:colormath:3.5.0")
     
     // optional extensions for interop with other platforms
     //
     // android.graphics.Color
-    implementation("com.github.ajalt.colormath:colormath-ext-android-color:3.4.0")
+    implementation("com.github.ajalt.colormath:colormath-ext-android-color:3.5.0")
     // androidx.annotation.ColorInt
-    implementation("com.github.ajalt.colormath:colormath-ext-android-colorint:3.4.0")
+    implementation("com.github.ajalt.colormath:colormath-ext-android-colorint:3.5.0")
     // androidx.compose.ui.graphics.Color
-    implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:3.4.0")
+    implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:3.5.0")
 }
 ```
 
@@ -71,9 +68,7 @@ dependencies {
 
 Colormath publishes artifacts for all 
 [Tier 1 and Tier 2](https://kotlinlang.org/docs/native-target-support.html)
-targets, as well as `mingwX64` and `wasm`. 
-
-`wasm` and the `arm64` targets are not tested on CI.
+targets, as well as `mingwX64` and `wasmJs`. 
 
 #### Snapshots
 
