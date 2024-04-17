@@ -4,10 +4,9 @@ import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.HueColor
-import com.github.ajalt.colormath.internal.clamp3
+import com.github.ajalt.colormath.internal.clampLeadingHue
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.polarComponentInfo
-import kotlin.math.roundToInt
 
 /**
  * A color model represented with Hue, Whiteness, and Blackness.
@@ -79,5 +78,5 @@ data class HWB(override val h: Float, val w: Float, val b: Float, override val a
 
     override fun toHWB(): HWB = this
     override fun toArray(): FloatArray = floatArrayOf(h, w, b, alpha)
-    override fun clamp(): HWB = clamp3(h, w, b, alpha, ::copy)
+    override fun clamp(): HWB = clampLeadingHue(h, w, b, alpha, ::copy)
 }

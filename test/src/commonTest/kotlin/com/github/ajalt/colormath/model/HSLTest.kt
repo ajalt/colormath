@@ -1,7 +1,11 @@
 package com.github.ajalt.colormath.model
 
 import com.github.ajalt.colormath.roundtripTest
+import com.github.ajalt.colormath.shouldEqualColor
 import com.github.ajalt.colormath.testColorConversions
+import io.kotest.data.blocking.forAll
+import io.kotest.data.row
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.js.JsName
 import kotlin.test.Test
 
@@ -26,4 +30,18 @@ class HSLTest {
         HSL(144.00, 0.50, 0.60) to HSV(144.0, 0.5, 0.8),
         HSL(0.00, 0.00, 1.00) to HSV(0.0, 0.0, 1.0),
     )
+
+    @Test
+    fun clamp() {
+        forAll(
+            row(HSL(0.0, 0.0, 0.0), HSL(0.0, 0.0, 0.0)),
+            row(HSL(359, 1.0, 1.0), HSL(359, 1.0, 1.0)),
+            row(HSL(361, 1.0, 1.0), HSL(1, 1.0, 1.0)),
+            row(HSL(180, 2, 2), HSL(180, 1.0, 1.0)),
+        ) { hsl, ex ->
+            hsl.clamp().shouldEqualColor(ex)
+        }
+        val hsl = HSL(359, .9, .9, .9)
+        hsl.clamp().shouldBeSameInstanceAs(hsl)
+    }
 }

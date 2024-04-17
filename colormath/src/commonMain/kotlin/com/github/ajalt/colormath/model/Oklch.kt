@@ -4,7 +4,7 @@ import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.HueColor
-import com.github.ajalt.colormath.internal.clamp3
+import com.github.ajalt.colormath.internal.*
 import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel
@@ -45,5 +45,5 @@ data class Oklch(
     override fun toOklab(): Oklab = fromPolarModel(c, h) { a, b -> Oklab(l, a, b, alpha) }
     override fun toOklch(): Oklch = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
-    override fun clamp(): Oklch = clamp3(l, c, h, alpha, ::copy)
+    override fun clamp(): Oklch = clampTrailingHue(l, c, h, alpha, ::copy)
 }

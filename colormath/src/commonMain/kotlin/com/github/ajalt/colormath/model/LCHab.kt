@@ -78,5 +78,5 @@ data class LCHab internal constructor(
 
     override fun toLCHab(): LCHab = this
     override fun toArray(): FloatArray = floatArrayOf(l, c, h, alpha)
-    override fun clamp(): LCHab = clamp3(l, c, h, alpha, ::copy)
+    override fun clamp(): LCHab = clampTrailingHue(l, c, h, alpha, ::copy)
 }

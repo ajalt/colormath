@@ -4,7 +4,7 @@ import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.HueColor
-import com.github.ajalt.colormath.internal.clamp3
+import com.github.ajalt.colormath.internal.clampLeadingHue
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.polarComponentInfo
 
@@ -52,5 +52,5 @@ data class HPLuv(
     override fun toXYZ(): XYZ = toLCHuv().toXYZ()
     override fun toHPLuv(): HPLuv = this
     override fun toArray(): FloatArray = floatArrayOf(h, p, l, alpha)
-    override fun clamp(): HPLuv = clamp3(h, p, l, alpha, ::copy)
+    override fun clamp(): HPLuv = clampLeadingHue(h, p, l, alpha, ::copy)
 }

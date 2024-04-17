@@ -4,7 +4,7 @@ import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.HueColor
-import com.github.ajalt.colormath.internal.clamp3
+import com.github.ajalt.colormath.internal.clampLeadingHue
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.normalizeDeg
 import com.github.ajalt.colormath.internal.polarComponentInfo
@@ -59,5 +59,5 @@ data class HSV(override val h: Float, val s: Float, val v: Float, override val a
 
     override fun toHSV() = this
     override fun toArray(): FloatArray = floatArrayOf(h, s, v, alpha)
-    override fun clamp(): HSV = clamp3(h, s, v, alpha, ::copy)
+    override fun clamp(): HSV = clampLeadingHue(h, s, v, alpha, ::copy)
 }
