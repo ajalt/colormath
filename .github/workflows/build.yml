@@ -20,7 +20,7 @@ jobs:
         os: [macos-latest, windows-latest, ubuntu-latest]
         include:
           - os: ubuntu-latest
-            GRADLE_ARGS: |
+            GRADLE_ARGS: >-
               apiCheck
               :test:check
               :colormath:compileKotlinLinuxArm64
@@ -30,7 +30,7 @@ jobs:
               :extensions:colormath-ext-android-color:check
               --stacktrace
           - os: macos-latest
-            GRADLE_ARGS: |
+            GRADLE_ARGS: >-
               macosX64Test
               :colormath:compileKotlinMacosArm64
               iosX64Test
