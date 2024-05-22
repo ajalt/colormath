@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.tasks.JavadocJar
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 
 plugins {
     id("com.android.library")
@@ -38,7 +39,6 @@ kotlin {
     }
 }
 
-@Suppress("UnstableApiUsage")
 android {
     namespace = "com.github.ajalt.colormath.extensions.android.composecolor"
     compileSdk = 33

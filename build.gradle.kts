@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.dokka).apply(false)
     alias(libs.plugins.publish).apply(false)
     alias(libs.plugins.jetbrainsCompose).apply(false)
+    alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlinBinaryCompatibilityValidator)
 }
 
@@ -41,9 +42,6 @@ subprojects {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_1_8)
         }
-    }
-    tasks.withType<JavaCompile>().configureEach {
-        options.release.set(8)
     }
 
     plugins.withType<com.android.build.gradle.BasePlugin>().configureEach {

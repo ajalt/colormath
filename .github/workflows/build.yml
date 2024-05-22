@@ -44,11 +44,6 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v4
-      - uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: 17
-          distribution: 'graalvm-community'
-          set-java-home: false
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
