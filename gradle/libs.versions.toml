@@ -1,7 +1,7 @@
 [versions]
-kotlin = "1.9.21"
-compose = "1.6.0"
-compose-plugin = "1.6.0"
+kotlin = "2.0.0"
+compose = "1.6.10"
+compose-plugin = "1.6.10"
 
 [libraries]
 
@@ -10,9 +10,9 @@ androidx-annotation =  "androidx.annotation:annotation:1.7.0"
 compose-ui-graphics = { module = "org.jetbrains.compose.ui:ui-graphics", version.ref = "compose" }
 
 # used in tests
-kotest =  "io.kotest:kotest-assertions-core:5.8.0"
+kotest =  "io.kotest:kotest-assertions-core:5.9.0"
 junit =  "junit:junit:4.13.2"
-robolectric =  "org.robolectric:robolectric:4.10"
+robolectric =  "org.robolectric:robolectric:4.12.2"
 
 # used in samples
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
@@ -21,11 +21,12 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 
 [plugins]
 dokka = "org.jetbrains.dokka:1.9.20"
-publish = "com.vanniktech.maven.publish:0.27.0"
+publish = "com.vanniktech.maven.publish:0.28.0"
 kotlinBinaryCompatibilityValidator = "org.jetbrains.kotlinx.binary-compatibility-validator:0.14.0"
 
 # used in extensions
-android-library = "com.android.library:7.4.0"
+android-library = "com.android.library:8.4.0"
 
 # used in samples
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

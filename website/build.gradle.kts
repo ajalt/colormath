@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 plugins {
     kotlin("multiplatform")
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -36,8 +37,4 @@ kotlin {
             implementation(project(":extensions:colormath-ext-jetpack-compose"))
         }
     }
-}
-
-compose.experimental {
-    web.application {}
 }

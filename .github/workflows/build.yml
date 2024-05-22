@@ -17,10 +17,10 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [macos-14, windows-latest, ubuntu-latest]
+        os: [macos-latest, windows-latest, ubuntu-latest]
         include:
           - os: ubuntu-latest
-            GRADLE_ARGS: |
+            GRADLE_ARGS: >-
               apiCheck
               :test:check
               :colormath:compileKotlinLinuxArm64
@@ -29,8 +29,8 @@ jobs:
               :extensions:colormath-ext-android-colorint:check
               :extensions:colormath-ext-android-color:check
               --stacktrace
-          - os: macos-14
-            GRADLE_ARGS: |
+          - os: macos-latest
+            GRADLE_ARGS: >-
               macosX64Test
               :colormath:compileKotlinMacosArm64
               iosX64Test
@@ -44,30 +44,21 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v4
-      - uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: 17
-          distribution: 'graalvm-community'
-          set-java-home: false
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: 21
       - uses: gradle/actions/setup-gradle@v3
-        with:
-          arguments: ${{matrix.GRADLE_ARGS}}
-      - name: Bundle the build report
-        if: failure()
-        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
+      - run: ./gradlew ${{matrix.GRADLE_ARGS}}
       - name: Upload the build report
         if: failure()
         uses: actions/upload-artifact@master
         with:
-          name: error-report
-          path: build-reports.zip
+          name: build-report-${{ matrix.os }}
+          path: '**/build/reports'
   publish:
     needs: test
-    runs-on: macos-14
+    runs-on: macos-latest
     if: ${{ github.ref == 'refs/heads/master' && github.repository == 'ajalt/colormath' }}
     steps:
       - uses: actions/checkout@v4
@@ -75,11 +66,10 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 21
+      - uses: gradle/actions/setup-gradle@v3
       - name: Deploy to sonatype
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          # disable configuration cache due to https://github.com/gradle/gradle/issues/22779
-          arguments: publishToMavenCentral -PsnapshotVersion=true --no-configuration-cache
+        # disable configuration cache due to https://github.com/gradle/gradle/issues/22779
+        run: ./gradlew publishToMavenCentral -PsnapshotVersion=true --no-configuration-cache
     env:
       ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralPassword }}
       ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_signingInMemoryKey }}
