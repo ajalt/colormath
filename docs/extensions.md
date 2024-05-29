@@ -50,7 +50,7 @@ val lab = AndroidColor.valueOf(0f, 1f, 0f, 1f, ColorSpace.get(ColorSpace.Named.C
 
 ```kotlin
 dependencies {
-    implementation("com.github.ajalt.colormath.extensions:colormath-ext-jetpack-compose:$colormathVersion")
+    implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose::$colormathVersion")
 }
 ```
 
