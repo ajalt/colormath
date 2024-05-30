@@ -7,7 +7,7 @@ Each set of extensions is published as a separate maven package.
 
 ```kotlin
 dependencies {
-    implementation("com.github.ajalt.colormath.extensions:colormath-ext-android-colorint:$colormathVersion")
+    implementation("com.github.ajalt.colormath:colormath-ext-android-colorint:$colormathVersion")
 }
 ```
 
@@ -27,7 +27,7 @@ textView.highlightColor = textColor.toColorInt()
 
 ```kotlin
 dependencies {
-    implementation("com.github.ajalt.colormath.extensions:colormath-ext-android-color:$colormathVersion")
+    implementation("com.github.ajalt.colormath:colormath-ext-android-color:$colormathVersion")
 }
 ```
 
@@ -50,7 +50,7 @@ val lab = AndroidColor.valueOf(0f, 1f, 0f, 1f, ColorSpace.get(ColorSpace.Named.C
 
 ```kotlin
 dependencies {
-    implementation("com.github.ajalt.colormath.extensions:colormath-ext-jetpack-compose:$colormathVersion")
+    implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:$colormathVersion")
 }
 ```
 
