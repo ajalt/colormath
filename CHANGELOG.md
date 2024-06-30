@@ -1,6 +1,11 @@
 # Changelog
 
 ## Unreleased
+
+## 3.6.0
+### Added
+- Publish artifacts for the `watchosArm32` target (thanks @ReneeVandervelde)
+
 ### Changed
 - Update Kotlin to 2.0.0
 
