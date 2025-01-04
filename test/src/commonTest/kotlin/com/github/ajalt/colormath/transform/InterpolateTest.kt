@@ -23,8 +23,7 @@ class InterpolateTest {
         c1.space.interpolator(c1, c2).interpolate(a).shouldEqualColor(ex)
     }
 
-    @Test
-    @JsName("interpolator_with_midpoint")
+    @[Test JsName("interpolator_with_midpoint")]
     fun `interpolator with midpoint`() = forAll(
         row(0.00, RGB("#000")),
         row(0.25, RGB("#400")),
@@ -43,8 +42,7 @@ class InterpolateTest {
         }.interpolate(pos).shouldEqualColor(ex)
     }
 
-    @Test
-    @JsName("NaN_hues")
+    @[Test JsName("NaN_hues")]
     fun `NaN hues`() = forAll(
         row(0.00, HSL(Double.NaN, 0.2, 0.2)),
         row(0.40, HSL(80.0, 0.4, 0.4)),
@@ -61,8 +59,7 @@ class InterpolateTest {
         }.interpolate(pos).shouldEqualColor(ex)
     }
 
-    @Test
-    @JsName("explicit_positions")
+    @[Test JsName("explicit_positions")]
     fun `explicit positions`() = forAll(
         row(0.00, RGB("#111")),
         row(0.15, RGB("#222")),
@@ -82,23 +79,24 @@ class InterpolateTest {
 
     @Test
     fun sequence() {
-        RGB.interpolator(RGB("#000"), RGB("#888")).sequence(9).toList().zip(listOf(
-            RGB("#000"),
-            RGB("#111"),
-            RGB("#222"),
-            RGB("#333"),
-            RGB("#444"),
-            RGB("#555"),
-            RGB("#666"),
-            RGB("#777"),
-            RGB("#888"),
-        )).forAll { (a, ex) ->
+        RGB.interpolator(RGB("#000"), RGB("#888")).sequence(9).toList().zip(
+            listOf(
+                RGB("#000"),
+                RGB("#111"),
+                RGB("#222"),
+                RGB("#333"),
+                RGB("#444"),
+                RGB("#555"),
+                RGB("#666"),
+                RGB("#777"),
+                RGB("#888"),
+            )
+        ).forAll { (a, ex) ->
             a.shouldEqualColor(ex)
         }
     }
 
-    @Test
-    @JsName("empty_sequence")
+    @[Test JsName("empty_sequence")]
     fun `empty sequence`() {
         val lerp = RGB.interpolator(RGB("#000"), RGB("#888"))
         lerp.sequence(1).toList() shouldBe listOf(RGB("#000"))
@@ -106,8 +104,7 @@ class InterpolateTest {
         lerp.sequence(-1).toList().shouldBeEmpty()
     }
 
-    @Test
-    @JsName("monotone_spline_equal_spacing")
+    @[Test JsName("monotone_spline_equal_spacing")]
     fun `monotone spline equal spacing`() = forAll(
         row(0.00, RGB(0, 0, 0)),
         row(0.05, RGB(0.17013, 0.17013, 0.17013)),
@@ -132,8 +129,7 @@ class InterpolateTest {
         }.interpolate(pos).shouldEqualColor(ex)
     }
 
-    @Test
-    @JsName("monotone_spline_unequal_spacing")
+    @[Test JsName("monotone_spline_unequal_spacing")]
     fun `monotone spline unequal spacing`() = forAll(
         row(0.00, RGB(0.26666662, 0.26666662, 0.26666662)),
         row(0.10, RGB(0.0, 0.0, 0.0)),
@@ -154,8 +150,7 @@ class InterpolateTest {
         }.interpolate(pos).shouldEqualColor(ex)
     }
 
-    @Test
-    @JsName("monotone_spline_parabolic_endpoints")
+    @[Test JsName("monotone_spline_parabolic_endpoints")]
     fun `monotone spline parabolic endpoints`() = forAll(
         row(0.00, RGB(0, 0, 0)),
         row(0.05, RGB(0.24693, 0.24693, 0.24693)),
@@ -180,8 +175,7 @@ class InterpolateTest {
         }.interpolate(pos).shouldEqualColor(ex)
     }
 
-    @Test
-    @JsName("alpha_fixup")
+    @[Test JsName("alpha_fixup")]
     fun `alpha fixup`() {
         RGB.interpolator {
             premultiplyAlpha = false
@@ -190,8 +184,7 @@ class InterpolateTest {
         }.interpolate(.5).shouldEqualColor(RGB("#1118"))
     }
 
-    @Test
-    @JsName("monotone_spline_with_NaN_hues")
+    @[Test JsName("monotone_spline_with_NaN_hues")]
     fun `monotone spline with NaN hues`() = forAll(
         row(0.00, HSL(Double.NaN, 0.2, 0.2)),
         row(0.40, HSL(80.0, 0.4, 0.4)),

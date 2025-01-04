@@ -21,8 +21,7 @@ class LABTest {
     @Test
     fun companion() = companionTest(LAB, LAB65)
 
-    @Test
-    @JsName("LAB_to_XYZ")
+    @[Test JsName("LAB_to_XYZ")]
     fun `LAB to XYZ`() = testColorConversions(
         LAB(0.00, 0.00, 0.00) to XYZ(0.0, 0.0, 0.0),
         LAB(18.00, 18.00, 18.00) to XYZ(0.0338789, 0.02518041, 0.0091147),
@@ -30,8 +29,7 @@ class LABTest {
         LAB(100.00, 100.00, 100.00) to XYZ(1.64238784, 1.0, 0.13613222),
     )
 
-    @Test
-    @JsName("LAB_to_LCHab")
+    @[Test JsName("LAB_to_LCHab")]
     fun `LAB to LCHab`() = testColorConversions(
         LAB(0.00, 0.00, 0.00) to LCHab(0.0, 0.0, Double.NaN),
         LAB(18.00, 18.00, 18.00) to LCHab(18.0, 25.45584412, 45.0),

@@ -40,8 +40,7 @@ class RGBTest {
         ROMM_RGB.grey(.5) shouldBe ROMM_RGB(.5, .5, .5)
     }
 
-    @Test
-    @JsName("RGB_to_HSV")
+    @[Test JsName("RGB_to_HSV")]
     fun `RGB to HSV`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to HSV(Double.NaN, 0.0, 0.0),
         RGB(0.18, 0.18, 0.18) to HSV(Double.NaN, 0.0, 0.18),
@@ -49,8 +48,7 @@ class RGBTest {
         RGB(1.00, 1.00, 1.00) to HSV(Double.NaN, 0.0, 1.0),
     )
 
-    @Test
-    @JsName("RGB_to_HSL")
+    @[Test JsName("RGB_to_HSL")]
     fun `RGB to HSL`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to HSL(Double.NaN, 0.0, 0.0),
         RGB(0.18, 0.18, 0.18) to HSL(Double.NaN, 0.0, 0.18),
@@ -58,8 +56,7 @@ class RGBTest {
         RGB(1.00, 1.00, 1.00) to HSL(Double.NaN, 0.0, 1.0),
     )
 
-    @Test
-    @JsName("RGB_to_Hex")
+    @[Test JsName("RGB_to_Hex")]
     fun `RGB to Hex`() = forAll(
         row(RGB.from255(0, 0, 0).toHex(false), "000000"),
         row(RGB.from255(140, 200, 100).toHex(), "#8cc864"),
@@ -69,8 +66,7 @@ class RGBTest {
         actual shouldBe expected
     }
 
-    @Test
-    @JsName("Hex_to_RGB")
+    @[Test JsName("Hex_to_RGB")]
     fun `Hex to RGB`() = forAll(
         row("000000", RGB.from255(0, 0, 0)),
         row("000000", RGB.from255(0, 0, 0, 255)),
@@ -86,8 +82,7 @@ class RGBTest {
         RGB(hex) shouldBe rgb
     }
 
-    @Test
-    @JsName("RGB_to_XYZ")
+    @[Test JsName("RGB_to_XYZ")]
     fun `RGB to XYZ`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to XYZ(0.0, 0.0, 0.0),
         RGB(0.18, 0.18, 0.18) to XYZ(0.0258636, 0.02721178, 0.0296352),
@@ -95,8 +90,7 @@ class RGBTest {
         RGB(1.00, 1.00, 1.00) to XYZ(0.95045593, 1.0, 1.08905775),
     )
 
-    @Test
-    @JsName("RGB_to_LAB")
+    @[Test JsName("RGB_to_LAB")]
     fun `RGB to LAB`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to LAB(0.0, 0.0, 0.0),
         RGB(0.18, 0.18, 0.18) to LAB(18.89075051, 0.0, 0.0),
@@ -104,8 +98,7 @@ class RGBTest {
         RGB(1.00, 1.00, 1.00) to LAB(100.0, 0.0, 0.0),
     )
 
-    @Test
-    @JsName("RGB_to_LUV")
+    @[Test JsName("RGB_to_LUV")]
     fun `RGB to LUV`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to LUV(0.0, 0.0, 0.0),
         RGB(0.18, 0.18, 0.18) to LUV(18.89075051, 0.0, 0.0),
@@ -113,8 +106,7 @@ class RGBTest {
         RGB(1.00, 1.00, 1.00) to LUV(100.0, 0.0, 0.0),
     )
 
-    @Test
-    @JsName("RGB_to_CMYK")
+    @[Test JsName("RGB_to_CMYK")]
     fun `RGB to CMYK`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to CMYK(0.0, 0.0, 0.0, 1.0),
         RGB(0.18, 0.18, 0.18) to CMYK(0.0, 0.0, 0.0, 0.82),
@@ -122,8 +114,7 @@ class RGBTest {
         RGB(1.00, 1.00, 1.00) to CMYK(0.0, 0.0, 0.0, 0.0),
     )
 
-    @Test
-    @JsName("RGB_to_HWB")
+    @[Test JsName("RGB_to_HWB")]
     // https://www.w3.org/TR/css-color-4/#hwb-examples
     fun `RGB to HWB`() = testColorConversions(
         RGB("#996666") to HWB(0.0, .4, .4),
@@ -147,8 +138,7 @@ class RGBTest {
         tolerance = 0.6
     )
 
-    @Test
-    @JsName("RGB_to_HWB_gray")
+    @[Test JsName("RGB_to_HWB_gray")]
     fun `RGB to HWB gray`() = testColorConversions(
         RGB("#000000") to HWB(0f, 0f, 1f),
         RGB("#666666") to HWB(0f, .4f, .6f),
@@ -157,8 +147,7 @@ class RGBTest {
         ignorePolar = true
     )
 
-    @Test
-    @JsName("RGB_to_Oklab")
+    @[Test JsName("RGB_to_Oklab")]
     fun `RGB to Oklab`() = testColorConversions(
         RGB(0.00, 0.00, 0.00) to Oklab(0.0, 0.0, 0.0),
         RGB(0.18, 0.18, 0.18) to Oklab(0.30078197, -0.00000654, -0.00003704),
@@ -167,8 +156,7 @@ class RGBTest {
         tolerance = 5e-4
     )
 
-    @Test
-    @JsName("RGB_to_Ansi16")
+    @[Test JsName("RGB_to_Ansi16")]
     fun `RGB to Ansi16`() = testColorConversions(
         RGBInt(0, 0, 0) to Ansi16(30),
         RGBInt(128, 0, 0) to Ansi16(31),
@@ -187,8 +175,7 @@ class RGBTest {
         RGBInt(255, 255, 255) to Ansi16(97),
     )
 
-    @Test
-    @JsName("RGB_to_Ansi256")
+    @[Test JsName("RGB_to_Ansi256")]
     fun `RGB to Ansi256`() = testColorConversions(
         RGBInt(0, 0, 0) to Ansi256(16),
         RGBInt(51, 102, 0) to Ansi256(64),

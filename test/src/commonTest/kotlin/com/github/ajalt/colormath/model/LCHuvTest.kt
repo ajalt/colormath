@@ -22,8 +22,7 @@ class LCHuvTest {
     @Test
     fun companion() = companionTest(LCHuv, LCHuv65)
 
-    @Test
-    @JsName("LCHuv_to_LUV")
+    @[Test JsName("LCHuv_to_LUV")]
     fun `LCHuv to LUV`() = testColorConversions(
         LCHuv(0.00, 0.00, Double.NaN) to LUV(0.0, 0.0, 0.0),
         LCHuv(0.18, 0.18, 64.80) to LUV(0.18, 0.07664027, 0.16286887),

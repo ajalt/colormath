@@ -5,8 +5,7 @@ import kotlin.js.JsName
 import kotlin.test.Test
 
 class CMYKTest {
-    @Test
-    @JsName("CMYK_to_RGB")
+    @[Test JsName("CMYK_to_RGB")]
     fun `CMYK to RGB`() = testColorConversions(
         CMYK(0.00, 0.00, 0.00, 0.00) to RGB(1.0, 1.0, 1.0),
         CMYK(0.18, 0.18, 0.18, 0.18) to RGB(0.6724, 0.6724, 0.6724),

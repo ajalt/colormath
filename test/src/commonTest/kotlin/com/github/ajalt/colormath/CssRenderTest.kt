@@ -98,8 +98,7 @@ class CssRenderTest {
         if ("--" !in expected) Color.parse(color.formatCssString()).shouldEqualColor(color)
     }
 
-    @Test
-    @JsName("formatCssString_custom_space")
+    @[Test JsName("formatCssString_custom_space")]
     fun `formatCssString custom space`() = forAll(
         row(ACEScc(.1, .2, .3), "color(acescc 0.1 0.2 0.3)"),
         row(JzAzBz(1, -1, -0.5), "color(jzazbz 1 -1 -0.5)"),

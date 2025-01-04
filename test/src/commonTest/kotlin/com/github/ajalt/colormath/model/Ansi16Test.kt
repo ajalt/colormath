@@ -9,8 +9,7 @@ class Ansi16Test {
     @Test
     fun roundtrip() = roundtripTest(Ansi16(30))
 
-    @Test
-    @JsName("Ansi16_to_RGB")
+    @[Test JsName("Ansi16_to_RGB")]
     fun `Ansi16 to RGB`() = listOf(
         Ansi16(30) to RGBInt(0, 0, 0),
         Ansi16(31) to RGBInt(128, 0, 0),
@@ -33,8 +32,7 @@ class Ansi16Test {
         testColorConversions(*tests.toTypedArray(), testInverse = false)
     }
 
-    @Test
-    @JsName("Ansi16_to_Ansi256")
+    @[Test JsName("Ansi16_to_Ansi256")]
     fun `Ansi16 to Ansi256`() = testColorConversions(
         Ansi16(30) to Ansi256(0),
         Ansi16(31) to Ansi256(1),

@@ -9,8 +9,7 @@ class JzAzBzTest {
     @Test
     fun roundtrip() = roundtripTest(JzAzBz(0.01, 0.011, 0.012, 0.04))
 
-    @Test
-    @JsName("JzAzBz_to_XYZ")
+    @[Test JsName("JzAzBz_to_XYZ")]
     fun `JzAzBz to XYZ`() = testColorConversions(
         XYZ(0.00, 0.00, 0.00) to JzAzBz(0.0, 0.0, 0.0),
         XYZ(0.18, 0.18, 0.18) to JzAzBz(0.00594105, 0.00092704, 0.00074672),

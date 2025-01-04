@@ -14,8 +14,7 @@ class OklchTest {
     @Test
     fun roundtrip() = roundtripTest(Oklch(0.01, 0.02, 0.03, 0.04), intermediate = Oklab)
 
-    @Test
-    @JsName("Oklab_to_Oklch")
+    @[Test JsName("Oklab_to_Oklch")]
     fun `Oklab to Oklch`() = testColorConversions(
         Oklab(0.0, 0.0, 0.0) to Oklch(0.0, 0.0, Double.NaN),
         Oklab(0.18, 0.18, 0.18) to Oklch(0.18, 0.25455844, 45.0),

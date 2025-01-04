@@ -5,8 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class MatrixTest {
-    @Test
-    @JsName("matrix_times_matrix")
+    @[Test JsName("matrix_times_matrix")]
     fun `matrix times matrix`() {
         val l = Matrix(
             -2f, 5f, 6f,
@@ -45,8 +44,7 @@ class MatrixTest {
         copy.rowMajor shouldBe ex.rowMajor
     }
 
-    @Test
-    @JsName("matrix_times_vec")
+    @[Test JsName("matrix_times_vec")]
     fun `matrix times vec`() {
         val l = Matrix(
             1f, 2f, 3f,

@@ -9,8 +9,7 @@ class Ansi256Test {
     @Test
     fun roundtrip() = roundtripTest(Ansi256(30))
 
-    @Test
-    @JsName("Ansi256_to_RGB")
+    @[Test JsName("Ansi256_to_RGB")]
     fun `Ansi256 to RGB`() = testColorConversions(
         Ansi256(16) to RGB.from255(0, 0, 0),
         Ansi256(17) to RGB.from255(0, 0, 51),
@@ -255,8 +254,7 @@ class Ansi256Test {
         testInverse = false,
     )
 
-    @Test
-    @JsName("Ansi256_to_Ansi16_standard_colors")
+    @[Test JsName("Ansi256_to_Ansi16_standard_colors")]
     fun `Ansi256 to Ansi16 standard colors`() = testColorConversions(
         Ansi256(0) to Ansi16(30),
         Ansi256(1) to Ansi16(31),

@@ -21,8 +21,7 @@ class LUVTest {
     @Test
     fun companion() = companionTest(LUV, LUV65)
 
-    @Test
-    @JsName("LUV_to_XYZ")
+    @[Test JsName("LUV_to_XYZ")]
     fun `LUV to XYZ`() = testColorConversions(
         LUV(0.00, 0.00, 0.00) to XYZ(0.0, 0.0, 0.0),
         LUV(18.00, 18.00, 18.00) to XYZ(0.02854945, 0.02518041, 0.00312744),
@@ -31,8 +30,7 @@ class LUVTest {
         tolerance = 5e-4,
     )
 
-    @Test
-    @JsName("LUV_to_LCHuv")
+    @[Test JsName("LUV_to_LCHuv")]
     fun `LUV to LCHuv`() = testColorConversions(
         LUV(0.00, 0.00, 0.00) to LCHuv(0.0, 0.0, Double.NaN),
         LUV(18.00, 18.00, 18.00) to LCHuv(18.0, 25.45584412, 45.0),
