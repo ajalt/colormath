@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## 3.6.1
 ### Changed
 - All color class constructors are now public to avoid warning when using `copy()` ([#65](https://github.com/ajalt/colormath/issues/65))
 - `HSV.toSRGB()` with NaN a hue value now returns a greyscale `RGB` color instead of a NaN color. ([#67](https://github.com/ajalt/colormath/issues/67))

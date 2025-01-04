@@ -49,16 +49,16 @@ Colormath is distributed through [Maven Central](https://search.maven.org/artifa
 
 ```groovy
 dependencies {
-    implementation("com.github.ajalt.colormath:colormath:3.6.0")
+    implementation("com.github.ajalt.colormath:colormath:3.6.1")
     
     // optional extensions for interop with other platforms
     //
     // android.graphics.Color
-    implementation("com.github.ajalt.colormath:colormath-ext-android-color:3.6.0")
+    implementation("com.github.ajalt.colormath:colormath-ext-android-color:3.6.1")
     // androidx.annotation.ColorInt
-    implementation("com.github.ajalt.colormath:colormath-ext-android-colorint:3.6.0")
+    implementation("com.github.ajalt.colormath:colormath-ext-android-colorint:3.6.1")
     // androidx.compose.ui.graphics.Color
-    implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:3.6.0")
+    implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:3.6.1")
 }
 ```
 
