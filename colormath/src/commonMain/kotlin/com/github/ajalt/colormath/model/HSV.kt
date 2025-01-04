@@ -37,7 +37,7 @@ data class HSV(override val h: Float, val s: Float, val v: Float, override val a
     override val space: ColorSpace<HSV> get() = HSV
 
     override fun toSRGB(): RGB {
-        if (s < 1e-7) return RGB(v, v, v, alpha)
+        if (h.isNaN() || s.isNaN() || s < 1e-7) return RGB(v, v, v, alpha)
         val v = v.toDouble()
         val h = (h.normalizeDeg() / 60.0)
         val s = s.toDouble()
