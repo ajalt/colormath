@@ -9,8 +9,7 @@ class HWBTest {
     @Test
     fun roundtrip() = roundtripTest(HWB(0.01, 0.02, 0.03, 0.04))
 
-    @Test
-    @JsName("HWB_to_RGB")
+    @[Test JsName("HWB_to_RGB")]
     // https://www.w3.org/TR/css-color-4/#hwb-examples
     // At the time of this writing, no browsers implemented hwb. These tests are based on the
     // example colors from the working draft, and a few differ by one point on a single channel,

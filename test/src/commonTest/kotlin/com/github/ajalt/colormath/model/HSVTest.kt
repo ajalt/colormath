@@ -9,8 +9,7 @@ class HSVTest {
     @Test
     fun roundtrip() = roundtripTest(HSV(0.01, 0.02, 0.03, 0.04))
 
-    @Test
-    @JsName("HSV_to_RGB")
+    @[Test JsName("HSV_to_RGB")]
     fun `HSV to RGB`() = testColorConversions(
         HSV(Double.NaN, 0.00, 0.00) to RGB(0.0, 0.0, 0.0),
         HSV(64.80, 0.18, 0.18) to RGB(0.177408, 0.18, 0.1476),
@@ -18,8 +17,7 @@ class HSVTest {
         HSV(0.00, 1.00, 1.00) to RGB(1.0, 0.0, 0.0),
     )
 
-    @Test
-    @JsName("HSV_to_RGB_NaN_S")
+    @[Test JsName("HSV_to_RGB_NaN_S")]
     fun `HSV to RGB NaN S`() = testColorConversions(
         HSV(Double.NaN, Double.NaN, 0.00) to RGB(0.0, 0.0, 0.0),
         HSV(0.00, Double.NaN, 0.00) to RGB(0.0, 0.0, 0.0),
@@ -27,8 +25,7 @@ class HSVTest {
         testInverse = false,
     )
 
-    @Test
-    @JsName("HSV_to_HSL")
+    @[Test JsName("HSV_to_HSL")]
     fun `HSV to HSL`() = testColorConversions(
         HSV(0.00, 0.00, 0.00) to HSL(0.0, 0.0, 0.0),
         HSV(64.80, 0.18, 0.18) to HSL(64.8, 0.0989011, 0.1638),

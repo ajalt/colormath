@@ -17,8 +17,7 @@ class XYZTest {
     @Test
     fun companion() = companionTest(XYZ, XYZ65)
 
-    @Test
-    @JsName("XYZ_to_RGB")
+    @[Test JsName("XYZ_to_RGB")]
     fun `XYZ to SRGB`() = testColorConversions(
         XYZ(0.00, 0.00, 0.00) to RGB(0.0, 0.0, 0.0),
         XYZ(0.18, 0.18, 0.18) to RGB(0.50307213, 0.45005582, 0.44114606),
@@ -26,8 +25,7 @@ class XYZTest {
         XYZ(1.00, 1.00, 1.00) to RGB(1.08523261, 0.97691161, 0.95870753),
     )
 
-    @Test
-    @JsName("XYZ_to_LAB")
+    @[Test JsName("XYZ_to_LAB")]
     fun `XYZ to LAB`() = testColorConversions(
         XYZ(0.00, 0.00, 0.00) to LUV(0.0, 0.0, 0.0),
         XYZ(0.18, 0.18, 0.18) to LUV(49.49610761, 8.16943249, 3.4516013),
@@ -36,8 +34,7 @@ class XYZTest {
         XYZ50(0.25, 0.5, 0.75) to LAB50(76.06926101, -78.02949711, -34.99756832),
     )
 
-    @Test
-    @JsName("XYZ_to_LUV")
+    @[Test JsName("XYZ_to_LUV")]
     fun `XYZ to LUV`() = testColorConversions(
         XYZ(0.000, 0.000, 0.000) to LUV(0.0, 0.0, 0.0),
         XYZ(0.18, 0.18, 0.18) to LUV(49.49610761, 8.16943249, 3.4516013),
@@ -46,8 +43,7 @@ class XYZTest {
         XYZ50(0.25, 0.5, 0.75) to LUV50(76.06926101, -107.96735088, -37.65708044),
     )
 
-    @Test
-    @JsName("XYZ_to_Oklab")
+    @[Test JsName("XYZ_to_Oklab")]
     fun `XYZ to Oklab`() = testColorConversions(
         XYZ(0.00, 0.00, 0.00) to Oklab(0.0, 0.0, 0.0),
         XYZ(0.18, 0.18, 0.18) to Oklab(0.56645328, 0.01509528, 0.00832456),
@@ -63,8 +59,7 @@ class XYZTest {
 //        ),
     )
 
-    @Test
-    @JsName("XYZ_to_JzAzBz")
+    @[Test JsName("XYZ_to_JzAzBz")]
     fun `XYZ to JzAzBz`() = testColorConversions(
         XYZ(0.00, 0.00, 0.00) to JzAzBz(0.0, 0.0, 0.0),
         XYZ(0.18, 0.18, 0.18) to JzAzBz(0.00594105, 0.00092704, 0.00074672),

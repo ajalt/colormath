@@ -20,8 +20,7 @@ class RGBIntTest {
         RGBInt.fromRGBA(0x01020304u).argb shouldBe 0x04010203u
     }
 
-    @Test
-    @JsName("RGBInt_to_RGB")
+    @[Test JsName("RGBInt_to_RGB")]
     fun `RGBInt to RGB`() = testColorConversions(
         RGBInt(0x00000000u) to RGB.from255(0, 0, 0, 0),
         RGBInt(0x00800000u) to RGB.from255(128, 0, 0, 0),

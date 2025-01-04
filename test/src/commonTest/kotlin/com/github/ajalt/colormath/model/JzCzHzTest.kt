@@ -10,8 +10,7 @@ class JzCzHzTest {
     @Test
     fun roundtrip() = roundtripTest(JzCzHz(0.01, 0.02, 0.03, 0.04))
 
-    @Test
-    @JsName("JzCzHz_to_JzAzBz")
+    @[Test JsName("JzCzHz_to_JzAzBz")]
     fun `JzCzHz to JzAzBz`() = testColorConversions(
         JzCzHz(0.00, 0.00, Double.NaN) to JzAzBz(0.0, 0.0, 0.0),
         JzCzHz(0.18, 0.18, 64.80) to JzAzBz(0.18, 0.07664027, 0.16286887),

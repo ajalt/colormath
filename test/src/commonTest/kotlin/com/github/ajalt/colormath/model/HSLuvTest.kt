@@ -10,8 +10,7 @@ class HSLuvTest {
     fun roundtrip() = roundtripTest(HSLuv(0.1, 0.011, 0.012, 0.04), intermediate = LCHuv)
 
     // Test cases generated from the reference implementation
-    @Test
-    @JsName("LCHuv_to_HSLuv")
+    @[Test JsName("LCHuv_to_HSLuv")]
     fun `LCHuv to HSLuv`() = testColorConversions(
         LCHuv(0.00, 0.00, Double.NaN) to HSLuv(Double.NaN, 0.0, 0.0),
         LCHuv(0.18, 0.18, 64.80) to HSLuv(64.8, 86.24411410293375, 0.18),

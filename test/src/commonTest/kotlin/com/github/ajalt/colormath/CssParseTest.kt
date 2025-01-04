@@ -19,14 +19,12 @@ import kotlin.test.Test
 
 
 class CssParseTest {
-    @Test
-    @JsName("parseCssColor_named")
+    @[Test JsName("parseCssColor_named")]
     fun `parseCssColor named`() {
         Color.parse("rebeccapurple") shouldBe RGB("#663399")
     }
 
-    @Test
-    @JsName("parseCssColor_custom_space")
+    @[Test JsName("parseCssColor_custom_space")]
     fun `parseCssColor custom space`() {
         Color.parse(
             "color(jzazbz 0.1 0.2 0.3)",
@@ -34,8 +32,7 @@ class CssParseTest {
         ).shouldEqualColor(JzAzBz(.1, .2, .3))
     }
 
-    @Test
-    @JsName("parseCssColor_invalid")
+    @[Test JsName("parseCssColor_invalid")]
     fun `parseCssColor invalid`() = forAll(
         row(""),
         row("foo"),
@@ -66,8 +63,7 @@ class CssParseTest {
         Color.parseOrNull(it) shouldBe null
     }
 
-    @Test
-    @JsName("parseCssColor_out_of_gamut")
+    @[Test JsName("parseCssColor_out_of_gamut")]
     fun `parseCssColor out of gamut`() = doTest(
         row("rgb(-1,2,3)", RGB.from255(-1, 2, 3)),
         row("rgb(256,2,3)", RGB.from255(256, 2, 3)),
@@ -82,8 +78,7 @@ class CssParseTest {
     )
 
     // Cases mostly from https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
-    @Test
-    @JsName("parseCssColor_valid")
+    @[Test JsName("parseCssColor_valid")]
     fun `parseCssColor valid`() = forAll(
         row("#f09"),
         row("#F09"),
@@ -100,15 +95,13 @@ class CssParseTest {
         Color.parseOrNull(it).shouldEqualColor(RGB.from255(255, 0, 153))
     }
 
-    @Test
-    @JsName("parseCssColor_float_exponents")
+    @[Test JsName("parseCssColor_float_exponents")]
     fun `parseCssColor float exponents`() {
         Color.parse("rgb(1e2, .5e1, .5e0, +.25e2%)")
             .shouldBe(RGB(100 / 255f, 5 / 255f, 0.5 / 255f, .25))
     }
 
-    @Test
-    @JsName("parseCssColor_alpha")
+    @[Test JsName("parseCssColor_alpha")]
     fun `parseCssColor alpha`() = forAll(
         row("#3a3", 1f),
         row("#3a30", 0f),
@@ -126,8 +119,7 @@ class CssParseTest {
     }
 
     // https://github.com/web-platform-tests/wpt/blob/master/css/css-color/parsing/color-valid.html
-    @Test
-    @JsName("parseCssColor_rgb")
+    @[Test JsName("parseCssColor_rgb")]
     fun `parseCssColor rgb`() = doTest(
         row("#234", RGB.from255(34, 51, 68)),
         row("#FEDCBA", RGB.from255(254, 220, 186)),
@@ -139,8 +131,7 @@ class CssParseTest {
         row("rgb(100%, 200%, 300%)", RGB(1, 2, 3)),
     )
 
-    @Test
-    @JsName("parseCssColor_hsl")
+    @[Test JsName("parseCssColor_hsl")]
     fun `parseCssColor hsl`() = doTest(
         row("hsl(270,60%,70%)", HSL(270, .6, .7, 1f)),
         row("hsl(270, 60%, 70%)", HSL(270, .6, .7, 1f)),
@@ -160,8 +151,7 @@ class CssParseTest {
         row("hsla(240 100% 50% / 5%)", HSL(240, 1.0, .5, .05))
     )
 
-    @Test
-    @JsName("parseCssColor_hsl_angles")
+    @[Test JsName("parseCssColor_hsl_angles")]
     fun `parseCssColor hsl angles`() = forAll(
         row("90", 90),
         row("1170", 90),
@@ -189,8 +179,7 @@ class CssParseTest {
         Color.parse("hsl($angle, 0%, 0%)").shouldEqualColor(HSL(degrees, 0, 0))
     }
 
-    @Test
-    @JsName("parseCssColor_lab")
+    @[Test JsName("parseCssColor_lab")]
     // https://www.w3.org/TR/css-color-4/#funcdef-lab
     fun `parseCssColor lab`() = doTest(
         row("lab(29.2345% 39.3825 20.0664)", LAB50(29.2345, 39.3825, 20.0664)),
@@ -200,8 +189,7 @@ class CssParseTest {
         row("lab(67.5345% -8.6911 -41.6019)", LAB50(67.5345, -8.6911, -41.6019)),
     )
 
-    @Test
-    @JsName("parseCssColor_lch")
+    @[Test JsName("parseCssColor_lch")]
     // https://www.w3.org/TR/css-color-4/#funcdef-lch
     fun `parseCssColor lch`() = doTest(
         row("lch(29.2345% 44.2 27)", LCHab50(29.2345, 44.2, 27.0)),
@@ -211,8 +199,7 @@ class CssParseTest {
         row("lch(67.5345% 42.5 258.2)", LCHab50(67.5345, 42.5, 258.2)),
     )
 
-    @Test
-    @JsName("parseCssColor_hwb")
+    @[Test JsName("parseCssColor_hwb")]
     // No examples in the spec for this one
     fun `parseCssColor hwb`() = doTest(
         row("hwb(180 0% 0%)", HWB(180.0, 0.0, 0.0)),
@@ -222,8 +209,7 @@ class CssParseTest {
         row("hwb(3.1416rad 23.4% 45.6%)", HWB(180.0, .234, .456)),
     )
 
-    @Test
-    @JsName("parseCssColor_oklab")
+    @[Test JsName("parseCssColor_oklab")]
     // https://www.w3.org/TR/css-color-4/#ex-oklab-samples
     fun `parseCssColor oklab`() = doTest(
         row("oklab(40.101%  0.1147  0.0453)", Oklab(0.40101, 0.1147, 0.0453)),
@@ -234,8 +220,7 @@ class CssParseTest {
         row("oklab(51.975% -35.075% 26.92%)", RGB("#008000").toOklab()),
     )
 
-    @Test
-    @JsName("parseCssColor_oklch")
+    @[Test JsName("parseCssColor_oklch")]
     // https://www.w3.org/TR/css-color-4/#ex-oklch-samples
     fun `parseCssColor oklch`() = doTest(
         row("oklch(40.101% 0.12332 21.555)", Oklch(0.40101, 0.12332, 21.555)),
@@ -247,8 +232,7 @@ class CssParseTest {
         row("oklch(51.975% 44.215% 142.495)", RGB("#008000").toOklch()),
     )
 
-    @Test
-    @JsName("parseCssColor_color")
+    @[Test JsName("parseCssColor_color")]
     // https://www.w3.org/TR/css-color-4/#funcdef-color
     fun `parseCssColor color`() = doTest(
         row("color(srgb 25% 50% 75% / 90%)", SRGB(.25, .5, .75, .9)),

@@ -22,8 +22,7 @@ class LCHabTest {
     @Test
     fun companion() = companionTest(LCHab, LCHab65)
 
-    @Test
-    @JsName("LCHab_to_LAB")
+    @[Test JsName("LCHab_to_LAB")]
     fun `LCHab to LAB`() = testColorConversions(
         LCHab(0.00, 0.00, Double.NaN) to LAB(0.0, 0.0, 0.0),
         LCHab(18.00, 18.00, 64.80) to LAB(18.0, 7.66402725, 16.28688694),
