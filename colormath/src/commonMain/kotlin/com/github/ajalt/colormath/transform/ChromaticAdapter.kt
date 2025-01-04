@@ -36,7 +36,10 @@ fun RGBInt.Companion.createChromaticAdapter(sourceWhite: xyY): ChromaticAdapterR
     return ChromaticAdapterRGBInt(xyzToSrgb.dot(xyzTransform).dot(srgbToXYZ))
 }
 
-class ChromaticAdapterRGB internal constructor(private val space: RGBColorSpace, private val transform: Matrix) {
+class ChromaticAdapterRGB internal constructor(
+    private val space: RGBColorSpace,
+    private val transform: Matrix,
+) {
     /** Adapt an sRGB [color] to this white point */
     fun adapt(color: RGB): RGB {
         return doAdapt(transform, color.r, color.g, color.b) { r, g, b ->
@@ -61,7 +64,13 @@ class ChromaticAdapterRGBInt internal constructor(private val transform: Matrix)
     }
 }
 
-private inline fun <T> doAdapt(transform: Matrix, r: Float, g: Float, b: Float, block: (Float, Float, Float) -> T): T {
+private inline fun <T> doAdapt(
+    transform: Matrix,
+    r: Float,
+    g: Float,
+    b: Float,
+    block: (Float, Float, Float) -> T,
+): T {
     val f = SRGB.transferFunctions
     return transform.dot(f.eotf(r), f.eotf(g), f.eotf(b)) { rr, gg, bb ->
         block(f.oetf(rr), f.oetf(gg), f.oetf(bb))

@@ -59,7 +59,7 @@ object LUVColorSpaces {
  * | [u]        |              | `[-100, 100]` |
  * | [v]        |              | `[-100, 100]` |
  */
-data class LUV internal constructor(
+data class LUV(
     val l: Float,
     val u: Float,
     val v: Float,

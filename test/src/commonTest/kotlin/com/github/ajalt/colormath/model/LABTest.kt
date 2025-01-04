@@ -1,13 +1,10 @@
 package com.github.ajalt.colormath.model
 
-import com.github.ajalt.colormath.companionTest
-import com.github.ajalt.colormath.convertToSpaceTest
+import com.github.ajalt.colormath.*
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB50
 import com.github.ajalt.colormath.model.LABColorSpaces.LAB65
 import com.github.ajalt.colormath.model.LCHabColorSpaces.LCHab50
 import com.github.ajalt.colormath.model.LCHabColorSpaces.LCHab65
-import com.github.ajalt.colormath.roundtripTest
-import com.github.ajalt.colormath.testColorConversions
 import kotlin.js.JsName
 import kotlin.test.Test
 

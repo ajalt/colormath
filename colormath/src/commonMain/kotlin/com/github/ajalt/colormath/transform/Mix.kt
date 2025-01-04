@@ -47,5 +47,9 @@ fun <T : Color> ColorSpace<T>.mix(
     val sum = amount1.toFloat() + amount2.toFloat()
     require(sum != 0f) { "mix amounts cannot sum to 0" }
     val c = convert(color1).interpolate(color2, amount2.toFloat() / sum, true, hueAdjustment)
-    return if (sum < 1f) c.map { comps -> comps.also { it[it.lastIndex] = it.last().nanToOne() * sum } } else c
+    return if (sum < 1f) c.map { comps ->
+        comps.also {
+            it[it.lastIndex] = it.last().nanToOne() * sum
+        }
+    } else c
 }

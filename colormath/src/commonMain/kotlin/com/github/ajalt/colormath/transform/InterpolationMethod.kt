@@ -34,7 +34,8 @@ object InterpolationMethods {
      * Linear piecewise interpolation
      */
     fun linear(): InterpolationMethod = object : InterpolationMethod {
-        override fun build(points: List<Point>): InterpolationMethod.ComponentInterpolator = LinearInterpolator(points)
+        override fun build(points: List<Point>): InterpolationMethod.ComponentInterpolator =
+            LinearInterpolator(points)
     }
 
     /**
@@ -52,16 +53,18 @@ object InterpolationMethods {
      *   unique parabola passing through them. By default, the boundaries are calculated by one-sided
      *   finite differences.
      */
-    fun monotoneSpline(parabolicEndpoints: Boolean = false): InterpolationMethod = object : InterpolationMethod {
-        override fun build(points: List<Point>): InterpolationMethod.ComponentInterpolator {
-            return if (points.size < 3) linear().build(points)
-            else MonotonicSplineInterpolator(points, parabolicEndpoints)
+    fun monotoneSpline(parabolicEndpoints: Boolean = false): InterpolationMethod =
+        object : InterpolationMethod {
+            override fun build(points: List<Point>): InterpolationMethod.ComponentInterpolator {
+                return if (points.size < 3) linear().build(points)
+                else MonotonicSplineInterpolator(points, parabolicEndpoints)
+            }
         }
-    }
 }
 
 
-private class LinearInterpolator(private val points: List<Point>) : InterpolationMethod.ComponentInterpolator {
+private class LinearInterpolator(private val points: List<Point>) :
+    InterpolationMethod.ComponentInterpolator {
     init {
         require(points.size > 1) { "At least two points are required for interpolation" }
     }
@@ -111,8 +114,10 @@ private class MonotonicSplineInterpolator(
                     abs(p[0]) > 2 * abs(s[0]) -> 2 * s[0]
                     else -> p[0]
                 }
+
                 else -> s[0]
             }
+
             n -> when {
                 parabolicEndpoints -> when {
                     p[n] * s[n - 1] <= 0 -> 0f
@@ -120,8 +125,10 @@ private class MonotonicSplineInterpolator(
                     else -> p[n]
 
                 }
+
                 else -> s[n - 1]
             }
+
             else -> (sign(s[i - 1]) + sign(s[i])) * minOf(abs(s[i - 1]), abs(s[i]), abs(p[i]) / 2)
         }
     }

@@ -4,7 +4,7 @@ import com.github.ajalt.colormath.Color
 import com.github.ajalt.colormath.ColorComponentInfo
 import com.github.ajalt.colormath.ColorSpace
 import com.github.ajalt.colormath.HueColor
-import com.github.ajalt.colormath.internal.*
+import com.github.ajalt.colormath.internal.clampTrailingHue
 import com.github.ajalt.colormath.internal.componentInfoList
 import com.github.ajalt.colormath.internal.doCreate
 import com.github.ajalt.colormath.internal.fromPolarModel

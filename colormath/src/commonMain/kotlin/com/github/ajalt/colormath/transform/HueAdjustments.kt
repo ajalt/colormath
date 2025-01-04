@@ -31,14 +31,15 @@ object HueAdjustments {
     val specified: ComponentAdjustment = { it }
 }
 
-private inline fun deltaAdjustment(crossinline adj: (delta: Float) -> Float): ComponentAdjustment = { hues ->
-    hues.toMutableList().also { h ->
-        h[0] = h[0].normalizeDeg()
-        for (i in 1..h.lastIndex) {
-            val hue = h[i]
-            val prev = h[i - 1]
-            if (hue.isNaN() || prev.isNaN()) continue
-            h[i] = prev + adj(hue.normalizeDeg() - prev.normalizeDeg())
+private inline fun deltaAdjustment(crossinline adj: (delta: Float) -> Float): ComponentAdjustment =
+    { hues ->
+        hues.toMutableList().also { h ->
+            h[0] = h[0].normalizeDeg()
+            for (i in 1..h.lastIndex) {
+                val hue = h[i]
+                val prev = h[i - 1]
+                if (hue.isNaN() || prev.isNaN()) continue
+                h[i] = prev + adj(hue.normalizeDeg() - prev.normalizeDeg())
+            }
         }
     }
-}

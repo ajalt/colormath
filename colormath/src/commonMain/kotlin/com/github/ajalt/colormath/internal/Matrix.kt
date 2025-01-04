@@ -10,11 +10,13 @@ internal value class Matrix(val rowMajor: FloatArray) {
         v00: Float, v10: Float, v20: Float,
         v01: Float, v11: Float, v21: Float,
         v02: Float, v12: Float, v22: Float,
-    ) : this(floatArrayOf(
-        v00, v10, v20,
-        v01, v11, v21,
-        v02, v12, v22,
-    ))
+    ) : this(
+        floatArrayOf(
+            v00, v10, v20,
+            v01, v11, v21,
+            v02, v12, v22,
+        )
+    )
 
     fun copy() = Matrix(rowMajor.copyOf())
 
@@ -66,7 +68,12 @@ internal fun Matrix.inverse(inPlace: Boolean = false): Matrix {
     return out
 }
 
-internal inline fun <T> Matrix.dot(v0: Float, v1: Float, v2: Float, block: (Float, Float, Float) -> T): T {
+internal inline fun <T> Matrix.dot(
+    v0: Float,
+    v1: Float,
+    v2: Float,
+    block: (Float, Float, Float) -> T,
+): T {
     return block(
         get(0, 0) * v0 + get(1, 0) * v1 + get(2, 0) * v2,
         get(0, 1) * v0 + get(1, 1) * v1 + get(2, 1) * v2,
