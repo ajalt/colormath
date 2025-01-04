@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+### Changed
+- Update Kotlin to 2.1.0
 
 ## 3.6.0
 ### Added
