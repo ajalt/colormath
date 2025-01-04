@@ -57,7 +57,7 @@ object XYZColorSpaces {
  * | [y]        | `[0, 1]` |
  * | [z]        | `[0, 1]` |
  */
-data class XYZ internal constructor(
+data class XYZ(
     val x: Float,
     val y: Float,
     val z: Float,

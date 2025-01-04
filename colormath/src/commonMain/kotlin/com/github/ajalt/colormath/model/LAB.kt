@@ -63,7 +63,7 @@ object LABColorSpaces {
  * | a*        | green-red   | `[-128, 128]` |
  * | b*        | blue-yellow | `[-128, 128]` |
  */
-data class LAB internal constructor(
+data class LAB(
     val l: Float,
     val a: Float,
     val b: Float,

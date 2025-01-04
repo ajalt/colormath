@@ -769,6 +769,7 @@ public final class com/github/ajalt/colormath/model/JzCzHz$Companion : com/githu
 
 public final class com/github/ajalt/colormath/model/LAB : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/LAB$Companion;
+	public fun <init> (FFFFLcom/github/ajalt/colormath/model/LABColorSpace;)V
 	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public fun clamp ()Lcom/github/ajalt/colormath/model/LAB;
 	public final fun component1 ()F
@@ -846,6 +847,7 @@ public final class com/github/ajalt/colormath/model/LABKt {
 
 public final class com/github/ajalt/colormath/model/LCHab : com/github/ajalt/colormath/HueColor {
 	public static final field Companion Lcom/github/ajalt/colormath/model/LCHab$Companion;
+	public fun <init> (FFFFLcom/github/ajalt/colormath/model/LCHabColorSpace;)V
 	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public fun clamp ()Lcom/github/ajalt/colormath/model/LCHab;
 	public final fun component1 ()F
@@ -923,6 +925,7 @@ public final class com/github/ajalt/colormath/model/LCHabKt {
 
 public final class com/github/ajalt/colormath/model/LCHuv : com/github/ajalt/colormath/HueColor {
 	public static final field Companion Lcom/github/ajalt/colormath/model/LCHuv$Companion;
+	public fun <init> (FFFFLcom/github/ajalt/colormath/model/LCHuvColorSpace;)V
 	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public fun clamp ()Lcom/github/ajalt/colormath/model/LCHuv;
 	public final fun component1 ()F
@@ -1000,6 +1003,7 @@ public final class com/github/ajalt/colormath/model/LCHuvKt {
 
 public final class com/github/ajalt/colormath/model/LUV : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/LUV$Companion;
+	public fun <init> (FFFFLcom/github/ajalt/colormath/model/LUVColorSpace;)V
 	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public fun clamp ()Lcom/github/ajalt/colormath/model/LUV;
 	public final fun component1 ()F
@@ -1183,6 +1187,7 @@ public final class com/github/ajalt/colormath/model/Oklch$Companion : com/github
 
 public final class com/github/ajalt/colormath/model/RGB : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/RGB$Companion;
+	public fun <init> (FFFFLcom/github/ajalt/colormath/model/RGBColorSpace;)V
 	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public fun clamp ()Lcom/github/ajalt/colormath/model/RGB;
 	public final fun component1 ()F
@@ -1431,6 +1436,7 @@ public final class com/github/ajalt/colormath/model/SRGB : com/github/ajalt/colo
 
 public final class com/github/ajalt/colormath/model/XYZ : com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/model/XYZ$Companion;
+	public fun <init> (FFFFLcom/github/ajalt/colormath/model/XYZColorSpace;)V
 	public final fun adaptTo (Lcom/github/ajalt/colormath/model/XYZColorSpace;)Lcom/github/ajalt/colormath/model/XYZ;
 	public final fun adaptTo (Lcom/github/ajalt/colormath/model/XYZColorSpace;[F)Lcom/github/ajalt/colormath/model/XYZ;
 	public final fun adaptTo (Lcom/github/ajalt/colormath/model/XYZColorSpace;[F[F)Lcom/github/ajalt/colormath/model/XYZ;

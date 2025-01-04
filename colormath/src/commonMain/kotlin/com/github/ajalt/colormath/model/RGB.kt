@@ -148,7 +148,7 @@ interface RGBColorSpace : WhitePointColorSpace<RGB> {
  * | [g]        | green       | `[0, 1]` |
  * | [b]        | blue        | `[0, 1]` |
  */
-data class RGB internal constructor(
+data class RGB(
     val r: Float,
     val g: Float,
     val b: Float,

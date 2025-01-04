@@ -44,7 +44,8 @@ internal fun rgbToRgbMatrix(src: RGBColorSpace, dst: RGBColorSpace): Matrix {
     return if (src.whitePoint == dst.whitePoint) {
         Matrix(dst.matrixFromXyz).dot(Matrix(src.matrixToXyz))
     } else {
-        val adaptation = XYZColorSpace(dst.whitePoint).chromaticAdaptationMatrix(src.whitePoint.chromaticity)
+        val adaptation =
+            XYZColorSpace(dst.whitePoint).chromaticAdaptationMatrix(src.whitePoint.chromaticity)
         Matrix(dst.matrixFromXyz).dot(adaptation).dot(Matrix(src.matrixToXyz))
     }
 }

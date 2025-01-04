@@ -180,6 +180,7 @@ private class CubicBezierEasing(
                     else -> 0.0
                 }
             }
+
             x > 1 -> {
                 when {
                     x2 < 1 -> tangent(x2, y2, 1.0, 1.0, x)
@@ -187,6 +188,7 @@ private class CubicBezierEasing(
                     else -> 1.0
                 }
             }
+
             else -> sampleCurveY(findTFromX(x))
         }.toFloat()
     }

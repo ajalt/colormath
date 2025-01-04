@@ -52,7 +52,7 @@ object LCHuvColorSpaces {
  * | [c]        | chroma                                    | `[0, 100]` |
  * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
  */
-data class LCHuv internal constructor(
+data class LCHuv(
     val l: Float,
     val c: Float,
     override val h: Float,

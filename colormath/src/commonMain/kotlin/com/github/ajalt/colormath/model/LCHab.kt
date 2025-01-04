@@ -58,7 +58,7 @@ object LCHabColorSpaces {
  * | c         | chroma                                    | `[0, 150]` |
  * | h         | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
  */
-data class LCHab internal constructor(
+data class LCHab(
     val l: Float,
     val c: Float,
     override val h: Float,
