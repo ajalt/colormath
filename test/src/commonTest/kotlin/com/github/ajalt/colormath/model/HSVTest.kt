@@ -19,6 +19,15 @@ class HSVTest {
     )
 
     @Test
+    @JsName("HSV_to_RGB_NaN_S")
+    fun `HSV to RGB NaN S`() = testColorConversions(
+        HSV(Double.NaN, Double.NaN, 0.00) to RGB(0.0, 0.0, 0.0),
+        HSV(0.00, Double.NaN, 0.00) to RGB(0.0, 0.0, 0.0),
+        HSV(Double.NaN, Double.NaN, 0.50) to RGB(0.5, 0.5, 0.5),
+        testInverse = false,
+    )
+
+    @Test
     @JsName("HSV_to_HSL")
     fun `HSV to HSL`() = testColorConversions(
         HSV(0.00, 0.00, 0.00) to HSL(0.0, 0.0, 0.0),

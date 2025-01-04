@@ -2,6 +2,7 @@
 
 ## Unreleased
 ### Changed
+- `HSV.toSRGB()` with NaN a hue value now returns a greyscale `RGB` color instead of a NaN color.  ([#67](https://github.com/ajalt/colormath/issues/67))
 - Update Kotlin to 2.1.0
 
 ## 3.6.0
