@@ -1,15 +1,14 @@
-import com.android.build.gradle.BaseExtension
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.dokka.gradle.DokkaExtension
+import org.jetbrains.dokka.gradle.engine.plugins.DokkaHtmlPluginParameters
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
-import java.io.ByteArrayOutputStream
 
 plugins {
     kotlin("multiplatform").version(libs.versions.kotlin).apply(false)
-    alias(libs.plugins.android.library).apply(false)
+    alias(libs.plugins.android.kmp.library).apply(false)
     alias(libs.plugins.dokka).apply(false)
     alias(libs.plugins.publish).apply(false)
     alias(libs.plugins.jetbrainsCompose).apply(false)
@@ -45,37 +44,26 @@ subprojects {
         }
     }
 
-    plugins.withType<com.android.build.gradle.BasePlugin>().configureEach {
-        configure<BaseExtension> {
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
-            }
-        }
-    }
-
     pluginManager.withPlugin("com.vanniktech.maven.publish") {
         apply(plugin = "org.jetbrains.dokka")
         extensions.configure<MavenPublishBaseExtension>("mavenPublishing") {
             @Suppress("UnstableApiUsage")
             configure(KotlinMultiplatform(JavadocJar.Empty()))
         }
-        tasks.named<DokkaTask>("dokkaHtml") {
+        extensions.configure<DokkaExtension> {
             val dir = if (project.name == "colormath") "" else "/${project.name}"
-            outputDirectory.set(rootProject.rootDir.resolve("docs/api$dir"))
+            dokkaPublications.named("html") {
+                outputDirectory.set(rootProject.rootDir.resolve("docs/api$dir"))
+            }
             val rootPath = rootProject.rootDir.toPath()
             val logoCss = rootPath.resolve("docs/css/logo-styles.css").toString().replace('\\', '/')
             val paletteSvg = rootPath.resolve("docs/img/palette_black_36dp.svg").toString()
                 .replace('\\', '/')
-            pluginsMapConfiguration.set(
-                mapOf(
-                    "org.jetbrains.dokka.base.DokkaBase" to """{
-                    "customStyleSheets": ["$logoCss"],
-                    "customAssets": ["$paletteSvg"],
-                    "footerMessage": "Copyright &copy; 2021 AJ Alt"
-                }"""
-                )
-            )
+            pluginsConfiguration.named<DokkaHtmlPluginParameters>("html") {
+                customStyleSheets.from(logoCss)
+                customAssets.from(paletteSvg)
+                footerMessage.set("Copyright &copy; 2021 AJ Alt")
+            }
             dokkaSourceSets.configureEach {
                 skipDeprecated.set(true)
             }

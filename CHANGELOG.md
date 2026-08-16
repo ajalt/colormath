@@ -1,6 +1,15 @@
 # Changelog
 
 ## Unreleased
+### Added
+- Publish artifacts for the `watchosDeviceArm64` target ([#66](https://github.com/ajalt/colormath/pull/66))
+- Publish artifacts for the `wasmWasi` target.
+
+### Changed
+- Update Kotlin to 2.4.10
+
+### Removed
+- The jetpack-compose extension no longer publishes an `iosX64` artifact, since Compose Multiplatform 1.11 dropped support for that target.
 
 ## 3.6.1
 ### Changed

@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm")
-    id( "me.champeau.jmh") version "0.6.5"
+    id( "me.champeau.jmh") version "0.7.3"
 }
 
 dependencies {

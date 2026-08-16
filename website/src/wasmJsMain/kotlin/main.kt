@@ -1,5 +1,5 @@
-import androidx.compose.ui.window.CanvasBasedWindow
+import androidx.compose.ui.window.ComposeViewport
 
 fun main() {
-    CanvasBasedWindow(canvasElementId = "ComposeTarget") { App() }
+    ComposeViewport(viewportContainerId = "ComposeTarget") { App() }
 }
