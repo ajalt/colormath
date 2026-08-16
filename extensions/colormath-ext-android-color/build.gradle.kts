@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.library")
     kotlin("multiplatform")
+    alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.publish)
 }
 
@@ -11,28 +11,20 @@ repositories {
 }
 
 kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
+    android {
+        namespace = "com.github.ajalt.colormath.extensions.android.color"
+        compileSdk = 36
+        minSdk = 26 // Color instances were added in 26
+        withHostTestBuilder {}
     }
 
     sourceSets {
-        val androidMain by getting {
-            dependencies {
-                api(project(":colormath"))
-            }
+        androidMain.dependencies {
+            api(project(":colormath"))
         }
-        val androidUnitTest by getting {
-            dependencies {
-                implementation(libs.junit)
-                implementation(libs.robolectric)
-            }
+        getByName("androidHostTest").dependencies {
+            implementation(libs.junit)
+            implementation(libs.robolectric)
         }
     }
-}
-
-android {
-    namespace = "com.github.ajalt.colormath.extensions.android.color"
-    compileSdk = 33
-    defaultConfig.minSdk = 26 // Color instances were added in 26
-    buildFeatures.buildConfig = false
 }

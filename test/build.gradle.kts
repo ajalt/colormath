@@ -1,5 +1,16 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
 plugins {
     kotlin("multiplatform")
+}
+
+// kotest 6 requires JVM 11+
+tasks.withType<KotlinJvmCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_11)
+    }
 }
 
 repositories {
@@ -9,6 +20,12 @@ repositories {
 kotlin {
     jvm()
     js { nodejs() }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs { nodejs() }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmWasi { nodejs() }
 
     linuxX64()
     linuxArm64()
@@ -24,15 +41,15 @@ kotlin {
     watchosX64()
     watchosArm32()
     watchosArm64()
+    watchosDeviceArm64()
     watchosSimulatorArm64()
 
     sourceSets {
-        val commonTest by getting {
-            dependencies {
-                api(project(":colormath"))
-                implementation(libs.kotest)
-                implementation(kotlin("test"))
-            }
+        commonTest.dependencies {
+            implementation(project(":colormath"))
+            implementation(libs.kotest.assertions)
+            implementation(libs.kotest.tables)
+            implementation(kotlin("test"))
         }
     }
 }

@@ -11,29 +11,29 @@ public final class com/github/ajalt/colormath/AngleUnit : java/lang/Enum {
 
 public abstract interface class com/github/ajalt/colormath/Color {
 	public static final field Companion Lcom/github/ajalt/colormath/Color$Companion;
-	public abstract fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/Color;
 	public abstract fun getAlpha ()F
 	public abstract fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
-	public abstract fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
-	public abstract fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public abstract fun toArray ()[F
-	public abstract fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
-	public abstract fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
-	public abstract fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
-	public abstract fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
-	public abstract fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
-	public abstract fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
-	public abstract fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
-	public abstract fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
-	public abstract fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
-	public abstract fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
-	public abstract fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
-	public abstract fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
-	public abstract fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
-	public abstract fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
-	public abstract fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
 	public abstract fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
-	public abstract fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
 }
 
 public final class com/github/ajalt/colormath/Color$Companion {
@@ -826,7 +826,9 @@ public final class com/github/ajalt/colormath/model/LAB$Companion : com/github/a
 
 public abstract interface class com/github/ajalt/colormath/model/LABColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
 	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LAB;
-	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LAB;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LAB;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LABColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LAB;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LABColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LAB;
 }
 
 public final class com/github/ajalt/colormath/model/LABColorSpace$DefaultImpls {
@@ -904,7 +906,9 @@ public final class com/github/ajalt/colormath/model/LCHab$Companion : com/github
 
 public abstract interface class com/github/ajalt/colormath/model/LCHabColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
 	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LCHab;
-	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHab;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHab;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LCHabColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHab;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LCHabColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHab;
 }
 
 public final class com/github/ajalt/colormath/model/LCHabColorSpace$DefaultImpls {
@@ -982,7 +986,9 @@ public final class com/github/ajalt/colormath/model/LCHuv$Companion : com/github
 
 public abstract interface class com/github/ajalt/colormath/model/LCHuvColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
 	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LCHuv;
-	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LCHuvColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHuv;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LCHuvColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LCHuv;
 }
 
 public final class com/github/ajalt/colormath/model/LCHuvColorSpace$DefaultImpls {
@@ -1060,7 +1066,9 @@ public final class com/github/ajalt/colormath/model/LUV$Companion : com/github/a
 
 public abstract interface class com/github/ajalt/colormath/model/LUVColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
 	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/LUV;
-	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LUV;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/LUV;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LUVColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LUV;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/LUVColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/LUV;
 }
 
 public final class com/github/ajalt/colormath/model/LUVColorSpace$DefaultImpls {
@@ -1257,14 +1265,18 @@ public final class com/github/ajalt/colormath/model/RGB$Companion : com/github/a
 }
 
 public abstract interface class com/github/ajalt/colormath/model/RGBColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
-	public abstract fun from255 (IIII)Lcom/github/ajalt/colormath/model/RGB;
+	public fun from255 (IIII)Lcom/github/ajalt/colormath/model/RGB;
+	public static synthetic fun from255$default (Lcom/github/ajalt/colormath/model/RGBColorSpace;IIIIILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGB;
 	public abstract fun getMatrixFromXyz ()[F
 	public abstract fun getMatrixToXyz ()[F
 	public abstract fun getTransferFunctions ()Lcom/github/ajalt/colormath/model/RGBColorSpace$TransferFunctions;
-	public abstract fun grey (Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun grey (Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public static synthetic fun grey$default (Lcom/github/ajalt/colormath/model/RGBColorSpace;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGB;
 	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/RGB;
-	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
-	public abstract fun invoke (Ljava/lang/String;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/RGB;
+	public fun invoke (Ljava/lang/String;)Lcom/github/ajalt/colormath/model/RGB;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/RGBColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGB;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/RGBColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/RGB;
 }
 
 public final class com/github/ajalt/colormath/model/RGBColorSpace$DefaultImpls {
@@ -1498,7 +1510,9 @@ public final class com/github/ajalt/colormath/model/XYZ$Companion : com/github/a
 
 public abstract interface class com/github/ajalt/colormath/model/XYZColorSpace : com/github/ajalt/colormath/WhitePointColorSpace {
 	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/XYZ;
-	public abstract fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/XYZ;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/XYZ;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/XYZColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/XYZ;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/XYZColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/XYZ;
 }
 
 public final class com/github/ajalt/colormath/model/XYZColorSpace$DefaultImpls {
@@ -1628,9 +1642,12 @@ public abstract interface class com/github/ajalt/colormath/transform/Interpolato
 	public abstract fun setEasing (Lcom/github/ajalt/colormath/transform/EasingFunction;)V
 	public abstract fun setMethod (Lcom/github/ajalt/colormath/transform/InterpolationMethod;)V
 	public abstract fun setPremultiplyAlpha (Z)V
-	public abstract fun stop (Lcom/github/ajalt/colormath/Color;DLkotlin/jvm/functions/Function1;)V
+	public fun stop (Lcom/github/ajalt/colormath/Color;DLkotlin/jvm/functions/Function1;)V
 	public abstract fun stop (Lcom/github/ajalt/colormath/Color;FLkotlin/jvm/functions/Function1;)V
 	public abstract fun stop (Lcom/github/ajalt/colormath/Color;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun stop$default (Lcom/github/ajalt/colormath/transform/InterpolatorBuilder;Lcom/github/ajalt/colormath/Color;DLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static synthetic fun stop$default (Lcom/github/ajalt/colormath/transform/InterpolatorBuilder;Lcom/github/ajalt/colormath/Color;FLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static synthetic fun stop$default (Lcom/github/ajalt/colormath/transform/InterpolatorBuilder;Lcom/github/ajalt/colormath/Color;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
 
 public final class com/github/ajalt/colormath/transform/InterpolatorBuilder$DefaultImpls {

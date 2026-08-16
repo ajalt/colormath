@@ -5,9 +5,6 @@ import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -86,7 +83,7 @@ private fun ColumnScope.ControlPanel(vm: ColorPickerViewModel) {
     )
     Spacer(Modifier.height(24.dp))
     NavigationDrawerItem(
-        icon = { Icon(Icons.Filled.Add, contentDescription = "Add Gradient") },
+        icon = { Icon(AddIcon, contentDescription = "Add Gradient") },
         label = { Text("Add Gradient") },
         selected = false,
         modifier = Modifier.padding(horizontal = 12.dp),
@@ -365,7 +362,7 @@ private fun ControlExposedDropdown(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismissMenu,
-            modifier = modifier.exposedDropdownSize(matchTextFieldWidth = true),
+            modifier = modifier.exposedDropdownSize(),
             properties = PopupProperties(focusable = false),
             content = menuItems
         )
@@ -436,7 +433,7 @@ private fun GradientPanel(
                     if (vm.gradients.size > 1) {
                         TextButton(onClick = { vm.removeGradient(i) }) {
                             Icon(
-                                imageVector = Icons.Filled.Close,
+                                imageVector = CloseIcon,
                                 contentDescription = "Selected",
                             )
                         }

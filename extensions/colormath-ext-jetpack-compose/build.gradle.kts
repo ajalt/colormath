@@ -1,10 +1,8 @@
-import com.vanniktech.maven.publish.tasks.JavadocJar
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-    id("com.android.library")
     kotlin("multiplatform")
+    alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.publish)
 }
 
@@ -14,8 +12,10 @@ repositories {
 }
 
 kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
+    android {
+        namespace = "com.github.ajalt.colormath.extensions.android.composecolor"
+        compileSdk = 36
+        minSdk = 21
     }
 
     jvm()
@@ -24,7 +24,6 @@ kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs { nodejs() }
 
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
@@ -37,16 +36,4 @@ kotlin {
             implementation(kotlin("test"))
         }
     }
-}
-
-android {
-    namespace = "com.github.ajalt.colormath.extensions.android.composecolor"
-    compileSdk = 33
-    defaultConfig.minSdk = 21
-    buildFeatures.buildConfig = false
-}
-
-// workaround for https://github.com/Kotlin/dokka/issues/1833
-tasks.withType<JavadocJar>().configureEach {
-    dependsOn(project.tasks.getByPath(":colormath:dokkaHtml"))
 }

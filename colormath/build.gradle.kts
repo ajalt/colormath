@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform")
@@ -15,6 +15,9 @@ kotlin {
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs { nodejs() }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmWasi { nodejs() }
 
     linuxX64()
     linuxArm64()
@@ -34,10 +37,8 @@ kotlin {
     watchosSimulatorArm64()
 
     sourceSets {
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
     }
 }

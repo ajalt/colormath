@@ -214,7 +214,7 @@ class ColorPickerViewModel {
             stepCount,
             keepEndpoints = i == 0 || i == stepCount - 1
         )
-        newStops[i] = color
+        newStops[if (i == stepCount - 1) newStops.lastIndex else i] = color
         selectedGradient = selectedGradient.copy(stops = Stops(newStops))
         refreshCurrentColor(skipMenu, skipPicker)
     }
