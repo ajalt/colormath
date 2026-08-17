@@ -199,6 +199,15 @@ data class XYZ(
 
     override fun toICtCp(): ICtCp = convertXYZToICtCp(this)
 
+    override fun toCAM16(): CAM16 = toD65 {
+        convertXYZ65ToCAM16(this, CAM16ColorSpaces.CAM16Default)
+    }
+
+    override fun toHCT(): HCT = toD65 {
+        val cam = convertXYZ65ToCAM16(this, CAM16ColorSpaces.CAM16Default)
+        HCT(cam.h, cam.c, lstarFromY(y.toDouble()), alpha)
+    }
+
     /**
      * Convert this color to `xyY` [xyY] coordinates.
      *

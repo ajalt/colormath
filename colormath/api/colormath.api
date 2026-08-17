@@ -17,7 +17,9 @@ public abstract interface class com/github/ajalt/colormath/Color {
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public abstract fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -43,7 +45,9 @@ public final class com/github/ajalt/colormath/Color$DefaultImpls {
 	public static fun clamp (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
 	public static fun toAnsi16 (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Ansi16;
 	public static fun toAnsi256 (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/Ansi256;
+	public static fun toCAM16 (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/CAM16;
 	public static fun toCMYK (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/CMYK;
+	public static fun toHCT (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HCT;
 	public static fun toHPLuv (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HPLuv;
 	public static fun toHSL (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HSL;
 	public static fun toHSLuv (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HSLuv;
@@ -112,7 +116,9 @@ public final class com/github/ajalt/colormath/HueColor$DefaultImpls {
 	public static fun clamp (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/Color;
 	public static fun toAnsi16 (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/Ansi16;
 	public static fun toAnsi256 (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/Ansi256;
+	public static fun toCAM16 (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/CAM16;
 	public static fun toCMYK (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/CMYK;
+	public static fun toHCT (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/HCT;
 	public static fun toHPLuv (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/HPLuv;
 	public static fun toHSL (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/HSL;
 	public static fun toHSLuv (Lcom/github/ajalt/colormath/HueColor;)Lcom/github/ajalt/colormath/model/HSLuv;
@@ -213,7 +219,9 @@ public final class com/github/ajalt/colormath/model/Ansi16 : com/github/ajalt/co
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -257,7 +265,9 @@ public final class com/github/ajalt/colormath/model/Ansi256 : com/github/ajalt/c
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -284,6 +294,124 @@ public final class com/github/ajalt/colormath/model/Ansi256$Companion : com/gith
 	public fun create ([F)Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun getComponents ()Ljava/util/List;
 	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/CAM16 : com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/CAM16$Companion;
+	public fun <init> (FFFFLcom/github/ajalt/colormath/model/CAM16ColorSpace;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/CAM16;
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()Lcom/github/ajalt/colormath/model/CAM16ColorSpace;
+	public final fun copy (FFFFLcom/github/ajalt/colormath/model/CAM16ColorSpace;)Lcom/github/ajalt/colormath/model/CAM16;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/CAM16;FFFFLcom/github/ajalt/colormath/model/CAM16ColorSpace;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/CAM16;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAStar ()F
+	public fun getAlpha ()F
+	public final fun getBStar ()F
+	public final fun getC ()F
+	public fun getH ()F
+	public final fun getJ ()F
+	public final fun getJStar ()F
+	public final fun getM ()F
+	public final fun getQ ()F
+	public final fun getS ()F
+	public synthetic fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public fun getSpace ()Lcom/github/ajalt/colormath/model/CAM16ColorSpace;
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/CAM16$Companion : com/github/ajalt/colormath/model/CAM16ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/CAM16;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/CAM16;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+	public fun getViewingConditions ()Lcom/github/ajalt/colormath/model/CAM16ViewingConditions;
+	public fun hashCode ()I
+	public fun invoke (FFFF)Lcom/github/ajalt/colormath/model/CAM16;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/CAM16;
+}
+
+public abstract interface class com/github/ajalt/colormath/model/CAM16ColorSpace : com/github/ajalt/colormath/ColorSpace {
+	public abstract fun getViewingConditions ()Lcom/github/ajalt/colormath/model/CAM16ViewingConditions;
+	public abstract fun invoke (FFFF)Lcom/github/ajalt/colormath/model/CAM16;
+	public fun invoke (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/CAM16;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/CAM16ColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/CAM16;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/CAM16ColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/CAM16;
+}
+
+public final class com/github/ajalt/colormath/model/CAM16ColorSpace$DefaultImpls {
+	public static fun invoke (Lcom/github/ajalt/colormath/model/CAM16ColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)Lcom/github/ajalt/colormath/model/CAM16;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/CAM16ColorSpace;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/CAM16;
+	public static synthetic fun invoke$default (Lcom/github/ajalt/colormath/model/CAM16ColorSpace;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILjava/lang/Object;)Lcom/github/ajalt/colormath/model/CAM16;
+}
+
+public final class com/github/ajalt/colormath/model/CAM16ColorSpaces {
+	public static final field INSTANCE Lcom/github/ajalt/colormath/model/CAM16ColorSpaces;
+	public final fun getCAM16Default ()Lcom/github/ajalt/colormath/model/CAM16ColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/CAM16Kt {
+	public static final fun CAM16ColorSpace (Lcom/github/ajalt/colormath/model/CAM16ViewingConditions;)Lcom/github/ajalt/colormath/model/CAM16ColorSpace;
+}
+
+public final class com/github/ajalt/colormath/model/CAM16ViewingConditions {
+	public static final field Companion Lcom/github/ajalt/colormath/model/CAM16ViewingConditions$Companion;
+	public fun <init> ()V
+	public fun <init> (DDDDDDZ)V
+	public synthetic fun <init> (DDDDDDZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()D
+	public final fun component2 ()D
+	public final fun component3 ()D
+	public final fun component4 ()D
+	public final fun component5 ()D
+	public final fun component6 ()D
+	public final fun component7 ()Z
+	public final fun copy (DDDDDDZ)Lcom/github/ajalt/colormath/model/CAM16ViewingConditions;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/CAM16ViewingConditions;DDDDDDZILjava/lang/Object;)Lcom/github/ajalt/colormath/model/CAM16ViewingConditions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAdaptingLuminance ()D
+	public final fun getBackgroundLstar ()D
+	public final fun getDiscountingIlluminant ()Z
+	public final fun getSurround ()D
+	public final fun getWhitePointX ()D
+	public final fun getWhitePointY ()D
+	public final fun getWhitePointZ ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/ajalt/colormath/model/CAM16ViewingConditions$Companion {
+	public final fun getDEFAULT ()Lcom/github/ajalt/colormath/model/CAM16ViewingConditions;
 }
 
 public final class com/github/ajalt/colormath/model/CMYK : com/github/ajalt/colormath/Color {
@@ -313,7 +441,9 @@ public final class com/github/ajalt/colormath/model/CMYK : com/github/ajalt/colo
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -342,6 +472,61 @@ public final class com/github/ajalt/colormath/model/CMYK$Companion : com/github/
 	public fun getName ()Ljava/lang/String;
 }
 
+public final class com/github/ajalt/colormath/model/HCT : com/github/ajalt/colormath/HueColor {
+	public static final field Companion Lcom/github/ajalt/colormath/model/HCT$Companion;
+	public fun <init> (FFFF)V
+	public synthetic fun <init> (FFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;)V
+	public synthetic fun <init> (Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun clamp ()Lcom/github/ajalt/colormath/Color;
+	public fun clamp ()Lcom/github/ajalt/colormath/model/HCT;
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lcom/github/ajalt/colormath/model/HCT;
+	public static synthetic fun copy$default (Lcom/github/ajalt/colormath/model/HCT;FFFFILjava/lang/Object;)Lcom/github/ajalt/colormath/model/HCT;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAlpha ()F
+	public final fun getC ()F
+	public fun getH ()F
+	public fun getSpace ()Lcom/github/ajalt/colormath/ColorSpace;
+	public final fun getT ()F
+	public fun hashCode ()I
+	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
+	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
+	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
+	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
+	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
+	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
+	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
+	public fun toHSV ()Lcom/github/ajalt/colormath/model/HSV;
+	public fun toHWB ()Lcom/github/ajalt/colormath/model/HWB;
+	public fun toICtCp ()Lcom/github/ajalt/colormath/model/ICtCp;
+	public fun toJzAzBz ()Lcom/github/ajalt/colormath/model/JzAzBz;
+	public fun toJzCzHz ()Lcom/github/ajalt/colormath/model/JzCzHz;
+	public fun toLAB ()Lcom/github/ajalt/colormath/model/LAB;
+	public fun toLCHab ()Lcom/github/ajalt/colormath/model/LCHab;
+	public fun toLCHuv ()Lcom/github/ajalt/colormath/model/LCHuv;
+	public fun toLUV ()Lcom/github/ajalt/colormath/model/LUV;
+	public fun toOklab ()Lcom/github/ajalt/colormath/model/Oklab;
+	public fun toOklch ()Lcom/github/ajalt/colormath/model/Oklch;
+	public fun toSRGB ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toString ()Ljava/lang/String;
+	public fun toXYZ ()Lcom/github/ajalt/colormath/model/XYZ;
+}
+
+public final class com/github/ajalt/colormath/model/HCT$Companion : com/github/ajalt/colormath/ColorSpace {
+	public synthetic fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/Color;
+	public fun convert (Lcom/github/ajalt/colormath/Color;)Lcom/github/ajalt/colormath/model/HCT;
+	public synthetic fun create ([F)Lcom/github/ajalt/colormath/Color;
+	public fun create ([F)Lcom/github/ajalt/colormath/model/HCT;
+	public fun getComponents ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+}
+
 public final class com/github/ajalt/colormath/model/HPLuv : com/github/ajalt/colormath/HueColor {
 	public static final field Companion Lcom/github/ajalt/colormath/model/HPLuv$Companion;
 	public fun <init> (FFFF)V
@@ -366,7 +551,9 @@ public final class com/github/ajalt/colormath/model/HPLuv : com/github/ajalt/col
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -419,7 +606,9 @@ public final class com/github/ajalt/colormath/model/HSL : com/github/ajalt/color
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -472,7 +661,9 @@ public final class com/github/ajalt/colormath/model/HSLuv : com/github/ajalt/col
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -525,7 +716,9 @@ public final class com/github/ajalt/colormath/model/HSV : com/github/ajalt/color
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -578,7 +771,9 @@ public final class com/github/ajalt/colormath/model/HWB : com/github/ajalt/color
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -632,7 +827,9 @@ public final class com/github/ajalt/colormath/model/ICtCp : com/github/ajalt/col
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
 	public final fun toBT2020 ()Lcom/github/ajalt/colormath/model/RGB;
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -685,7 +882,9 @@ public final class com/github/ajalt/colormath/model/JzAzBz : com/github/ajalt/co
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -738,7 +937,9 @@ public final class com/github/ajalt/colormath/model/JzCzHz : com/github/ajalt/co
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -790,7 +991,9 @@ public final class com/github/ajalt/colormath/model/LAB : com/github/ajalt/color
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -870,7 +1073,9 @@ public final class com/github/ajalt/colormath/model/LCHab : com/github/ajalt/col
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -950,7 +1155,9 @@ public final class com/github/ajalt/colormath/model/LCHuv : com/github/ajalt/col
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -1030,7 +1237,9 @@ public final class com/github/ajalt/colormath/model/LUV : com/github/ajalt/color
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -1111,7 +1320,9 @@ public final class com/github/ajalt/colormath/model/Oklab : com/github/ajalt/col
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -1164,7 +1375,9 @@ public final class com/github/ajalt/colormath/model/Oklch : com/github/ajalt/col
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -1221,7 +1434,9 @@ public final class com/github/ajalt/colormath/model/RGB : com/github/ajalt/color
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
@@ -1372,8 +1587,12 @@ public final class com/github/ajalt/colormath/model/RGBInt : com/github/ajalt/co
 	public static fun toAnsi256-impl (I)Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
 	public static fun toArray-impl (I)[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
+	public static fun toCAM16-impl (I)Lcom/github/ajalt/colormath/model/CAM16;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
 	public static fun toCMYK-impl (I)Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
+	public static fun toHCT-impl (I)Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public static fun toHPLuv-impl (I)Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
@@ -1472,8 +1691,10 @@ public final class com/github/ajalt/colormath/model/XYZ : com/github/ajalt/color
 	public fun toAnsi16 ()Lcom/github/ajalt/colormath/model/Ansi16;
 	public fun toAnsi256 ()Lcom/github/ajalt/colormath/model/Ansi256;
 	public fun toArray ()[F
+	public fun toCAM16 ()Lcom/github/ajalt/colormath/model/CAM16;
 	public final fun toCIExyY ()Lcom/github/ajalt/colormath/model/xyY;
 	public fun toCMYK ()Lcom/github/ajalt/colormath/model/CMYK;
+	public fun toHCT ()Lcom/github/ajalt/colormath/model/HCT;
 	public fun toHPLuv ()Lcom/github/ajalt/colormath/model/HPLuv;
 	public fun toHSL ()Lcom/github/ajalt/colormath/model/HSL;
 	public fun toHSLuv ()Lcom/github/ajalt/colormath/model/HSLuv;
