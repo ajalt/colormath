@@ -2,6 +2,7 @@
 
 ## Unreleased
 ### Added
+- Added the `CAM16` and `HCT` color models. ([#31](https://github.com/ajalt/colormath/issues/31))
 - Publish artifacts for the `watchosDeviceArm64` target ([#66](https://github.com/ajalt/colormath/pull/66))
 - Publish artifacts for the `wasmWasi` target.
 

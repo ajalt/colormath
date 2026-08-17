@@ -74,6 +74,12 @@ interface Color {
     /** Convert this color to ICtCp */
     fun toICtCp(): ICtCp = toXYZ().toICtCp()
 
+    /** Convert this color to CAM16, in the default viewing conditions */
+    fun toCAM16(): CAM16 = toXYZ().toCAM16()
+
+    /** Convert this color to HCT */
+    fun toHCT(): HCT = toXYZ().toHCT()
+
     /** Convert this color to HSLuv */
     fun toHSLuv(): HSLuv = convertTo(LCHuv65).toHSLuv()
 

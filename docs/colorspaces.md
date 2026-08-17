@@ -45,6 +45,29 @@ Colormath includes a number of built-in RGB color spaces, and you can define you
 - [Display P3][DISPLAY_P3]
 - [ROMM RGB / ProPhoto RGB][ROMM_RGB]
 
+## CAM16 and HCT
+
+- [CAM16][CAM16]
+
+| Component | Description  | Range      |
+|-----------|--------------|------------|
+| j         | lightness    | `[0, 100]` |
+| c         | chroma       | `[0, 120]` |
+| h         | hue, degrees | `[0, 360)` |
+
+- [HCT][HCT]
+
+| Component | Description  | Range      |
+|-----------|--------------|------------|
+| h         | hue, degrees | `[0, 360)` |
+| c         | chroma       | `[0, 120]` |
+| t         | tone         | `[0, 100]` |
+
+CAM16 is a color appearance model that describes how a color looks under a given set of viewing
+conditions. HCT, created by Google for Material You, combines the hue and chroma of CAM16 with the
+tone defined as the L\* of CIE L\*a\*b\*. Both match the implementation used by Android, and HCT
+colors convert to the sRGB gamut, reducing the chroma if necessary.
+
 ## HSL
 
 - [HSL][HSL]
@@ -264,9 +287,11 @@ supported.
 [ANSI256]:              api/colormath/com.github.ajalt.colormath.model/-ansi256/index.html
 [BT_2020]:              api/colormath/com.github.ajalt.colormath.model/-r-g-b-color-spaces/-b-t2020.html
 [BT_709]:               api/colormath/com.github.ajalt.colormath.model/-r-g-b-color-spaces/-b-t709.html
+[CAM16]:                api/colormath/com.github.ajalt.colormath.model/-c-a-m16/index.html
 [CMYK]:                 api/colormath/com.github.ajalt.colormath.model/-c-m-y-k/index.html
 [DCI_P3]:               api/colormath/com.github.ajalt.colormath.model/-r-g-b-color-spaces/-d-c-i_-p3.html
 [DISPLAY_P3]:           api/colormath/com.github.ajalt.colormath.model/-r-g-b-color-spaces/-display-p3.html
+[HCT]:                  api/colormath/com.github.ajalt.colormath.model/-h-c-t/index.html
 [HPLuv]:                api/colormath/com.github.ajalt.colormath.model/-h-p-luv/index.html
 [HSL]:                  api/colormath/com.github.ajalt.colormath.model/-h-s-l/index.html
 [HSLuv]:                api/colormath/com.github.ajalt.colormath.model/-h-s-luv/index.html
