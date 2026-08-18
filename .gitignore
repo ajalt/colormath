@@ -12,6 +12,7 @@ docs/tryit/
 docs/changelog.md
 docs/index.md
 site/
+.cache/
 docs/js/gradient.js
 docs/js/converter.js
 kotlin-js-store/

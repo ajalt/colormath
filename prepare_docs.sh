@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
-# The website is built using MkDocs with the Material theme.
-# https://squidfunk.github.io/mkdocs-material/
-# It requires Python to run.
-# Install the packages with the following command:
-# pip install mkdocs mkdocs-material
+# The website is built using Zensical, configured by zensical.toml.
+# https://zensical.org/
+# Zensical requires Python to run.
+# Install the packages: `pip install zensical`
 # Build the samples and api docs with
 # ./gradlew dokkaHtml :website:wasmJsBrowserDistribution
 # Then run this script to prepare the docs for the website.
-# Finally, run `mkdocs serve` to preview the site locally or `mkdocs build` to build the site.
+# Finally, run `zensical serve` to preview the site locally or `zensical build` to build the site.
 
 
 set -ex
@@ -19,7 +18,7 @@ cat CHANGELOG.md \
  | sed '/^## /,$!d' \
  > docs/changelog.md
 
-# Add the jinja frontmatter to the index
+# Add the frontmatter to the index
 cat > docs/index.md <<- EOM
 ---
 hide:
