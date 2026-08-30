@@ -5,7 +5,7 @@
 # Zensical requires Python to run.
 # Install the packages: `pip install zensical`
 # Build the samples and api docs with
-# ./gradlew dokkaHtml :website:wasmJsBrowserDistribution
+# ./gradlew dokkaGeneratePublicationHtml :website:wasmJsBrowserDistribution
 # Then run this script to prepare the docs for the website.
 # Finally, run `zensical serve` to preview the site locally or `zensical build` to build the site.
 

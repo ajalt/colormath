@@ -33,7 +33,7 @@ jobs:
 #      - name: Dokka
 #        uses: gradle/actions/setup-gradle@v3
 #        with:
-#          arguments: dokkaHtml :website:wasmJsBrowserDistribution
+#          arguments: dokkaGeneratePublicationHtml :website:wasmJsBrowserDistribution
 #      - run: ./prepare_docs.sh
 #      - name: Build website
 #        run: |
@@ -45,4 +45,4 @@ jobs:
 #          branch: gh-pages
 #          folder: site
 env:
-  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Dfile.encoding=UTF-8"
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
