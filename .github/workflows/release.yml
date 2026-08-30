@@ -42,5 +42,3 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           body_path: release_notes.md
-env:
-  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
