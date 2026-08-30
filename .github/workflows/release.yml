@@ -6,7 +6,7 @@ on:
       - '**'
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,34 +15,32 @@ jobs:
           distribution: 'zulu'
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
-#      - uses: actions/setup-python@v5
-#        with:
-#          python-version: '3.12'
       - run: ./gradlew publishAndReleaseToMavenCentral
         env:
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralPassword }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_signingInMemoryKey }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralUsername }}
-#      - name: Extract release notes
-#        id: extract-release-notes
-#        uses: ffurrer2/extract-release-notes@v2
-#      - name: Create release
-#        uses: ncipollo/release-action@v1
-#        with:
-#          body: ${{ steps.extract-release-notes.outputs.release_notes }}
-#      - name: Dokka
-#        uses: gradle/actions/setup-gradle@v3
-#        with:
-#          arguments: dokkaGeneratePublicationHtml :website:wasmJsBrowserDistribution
-#      - run: ./prepare_docs.sh
-#      - name: Build website
-#        run: |
-#          pip install zensical
-#          zensical build
-#      - name: Deploy docs to website
-#        uses: JamesIves/github-pages-deploy-action@v4
-#        with:
-#          branch: gh-pages
-#          folder: site
+  docs:
+    needs: publish
+    uses: ./.github/workflows/docs.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+  github-release:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Extract the changelog entries for the tagged version
+        run: |
+          awk -v ver="$GITHUB_REF_NAME" '$0 == "## " ver {flag=1; next} /^## /{flag=0} flag' CHANGELOG.md > release_notes.md
+          test -s release_notes.md
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: release_notes.md
 env:
   GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
