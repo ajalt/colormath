@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Fixed
+- Fixed published JVM jars being named without a version in the Gradle cache and in `installDist` output.
+
 ## 3.7.0
 ### Added
 - Added the `CAM16` and `HCT` color models. ([#31](https://github.com/ajalt/colormath/issues/31))
