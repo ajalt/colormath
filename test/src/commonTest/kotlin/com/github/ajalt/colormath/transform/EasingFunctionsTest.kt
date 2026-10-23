@@ -21,6 +21,19 @@ class EasingFunctionsTest {
     }
 
     @Test
+    fun midpointAtEndpoints() = forAll(
+        row(0f, 0f, 0f),
+        row(0f, 0.25f, 0.625f),
+        row(0f, 1f, 1f),
+        row(1f, 0f, 0f),
+        row(1f, 0.25f, 0.125f),
+        row(1f, 1f, 1f),
+    ) { position, t, expected ->
+        EasingFunctions.midpoint(position).ease(t).toDouble() shouldBe
+            (expected.toDouble() plusOrMinus 1e-5)
+    }
+
+    @Test
     fun builtInEasings() = forAll(
         row(EasingFunctions.ease(), 0.2, 0.2952443),
         row(EasingFunctions.ease(), 0.8, 0.9756253),

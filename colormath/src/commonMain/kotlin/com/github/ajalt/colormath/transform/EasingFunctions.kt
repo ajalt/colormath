@@ -46,8 +46,8 @@ object EasingFunctions {
      */
     fun midpoint(position: Number): EasingFunction {
         val p = position.toFloat()
-        if (p <= 0) return EasingFunction { 1f }
-        if (p >= 1) return EasingFunction { 0f }
+        if (p <= 0) return EasingFunction { t -> if (t <= 0f) 0f else 0.5f + t * 0.5f }
+        if (p >= 1) return EasingFunction { t -> if (t >= 1f) 1f else t * 0.5f }
         return EasingFunction { t ->
             when {
                 t <= p -> scaleRange(0f, p, 0f, 0.5f, t)
