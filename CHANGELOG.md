@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.7.1
 ### Fixed
 - Fixed published JVM jars being named without a version in the Gradle cache and in `installDist` output.
 
