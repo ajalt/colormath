@@ -13,7 +13,7 @@ repositories {
 kotlin {
     android {
         namespace = "com.github.ajalt.colormath.extensions.android.color"
-        compileSdk = 36
+        compileSdk = 37
         minSdk = 26 // Color instances were added in 26
         withHostTestBuilder {}
     }

@@ -14,7 +14,7 @@ repositories {
 kotlin {
     android {
         namespace = "com.github.ajalt.colormath.extensions.android.composecolor"
-        compileSdk = 36
+        compileSdk = 37
         minSdk = 21
     }
 
